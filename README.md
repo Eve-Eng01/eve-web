@@ -1,4 +1,4 @@
-# A React Starter Template for the Impatient Developer
+# Eve Web Applicaition
 
 This template provides a boilerplate setup to get React working in Vite with HMR.
 
