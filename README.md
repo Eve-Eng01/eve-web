@@ -13,24 +13,6 @@ Use **Yarn** for package management.
 - **PWA** support enabled by default
 - Basic Auth Provider + Auth Routes setup that you can update as per requirement
 
-### Usage
-Run the command to clone the repo without git history.
-```sh
-# Run the command to clone the repo without git history.
-npx degit paras594/react-starter-template <YOUR_PROJECT_NAME>
-
-cd <YOUR_PROJECT_NAME>
-
-# get rid of .gitkeep files 
-npx del-cli del **/.gitkeep
-
-# initialize git
-git init
-
-# connect to github
-git remote add origin <GIT_REPO_URL>
-```
-
 
 ### Commands
 ```sh
