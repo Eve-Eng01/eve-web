@@ -13,6 +13,11 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedProtectedRouteRouteImport } from './routes/_authenticated/protected-route'
+import { Route as AuthenticationSignUpRouteImport } from './routes/Authentication/SignUp'
+import { Route as AuthenticationSignInRouteImport } from './routes/Authentication/SignIn'
+import { Route as AuthenticationOtpVerificationRouteImport } from './routes/Authentication/OtpVerification'
+import { Route as AuthenticationForgetPasswordForgetPassOtpRouteImport } from './routes/Authentication/ForgetPassword/ForgetPassOtp'
+import { Route as AuthenticationForgetPasswordForgetPassRouteImport } from './routes/Authentication/ForgetPassword/ForgetPass'
 
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
@@ -34,41 +39,110 @@ const AuthenticatedProtectedRouteRoute =
     path: '/protected-route',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
+const AuthenticationSignUpRoute = AuthenticationSignUpRouteImport.update({
+  id: '/Authentication/SignUp',
+  path: '/Authentication/SignUp',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticationSignInRoute = AuthenticationSignInRouteImport.update({
+  id: '/Authentication/SignIn',
+  path: '/Authentication/SignIn',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticationOtpVerificationRoute =
+  AuthenticationOtpVerificationRouteImport.update({
+    id: '/Authentication/OtpVerification',
+    path: '/Authentication/OtpVerification',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const AuthenticationForgetPasswordForgetPassOtpRoute =
+  AuthenticationForgetPasswordForgetPassOtpRouteImport.update({
+    id: '/Authentication/ForgetPassword/ForgetPassOtp',
+    path: '/Authentication/ForgetPassword/ForgetPassOtp',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const AuthenticationForgetPasswordForgetPassRoute =
+  AuthenticationForgetPasswordForgetPassRouteImport.update({
+    id: '/Authentication/ForgetPassword/ForgetPass',
+    path: '/Authentication/ForgetPassword/ForgetPass',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/Authentication/OtpVerification': typeof AuthenticationOtpVerificationRoute
+  '/Authentication/SignIn': typeof AuthenticationSignInRoute
+  '/Authentication/SignUp': typeof AuthenticationSignUpRoute
   '/protected-route': typeof AuthenticatedProtectedRouteRoute
+  '/Authentication/ForgetPassword/ForgetPass': typeof AuthenticationForgetPasswordForgetPassRoute
+  '/Authentication/ForgetPassword/ForgetPassOtp': typeof AuthenticationForgetPasswordForgetPassOtpRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/Authentication/OtpVerification': typeof AuthenticationOtpVerificationRoute
+  '/Authentication/SignIn': typeof AuthenticationSignInRoute
+  '/Authentication/SignUp': typeof AuthenticationSignUpRoute
   '/protected-route': typeof AuthenticatedProtectedRouteRoute
+  '/Authentication/ForgetPassword/ForgetPass': typeof AuthenticationForgetPasswordForgetPassRoute
+  '/Authentication/ForgetPassword/ForgetPassOtp': typeof AuthenticationForgetPasswordForgetPassOtpRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteWithChildren
   '/about': typeof AboutRoute
+  '/Authentication/OtpVerification': typeof AuthenticationOtpVerificationRoute
+  '/Authentication/SignIn': typeof AuthenticationSignInRoute
+  '/Authentication/SignUp': typeof AuthenticationSignUpRoute
   '/_authenticated/protected-route': typeof AuthenticatedProtectedRouteRoute
+  '/Authentication/ForgetPassword/ForgetPass': typeof AuthenticationForgetPasswordForgetPassRoute
+  '/Authentication/ForgetPassword/ForgetPassOtp': typeof AuthenticationForgetPasswordForgetPassOtpRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/protected-route'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/Authentication/OtpVerification'
+    | '/Authentication/SignIn'
+    | '/Authentication/SignUp'
+    | '/protected-route'
+    | '/Authentication/ForgetPassword/ForgetPass'
+    | '/Authentication/ForgetPassword/ForgetPassOtp'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/protected-route'
+  to:
+    | '/'
+    | '/about'
+    | '/Authentication/OtpVerification'
+    | '/Authentication/SignIn'
+    | '/Authentication/SignUp'
+    | '/protected-route'
+    | '/Authentication/ForgetPassword/ForgetPass'
+    | '/Authentication/ForgetPassword/ForgetPassOtp'
   id:
     | '__root__'
     | '/'
     | '/_authenticated'
     | '/about'
+    | '/Authentication/OtpVerification'
+    | '/Authentication/SignIn'
+    | '/Authentication/SignUp'
     | '/_authenticated/protected-route'
+    | '/Authentication/ForgetPassword/ForgetPass'
+    | '/Authentication/ForgetPassword/ForgetPassOtp'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
   AboutRoute: typeof AboutRoute
+  AuthenticationOtpVerificationRoute: typeof AuthenticationOtpVerificationRoute
+  AuthenticationSignInRoute: typeof AuthenticationSignInRoute
+  AuthenticationSignUpRoute: typeof AuthenticationSignUpRoute
+  AuthenticationForgetPasswordForgetPassRoute: typeof AuthenticationForgetPasswordForgetPassRoute
+  AuthenticationForgetPasswordForgetPassOtpRoute: typeof AuthenticationForgetPasswordForgetPassOtpRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -101,6 +175,41 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedProtectedRouteRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/Authentication/SignUp': {
+      id: '/Authentication/SignUp'
+      path: '/Authentication/SignUp'
+      fullPath: '/Authentication/SignUp'
+      preLoaderRoute: typeof AuthenticationSignUpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/Authentication/SignIn': {
+      id: '/Authentication/SignIn'
+      path: '/Authentication/SignIn'
+      fullPath: '/Authentication/SignIn'
+      preLoaderRoute: typeof AuthenticationSignInRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/Authentication/OtpVerification': {
+      id: '/Authentication/OtpVerification'
+      path: '/Authentication/OtpVerification'
+      fullPath: '/Authentication/OtpVerification'
+      preLoaderRoute: typeof AuthenticationOtpVerificationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/Authentication/ForgetPassword/ForgetPassOtp': {
+      id: '/Authentication/ForgetPassword/ForgetPassOtp'
+      path: '/Authentication/ForgetPassword/ForgetPassOtp'
+      fullPath: '/Authentication/ForgetPassword/ForgetPassOtp'
+      preLoaderRoute: typeof AuthenticationForgetPasswordForgetPassOtpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/Authentication/ForgetPassword/ForgetPass': {
+      id: '/Authentication/ForgetPassword/ForgetPass'
+      path: '/Authentication/ForgetPassword/ForgetPass'
+      fullPath: '/Authentication/ForgetPassword/ForgetPass'
+      preLoaderRoute: typeof AuthenticationForgetPasswordForgetPassRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -120,6 +229,13 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRoute: AuthenticatedRouteWithChildren,
   AboutRoute: AboutRoute,
+  AuthenticationOtpVerificationRoute: AuthenticationOtpVerificationRoute,
+  AuthenticationSignInRoute: AuthenticationSignInRoute,
+  AuthenticationSignUpRoute: AuthenticationSignUpRoute,
+  AuthenticationForgetPasswordForgetPassRoute:
+    AuthenticationForgetPasswordForgetPassRoute,
+  AuthenticationForgetPasswordForgetPassOtpRoute:
+    AuthenticationForgetPasswordForgetPassOtpRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

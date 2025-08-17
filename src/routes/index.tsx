@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { RouteComponent as SignUpComponent } from './Authentication/SignUp'
 
 export const Route = createFileRoute("/")({
   component: RouteComponent,
@@ -7,9 +8,9 @@ export const Route = createFileRoute("/")({
 function RouteComponent() {
   return (
     <>
-<div>
-  Hi Ufuoma get started
-</div>
+      <div>
+        <SignUpComponent />
+      </div>
     </>
   );
 }
