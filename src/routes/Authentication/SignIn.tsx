@@ -19,7 +19,7 @@ export function RouteComponent() {
 
   const handleSignUp = () => {
     console.log('Sign up clicked');
-    // navigate({ to: '/Authentication/OtpVerification' });
+    navigate({ to: '/Onboarding/onboarding' });
   };
 
   const handleGoogleSignup = () => {
