@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { createFileRoute, useNavigate, Link } from '@tanstack/react-router';
+import { createFileRoute, useNavigate} from '@tanstack/react-router';
 import { Sms } from 'iconsax-reactjs';
 import img from '../../../assets/onBoarding/forgetpass/pass.png'
 import logo from '../../../assets/evaLogo.png'

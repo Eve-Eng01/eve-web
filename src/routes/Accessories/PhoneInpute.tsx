@@ -56,7 +56,6 @@ const countries: Country[] = [
 
 export const PhoneInput: React.FC<PhoneInputProps> = ({ 
   label, 
-  value, 
   onChange, 
   className = "" 
 }) => {
