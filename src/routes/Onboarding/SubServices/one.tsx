@@ -1,7 +1,7 @@
-import { createFileRoute } from '@tanstack/react-router';
-import logo from '../../../assets/evaLogo.png';
-import { CustomButton } from '../../Accessories/Button';
-import { useState } from 'react';
+import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
+import logo from "../../../assets/evaLogo.png";
+import { CustomButton } from "../../Accessories/Button";
 
 // Define the props interface for ServiceOne
 interface ServiceOneProps {
@@ -9,7 +9,7 @@ interface ServiceOneProps {
   back: () => void;
 }
 
-export const Route = createFileRoute('/Onboarding/SubServices/one')({
+export const Route = createFileRoute("/Onboarding/SubServices/one")({
   component: ServiceOne,
 });
 
@@ -30,7 +30,7 @@ export function ServiceOne({ continue: handleContinue, back: handleGoBack }: Ser
   };
 
   const handleViewFile = (fileId: number) => {
-    console.log('View file:', fileId);
+    console.log("View file:", fileId);
   };
 
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -38,25 +38,25 @@ export function ServiceOne({ continue: handleContinue, back: handleGoBack }: Ser
     if (!files) return;
 
     const allowedTypes = [
-      'image/jpeg',
-      'image/png',
-      'application/pdf',
-      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-      'video/mp4',
-      'video/quicktime',
+      "image/jpeg",
+      "image/png",
+      "application/pdf",
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "video/mp4",
+      "video/quicktime",
     ];
 
     const newFiles: UploadedFile[] = Array.from(files)
       .filter((file) => allowedTypes.includes(file.type))
       .map((file, index) => {
-        const fileType = file.type.split('/')[0]; // e.g., 'image', 'video', 'application'
-        const type = fileType === 'application' ? 'document' : fileType;
+        const fileType = file.type.split("/")[0]; // e.g., 'image', 'video', 'application'
+        const type = fileType === "application" ? "document" : fileType;
         const sizeInMB = (file.size / (1024 * 1024)).toFixed(2); // Convert bytes to MB
-        const thumbnail = file.type.startsWith('image/')
+        const thumbnail = file.type.startsWith("image/")
           ? URL.createObjectURL(file)
-          : type === 'video'
-          ? 'https://via.placeholder.com/150?text=Video' // Placeholder for videos
-          : 'https://via.placeholder.com/150?text=Document'; // Placeholder for documents
+          : type === "video"
+            ? "https://via.placeholder.com/150?text=Video" // Placeholder for videos
+            : "https://via.placeholder.com/150?text=Document"; // Placeholder for documents
 
         return {
           id: uploadedFiles.length + index + 1,
@@ -71,7 +71,7 @@ export function ServiceOne({ continue: handleContinue, back: handleGoBack }: Ser
     setUploadedFiles((prev) => [...prev, ...newFiles]);
 
     // Reset the input value to allow re-uploading the same file
-    event.target.value = '';
+    event.target.value = "";
   };
 
   return (
@@ -82,7 +82,8 @@ export function ServiceOne({ continue: handleContinue, back: handleGoBack }: Ser
         </div>
         <h2 className="text-black header">Showcase Your Work</h2>
         <p className="text-black para">
-          Upload photos, videos, or documents of your past work, equipment, or venues. You can also include links to your portfolio or social pages to help clients learn more about what you offer.
+          Upload photos, videos, or documents of your past work, equipment, or venues. You can also include links to
+          your portfolio or social pages to help clients learn more about what you offer.
         </p>
       </div>
 

@@ -1,11 +1,11 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { createFileRoute, useNavigate } from '@tanstack/react-router';
-import img from '../../assets/onBoarding/signInImage.png';
-import logo from '../../assets/evaLogo.png';
-import smile from '../../assets/onBoarding/smile.png';
-import check from '../../assets/onBoarding/checks.png'
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import React, { useEffect, useRef, useState } from "react";
+import logo from "../../assets/evaLogo.png";
+import check from "../../assets/onBoarding/checks.png";
+import img from "../../assets/onBoarding/signInImage.png";
+import smile from "../../assets/onBoarding/smile.png";
 
-export const Route = createFileRoute('/Authentication/OtpVerification')({
+export const Route = createFileRoute("/Authentication/OtpVerification")({
   component: RouteComponent,
 });
 
@@ -19,15 +19,7 @@ interface OtpInputProps {
   ref?: React.RefObject<HTMLInputElement> | ((el: HTMLInputElement | null) => void);
 }
 
-const OtpInput: React.FC<OtpInputProps> = ({
-  value,
-  onChange,
-  onKeyDown,
-  onFocus,
-  onPaste,
-  autoFocus,
-  ref,
-}) => (
+const OtpInput: React.FC<OtpInputProps> = ({ value, onChange, onKeyDown, onFocus, onPaste, autoFocus, ref }) => (
   <input
     type="text"
     maxLength={1}
@@ -43,7 +35,7 @@ const OtpInput: React.FC<OtpInputProps> = ({
 );
 
 export function RouteComponent() {
-  const [otpValues, setOtpValues] = useState<string[]>(['', '', '', '', '', '']);
+  const [otpValues, setOtpValues] = useState<string[]>(["", "", "", "", "", ""]);
   const [countdown, setCountdown] = useState<number>(59);
   const [isVerified, setIsVerified] = useState<boolean>(false);
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
@@ -58,7 +50,7 @@ export function RouteComponent() {
   }, [countdown, isVerified]);
 
   const handleKeyDown = (index: number, e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Backspace' && !otpValues[index] && index > 0) {
+    if (e.key === "Backspace" && !otpValues[index] && index > 0) {
       inputRefs.current[index - 1]?.focus();
     }
   };
@@ -66,7 +58,7 @@ export function RouteComponent() {
   // Handle paste event to fill all inputs
   const handlePaste = (e: React.ClipboardEvent<HTMLInputElement>, index: number) => {
     e.preventDefault();
-    const pastedData = e.clipboardData.getData('text').replace(/\D/g, ''); // Only digits
+    const pastedData = e.clipboardData.getData("text").replace(/\D/g, ""); // Only digits
     if (pastedData.length > 0) {
       const newOtpValues = [...otpValues];
       for (let i = 0; i < Math.min(pastedData.length, 6 - index); i++) {
@@ -97,7 +89,7 @@ export function RouteComponent() {
       }
     } else {
       // Handle multi-digit input
-      const digits = value.slice(0, 6 - index).split('');
+      const digits = value.slice(0, 6 - index).split("");
       for (let i = 0; i < digits.length; i++) {
         newOtpValues[index + i] = digits[i];
       }
@@ -108,9 +100,9 @@ export function RouteComponent() {
   };
 
   const handleSignUp = () => {
-    const otpCode = otpValues.join('');
+    const otpCode = otpValues.join("");
     if (otpCode.length === 6) {
-      console.log('OTP Code:', otpCode);
+      console.log("OTP Code:", otpCode);
       // Simulate OTP verification success
       setTimeout(() => {
         setIsVerified(true);
@@ -120,18 +112,18 @@ export function RouteComponent() {
 
   const handleResendCode = () => {
     setCountdown(59);
-    setOtpValues(['', '', '', '', '', '']);
+    setOtpValues(["", "", "", "", "", ""]);
     inputRefs.current[0]?.focus();
-    console.log('Resending OTP code...');
+    console.log("Resending OTP code...");
   };
 
   const handleContinue = () => {
     // Handle navigation to next screen
-    console.log('Continuing to next screen...');
+    console.log("Continuing to next screen...");
     navigate({ to: "/Authentication/SignIn" });
   };
 
-  const isFormValid = otpValues.every((value) => value !== '');
+  const isFormValid = otpValues.every((value) => value !== "");
 
   return (
     <div className="min-h-screen flex">
@@ -146,26 +138,28 @@ export function RouteComponent() {
           {/* Logo */}
           <div className="text-center mb-8">
             <div className="mx-auto mb-6 flex items-center justify-center">
-              { !isVerified ? <img src={logo} alt="" className='w-[60px] h-[60px]'/> : null}
+              {!isVerified ? <img src={logo} alt="" className="w-[60px] h-[60px]" /> : null}
             </div>
 
             {!isVerified && (
               <>
                 <h1 className="text-3xl font-bold text-gray-900 mb-4">Check Your Email Inbox</h1>
-                <p className="text-gray-600 text-base leading-relaxed mb-2">
-                  We've sent a 6 digit code to your email
-                </p>
+                <p className="text-gray-600 text-base leading-relaxed mb-2">We've sent a 6 digit code to your email</p>
                 <p className="text-gray-900 font-medium">gabrielemumwen20@gmail.com. enter the code here</p>
               </>
             )}
           </div>
 
           {/* OTP Form Container with slide transition */}
-          <div className={`relative overflow-hidden ${isVerified ? 'h-[50vh]' : null}  flex flex-col items-center justify-center text-center`}>
+          <div
+            className={`relative overflow-hidden ${isVerified ? "h-[50vh]" : null}  flex flex-col items-center justify-center text-center`}
+          >
             {/* OTP Form */}
-            <div className={`space-y-8 transition-transform duration-700 ease-in-out ${
-              isVerified ? '-translate-x-full opacity-0' : 'translate-x-0 opacity-100'
-            }`}>
+            <div
+              className={`space-y-8 transition-transform duration-700 ease-in-out ${
+                isVerified ? "-translate-x-full opacity-0" : "translate-x-0 opacity-100"
+              }`}
+            >
               {/* Enter Code Label */}
               <div className="text-center">
                 <h2 className="text-lg font-medium text-gray-900 mb-6">Enter Code</h2>
@@ -191,7 +185,7 @@ export function RouteComponent() {
               <button
                 onClick={handleSignUp}
                 className={`w-full max-w-md text-white font-medium py-4 px-4 rounded-2xl transition-colors duration-200 ${
-                  isFormValid ? 'bg-[#7417C6] hover:bg-[#5f1399]' : 'bg-gray-400 hover:bg-gray-500'
+                  isFormValid ? "bg-[#7417C6] hover:bg-[#5f1399]" : "bg-gray-400 hover:bg-gray-500"
                 }`}
               >
                 Sign Up
@@ -200,14 +194,11 @@ export function RouteComponent() {
               {/* Resend Code */}
               <div className="text-center">
                 <p className="text-gray-600 text-sm">
-                  Didn't get the code?{' '}
+                  Didn't get the code?{" "}
                   {countdown > 0 ? (
                     <span className="text-[#7417C6] font-medium">Resend in {countdown} seconds</span>
                   ) : (
-                    <button
-                      onClick={handleResendCode}
-                      className="text-[#7417C6] font-medium hover:underline"
-                    >
+                    <button onClick={handleResendCode} className="text-[#7417C6] font-medium hover:underline">
                       Resend code
                     </button>
                   )}
@@ -216,9 +207,11 @@ export function RouteComponent() {
             </div>
 
             {/* Success Screen */}
-            <div className={`absolute inset-0 flex flex-col items-center justify-center text-center space-y-6 transition-transform duration-700 ease-in-out ${
-              isVerified ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0'
-            }`}>
+            <div
+              className={`absolute inset-0 flex flex-col items-center justify-center text-center space-y-6 transition-transform duration-700 ease-in-out ${
+                isVerified ? "translate-x-0 opacity-100" : "translate-x-full opacity-0"
+              }`}
+            >
               {/* Success Icon */}
               <div className="w-[96px] h-[107px] flex items-center justify-center mb-[50px]">
                 <img src={check} alt="" />

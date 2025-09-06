@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import { createFileRoute, useNavigate } from '@tanstack/react-router';
-import { CustomButton } from '../Accessories/Button';
-import bottom from '../../assets/onBoarding/bottom.png'
-import logo from '../../assets/evaLogo.png'
-import './onboard.css';
-import { UserTypeCardProps, userTypes } from '../../DummyData/data';
-import { TickCircle } from 'iconsax-reactjs';
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import React, { useState } from "react";
+import logo from "../../assets/evaLogo.png";
+import bottom from "../../assets/onBoarding/bottom.png";
+import { CustomButton } from "../Accessories/Button";
+import "./onboard.css";
+import { TickCircle } from "iconsax-reactjs";
+import { UserTypeCardProps, userTypes } from "../../DummyData/data";
 
 const UserTypeCard: React.FC<UserTypeCardProps> = ({ userType, isSelected, onClick }) => {
   return (
@@ -23,49 +23,50 @@ const UserTypeCard: React.FC<UserTypeCardProps> = ({ userType, isSelected, onCli
         items-center
         justify-between
         mb-4
-        ${isSelected 
-          ? 'border-[#7417C6] bg-purple-50' 
-          : 'border-gray-200 bg-white hover:border-gray-300'
-        }
+        ${isSelected ? "border-[#7417C6] bg-purple-50" : "border-gray-200 bg-white hover:border-gray-300"}
       `}
     >
       <div className="flex-1">
-        <h3 className={`
+        <h3
+          className={`
           text-lg
           font-medium
-          ${isSelected ? 'text-[#7417C6]' : 'text-gray-800'}
-        `}>
+          ${isSelected ? "text-[#7417C6]" : "text-gray-800"}
+        `}
+        >
           {userType.title}
         </h3>
         {userType.description && (
-          <p className={`
+          <p
+            className={`
             text-sm
             mt-1
-            ${isSelected ? 'text-purple-600' : 'text-gray-600'}
-          `}>
+            ${isSelected ? "text-purple-600" : "text-gray-600"}
+          `}
+          >
             {userType.description}
           </p>
         )}
       </div>
-      
+
       {/* Check icon */}
       <div>
-        <TickCircle color={isSelected ? "#7417C6" : "#D5D5D5" } variant="Outline"/>
+        <TickCircle color={isSelected ? "#7417C6" : "#D5D5D5"} variant="Outline" />
       </div>
     </div>
   );
 };
 
-export const Route = createFileRoute('/Onboarding/onboarding')({
+export const Route = createFileRoute("/Onboarding/onboarding")({
   component: RouteComponent,
 });
 
 export function RouteComponent() {
-  const [selectedType, setSelectedType] = useState<string>('vendor');
+  const [selectedType, setSelectedType] = useState<string>("vendor");
   const navigate = useNavigate();
 
   const handleContinue = () => {
-    console.log('Selected user type:', selectedType);
+    console.log("Selected user type:", selectedType);
     navigate({ to: "/Onboarding/Services" });
   };
 
@@ -73,10 +74,12 @@ export function RouteComponent() {
     <div className="min-h-screen flex bg-white justify-center items-center">
       <div className="flex flex-col justify-center items-center px-4">
         <div className="mx-auto mb-4">
-            <img src={logo} alt="" className='w-[60px] h-[60px]'/>
+          <img src={logo} alt="" className="w-[60px] h-[60px]" />
         </div>
-        <h2 className='text-black header'>How are you going to use Eve?</h2>
-        <p className='text-black para'>Tell Us Who You Are, Choose one to get the most relevant features and recommendations.</p>
+        <h2 className="text-black header">How are you going to use Eve?</h2>
+        <p className="text-black para">
+          Tell Us Who You Are, Choose one to get the most relevant features and recommendations.
+        </p>
 
         {/* User type selector */}
         <div className="w-full max-w-md space-y-0 mb-8">
@@ -89,19 +92,16 @@ export function RouteComponent() {
             />
           ))}
         </div>
-        
+
         <div className="w-full max-w-md">
-          <CustomButton 
-            title="Continue" 
-            onClick={handleContinue}
-          />
+          <CustomButton title="Continue" onClick={handleContinue} />
         </div>
       </div>
 
       {/* Decorative elements on the bottom side */}
       <div className="absolute bottom-0 right-0 overflow-hidden pointer-events-none">
         <div className="relative">
-            <img src={bottom} alt="" className='w-full'/>
+          <img src={bottom} alt="" className="w-full" />
         </div>
       </div>
     </div>

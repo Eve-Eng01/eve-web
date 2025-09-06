@@ -1,6 +1,5 @@
-
-import React, { useState } from 'react';
-import { ChevronDown, Search, Check } from 'lucide-react';
+import { Check, ChevronDown, Search } from "lucide-react";
+import React, { useState } from "react";
 
 export interface Country {
   code: string;
@@ -22,62 +21,57 @@ interface PhoneInputProps {
 }
 
 const countries: Country[] = [
-  { 
-    code: 'NG', 
-    name: 'Nigeria', 
-    dialCode: '+234', 
-    flag: '🇳🇬'
+  {
+    code: "NG",
+    name: "Nigeria",
+    dialCode: "+234",
+    flag: "🇳🇬",
   },
-  { 
-    code: 'US', 
-    name: 'United States', 
-    dialCode: '+234', 
-    flag: '🇺🇸'
+  {
+    code: "US",
+    name: "United States",
+    dialCode: "+234",
+    flag: "🇺🇸",
   },
-  { 
-    code: 'GH', 
-    name: 'Ghana', 
-    dialCode: '+234', 
-    flag: '🇬🇭'
+  {
+    code: "GH",
+    name: "Ghana",
+    dialCode: "+234",
+    flag: "🇬🇭",
   },
-  { 
-    code: 'GB', 
-    name: 'United Kingdom', 
-    dialCode: '+44', 
-    flag: '🇬🇧'
+  {
+    code: "GB",
+    name: "United Kingdom",
+    dialCode: "+44",
+    flag: "🇬🇧",
   },
-  { 
-    code: 'CA', 
-    name: 'Canada', 
-    dialCode: '+1', 
-    flag: '🇨🇦'
-  }
+  {
+    code: "CA",
+    name: "Canada",
+    dialCode: "+1",
+    flag: "🇨🇦",
+  },
 ];
 
-export const PhoneInput: React.FC<PhoneInputProps> = ({ 
-  label, 
-  onChange, 
-  className = "" 
-}) => {
+export const PhoneInput: React.FC<PhoneInputProps> = ({ label, onChange, className = "" }) => {
   const [isCountryOpen, setIsCountryOpen] = useState<boolean>(false);
-  const [searchTerm, setSearchTerm] = useState<string>('');
-  
-  const [selectedCountry, setSelectedCountry] = useState<Country>(countries[0]);
-  const [phoneNumber, setPhoneNumber] = useState<string>('815-882-489');
+  const [searchTerm, setSearchTerm] = useState<string>("");
 
-  const filteredCountries: Country[] = countries.filter(country =>
-    country.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    country.dialCode.includes(searchTerm)
+  const [selectedCountry, setSelectedCountry] = useState<Country>(countries[0]);
+  const [phoneNumber, setPhoneNumber] = useState<string>("815-882-489");
+
+  const filteredCountries: Country[] = countries.filter(
+    (country) => country.name.toLowerCase().includes(searchTerm.toLowerCase()) || country.dialCode.includes(searchTerm),
   );
 
   const handleCountrySelect = (country: Country): void => {
     setSelectedCountry(country);
     setIsCountryOpen(false);
-    setSearchTerm('');
+    setSearchTerm("");
     if (onChange) {
       onChange({
         country: country,
-        phoneNumber: phoneNumber
+        phoneNumber: phoneNumber,
       });
     }
   };
@@ -87,19 +81,15 @@ export const PhoneInput: React.FC<PhoneInputProps> = ({
     if (onChange) {
       onChange({
         country: selectedCountry,
-        phoneNumber: e.target.value
+        phoneNumber: e.target.value,
       });
     }
   };
 
   return (
     <div className={`w-full ${className}`}>
-      {label && (
-        <label className="block text-gray-600 text-sm mb-2 font-medium">
-          {label}
-        </label>
-      )}
-      
+      {label && <label className="block text-gray-600 text-sm mb-2 font-medium">{label}</label>}
+
       <div className="flex bg-gray-100 rounded-lg overflow-hidden focus-within:bg-white focus-within:ring-2 focus-within:ring-purple-500 transition-all">
         {/* Country Selector */}
         <div className="relative">
@@ -110,8 +100,8 @@ export const PhoneInput: React.FC<PhoneInputProps> = ({
           >
             <span className="text-lg mr-2">{selectedCountry.flag}</span>
             <span className="text-sm font-medium">{selectedCountry.dialCode}</span>
-            <ChevronDown 
-              className={`w-4 h-4 ml-1 text-gray-400 transition-transform ${isCountryOpen ? 'rotate-180' : ''}`} 
+            <ChevronDown
+              className={`w-4 h-4 ml-1 text-gray-400 transition-transform ${isCountryOpen ? "rotate-180" : ""}`}
             />
           </button>
 
@@ -130,7 +120,7 @@ export const PhoneInput: React.FC<PhoneInputProps> = ({
                   />
                 </div>
               </div>
-              
+
               {/* Country List */}
               <div className="max-h-60 overflow-y-auto">
                 {filteredCountries.map((country) => (
@@ -145,16 +135,12 @@ export const PhoneInput: React.FC<PhoneInputProps> = ({
                       <span className="text-gray-800 text-sm">{country.name}</span>
                     </div>
                     <div className="flex items-center">
-                      <span className="text-gray-500 text-sm font-medium mr-2">
-                        {country.dialCode}
-                      </span>
-                      {selectedCountry.code === country.code && (
-                        <Check className="w-4 h-4 text-purple-600" />
-                      )}
+                      <span className="text-gray-500 text-sm font-medium mr-2">{country.dialCode}</span>
+                      {selectedCountry.code === country.code && <Check className="w-4 h-4 text-purple-600" />}
                     </div>
                   </button>
                 ))}
-                
+
                 {filteredCountries.length === 0 && (
                   <div className="px-4 py-3 text-gray-500 text-sm">No countries found</div>
                 )}
@@ -177,12 +163,7 @@ export const PhoneInput: React.FC<PhoneInputProps> = ({
       </div>
 
       {/* Overlay to close dropdown */}
-      {isCountryOpen && (
-        <div 
-          className="fixed inset-0 z-40" 
-          onClick={() => setIsCountryOpen(false)}
-        />
-      )}
+      {isCountryOpen && <div className="fixed inset-0 z-40" onClick={() => setIsCountryOpen(false)} />}
     </div>
   );
 };

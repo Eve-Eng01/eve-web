@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import { createFileRoute } from '@tanstack/react-router';
-import { InputField } from '../Accessories/InputFIeld';
-import { DropdownInput } from '../Accessories/DropdownInput';
-import { CustomButton } from '../Accessories/Button';
-import logo from '../../assets/evaLogo.png'
-import bottom from '../../assets/onBoarding/bottom.png'
-import './onboard.css'
-import { ServiceOne } from './SubServices/one'
-import CountryList from 'country-list-with-dial-code-and-flag';
+import { createFileRoute } from "@tanstack/react-router";
+import React, { useState } from "react";
+import logo from "../../assets/evaLogo.png";
+import bottom from "../../assets/onBoarding/bottom.png";
+import { CustomButton } from "../Accessories/Button";
+import { DropdownInput } from "../Accessories/DropdownInput";
+import { InputField } from "../Accessories/InputFIeld";
+import "./onboard.css";
+import CountryList from "country-list-with-dial-code-and-flag";
+import { ServiceOne } from "./SubServices/one";
 
 // Type definitions
 interface DropdownOption {
@@ -46,21 +46,21 @@ const CustomPhoneInput: React.FC<CustomPhoneInputProps> = ({ label, value, onCha
   const countries: Country[] = CountryList.getAll();
 
   // Convert countries to dropdown options
-  const countryOptions: DropdownOption[] = countries.map(country => ({
+  const countryOptions: DropdownOption[] = countries.map((country) => ({
     value: country.code,
-    label: `${country.flag} ${country.name} (${country.dial_code})`
+    label: `${country.flag} ${country.name} (${country.dial_code})`,
   }));
 
-  const selectedCountryOption = value 
-    ? countryOptions.find(option => option.value === value.country.code) || null
+  const selectedCountryOption = value
+    ? countryOptions.find((option) => option.value === value.country.code) || null
     : null;
 
   const handleCountryChange = (option: DropdownOption) => {
-    const selectedCountry = countries.find(country => country.code === option.value);
+    const selectedCountry = countries.find((country) => country.code === option.value);
     if (selectedCountry) {
       onChange({
         country: selectedCountry,
-        phoneNumber: value?.phoneNumber || ''
+        phoneNumber: value?.phoneNumber || "",
       });
     }
   };
@@ -69,19 +69,15 @@ const CustomPhoneInput: React.FC<CustomPhoneInputProps> = ({ label, value, onCha
     if (value?.country) {
       onChange({
         country: value.country,
-        phoneNumber: e.target.value
+        phoneNumber: e.target.value,
       });
     }
   };
 
   return (
     <div className="w-full">
-      {label && (
-        <label className="block text-gray-600 text-sm mb-2 font-medium">
-          {label}
-        </label>
-      )}
-      
+      {label && <label className="block text-gray-600 text-sm mb-2 font-medium">{label}</label>}
+
       <div className="flex gap-2">
         {/* Country Dropdown */}
         <div className="w-2/5">
@@ -93,19 +89,19 @@ const CustomPhoneInput: React.FC<CustomPhoneInputProps> = ({ label, value, onCha
             searchable={true}
           />
         </div>
-        
+
         {/* Phone Number Input */}
         <div className="w-3/5">
           <input
             type="tel"
             placeholder="Phone number"
-            value={value?.phoneNumber || ''}
+            value={value?.phoneNumber || ""}
             onChange={handlePhoneNumberChange}
             className="w-full px-4 py-3 bg-gray-100 border-0 rounded-lg text-gray-800 focus:bg-white focus:ring-2 focus:ring-purple-500 focus:outline-none transition-all"
           />
         </div>
       </div>
-      
+
       {/* Display selected country dial code */}
       {value?.country && (
         <div className="mt-1 text-sm text-gray-500">
@@ -120,18 +116,18 @@ const CustomPhoneInput: React.FC<CustomPhoneInputProps> = ({ label, value, onCha
 export function RouteComponent() {
   const [currentTab, setCurrentTab] = useState(1);
   const [formData, setFormData] = useState<FormData>({
-    companyName: 'Eve Even Platform',
+    companyName: "Eve Even Platform",
     businessType: null,
     phoneData: undefined,
-    location: 'Ibeju Lekki Lagos, Nigeria.'
+    location: "Ibeju Lekki Lagos, Nigeria.",
   });
 
   const [businessTypes, setBusinessTypes] = useState<DropdownOption[]>([
-    { value: 'catering', label: 'Catering/Baking' },
-    { value: 'videography', label: 'Videographers' },
-    { value: 'photography', label: 'Photographers' },
-    { value: 'music', label: 'Musicians & DJs' },
-    { value: 'security', label: 'Security Service' }
+    { value: "catering", label: "Catering/Baking" },
+    { value: "videography", label: "Videographers" },
+    { value: "photography", label: "Photographers" },
+    { value: "music", label: "Musicians & DJs" },
+    { value: "security", label: "Security Service" },
   ]);
 
   const handleAddNewBusinessType = (newOption: DropdownOption) => {
@@ -156,11 +152,13 @@ export function RouteComponent() {
         return (
           <div className=" mx-auto">
             <div className="text-center mb-8">
-                <div className="mx-auto mb-4 flex items-center justify-center">
-                    <img src={logo} alt="" className='w-[60px] h-[60px]'/>
-                </div>
-                <h2 className='text-black header'>How are you going to use Eve?</h2>
-                <p className='text-black para'>Tell Us Who You Are, Choose one to get the most relevant features and recommendations.</p>
+              <div className="mx-auto mb-4 flex items-center justify-center">
+                <img src={logo} alt="" className="w-[60px] h-[60px]" />
+              </div>
+              <h2 className="text-black header">How are you going to use Eve?</h2>
+              <p className="text-black para">
+                Tell Us Who You Are, Choose one to get the most relevant features and recommendations.
+              </p>
             </div>
 
             <InputField
@@ -195,27 +193,24 @@ export function RouteComponent() {
             />
 
             <div className="space-y-4 bottom">
-              <CustomButton
-                title="Continue"
-                onClick={handleContinue}
-              />
+              <CustomButton title="Continue" onClick={handleContinue} />
             </div>
           </div>
         );
 
       case 2:
-       return <ServiceOne continue = {handleContinue} back = {handleGoBack}/>
+        return <ServiceOne continue={handleContinue} back={handleGoBack} />;
       case 3:
         return (
           <div className="max-w-md mx-auto text-center">
             <h2 className="text-2xl font-bold text-gray-800 mb-6">Tab Three</h2>
             <p className="text-gray-600 mb-8">This is the content for the third tab.</p>
             <div className="space-y-4">
-              <CustomButton
-                title="Continue"
-                onClick={handleContinue}
-              />
-              <button onClick={handleGoBack} className='goBack'> Go back</button>
+              <CustomButton title="Continue" onClick={handleContinue} />
+              <button onClick={handleGoBack} className="goBack">
+                {" "}
+                Go back
+              </button>
             </div>
           </div>
         );
@@ -226,11 +221,11 @@ export function RouteComponent() {
             <h2 className="text-2xl font-bold text-gray-800 mb-6">Tab Four</h2>
             <p className="text-gray-600 mb-8">This is the content for the fourth tab.</p>
             <div className="space-y-4">
-              <CustomButton
-                title="Continue"
-                onClick={handleContinue}
-              />
-              <button onClick={handleGoBack} className='goBack'> Go back</button>
+              <CustomButton title="Continue" onClick={handleContinue} />
+              <button onClick={handleGoBack} className="goBack">
+                {" "}
+                Go back
+              </button>
             </div>
           </div>
         );
@@ -243,10 +238,13 @@ export function RouteComponent() {
             <div className="space-y-4">
               <CustomButton
                 title="Complete"
-                onClick={() => alert('Onboarding Complete!')}
+                onClick={() => alert("Onboarding Complete!")}
                 className="bg-green-600 hover:bg-green-700"
               />
-              <button onClick={handleGoBack} className='goBack'> Go back</button>
+              <button onClick={handleGoBack} className="goBack">
+                {" "}
+                Go back
+              </button>
             </div>
           </div>
         );
@@ -264,7 +262,7 @@ export function RouteComponent() {
             <div
               key={tab}
               className={`w-12 h-1 rounded-full transition-colors ${
-                tab <= currentTab ? 'bg-purple-600' : 'bg-gray-300'
+                tab <= currentTab ? "bg-purple-600" : "bg-gray-300"
               }`}
             />
           ))}
@@ -279,10 +277,10 @@ export function RouteComponent() {
         {renderProgressBar()}
         {renderTabContent()}
       </div>
-    {/* Decorative elements on the bottom side */}
-    <div className="overflow-hidden pointer-events-none">
+      {/* Decorative elements on the bottom side */}
+      <div className="overflow-hidden pointer-events-none">
         <div className="relative">
-            <img src={bottom} alt="" className='w-full img'/>
+          <img src={bottom} alt="" className="w-full img" />
         </div>
       </div>
     </div>
@@ -290,6 +288,6 @@ export function RouteComponent() {
 }
 
 // Define the route using createFileRoute
-export const Route = createFileRoute('/Onboarding/Services')({
-  component: RouteComponent
+export const Route = createFileRoute("/Onboarding/Services")({
+  component: RouteComponent,
 });
