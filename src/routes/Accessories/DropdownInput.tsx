@@ -1,7 +1,6 @@
-
-import React, { useState } from 'react';
-import { Check, Plus } from 'lucide-react';
-import { ArrowDown2 } from 'iconsax-reactjs';
+import { ArrowDown2 } from "iconsax-reactjs";
+import { Check, Plus } from "lucide-react";
+import React, { useState } from "react";
 
 export interface DropdownOption {
   value: string;
@@ -20,68 +19,64 @@ interface DropdownInputProps {
   className?: string;
 }
 
-export const DropdownInput: React.FC<DropdownInputProps> = ({ 
-  label, 
-  options, 
-  value, 
-  onChange, 
+export const DropdownInput: React.FC<DropdownInputProps> = ({
+  label,
+  options,
+  value,
+  onChange,
   placeholder = "Select an option",
   searchable = false,
   addNewOption = false,
   onAddNew,
-  className = ""
+  className = "",
 }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [searchTerm, setSearchTerm] = useState<string>('');
-  const [newOptionText, setNewOptionText] = useState<string>('');
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [newOptionText, setNewOptionText] = useState<string>("");
   const [showAddInput, setShowAddInput] = useState<boolean>(false);
 
-  const filteredOptions: DropdownOption[] = searchable 
-    ? options.filter(option => 
-        option.label.toLowerCase().includes(searchTerm.toLowerCase())
-      )
+  const filteredOptions: DropdownOption[] = searchable
+    ? options.filter((option) => option.label.toLowerCase().includes(searchTerm.toLowerCase()))
     : options;
 
   const handleOptionSelect = (option: DropdownOption): void => {
     onChange(option);
     setIsOpen(false);
-    setSearchTerm('');
+    setSearchTerm("");
   };
 
   const handleAddNew = (): void => {
     if (newOptionText.trim()) {
       const newOption: DropdownOption = { value: newOptionText, label: newOptionText };
       onAddNew && onAddNew(newOption);
-      setNewOptionText('');
+      setNewOptionText("");
       setShowAddInput(false);
       handleOptionSelect(newOption);
     }
   };
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>): void => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       handleAddNew();
     }
   };
 
   return (
     <div className={`relative w-full ${className}`}>
-      {label && (
-        <label className="block text-gray-600 text-sm mb-2 font-medium">
-          {label}
-        </label>
-      )}
-      
+      {label && <label className="block text-gray-600 text-sm mb-2 font-medium">{label}</label>}
+
       <div className="relative">
         <button
           type="button"
           onClick={() => setIsOpen(!isOpen)}
           className="w-full px-4 py-3 bg-gray-100 border-0 rounded-lg text-left text-gray-800 focus:bg-white focus:ring-2 focus:ring-purple-500 focus:outline-none transition-all flex justify-between items-center"
         >
-          <span className={value ? "text-gray-800" : "text-gray-500"}>
-            {value ? value.label : placeholder}
-          </span>
-          <ArrowDown2 color="#000" className={`w-5 h-5 text-gray-400 transition-transform ${isOpen ? 'rotate-180' : ''}`} variant="Outline"/>
+          <span className={value ? "text-gray-800" : "text-gray-500"}>{value ? value.label : placeholder}</span>
+          <ArrowDown2
+            color="#000"
+            className={`w-5 h-5 text-gray-400 transition-transform ${isOpen ? "rotate-180" : ""}`}
+            variant="Outline"
+          />
         </button>
 
         {isOpen && (
@@ -97,7 +92,7 @@ export const DropdownInput: React.FC<DropdownInputProps> = ({
                 />
               </div>
             )}
-            
+
             <div className="py-1">
               {filteredOptions.map((option) => (
                 <button
@@ -107,9 +102,7 @@ export const DropdownInput: React.FC<DropdownInputProps> = ({
                   className="w-full px-4 py-3 text-left hover:bg-gray-50 flex items-center justify-between"
                 >
                   <span className="text-gray-800">{option.label}</span>
-                  {value?.value === option.value && (
-                    <Check className="w-5 h-5 text-purple-600" />
-                  )}
+                  {value?.value === option.value && <Check className="w-5 h-5 text-purple-600" />}
                 </button>
               ))}
 
@@ -154,12 +147,7 @@ export const DropdownInput: React.FC<DropdownInputProps> = ({
         )}
       </div>
 
-      {isOpen && (
-        <div 
-          className="fixed inset-0 z-40" 
-          onClick={() => setIsOpen(false)}
-        />
-      )}
+      {isOpen && <div className="fixed inset-0 z-40" onClick={() => setIsOpen(false)} />}
     </div>
   );
 };

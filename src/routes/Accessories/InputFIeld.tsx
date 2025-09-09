@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 interface InputFieldProps {
   label?: string;
@@ -9,21 +9,17 @@ interface InputFieldProps {
   className?: string;
 }
 
-export const InputField: React.FC<InputFieldProps> = ({ 
-  label, 
-  placeholder, 
-  value, 
-  onChange, 
+export const InputField: React.FC<InputFieldProps> = ({
+  label,
+  placeholder,
+  value,
+  onChange,
   type = "text",
-  className = "" 
+  className = "",
 }) => {
   return (
     <div className="w-full">
-      {label && (
-        <label className="block text-gray-600 text-sm mb-2 font-medium">
-          {label}
-        </label>
-      )}
+      {label && <label className="block text-gray-600 text-sm mb-2 font-medium">{label}</label>}
       <input
         type={type}
         placeholder={placeholder}

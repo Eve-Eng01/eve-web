@@ -15,6 +15,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedProtectedRouteRouteImport } from './routes/_authenticated/protected-route'
 import { Route as OnboardingOnboardingRouteImport } from './routes/Onboarding/onboarding'
 import { Route as OnboardingServicesRouteImport } from './routes/Onboarding/Services'
+import { Route as OnboardingServiceVendorRouteImport } from './routes/Onboarding/ServiceVendor'
 import { Route as AuthenticationSignUpRouteImport } from './routes/Authentication/SignUp'
 import { Route as AuthenticationSignInRouteImport } from './routes/Authentication/SignIn'
 import { Route as AuthenticationOtpVerificationRouteImport } from './routes/Authentication/OtpVerification'
@@ -25,6 +26,7 @@ import { Route as OnboardingSubServicesThreeRouteImport } from './routes/Onboard
 import { Route as OnboardingSubServicesOneRouteImport } from './routes/Onboarding/SubServices/one'
 import { Route as OnboardingSubServicesFourRouteImport } from './routes/Onboarding/SubServices/four'
 import { Route as OnboardingSubServicesFiveRouteImport } from './routes/Onboarding/SubServices/five'
+import { Route as OnboardingSubServicesUploadFormModalRouteImport } from './routes/Onboarding/SubServices/UploadFormModal'
 import { Route as AuthenticationForgetPasswordForgetPassOtpRouteImport } from './routes/Authentication/ForgetPassword/ForgetPassOtp'
 import { Route as AuthenticationForgetPasswordForgetPassRouteImport } from './routes/Authentication/ForgetPassword/ForgetPass'
 
@@ -56,6 +58,11 @@ const OnboardingOnboardingRoute = OnboardingOnboardingRouteImport.update({
 const OnboardingServicesRoute = OnboardingServicesRouteImport.update({
   id: '/Onboarding/Services',
   path: '/Onboarding/Services',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OnboardingServiceVendorRoute = OnboardingServiceVendorRouteImport.update({
+  id: '/Onboarding/ServiceVendor',
+  path: '/Onboarding/ServiceVendor',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticationSignUpRoute = AuthenticationSignUpRouteImport.update({
@@ -114,6 +121,12 @@ const OnboardingSubServicesFiveRoute =
     path: '/Onboarding/SubServices/five',
     getParentRoute: () => rootRouteImport,
   } as any)
+const OnboardingSubServicesUploadFormModalRoute =
+  OnboardingSubServicesUploadFormModalRouteImport.update({
+    id: '/Onboarding/SubServices/UploadFormModal',
+    path: '/Onboarding/SubServices/UploadFormModal',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const AuthenticationForgetPasswordForgetPassOtpRoute =
   AuthenticationForgetPasswordForgetPassOtpRouteImport.update({
     id: '/Authentication/ForgetPassword/ForgetPassOtp',
@@ -135,11 +148,13 @@ export interface FileRoutesByFullPath {
   '/Authentication/OtpVerification': typeof AuthenticationOtpVerificationRoute
   '/Authentication/SignIn': typeof AuthenticationSignInRoute
   '/Authentication/SignUp': typeof AuthenticationSignUpRoute
+  '/Onboarding/ServiceVendor': typeof OnboardingServiceVendorRoute
   '/Onboarding/Services': typeof OnboardingServicesRoute
   '/Onboarding/onboarding': typeof OnboardingOnboardingRoute
   '/protected-route': typeof AuthenticatedProtectedRouteRoute
   '/Authentication/ForgetPassword/ForgetPass': typeof AuthenticationForgetPasswordForgetPassRoute
   '/Authentication/ForgetPassword/ForgetPassOtp': typeof AuthenticationForgetPasswordForgetPassOtpRoute
+  '/Onboarding/SubServices/UploadFormModal': typeof OnboardingSubServicesUploadFormModalRoute
   '/Onboarding/SubServices/five': typeof OnboardingSubServicesFiveRoute
   '/Onboarding/SubServices/four': typeof OnboardingSubServicesFourRoute
   '/Onboarding/SubServices/one': typeof OnboardingSubServicesOneRoute
@@ -154,11 +169,13 @@ export interface FileRoutesByTo {
   '/Authentication/OtpVerification': typeof AuthenticationOtpVerificationRoute
   '/Authentication/SignIn': typeof AuthenticationSignInRoute
   '/Authentication/SignUp': typeof AuthenticationSignUpRoute
+  '/Onboarding/ServiceVendor': typeof OnboardingServiceVendorRoute
   '/Onboarding/Services': typeof OnboardingServicesRoute
   '/Onboarding/onboarding': typeof OnboardingOnboardingRoute
   '/protected-route': typeof AuthenticatedProtectedRouteRoute
   '/Authentication/ForgetPassword/ForgetPass': typeof AuthenticationForgetPasswordForgetPassRoute
   '/Authentication/ForgetPassword/ForgetPassOtp': typeof AuthenticationForgetPasswordForgetPassOtpRoute
+  '/Onboarding/SubServices/UploadFormModal': typeof OnboardingSubServicesUploadFormModalRoute
   '/Onboarding/SubServices/five': typeof OnboardingSubServicesFiveRoute
   '/Onboarding/SubServices/four': typeof OnboardingSubServicesFourRoute
   '/Onboarding/SubServices/one': typeof OnboardingSubServicesOneRoute
@@ -175,11 +192,13 @@ export interface FileRoutesById {
   '/Authentication/OtpVerification': typeof AuthenticationOtpVerificationRoute
   '/Authentication/SignIn': typeof AuthenticationSignInRoute
   '/Authentication/SignUp': typeof AuthenticationSignUpRoute
+  '/Onboarding/ServiceVendor': typeof OnboardingServiceVendorRoute
   '/Onboarding/Services': typeof OnboardingServicesRoute
   '/Onboarding/onboarding': typeof OnboardingOnboardingRoute
   '/_authenticated/protected-route': typeof AuthenticatedProtectedRouteRoute
   '/Authentication/ForgetPassword/ForgetPass': typeof AuthenticationForgetPasswordForgetPassRoute
   '/Authentication/ForgetPassword/ForgetPassOtp': typeof AuthenticationForgetPasswordForgetPassOtpRoute
+  '/Onboarding/SubServices/UploadFormModal': typeof OnboardingSubServicesUploadFormModalRoute
   '/Onboarding/SubServices/five': typeof OnboardingSubServicesFiveRoute
   '/Onboarding/SubServices/four': typeof OnboardingSubServicesFourRoute
   '/Onboarding/SubServices/one': typeof OnboardingSubServicesOneRoute
@@ -196,11 +215,13 @@ export interface FileRouteTypes {
     | '/Authentication/OtpVerification'
     | '/Authentication/SignIn'
     | '/Authentication/SignUp'
+    | '/Onboarding/ServiceVendor'
     | '/Onboarding/Services'
     | '/Onboarding/onboarding'
     | '/protected-route'
     | '/Authentication/ForgetPassword/ForgetPass'
     | '/Authentication/ForgetPassword/ForgetPassOtp'
+    | '/Onboarding/SubServices/UploadFormModal'
     | '/Onboarding/SubServices/five'
     | '/Onboarding/SubServices/four'
     | '/Onboarding/SubServices/one'
@@ -215,11 +236,13 @@ export interface FileRouteTypes {
     | '/Authentication/OtpVerification'
     | '/Authentication/SignIn'
     | '/Authentication/SignUp'
+    | '/Onboarding/ServiceVendor'
     | '/Onboarding/Services'
     | '/Onboarding/onboarding'
     | '/protected-route'
     | '/Authentication/ForgetPassword/ForgetPass'
     | '/Authentication/ForgetPassword/ForgetPassOtp'
+    | '/Onboarding/SubServices/UploadFormModal'
     | '/Onboarding/SubServices/five'
     | '/Onboarding/SubServices/four'
     | '/Onboarding/SubServices/one'
@@ -235,11 +258,13 @@ export interface FileRouteTypes {
     | '/Authentication/OtpVerification'
     | '/Authentication/SignIn'
     | '/Authentication/SignUp'
+    | '/Onboarding/ServiceVendor'
     | '/Onboarding/Services'
     | '/Onboarding/onboarding'
     | '/_authenticated/protected-route'
     | '/Authentication/ForgetPassword/ForgetPass'
     | '/Authentication/ForgetPassword/ForgetPassOtp'
+    | '/Onboarding/SubServices/UploadFormModal'
     | '/Onboarding/SubServices/five'
     | '/Onboarding/SubServices/four'
     | '/Onboarding/SubServices/one'
@@ -256,10 +281,12 @@ export interface RootRouteChildren {
   AuthenticationOtpVerificationRoute: typeof AuthenticationOtpVerificationRoute
   AuthenticationSignInRoute: typeof AuthenticationSignInRoute
   AuthenticationSignUpRoute: typeof AuthenticationSignUpRoute
+  OnboardingServiceVendorRoute: typeof OnboardingServiceVendorRoute
   OnboardingServicesRoute: typeof OnboardingServicesRoute
   OnboardingOnboardingRoute: typeof OnboardingOnboardingRoute
   AuthenticationForgetPasswordForgetPassRoute: typeof AuthenticationForgetPasswordForgetPassRoute
   AuthenticationForgetPasswordForgetPassOtpRoute: typeof AuthenticationForgetPasswordForgetPassOtpRoute
+  OnboardingSubServicesUploadFormModalRoute: typeof OnboardingSubServicesUploadFormModalRoute
   OnboardingSubServicesFiveRoute: typeof OnboardingSubServicesFiveRoute
   OnboardingSubServicesFourRoute: typeof OnboardingSubServicesFourRoute
   OnboardingSubServicesOneRoute: typeof OnboardingSubServicesOneRoute
@@ -309,6 +336,13 @@ declare module '@tanstack/react-router' {
       path: '/Onboarding/Services'
       fullPath: '/Onboarding/Services'
       preLoaderRoute: typeof OnboardingServicesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/Onboarding/ServiceVendor': {
+      id: '/Onboarding/ServiceVendor'
+      path: '/Onboarding/ServiceVendor'
+      fullPath: '/Onboarding/ServiceVendor'
+      preLoaderRoute: typeof OnboardingServiceVendorRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/Authentication/SignUp': {
@@ -381,6 +415,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OnboardingSubServicesFiveRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/Onboarding/SubServices/UploadFormModal': {
+      id: '/Onboarding/SubServices/UploadFormModal'
+      path: '/Onboarding/SubServices/UploadFormModal'
+      fullPath: '/Onboarding/SubServices/UploadFormModal'
+      preLoaderRoute: typeof OnboardingSubServicesUploadFormModalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/Authentication/ForgetPassword/ForgetPassOtp': {
       id: '/Authentication/ForgetPassword/ForgetPassOtp'
       path: '/Authentication/ForgetPassword/ForgetPassOtp'
@@ -419,12 +460,15 @@ const rootRouteChildren: RootRouteChildren = {
   AuthenticationOtpVerificationRoute: AuthenticationOtpVerificationRoute,
   AuthenticationSignInRoute: AuthenticationSignInRoute,
   AuthenticationSignUpRoute: AuthenticationSignUpRoute,
+  OnboardingServiceVendorRoute: OnboardingServiceVendorRoute,
   OnboardingServicesRoute: OnboardingServicesRoute,
   OnboardingOnboardingRoute: OnboardingOnboardingRoute,
   AuthenticationForgetPasswordForgetPassRoute:
     AuthenticationForgetPasswordForgetPassRoute,
   AuthenticationForgetPasswordForgetPassOtpRoute:
     AuthenticationForgetPasswordForgetPassOtpRoute,
+  OnboardingSubServicesUploadFormModalRoute:
+    OnboardingSubServicesUploadFormModalRoute,
   OnboardingSubServicesFiveRoute: OnboardingSubServicesFiveRoute,
   OnboardingSubServicesFourRoute: OnboardingSubServicesFourRoute,
   OnboardingSubServicesOneRoute: OnboardingSubServicesOneRoute,
