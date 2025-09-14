@@ -8,6 +8,8 @@ import { InputField } from "../Accessories/InputFIeld";
 import "./onboard.css";
 import CountryList from "country-list-with-dial-code-and-flag";
 import { ServiceOne } from "./SubServices/one";
+import { ServiceTwo } from "./SubServices/two";
+import { ServiceThree } from "./SubServices/three";
 
 // Type definitions
 interface DropdownOption {
@@ -193,7 +195,13 @@ export function RouteComponent() {
             />
 
             <div className="space-y-4 bottom">
-              <CustomButton title="Continue" onClick={handleContinue} />
+              <CustomButton disabled={
+                formData.companyName && 
+                formData.businessType && 
+                formData.phoneData && 
+                formData.location === "" ? true : false} 
+                title="Continue" onClick={handleContinue}
+              />
             </div>
           </div>
         );
@@ -201,34 +209,11 @@ export function RouteComponent() {
       case 2:
         return <ServiceOne continue={handleContinue} back={handleGoBack} />;
       case 3:
-        return (
-          <div className="max-w-md mx-auto text-center">
-            <h2 className="text-2xl font-bold text-gray-800 mb-6">Tab Three</h2>
-            <p className="text-gray-600 mb-8">This is the content for the third tab.</p>
-            <div className="space-y-4">
-              <CustomButton title="Continue" onClick={handleContinue} />
-              <button onClick={handleGoBack} className="goBack">
-                {" "}
-                Go back
-              </button>
-            </div>
-          </div>
-        );
-
+        return ( 
+          <ServiceTwo continue={handleContinue} back={handleGoBack}/>
+        )
       case 4:
-        return (
-          <div className="max-w-md mx-auto text-center">
-            <h2 className="text-2xl font-bold text-gray-800 mb-6">Tab Four</h2>
-            <p className="text-gray-600 mb-8">This is the content for the fourth tab.</p>
-            <div className="space-y-4">
-              <CustomButton title="Continue" onClick={handleContinue} />
-              <button onClick={handleGoBack} className="goBack">
-                {" "}
-                Go back
-              </button>
-            </div>
-          </div>
-        );
+        return <ServiceThree continue={handleContinue} back={handleGoBack}/>
 
       case 5:
         return (

@@ -5,7 +5,7 @@ import { CustomButton } from "../../Accessories/Button";
 import Modal from "../../Accessories/MainModal";
 import { UploadFormComponent } from "./UploadFormModal";
 
-interface ServiceOneProps {
+export interface ServiceOneProps {
   continue: () => void;
   back: () => void;
 }
