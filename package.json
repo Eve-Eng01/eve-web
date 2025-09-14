@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "npm run storybook && vite --port 3000",
+    "dev": "storybook dev -p 6006 && vite --port 3000",
     "build": "vite build",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
