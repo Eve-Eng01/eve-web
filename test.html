@@ -5,359 +5,321 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BE A HEARER AND A DOER OF GOD'S WORD</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Source+Sans+Pro:wght@400;600;700&display=swap');
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        @page {
+            margin: 1in;
+            size: letter;
         }
         
         body {
-            font-family: 'Crimson Text', serif;
+            font-family: 'Times New Roman', serif;
+            font-size: 12pt;
             line-height: 1.6;
-            color: #2c3e50;
-            background: white;
-            font-size: 14px;
-        }
-        
-        .container {
-            max-width: 14.5in;
+            color: #333;
+            max-width: 11.5in;
             margin: 0 auto;
-            padding: 0.75in;
             background: white;
-            min-height: 11in;
         }
         
         .header {
             text-align: center;
-            border-bottom: 3px solid #34495e;
-            padding-bottom: 20px;
             margin-bottom: 30px;
+            border-bottom: 3px solid #1a472a;
+            padding-bottom: 20px;
         }
         
         .main-title {
-            font-family: 'Source Sans Pro', sans-serif;
-            font-size: 24px;
-            font-weight: 700;
-            color: #2c3e50;
-            letter-spacing: 1px;
-            margin-bottom: 10px;
+            font-size: 20pt;
+            font-weight: bold;
+            color: #1a472a;
+            margin-bottom: 15px;
             text-transform: uppercase;
+            letter-spacing: 1px;
         }
         
         .theme-scripture {
+            font-size: 11pt;
             font-style: italic;
-            font-size: 16px;
-            color: #7f8c8d;
-            margin-bottom: 5px;
+            color: #2c5f2d;
+            margin-bottom: 10px;
+            padding: 12px;
+            background-color: #f8f9fa;
+            border-left: 4px solid #1a472a;
         }
         
         .scripture-reference {
-            font-size: 14px;
-            color: #34495e;
-            font-weight: 600;
+            font-weight: bold;
+            color: #1a472a;
         }
         
-        .section {
-            margin-bottom: 25px;
-            page-break-inside: avoid;
-        }
-        
-        .section-title {
-            font-family: 'Source Sans Pro', sans-serif;
-            font-size: 18px;
-            font-weight: 700;
-            color: #2c3e50;
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            padding: 12px 15px;
-            border-left: 5px solid #3498db;
+        .section-heading {
+            font-size: 16pt;
+            font-weight: bold;
+            color: #1a472a;
+            margin-top: 25px;
             margin-bottom: 15px;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 5px;
         }
         
         .time-indicator {
-            float: right;
-            background: #3498db;
-            color: white;
-            padding: 4px 8px;
-            border-radius: 3px;
-            font-size: 12px;
-            font-weight: 600;
-        }
-        
-        .subsection-title {
-            font-family: 'Source Sans Pro', sans-serif;
-            font-size: 16px;
-            font-weight: 600;
-            color: #34495e;
-            margin: 15px 0 8px 0;
-            border-bottom: 1px solid #bdc3c7;
-            padding-bottom: 3px;
-        }
-        
-        p {
-            margin-bottom: 12px;
-            text-align: justify;
-            hyphens: auto;
+            color: #666;
+            font-size: 10pt;
+            font-weight: normal;
         }
         
         .scripture-quote {
-            background: #f8f9fa;
-            border-left: 4px solid #e74c3c;
-            padding: 15px;
-            margin: 15px 0;
             font-style: italic;
-            border-radius: 0 5px 5px 0;
+            background-color: #f0f8f0;
+            padding: 12px;
+            margin: 15px 0;
+            border-left: 4px solid #4a7c4a;
+            color: #2c5f2d;
         }
         
-        .scripture-reference-inline {
-            font-weight: 600;
-            color: #e74c3c;
-        }
-        
-        .bullet-point {
-            margin-left: 20px;
-            margin-bottom: 8px;
-            position: relative;
-        }
-        
-        .bullet-point::before {
-            content: "•";
-            color: #3498db;
+        .scripture-intro {
             font-weight: bold;
-            position: absolute;
-            left: -15px;
+            color: #1a472a;
+            margin-bottom: 5px;
+        }
+        
+        .paragraph {
+            margin-bottom: 15px;
+            text-align: justify;
+            text-indent: 20px;
+        }
+        
+        .question {
+            font-weight: bold;
+            color: #2c5f2d;
+            margin: 15px 0 10px 0;
         }
         
         .emphasis {
-            font-weight: 600;
-            color: #2c3e50;
+            font-weight: bold;
+            color: #1a472a;
         }
         
-        .quote-attribution {
-            font-style: italic;
-            color: #7f8c8d;
-            font-size: 13px;
-            margin-top: 8px;
+        .illustration {
+            background-color: #f9f9f9;
+            padding: 15px;
+            margin: 15px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
         }
         
         .conclusion {
-            background: linear-gradient(135deg, #ecf0f1 0%, #bdc3c7 100%);
+            background-color: #f0f8f0;
             padding: 20px;
-            border-radius: 8px;
-            border: 2px solid #95a5a6;
+            margin-top: 30px;
+            border: 2px solid #1a472a;
+            border-radius: 10px;
         }
         
-        @media print {
-            body { font-size: 12px; }
-            .container { margin: 0; padding: 0.5in; }
-            .section { page-break-inside: avoid; }
-            .main-title { font-size: 20px; }
-            .section-title { font-size: 16px; }
-        }
-        
-        .download-btn {
+        .print-button {
             position: fixed;
             top: 20px;
             right: 20px;
-            background: #27ae60;
+            background: #1a472a;
             color: white;
-            padding: 12px 20px;
             border: none;
+            padding: 10px 20px;
             border-radius: 5px;
             cursor: pointer;
-            font-weight: 600;
-            box-shadow: 0 4px 15px rgba(39, 174, 96, 0.3);
-            z-index: 1000;
             font-size: 14px;
+            z-index: 1000;
         }
         
-        .download-btn:hover {
-            background: #219a52;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(39, 174, 96, 0.4);
+        .print-button:hover {
+            background: #0f2f1a;
         }
         
         @media print {
-            .download-btn { display: none; }
+            .print-button {
+                display: none;
+            }
+            
+            body {
+                font-size: 11pt;
+            }
+            
+            .section-heading {
+                page-break-after: avoid;
+            }
+            
+            .paragraph {
+                page-break-inside: avoid;
+                orphans: 3;
+                widows: 3;
+            }
         }
     </style>
 </head>
 <body>
-    <button class="download-btn" onclick="window.print()">📄 Print/Save</button>
+    <button class="print-button" onclick="window.print()">🖨️ Print PDF</button>
     
-    <div class="container">
-        <div class="header">
-            <div class="main-title">Be a Hearer and a Doer of God's Word</div>
-            <div class="theme-scripture">
-                <strong>Theme Scripture:</strong> "However, become doers of the word and not hearers only, deceiving yourselves with false reasoning."
-            </div>
+    <div class="header">
+        <h1 class="main-title">Be A Hearer And A Doer Of God's Word</h1>
+        <div class="theme-scripture">
+            "However, become doers of the word and not hearers only, deceiving yourselves with false reasoning."
             <div class="scripture-reference">—James 1:22</div>
         </div>
+    </div>
 
-        <div class="section">
-            <div class="section-title">
-                Introduction
-                <span class="time-indicator">2 min.</span>
-            </div>
-            <p>How many of us have experienced the frustration of giving someone important instructions, only to discover they weren't really listening? Perhaps you've asked a family member to pick up groceries, carefully explaining what they should buy, only to have them return with completely different items—or nothing at all.</p>
-            
-            <p>In today's information age, we're constantly bombarded with messages. News, advertisements, social media—it's easy to develop "selective hearing." But when it comes to God's Word, the stakes are much higher than forgotten groceries. Our eternal future depends on not just hearing, but truly listening to and acting upon what Jehovah teaches us.</p>
-            
-            <p>Today we'll examine why Jesus repeatedly emphasized the importance of listening, and more importantly, how we can become effective doers of God's Word.</p>
-        </div>
+    <div class="section-heading">Introduction <span class="time-indicator">(2 min.)</span></div>
+    
+    <p class="paragraph">How many of us have experienced the frustration of giving someone important instructions, only to discover they weren't really listening? Perhaps you've asked a family member to pick up groceries, carefully explaining what they should buy, only to have them return with completely different items—or nothing at all.</p>
+    
+    <p class="paragraph">In today's information age, we're constantly bombarded with messages. News, advertisements, social media—it's easy to develop "selective hearing." But when it comes to God's Word, the stakes are much higher than forgotten groceries. Our eternal future depends on not just hearing, but truly listening to and acting upon what Jehovah teaches us.</p>
+    
+    <p class="paragraph">Today we'll examine why Jesus repeatedly emphasized the importance of listening, and more importantly, how we can become effective doers of God's Word. This brings us to consider why Jesus was so urgent in appealing to people to truly listen to his message.</p>
 
-        <div class="section">
-            <div class="section-title">
-                "Let the One Who Has Ears Listen"
-                <span class="time-indicator">6 min.</span>
-            </div>
-            <p>Why was Jesus so urgent in his appeal for people to truly listen? Jesus wasn't speaking to people with hearing issues when he repeatedly said, "Let the one who has ears listen." In Matthew alone, we find this appeal three times—at Matthew 11:15, 13:9, and 13:43. He was addressing those who possessed the physical ability to hear but might lack the spiritual desire to truly listen.</p>
-            
-            <p>Picture Jesus standing before crowds of thousands. His voice carries across the hillside as he teaches profound truths about God's Kingdom. Yet he knows that while many are hearing his words, only a few are truly listening—allowing his message to penetrate their hearts and change their lives.</p>
-            
-            <div class="scripture-quote">
-                <strong class="scripture-reference-inline">[Read Matthew 15:10]</strong> "With that he called the crowd near and said to them: 'Listen and get the sense of it.'"
-            </div>
-            
-            <p>Notice that Jesus didn't just say "listen"—he said "listen and get the sense of it." <span class="emphasis">True listening involves understanding, contemplation, and a willingness to be changed by what we hear.</span></p>
-            
-            <p>What prevents people from truly listening to God's Word today? Just as in Jesus' time, millions have heard at least portions of the Bible's message. Yet relatively few pay genuine attention. Some are hindered by prejudices—preconceived notions about religion or the Bible that prevent them from considering its message with an open mind. Others are distracted by human philosophies that seem more appealing than God's standards. Still others are simply too busy with the distractions of daily life to give serious thought to spiritual matters.</p>
-            
-            <p>But why is humble listening to God's Word so vital for our salvation? Jesus explained at John 17:3 that everlasting life depends on "coming to know" the only true God and Jesus Christ. This isn't casual acquaintance—it's intimate, accurate knowledge that transforms our lives. The apostle Paul reinforces this truth at Romans 10:17, explaining that "faith follows the thing heard"—specifically, "the word about Christ." Faith essential for salvation doesn't come from merely hearing any words, but from hearing God's specific message about his Son.</p>
-            
-            <p>Jesus himself emphasized our dependence on God's Word when he quoted from Deuteronomy, saying at Matthew 4:4 that "man must live, not on bread alone, but on every word that comes from Jehovah's mouth." Just as our physical bodies require daily nourishment, our spiritual lives depend on regularly taking in God's Word.</p>
-        </div>
+    <div class="section-heading">"Let The One Who Has Ears Listen" <span class="time-indicator">(6 min.)</span></div>
+    
+    <p class="paragraph">Jesus wasn't speaking to people with hearing issues when he repeatedly said, "Let the one who has ears listen." In Matthew alone, we find this appeal three times—at Matthew 11:15, 13:9, and 13:43. He was addressing those who possessed the physical ability to hear but might lack the spiritual desire to truly listen.</p>
+    
+    <p class="paragraph">Picture Jesus standing before crowds of thousands. His voice carries across the hillside as he teaches profound truths about God's Kingdom. Yet he knows that while many are hearing his words, only a few are truly listening—allowing his message to penetrate their hearts and change their lives.</p>
+    
+    <div class="scripture-quote">
+        <div class="scripture-intro">[Read Matthew 15:10]</div>
+        "With that he called the crowd near and said to them: 'Listen and get the sense of it.'"
+    </div>
+    
+    <p class="paragraph">Notice that Jesus didn't just say "listen"—he said <span class="emphasis">"listen and get the sense of it."</span> True listening involves understanding, contemplation, and a willingness to be changed by what we hear.</p>
+    
+    <p class="question">What prevents people from truly listening to God's Word today?</p>
+    
+    <p class="paragraph">Just as in Jesus' time, millions have heard at least portions of the Bible's message. Yet relatively few pay genuine attention. Some are hindered by prejudices—preconceived notions about religion or the Bible that prevent them from considering its message with an open mind. Others are distracted by human philosophies that seem more appealing than God's standards. Still others are simply too busy with the distractions of daily life to give serious thought to spiritual matters.</p>
+    
+    <p class="question">But why is humble listening to God's Word so vital for our salvation?</p>
+    
+    <p class="paragraph">Jesus explained at John 17:3 that everlasting life depends on "coming to know" the only true God and Jesus Christ. This isn't casual acquaintance—it's intimate, accurate knowledge that transforms our lives. The apostle Paul reinforces this truth at Romans 10:17, explaining that "faith follows the thing heard"—specifically, "the word about Christ." Faith essential for salvation doesn't come from merely hearing any words, but from hearing God's specific message about his Son.</p>
+    
+    <p class="paragraph">Jesus himself emphasized our dependence on God's Word when he quoted from Deuteronomy, saying at Matthew 4:4 that "man must live, not on bread alone, but on every word that comes from Jehovah's mouth." Just as our physical bodies require daily nourishment, our spiritual lives depend on regularly taking in God's Word.</p>
+    
+    <p class="paragraph">But is it enough to simply listen and gain knowledge? Let us examine what the Bible says about the vital next step.</p>
 
-        <div class="section">
-            <div class="section-title">
-                Hearers Must Also Become Doers of the Word
-                <span class="time-indicator">7 min.</span>
-            </div>
-            <p>Is it sufficient to simply have Bible knowledge? Many people pride themselves on their Bible knowledge. They can quote scriptures, explain doctrines, and engage in theological discussions. Yet the Bible warns us that knowledge alone is insufficient for salvation.</p>
-            
-            <div class="scripture-quote">
-                <strong class="scripture-reference-inline">[Read James 1:25]</strong> "But the one who peers into the perfect law that belongs to freedom and continues in it has become, not a forgetful hearer, but a doer of the work; and he will be happy in what he does."
-            </div>
-            
-            <p>James uses a powerful illustration in the preceding verses. He compares a person who hears God's Word but doesn't act on it to someone who looks in a mirror, sees their reflection, then immediately forgets what they look like. What good does the mirror serve if the person doesn't act on what they see?</p>
-            
-            <p>But can people really change deeply entrenched habits and practices? Some may feel that making significant changes in their lives is impossible, especially when dealing with deeply rooted behaviors. The Bible acknowledges this challenge but also provides hope. At 1 Corinthians 6:9-11, Paul lists serious sins including sexual immorality, theft, and drunkenness, then makes this remarkable statement: "And yet that is what some of you were. But you have been washed clean; you have been sanctified; you have been declared righteous in the name of the Lord Jesus Christ and with the spirit of our God."</p>
-            
-            <p>Notice the past tense: <span class="emphasis">"that is what some of you were."</span> With God's help through his holy spirit, people can overcome even the most challenging behaviors and practices. The Watchtower explains that such individuals have been 'washed clean,' indicating they made necessary changes to please God. What enables this transformation? "The spirit of our God."</p>
-            
-            <p>What would motivate someone to make such difficult changes? At Isaiah 48:17, 18, Jehovah declares: "I, Jehovah, am your God, the One teaching you to benefit yourself, the One guiding you in the way you should walk. If only you would pay attention to my commandments! Then your peace would become just like a river and your righteousness like the waves of the sea."</p>
-            
-            <p>Jehovah doesn't ask us to change simply to make our lives more difficult. He teaches us "to benefit" ourselves. When we follow his guidance, we experience peace like a flowing river and righteousness as abundant as ocean waves.</p>
-            
-            <p>But what about those who claim they're already good enough? What about those who say, "I'm a good person. I help others, donate to charity, and try to live morally. Isn't that enough?" Jesus addressed this very attitude at Matthew 7:21-23, warning that not everyone saying 'Lord, Lord' will enter God's Kingdom—only those doing the Father's will. Many will claim they did powerful works in Jesus' name, but he will declare: "I never knew you!"</p>
-            
-            <p>Consider this illustration: Imagine parents who hire a babysitter with simple instructions: "Take care of our children. Feed them, make sure they are clean, and keep them from harm." When they return, they find their children hungry, dirty, and crying while the babysitter is washing windows. When questioned, she proudly points to her work: "Look at all I did! The windows are spotless!"</p>
-            
-            <p>The parents would be furious. They never asked her to wash windows—they wanted their children cared for. Similarly, God isn't impressed with good works that ignore his specific instructions about what he wants us to do.</p>
-        </div>
+    <div class="section-heading">Hearers Must Also Become Doers Of The Word <span class="time-indicator">(7 min.)</span></div>
+    
+    <p class="paragraph">Many people pride themselves on their Bible knowledge. They can quote scriptures, explain doctrines, and engage in theological discussions. Yet the Bible warns us that knowledge alone is insufficient for salvation.</p>
+    
+    <div class="scripture-quote">
+        <div class="scripture-intro">[Read James 1:25]</div>
+        "But the one who peers into the perfect law that belongs to freedom and continues in it has become, not a forgetful hearer, but a doer of the work; and he will be happy in what he does."
+    </div>
+    
+    <p class="paragraph">James uses a powerful illustration in the preceding verses. He compares a person who hears God's Word but doesn't act on it to someone who looks in a mirror, sees their reflection, then immediately forgets what they look like. What good does the mirror serve if the person doesn't act on what they see?</p>
+    
+    <p class="question">But can people really change deeply entrenched habits and practices?</p>
+    
+    <p class="paragraph">Some may feel that making significant changes in their lives is impossible, especially when dealing with deeply rooted behaviors. The Bible acknowledges this challenge but also provides hope. At 1 Corinthians 6:9-11, Paul lists serious sins including sexual immorality, theft, and drunkenness, then makes this remarkable statement: "And yet that is what some of you were. But you have been washed clean; you have been sanctified; you have been declared righteous in the name of the Lord Jesus Christ and with the spirit of our God."</p>
+    
+    <p class="paragraph">Notice the past tense: <span class="emphasis">"that is what some of you were."</span> With God's help through his holy spirit, people can overcome even the most challenging behaviors and practices. The Watchtower explains that such individuals have been 'washed clean,' indicating they made necessary changes to please God.</p>
+    
+    <p class="question">What enables this transformation?</p>
+    <p class="paragraph">"The spirit of our God."</p>
+    
+    <p class="question">What would motivate someone to make such difficult changes?</p>
+    
+    <p class="paragraph">At Isaiah 48:17, 18, Jehovah declares: "I, Jehovah, am your God, the One teaching you to benefit yourself, the One guiding you in the way you should walk. If only you would pay attention to my commandments! Then your peace would become just like a river and your righteousness like the waves of the sea."</p>
+    
+    <p class="paragraph">Jehovah doesn't ask us to change simply to make our lives more difficult. He teaches us <span class="emphasis">"to benefit"</span> ourselves. When we follow his guidance, we experience peace like a flowing river and righteousness as abundant as ocean waves.</p>
+    
+    <p class="question">But what about those who claim they're already good enough?</p>
+    
+    <p class="paragraph">What about those who say, "I'm a good person. I help others, donate to charity, and try to live morally. Isn't that enough?" Jesus addressed this very attitude at Matthew 7:21-23, warning that not everyone saying 'Lord, Lord' will enter God's Kingdom—only those doing the Father's will. Many will claim they did powerful works in Jesus' name, but he will declare: "I never knew you!"</p>
+    
+    <div class="illustration">
+        <p><strong>Consider this illustration:</strong> Imagine parents who hire a babysitter with simple instructions: "Take care of our children. Feed them, make sure they are clean, and keep them from harm." When they return, they find their children hungry, dirty, and crying while the babysitter is washing windows. When questioned, she proudly points to her work: "Look at all I did! The windows are spotless!" The parents would be furious. They never asked her to wash windows—they wanted their children cared for.</p>
+    </div>
+    
+    <p class="paragraph">Similarly, God isn't impressed with good works that ignore his specific instructions about what he wants us to do. Now, let's consider what Jehovah specifically expects from those who are genuine doers of his Word.</p>
 
-        <div class="section">
-            <div class="section-title">
-                Doers of the Word Share the Kingdom Message with Others
-                <span class="time-indicator">8 min.</span>
-            </div>
-            <p>What was Jesus' primary mission during his earthly ministry? When questioned by Pilate at John 18:37, Jesus declared: "For this I have been born, and for this I have come into the world, that I should bear witness to the truth."</p>
-            
-            <p>In the synagogue at Nazareth, he applied Isaiah's prophecy to himself, as recorded at Luke 4:18-21: "Jehovah's spirit is upon me, because he anointed me to declare good news to the poor. He sent me to proclaim liberty to the captives and a recovery of sight to the blind, to send the crushed ones away free, to preach Jehovah's acceptable year."</p>
-            
-            <p>How did Jesus spend his time throughout his ministry?</p>
-            
-            <div class="scripture-quote">
-                <strong class="scripture-reference-inline">[Read Matthew 9:35-38]</strong> "And Jesus set out on a tour of all the cities and villages, teaching in their synagogues and preaching the good news of the Kingdom and curing every sort of disease and every sort of infirmity. On seeing the crowds, he felt pity for them, because they were skinned and thrown about like sheep without a shepherd. Then he said to his disciples: 'Yes, the harvest is great, but the workers are few. Therefore, beg the Master of the harvest to send out workers into his harvest.'"
-            </div>
-            
-            <p>Jesus didn't limit his ministry to a single location. He toured cities and villages, consistently teaching and preaching. His compassion for people motivated him to seek more workers for the spiritual harvest.</p>
-            
-            <p>Did Jesus intend for the preaching work to end with his earthly ministry? Jesus didn't intend for the preaching work to end with his earthly ministry. At Matthew 10:5-7, he sent out his twelve apostles with clear instructions to go to the lost sheep of Israel and preach that the Kingdom had drawn near.</p>
-            
-            <p>Later, he expanded this commission at Matthew 28:19, 20, commanding them to "go, therefore, and make disciples of people of all the nations, baptizing them in the name of the Father and of the Son and of the holy spirit, teaching them to observe all the things I have commanded you."</p>
-            
-            <p>How seriously did the early Christians take this commission? The early Christians took this commission seriously. Even while under house arrest in Rome, Paul continued "preaching the Kingdom of God" with "the greatest freeness of speech, without hindrance," as recorded at Acts 28:30, 31.</p>
-            
-            <p>At Acts 1:8, Jesus had promised they would be witnesses "both in Jerusalem and in all Judea and Samaria and to the most distant part of the earth." Ten days later, at Pentecost, about 120 disciples received holy spirit and began speaking about God's magnificent things. About 3,000 were baptized that day, and soon the disciples had 'filled Jerusalem with their teaching.'</p>
-            
-            <p>Why do some respond favorably to the Kingdom message while others don't?</p>
-            
-            <div class="scripture-quote">
-                <strong class="scripture-reference-inline">[Read Matthew 13:18-23]</strong> Jesus explained why some respond to the Kingdom message while others don't through his parable of the sower. He described four types of soil representing different responses to God's Word. Those represented by the "fine soil" are described as hearing the word, getting the sense of it, and bearing fruit—producing 30, 60, or even 100 times more.
-            </div>
-            
-            <p>What does it mean to "bear fruit"? Those who truly understand the Kingdom message don't keep it to themselves. They become Kingdom proclaimers, sharing the good news with others.</p>
-            
-            <p>How urgent is this preaching work in our day? Paul emphasizes at Romans 10:13-15 the vital role of preachers: "For 'everyone who calls on the name of Jehovah will be saved.' However, how will they call on him if they have not put faith in him? How will they put faith in him about whom they have not heard? How will they hear without someone to preach?"</p>
-            
-            <p>Today, Jehovah's Witnesses are actively fulfilling this commission worldwide. John's vision at Revelation 14:14-16 shows Jesus with a crown and sharp sickle, ready to reap the earth's harvest. Since John's vision shows Jesus wearing a crown, his appointment as King in 1914 had already taken place. The harvest season began in 1914, with the actual harvesting beginning in 1919. This global harvest work is more urgent than ever before—<span class="emphasis">"the harvest of the earth is fully ripe."</span></p>
-        </div>
+    <div class="section-heading">Doers Of The Word Share The Kingdom Message With Others <span class="time-indicator">(8 min.)</span></div>
+    
+    <p class="paragraph">When questioned by Pilate at John 18:37, Jesus declared: "For this I have been born, and for this I have come into the world, that I should bear witness to the truth." In the synagogue at Nazareth, he applied Isaiah's prophecy to himself, as recorded at Luke 4:18-21: "Jehovah's spirit is upon me, because he anointed me to declare good news to the poor. He sent me to proclaim liberty to the captives and a recovery of sight to the blind, to send the crushed ones away free, to preach Jehovah's acceptable year."</p>
+    
+    <p class="question">How did Jesus spend his time throughout his ministry?</p>
+    
+    <div class="scripture-quote">
+        <div class="scripture-intro">[Read Matthew 9:35-38]</div>
+        "And Jesus set out on a tour of all the cities and villages, teaching in their synagogues and preaching the good news of the Kingdom and curing every sort of disease and every sort of infirmity. On seeing the crowds, he felt pity for them, because they were skinned and thrown about like sheep without a shepherd. Then he said to his disciples: 'Yes, the harvest is great, but the workers are few. Therefore, beg the Master of the harvest to send out workers into his harvest.'"
+    </div>
+    
+    <p class="paragraph">Jesus didn't limit his ministry to a single location. He toured cities and villages, consistently teaching and preaching. His compassion for people motivated him to seek more workers for the spiritual harvest.</p>
+    
+    <p class="paragraph">Jesus didn't intend for the preaching work to end with his earthly ministry. At Matthew 10:5-7, he sent out his twelve apostles with clear instructions to go to the lost sheep of Israel and preach that the Kingdom had drawn near. Later, he expanded this commission at Matthew 28:19, 20, commanding them to "go, therefore, and make disciples of people of all the nations, baptizing them in the name of the Father and of the Son and of the holy spirit, teaching them to observe all the things I have commanded you."</p>
+    
+    <p class="paragraph">The early Christians took this commission seriously. Even while under house arrest in Rome, Paul continued "preaching the Kingdom of God" with "the greatest freeness of speech, without hindrance," as recorded at Acts 28:30, 31. At Acts 1:8, Jesus had promised they would be witnesses "both in Jerusalem and in all Judea and Samaria and to the most distant part of the earth." Ten days later, at Pentecost, about 120 disciples received holy spirit and began speaking about God's magnificent things. About 3,000 were baptized that day, and soon the disciples had 'filled Jerusalem with their teaching.'</p>
+    
+    <p class="question">Why do some respond favorably to the Kingdom message while others don't?</p>
+    
+    <div class="scripture-quote">
+        <div class="scripture-intro">[Read Matthew 13:18-23]</div>
+        Here Jesus explained the reason why through his parable of the sower. He described four types of soil representing different responses to God's Word. Those represented by the "fine soil" are described as hearing the word, getting the sense of it, and bearing fruit—producing 30, 60, or even 100 times more.
+    </div>
+    
+    <p class="question">What does it mean to "bear fruit"?</p>
+    
+    <p class="paragraph">Those who truly understand the Kingdom message don't keep it to themselves. They become Kingdom proclaimers, sharing the good news with others. Paul emphasizes at Romans 10:13-15 the vital role of preachers: "For 'everyone who calls on the name of Jehovah will be saved.' However, how will they call on him if they have not put faith in him? How will they put faith in him about whom they have not heard? How will they hear without someone to preach?"</p>
+    
+    <p class="paragraph">Today, Jehovah's Witnesses are actively fulfilling this commission worldwide. John's vision at Revelation 14:14-16 shows Jesus with a crown and sharp sickle, ready to reap the earth's harvest. Since John's vision shows Jesus wearing a crown, his appointment as King in 1914 had already taken place. The harvest season began in 1914, with the actual harvesting beginning in 1919. This global harvest work is more urgent than ever before—"the harvest of the earth is fully ripe."</p>
+    
+    <p class="paragraph">Given the urgency of these times, we need to examine how we can maintain our effectiveness as both hearers and doers.</p>
 
-        <div class="section">
-            <div class="section-title">
-                "Pay Attention to How You Listen"
-                <span class="time-indicator">6 min.</span>
-            </div>
-            <p>Is it possible for even committed Christians to fall into spiritual complacency? Even committed Christians can fall into spiritual complacency. At James 1:22-24, James warns about becoming "hearers only," deceiving ourselves with false reasoning. He compares such a person to someone looking in a mirror who immediately forgets what sort of person he is.</p>
-            
-            <p>The danger is self-deception—thinking we're spiritually healthy when we're actually stagnating. At Hebrews 5:11, Paul warned Hebrew Christians they had become "dull in their hearing."</p>
-            
-            <p>How can we prevent this? We must pay attention to how we listen.</p>
-            
-            <p>How does Jehovah provide for our spiritual welfare through his organization?</p>
-            
-            <div class="scripture-quote">
-                <strong class="scripture-reference-inline">[Read Matthew 24:45-47]</strong> Jesus foretold that he would use "the faithful and discreet slave" to provide spiritual food at the proper time. The Watchtower explains that this faithful slave is the channel through which Jesus feeds his true followers in this time of the end. Our spiritual health and relationship with God depend on recognizing this channel.
-            </div>
-            
-            <p>Take full advantage of the spiritual provisions Jehovah provides through his organization: Christian meetings that build faith, Bible-based publications that help us understand God's Word, circuit assemblies and conventions that strengthen our resolve, and theocratic education programs.</p>
-            
-            <p>What about our personal spiritual routine? At 2 Timothy 3:14-17, Paul reminded Timothy that "all Scripture is inspired of God and beneficial for teaching, for reproving, for setting things straight, for disciplining in righteousness, so that the man of God may be fully competent, completely equipped for every good work."</p>
-            
-            <p>Cultivate a regular program of personal Bible study and family worship. Don't let busy schedules crowd out time for spiritual feeding.</p>
-            
-            <div class="scripture-quote">
-                <strong class="scripture-reference-inline">[Read Luke 8:18]</strong> Jesus warned: "Therefore, pay attention to how you listen, for whoever has will be given more, but whoever does not have, even what he imagines he has will be taken away from him."
-            </div>
-            
-            <p>This is both a promise and a warning. Those who actively listen and apply what they learn will receive even more understanding. But those who become careless listeners risk losing even what they think they have.</p>
-        </div>
+    <div class="section-heading">"Pay Attention To How You Listen" <span class="time-indicator">(6 min.)</span></div>
+    
+    <p class="paragraph">Even committed Christians can fall into spiritual complacency. At James 1:22-24, James warns about becoming "hearers only," deceiving ourselves with false reasoning. He compares such a person to someone looking in a mirror who immediately forgets what sort of person he is. The danger is self-inflicting—thinking we're spiritually healthy when we're actually stagnating.</p>
+    
+    <p class="paragraph">At Hebrews 5:11, Paul warned Hebrew Christians they had become "dull in their hearing."</p>
+    
+    <p class="question">How can we prevent this?</p>
+    <p class="paragraph">We must pay attention to how we listen.</p>
+    
+    <div class="scripture-quote">
+        <div class="scripture-intro">[Read Matthew 24:45-47]</div>
+        Jesus foretold that he would use "the faithful and discreet slave" to provide spiritual food at the proper time. The Watchtower explains that this faithful slave is the channel through which Jesus feeds his true followers in this time of the end. Our spiritual health and relationship with God depend on recognizing this channel.
+    </div>
+    
+    <p class="paragraph">Take full advantage of the spiritual provisions Jehovah provides through his organization: Christian meetings that build faith, Bible-based publications that help us understand God's Word, circuit assemblies and conventions that strengthen our resolve, and theocratic education programs.</p>
+    
+    <p class="paragraph">At 2 Timothy 3:14-17, Paul reminded Timothy that "all Scripture is inspired of God and beneficial for teaching, for reproving, for setting things straight, for disciplining in righteousness, so that the man of God may be fully competent, completely equipped for every good work."</p>
+    
+    <p class="paragraph">Cultivate a regular program of personal Bible study and family worship. Don't let busy schedules crowd out time for spiritual feeding.</p>
+    
+    <div class="scripture-quote">
+        <div class="scripture-intro">[In Luke 8:18]</div>
+        Jesus warned: "Therefore, pay attention to how you listen, for whoever has will be given more, but whoever does not have, even what he imagines he has will be taken away from him."
+    </div>
+    
+    <p class="paragraph">This is both a promise and a warning. Those who actively listen and apply what they learn will receive even more understanding. But those who become careless listeners risk losing even what they think they have.</p>
+    
+    <p class="question">What results can we expect when we faithfully apply these principles?</p>
 
-        <div class="section">
-            <div class="section-title">
-                Those Who Apply God's Word Will Be Blessed
-                <span class="time-indicator">3 min.</span>
-            </div>
-            <p>What two paths are before all people today? At Matthew 7:13, 14, Jesus described two very different outcomes: the broad gate and spacious road leading to destruction that many enter, versus the narrow gate and cramped road leading to life that few find.</p>
-            
-            <p>What kind of foundation should we build our lives upon? Jesus concluded his Sermon on the Mount with a powerful illustration at Matthew 7:24: "Therefore, everyone who hears these sayings of mine and does them will be like a discreet man who built his house on the rock."</p>
-            
-            <p>Notice that Jesus didn't promise blessings for those who merely hear his sayings, but for those who do them. When life's storms come, only those who have built their lives on the solid foundation of obedience to God's Word will remain standing.</p>
-            
-            <p>What blessings do those who apply God's Word experience? Those who apply God's Word experience blessings even now: accurate knowledge of Bible truth, release from harmful habits, happy family life based on Bible principles, assurance that world problems will be solved through God's Kingdom, meaningful work in proclaiming the Kingdom message, personal relationship with Jehovah, and hope of seeing dead loved ones again in the resurrection.</p>
-            
-            <p>But the greatest blessing lies ahead—the prospect of life everlasting in God's righteous new world.</p>
-        </div>
+    <div class="section-heading">Those Who Apply God's Word Will Be Blessed <span class="time-indicator">(3 min.)</span></div>
+    
+    <p class="paragraph">At Matthew 7:13, 14, Jesus described two very different outcomes: the broad gate and spacious road leading to destruction that many enter, versus the narrow gate and cramped road leading to life that few find.</p>
+    
+    <p class="paragraph">Jesus concluded his Sermon on the Mount with a powerful illustration at Matthew 7:24: "Therefore, everyone who hears these sayings of mine and does them will be like a discreet man who built his house on the rock."</p>
+    
+    <p class="paragraph">Notice that Jesus didn't promise blessings for those who merely hear his sayings, but for those who <span class="emphasis">do them</span>. When life's storms come, only those who have built their lives on the solid foundation of obedience to God's Word will remain standing.</p>
+    
+    <p class="question">What blessings do those who apply God's Word experience?</p>
+    
+    <p class="paragraph">Those who apply God's Word experience blessings even now: accurate knowledge of Bible truth, release from harmful habits, happy family life based on Bible principles, assurance that world problems will be solved through God's Kingdom, meaningful work in proclaiming the Kingdom message, personal relationship with Jehovah, and hope of seeing dead loved ones again in the resurrection.</p>
+    
+    <p class="paragraph">But the greatest blessing lies ahead—the prospect of life everlasting in God's righteous new world.</p>
 
-        <div class="section conclusion">
-            <div class="section-title">
-                Conclusion
-                <span class="time-indicator">2 min.</span>
-            </div>
-            <p>Brothers and sisters, we live in remarkable times. Never before has the Kingdom message been proclaimed so extensively throughout the earth. The harvest work that Jesus foretold is being accomplished on an unprecedented scale.</p>
-            
-            <p>But simply being aware of these events isn't enough. Jesus repeatedly emphasized the need to listen—to really listen—to God's Word. And once we've heard and understood, we must act. We must become doers of the Word, not hearers only.</p>
-            
-            <p>The choice before each of us is clear. We can continue on the broad road that leads to destruction, or we can choose the narrow gate that leads to life. We can be like the person who glances in a mirror and immediately forgets what they look like, or we can be like the wise man who builds his house upon the rock.</p>
-            
-            <p>May all of us resolve to be both hearers and doers of God's Word. As we do so, we'll experience Jehovah's rich blessings now and have the wonderful hope of life everlasting in his righteous new world.</p>
-            
-            <p><span class="emphasis">Let us truly have ears to listen and hearts ready to obey.</span></p>
-        </div>
+    <div class="conclusion">
+        <div class="section-heading">Conclusion <span class="time-indicator">(2 min.)</span></div>
+        
+        <p class="paragraph">Brothers and sisters, we live in remarkable times. Never before has the Kingdom message been proclaimed so extensively throughout the earth. The harvest work that Jesus foretold is being accomplished on an unprecedented scale.</p>
+        
+        <p class="paragraph">But simply being aware of these events isn't enough. Jesus repeatedly emphasized the need to listen—to really listen—to God's Word. And once we've heard and understood, we must act. We must become doers of the Word, not hearers only.</p>
+        
+        <p class="paragraph">The choice before each of us is clear. We can continue on the broad road that leads to destruction, or we can choose the narrow gate that leads to life. We can be like the person who glances in a mirror and immediately forgets what they look like, or we can be like the wise man who builds his house upon the rock.</p>
+        
+        <p class="paragraph"><span class="emphasis">May all of us resolve to be both hearers and doers of God's Word. As we do so, we'll experience Jehovah's rich blessings now and have the wonderful hope of life everlasting in his righteous new world. Let us truly have ears to listen and hearts ready to obey.</span></p>
     </div>
 </body>
 </html>
