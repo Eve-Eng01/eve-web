@@ -15,6 +15,7 @@ interface PricingOption {
   isSelected: boolean;
   rate: string;
   currency: string;
+  fee: string
 }
 
 export function ServiceThree({continue: handleContinue, back: handleGoBack}: ServiceOneProps) {
@@ -25,7 +26,8 @@ export function ServiceThree({continue: handleContinue, back: handleGoBack}: Ser
       description: 'Charge clients based on time spent working.',
       isSelected: true,
       rate: '10,000',
-      currency: 'NGN'
+      currency: 'NGN',
+      fee: "/ hr"
     },
     {
       id: 'minimum',
@@ -33,7 +35,8 @@ export function ServiceThree({continue: handleContinue, back: handleGoBack}: Ser
       description: 'The minimum amount you\'re willing to accept.',
       isSelected: false,
       rate: '0.0',
-      currency: 'NGN'
+      currency: 'NGN',
+      fee: "/ project"
     },
     {
       id: 'package',
@@ -41,7 +44,8 @@ export function ServiceThree({continue: handleContinue, back: handleGoBack}: Ser
       description: 'Offer services as fixed-price packages.',
       isSelected: false,
       rate: '0.0',
-      currency: 'NGN'
+      currency: 'NGN',
+      fee: "/ package"
     }
   ]);
 
@@ -138,7 +142,7 @@ export function ServiceThree({continue: handleContinue, back: handleGoBack}: Ser
 
                 <div className="flex items-center space-x-2">
                   <div className="flex items-center bg-white border border-gray-300 rounded-md overflow-hidden">
-                    <div className={`flex items-center px-3 py-2 ${currencyDisplay.bgColor} text-white`}>
+                    <div className={`flex items-center px-3 py-2 bg-[#F4F4F4] text-black`}>
                       <span className="text-white mr-1">{currencyDisplay.flag}</span>
                       <select
                         value={option.currency}
@@ -163,7 +167,7 @@ export function ServiceThree({continue: handleContinue, back: handleGoBack}: Ser
                     </div>
                     <input
                       type="text"
-                      readOnly
+                      // readOnly
                       value={option.rate}
                       onChange={(e) => updateRate(option.id, e.target.value)}
                       className={`px-3 py-2 text-right text-sm font-medium outline-none w-24 ${
@@ -174,7 +178,7 @@ export function ServiceThree({continue: handleContinue, back: handleGoBack}: Ser
                     <span className={`px-2 text-sm ${
                       option.isSelected ? 'text-purple-600' : 'text-gray-400'
                     }`}>
-                      / hr
+                      {option.fee}
                     </span>
                   </div>
                 </div>

@@ -13,6 +13,7 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedProtectedRouteRouteImport } from './routes/_authenticated/protected-route'
+import { Route as PagesLayoutRouteImport } from './routes/Pages/Layout'
 import { Route as OnboardingOnboardingRouteImport } from './routes/Onboarding/onboarding'
 import { Route as OnboardingServicesRouteImport } from './routes/Onboarding/Services'
 import { Route as OnboardingServiceVendorRouteImport } from './routes/Onboarding/ServiceVendor'
@@ -20,13 +21,17 @@ import { Route as AuthenticationSignUpRouteImport } from './routes/Authenticatio
 import { Route as AuthenticationSignInRouteImport } from './routes/Authentication/SignIn'
 import { Route as AuthenticationOtpVerificationRouteImport } from './routes/Authentication/OtpVerification'
 import { Route as AccessoriesUploadRouteImport } from './routes/Accessories/Upload'
+import { Route as AccessoriesSuccessPageRouteImport } from './routes/Accessories/SuccessPage'
 import { Route as AccessoriesButtonRouteImport } from './routes/Accessories/Button'
+import { Route as OnboardingVendorSubserviceTwoRouteImport } from './routes/Onboarding/VendorSubservice/Two'
+import { Route as OnboardingVendorSubserviceThreeRouteImport } from './routes/Onboarding/VendorSubservice/Three'
 import { Route as OnboardingSubServicesTwoRouteImport } from './routes/Onboarding/SubServices/two'
 import { Route as OnboardingSubServicesThreeRouteImport } from './routes/Onboarding/SubServices/three'
 import { Route as OnboardingSubServicesOneRouteImport } from './routes/Onboarding/SubServices/one'
 import { Route as OnboardingSubServicesFourRouteImport } from './routes/Onboarding/SubServices/four'
 import { Route as OnboardingSubServicesFiveRouteImport } from './routes/Onboarding/SubServices/five'
 import { Route as OnboardingSubServicesUploadFormModalRouteImport } from './routes/Onboarding/SubServices/UploadFormModal'
+import { Route as OnboardingSubServicesReviewRouteImport } from './routes/Onboarding/SubServices/Review'
 import { Route as AuthenticationForgetPasswordForgetPassOtpRouteImport } from './routes/Authentication/ForgetPassword/ForgetPassOtp'
 import { Route as AuthenticationForgetPasswordForgetPassRouteImport } from './routes/Authentication/ForgetPassword/ForgetPass'
 
@@ -50,6 +55,11 @@ const AuthenticatedProtectedRouteRoute =
     path: '/protected-route',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
+const PagesLayoutRoute = PagesLayoutRouteImport.update({
+  id: '/Pages/Layout',
+  path: '/Pages/Layout',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const OnboardingOnboardingRoute = OnboardingOnboardingRouteImport.update({
   id: '/Onboarding/onboarding',
   path: '/Onboarding/onboarding',
@@ -86,11 +96,28 @@ const AccessoriesUploadRoute = AccessoriesUploadRouteImport.update({
   path: '/Accessories/Upload',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AccessoriesSuccessPageRoute = AccessoriesSuccessPageRouteImport.update({
+  id: '/Accessories/SuccessPage',
+  path: '/Accessories/SuccessPage',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AccessoriesButtonRoute = AccessoriesButtonRouteImport.update({
   id: '/Accessories/Button',
   path: '/Accessories/Button',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OnboardingVendorSubserviceTwoRoute =
+  OnboardingVendorSubserviceTwoRouteImport.update({
+    id: '/Onboarding/VendorSubservice/Two',
+    path: '/Onboarding/VendorSubservice/Two',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const OnboardingVendorSubserviceThreeRoute =
+  OnboardingVendorSubserviceThreeRouteImport.update({
+    id: '/Onboarding/VendorSubservice/Three',
+    path: '/Onboarding/VendorSubservice/Three',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const OnboardingSubServicesTwoRoute =
   OnboardingSubServicesTwoRouteImport.update({
     id: '/Onboarding/SubServices/two',
@@ -127,6 +154,12 @@ const OnboardingSubServicesUploadFormModalRoute =
     path: '/Onboarding/SubServices/UploadFormModal',
     getParentRoute: () => rootRouteImport,
   } as any)
+const OnboardingSubServicesReviewRoute =
+  OnboardingSubServicesReviewRouteImport.update({
+    id: '/Onboarding/SubServices/Review',
+    path: '/Onboarding/SubServices/Review',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const AuthenticationForgetPasswordForgetPassOtpRoute =
   AuthenticationForgetPasswordForgetPassOtpRouteImport.update({
     id: '/Authentication/ForgetPassword/ForgetPassOtp',
@@ -144,6 +177,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/Accessories/Button': typeof AccessoriesButtonRoute
+  '/Accessories/SuccessPage': typeof AccessoriesSuccessPageRoute
   '/Accessories/Upload': typeof AccessoriesUploadRoute
   '/Authentication/OtpVerification': typeof AuthenticationOtpVerificationRoute
   '/Authentication/SignIn': typeof AuthenticationSignInRoute
@@ -151,20 +185,25 @@ export interface FileRoutesByFullPath {
   '/Onboarding/ServiceVendor': typeof OnboardingServiceVendorRoute
   '/Onboarding/Services': typeof OnboardingServicesRoute
   '/Onboarding/onboarding': typeof OnboardingOnboardingRoute
+  '/Pages/Layout': typeof PagesLayoutRoute
   '/protected-route': typeof AuthenticatedProtectedRouteRoute
   '/Authentication/ForgetPassword/ForgetPass': typeof AuthenticationForgetPasswordForgetPassRoute
   '/Authentication/ForgetPassword/ForgetPassOtp': typeof AuthenticationForgetPasswordForgetPassOtpRoute
+  '/Onboarding/SubServices/Review': typeof OnboardingSubServicesReviewRoute
   '/Onboarding/SubServices/UploadFormModal': typeof OnboardingSubServicesUploadFormModalRoute
   '/Onboarding/SubServices/five': typeof OnboardingSubServicesFiveRoute
   '/Onboarding/SubServices/four': typeof OnboardingSubServicesFourRoute
   '/Onboarding/SubServices/one': typeof OnboardingSubServicesOneRoute
   '/Onboarding/SubServices/three': typeof OnboardingSubServicesThreeRoute
   '/Onboarding/SubServices/two': typeof OnboardingSubServicesTwoRoute
+  '/Onboarding/VendorSubservice/Three': typeof OnboardingVendorSubserviceThreeRoute
+  '/Onboarding/VendorSubservice/Two': typeof OnboardingVendorSubserviceTwoRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/Accessories/Button': typeof AccessoriesButtonRoute
+  '/Accessories/SuccessPage': typeof AccessoriesSuccessPageRoute
   '/Accessories/Upload': typeof AccessoriesUploadRoute
   '/Authentication/OtpVerification': typeof AuthenticationOtpVerificationRoute
   '/Authentication/SignIn': typeof AuthenticationSignInRoute
@@ -172,15 +211,19 @@ export interface FileRoutesByTo {
   '/Onboarding/ServiceVendor': typeof OnboardingServiceVendorRoute
   '/Onboarding/Services': typeof OnboardingServicesRoute
   '/Onboarding/onboarding': typeof OnboardingOnboardingRoute
+  '/Pages/Layout': typeof PagesLayoutRoute
   '/protected-route': typeof AuthenticatedProtectedRouteRoute
   '/Authentication/ForgetPassword/ForgetPass': typeof AuthenticationForgetPasswordForgetPassRoute
   '/Authentication/ForgetPassword/ForgetPassOtp': typeof AuthenticationForgetPasswordForgetPassOtpRoute
+  '/Onboarding/SubServices/Review': typeof OnboardingSubServicesReviewRoute
   '/Onboarding/SubServices/UploadFormModal': typeof OnboardingSubServicesUploadFormModalRoute
   '/Onboarding/SubServices/five': typeof OnboardingSubServicesFiveRoute
   '/Onboarding/SubServices/four': typeof OnboardingSubServicesFourRoute
   '/Onboarding/SubServices/one': typeof OnboardingSubServicesOneRoute
   '/Onboarding/SubServices/three': typeof OnboardingSubServicesThreeRoute
   '/Onboarding/SubServices/two': typeof OnboardingSubServicesTwoRoute
+  '/Onboarding/VendorSubservice/Three': typeof OnboardingVendorSubserviceThreeRoute
+  '/Onboarding/VendorSubservice/Two': typeof OnboardingVendorSubserviceTwoRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -188,6 +231,7 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteWithChildren
   '/about': typeof AboutRoute
   '/Accessories/Button': typeof AccessoriesButtonRoute
+  '/Accessories/SuccessPage': typeof AccessoriesSuccessPageRoute
   '/Accessories/Upload': typeof AccessoriesUploadRoute
   '/Authentication/OtpVerification': typeof AuthenticationOtpVerificationRoute
   '/Authentication/SignIn': typeof AuthenticationSignInRoute
@@ -195,15 +239,19 @@ export interface FileRoutesById {
   '/Onboarding/ServiceVendor': typeof OnboardingServiceVendorRoute
   '/Onboarding/Services': typeof OnboardingServicesRoute
   '/Onboarding/onboarding': typeof OnboardingOnboardingRoute
+  '/Pages/Layout': typeof PagesLayoutRoute
   '/_authenticated/protected-route': typeof AuthenticatedProtectedRouteRoute
   '/Authentication/ForgetPassword/ForgetPass': typeof AuthenticationForgetPasswordForgetPassRoute
   '/Authentication/ForgetPassword/ForgetPassOtp': typeof AuthenticationForgetPasswordForgetPassOtpRoute
+  '/Onboarding/SubServices/Review': typeof OnboardingSubServicesReviewRoute
   '/Onboarding/SubServices/UploadFormModal': typeof OnboardingSubServicesUploadFormModalRoute
   '/Onboarding/SubServices/five': typeof OnboardingSubServicesFiveRoute
   '/Onboarding/SubServices/four': typeof OnboardingSubServicesFourRoute
   '/Onboarding/SubServices/one': typeof OnboardingSubServicesOneRoute
   '/Onboarding/SubServices/three': typeof OnboardingSubServicesThreeRoute
   '/Onboarding/SubServices/two': typeof OnboardingSubServicesTwoRoute
+  '/Onboarding/VendorSubservice/Three': typeof OnboardingVendorSubserviceThreeRoute
+  '/Onboarding/VendorSubservice/Two': typeof OnboardingVendorSubserviceTwoRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -211,6 +259,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/Accessories/Button'
+    | '/Accessories/SuccessPage'
     | '/Accessories/Upload'
     | '/Authentication/OtpVerification'
     | '/Authentication/SignIn'
@@ -218,20 +267,25 @@ export interface FileRouteTypes {
     | '/Onboarding/ServiceVendor'
     | '/Onboarding/Services'
     | '/Onboarding/onboarding'
+    | '/Pages/Layout'
     | '/protected-route'
     | '/Authentication/ForgetPassword/ForgetPass'
     | '/Authentication/ForgetPassword/ForgetPassOtp'
+    | '/Onboarding/SubServices/Review'
     | '/Onboarding/SubServices/UploadFormModal'
     | '/Onboarding/SubServices/five'
     | '/Onboarding/SubServices/four'
     | '/Onboarding/SubServices/one'
     | '/Onboarding/SubServices/three'
     | '/Onboarding/SubServices/two'
+    | '/Onboarding/VendorSubservice/Three'
+    | '/Onboarding/VendorSubservice/Two'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
     | '/Accessories/Button'
+    | '/Accessories/SuccessPage'
     | '/Accessories/Upload'
     | '/Authentication/OtpVerification'
     | '/Authentication/SignIn'
@@ -239,21 +293,26 @@ export interface FileRouteTypes {
     | '/Onboarding/ServiceVendor'
     | '/Onboarding/Services'
     | '/Onboarding/onboarding'
+    | '/Pages/Layout'
     | '/protected-route'
     | '/Authentication/ForgetPassword/ForgetPass'
     | '/Authentication/ForgetPassword/ForgetPassOtp'
+    | '/Onboarding/SubServices/Review'
     | '/Onboarding/SubServices/UploadFormModal'
     | '/Onboarding/SubServices/five'
     | '/Onboarding/SubServices/four'
     | '/Onboarding/SubServices/one'
     | '/Onboarding/SubServices/three'
     | '/Onboarding/SubServices/two'
+    | '/Onboarding/VendorSubservice/Three'
+    | '/Onboarding/VendorSubservice/Two'
   id:
     | '__root__'
     | '/'
     | '/_authenticated'
     | '/about'
     | '/Accessories/Button'
+    | '/Accessories/SuccessPage'
     | '/Accessories/Upload'
     | '/Authentication/OtpVerification'
     | '/Authentication/SignIn'
@@ -261,15 +320,19 @@ export interface FileRouteTypes {
     | '/Onboarding/ServiceVendor'
     | '/Onboarding/Services'
     | '/Onboarding/onboarding'
+    | '/Pages/Layout'
     | '/_authenticated/protected-route'
     | '/Authentication/ForgetPassword/ForgetPass'
     | '/Authentication/ForgetPassword/ForgetPassOtp'
+    | '/Onboarding/SubServices/Review'
     | '/Onboarding/SubServices/UploadFormModal'
     | '/Onboarding/SubServices/five'
     | '/Onboarding/SubServices/four'
     | '/Onboarding/SubServices/one'
     | '/Onboarding/SubServices/three'
     | '/Onboarding/SubServices/two'
+    | '/Onboarding/VendorSubservice/Three'
+    | '/Onboarding/VendorSubservice/Two'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -277,6 +340,7 @@ export interface RootRouteChildren {
   AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
   AboutRoute: typeof AboutRoute
   AccessoriesButtonRoute: typeof AccessoriesButtonRoute
+  AccessoriesSuccessPageRoute: typeof AccessoriesSuccessPageRoute
   AccessoriesUploadRoute: typeof AccessoriesUploadRoute
   AuthenticationOtpVerificationRoute: typeof AuthenticationOtpVerificationRoute
   AuthenticationSignInRoute: typeof AuthenticationSignInRoute
@@ -284,14 +348,18 @@ export interface RootRouteChildren {
   OnboardingServiceVendorRoute: typeof OnboardingServiceVendorRoute
   OnboardingServicesRoute: typeof OnboardingServicesRoute
   OnboardingOnboardingRoute: typeof OnboardingOnboardingRoute
+  PagesLayoutRoute: typeof PagesLayoutRoute
   AuthenticationForgetPasswordForgetPassRoute: typeof AuthenticationForgetPasswordForgetPassRoute
   AuthenticationForgetPasswordForgetPassOtpRoute: typeof AuthenticationForgetPasswordForgetPassOtpRoute
+  OnboardingSubServicesReviewRoute: typeof OnboardingSubServicesReviewRoute
   OnboardingSubServicesUploadFormModalRoute: typeof OnboardingSubServicesUploadFormModalRoute
   OnboardingSubServicesFiveRoute: typeof OnboardingSubServicesFiveRoute
   OnboardingSubServicesFourRoute: typeof OnboardingSubServicesFourRoute
   OnboardingSubServicesOneRoute: typeof OnboardingSubServicesOneRoute
   OnboardingSubServicesThreeRoute: typeof OnboardingSubServicesThreeRoute
   OnboardingSubServicesTwoRoute: typeof OnboardingSubServicesTwoRoute
+  OnboardingVendorSubserviceThreeRoute: typeof OnboardingVendorSubserviceThreeRoute
+  OnboardingVendorSubserviceTwoRoute: typeof OnboardingVendorSubserviceTwoRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -323,6 +391,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/protected-route'
       preLoaderRoute: typeof AuthenticatedProtectedRouteRouteImport
       parentRoute: typeof AuthenticatedRoute
+    }
+    '/Pages/Layout': {
+      id: '/Pages/Layout'
+      path: '/Pages/Layout'
+      fullPath: '/Pages/Layout'
+      preLoaderRoute: typeof PagesLayoutRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/Onboarding/onboarding': {
       id: '/Onboarding/onboarding'
@@ -373,11 +448,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AccessoriesUploadRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/Accessories/SuccessPage': {
+      id: '/Accessories/SuccessPage'
+      path: '/Accessories/SuccessPage'
+      fullPath: '/Accessories/SuccessPage'
+      preLoaderRoute: typeof AccessoriesSuccessPageRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/Accessories/Button': {
       id: '/Accessories/Button'
       path: '/Accessories/Button'
       fullPath: '/Accessories/Button'
       preLoaderRoute: typeof AccessoriesButtonRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/Onboarding/VendorSubservice/Two': {
+      id: '/Onboarding/VendorSubservice/Two'
+      path: '/Onboarding/VendorSubservice/Two'
+      fullPath: '/Onboarding/VendorSubservice/Two'
+      preLoaderRoute: typeof OnboardingVendorSubserviceTwoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/Onboarding/VendorSubservice/Three': {
+      id: '/Onboarding/VendorSubservice/Three'
+      path: '/Onboarding/VendorSubservice/Three'
+      fullPath: '/Onboarding/VendorSubservice/Three'
+      preLoaderRoute: typeof OnboardingVendorSubserviceThreeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/Onboarding/SubServices/two': {
@@ -422,6 +518,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OnboardingSubServicesUploadFormModalRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/Onboarding/SubServices/Review': {
+      id: '/Onboarding/SubServices/Review'
+      path: '/Onboarding/SubServices/Review'
+      fullPath: '/Onboarding/SubServices/Review'
+      preLoaderRoute: typeof OnboardingSubServicesReviewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/Authentication/ForgetPassword/ForgetPassOtp': {
       id: '/Authentication/ForgetPassword/ForgetPassOtp'
       path: '/Authentication/ForgetPassword/ForgetPassOtp'
@@ -456,6 +559,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRoute: AuthenticatedRouteWithChildren,
   AboutRoute: AboutRoute,
   AccessoriesButtonRoute: AccessoriesButtonRoute,
+  AccessoriesSuccessPageRoute: AccessoriesSuccessPageRoute,
   AccessoriesUploadRoute: AccessoriesUploadRoute,
   AuthenticationOtpVerificationRoute: AuthenticationOtpVerificationRoute,
   AuthenticationSignInRoute: AuthenticationSignInRoute,
@@ -463,10 +567,12 @@ const rootRouteChildren: RootRouteChildren = {
   OnboardingServiceVendorRoute: OnboardingServiceVendorRoute,
   OnboardingServicesRoute: OnboardingServicesRoute,
   OnboardingOnboardingRoute: OnboardingOnboardingRoute,
+  PagesLayoutRoute: PagesLayoutRoute,
   AuthenticationForgetPasswordForgetPassRoute:
     AuthenticationForgetPasswordForgetPassRoute,
   AuthenticationForgetPasswordForgetPassOtpRoute:
     AuthenticationForgetPasswordForgetPassOtpRoute,
+  OnboardingSubServicesReviewRoute: OnboardingSubServicesReviewRoute,
   OnboardingSubServicesUploadFormModalRoute:
     OnboardingSubServicesUploadFormModalRoute,
   OnboardingSubServicesFiveRoute: OnboardingSubServicesFiveRoute,
@@ -474,6 +580,8 @@ const rootRouteChildren: RootRouteChildren = {
   OnboardingSubServicesOneRoute: OnboardingSubServicesOneRoute,
   OnboardingSubServicesThreeRoute: OnboardingSubServicesThreeRoute,
   OnboardingSubServicesTwoRoute: OnboardingSubServicesTwoRoute,
+  OnboardingVendorSubserviceThreeRoute: OnboardingVendorSubserviceThreeRoute,
+  OnboardingVendorSubserviceTwoRoute: OnboardingVendorSubserviceTwoRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

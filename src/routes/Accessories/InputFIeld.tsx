@@ -18,7 +18,7 @@ export const InputField: React.FC<InputFieldProps> = ({
   className = "",
 }) => {
   return (
-    <div className="w-full">
+    <div className="w-full mb-[30px]">
       {label && <label className="block text-gray-600 text-sm mb-2 font-medium">{label}</label>}
       <input
         type={type}

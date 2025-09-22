@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import React, { useState } from "react";
 import logo from "../../assets/evaLogo.png";
 import bottom from "../../assets/onBoarding/bottom.png";
@@ -10,26 +10,27 @@ import CountryList from "country-list-with-dial-code-and-flag";
 import { ServiceOne } from "./SubServices/one";
 import { ServiceTwo } from "./SubServices/two";
 import { ServiceThree } from "./SubServices/three";
+import { ServiceFour } from "./SubServices/four";
 
 // Type definitions
-interface DropdownOption {
+export interface DropdownOption {
   value: string;
   label: string;
 }
 
-interface Country {
+export interface Country {
   name: string;
   code: string;
   dial_code: string;
   flag: string;
 }
 
-interface PhoneData {
+export interface PhoneData {
   country: Country;
   phoneNumber: string;
 }
 
-interface FormData {
+export interface FormData {
   companyName: string;
   businessType: DropdownOption | null;
   phoneData: PhoneData | undefined;
@@ -37,13 +38,13 @@ interface FormData {
 }
 
 // Custom Phone Input Component using DropdownInput
-interface CustomPhoneInputProps {
+export interface CustomPhoneInputProps {
   label?: string;
   value: PhoneData | undefined;
   onChange: (data: PhoneData) => void;
 }
 
-const CustomPhoneInput: React.FC<CustomPhoneInputProps> = ({ label, value, onChange }) => {
+export const CustomPhoneInput: React.FC<CustomPhoneInputProps> = ({ label, value, onChange }) => {
   // Get all countries from the npm package
   const countries: Country[] = CountryList.getAll();
 
@@ -117,6 +118,7 @@ const CustomPhoneInput: React.FC<CustomPhoneInputProps> = ({ label, value, onCha
 // Main Onboarding Form Component
 export function RouteComponent() {
   const [currentTab, setCurrentTab] = useState(1);
+      const navigate = useNavigate();
   const [formData, setFormData] = useState<FormData>({
     companyName: "Eve Even Platform",
     businessType: null,
@@ -139,6 +141,8 @@ export function RouteComponent() {
   const handleContinue = () => {
     if (currentTab < 5) {
       setCurrentTab(currentTab + 1);
+    } else{
+      navigate({ to: "/Onboarding/SubServices/Review" });
     }
   };
 
@@ -216,23 +220,7 @@ export function RouteComponent() {
         return <ServiceThree continue={handleContinue} back={handleGoBack}/>
 
       case 5:
-        return (
-          <div className="max-w-md mx-auto text-center">
-            <h2 className="text-2xl font-bold text-gray-800 mb-6">Tab Five</h2>
-            <p className="text-gray-600 mb-8">This is the final tab. You've completed the onboarding process!</p>
-            <div className="space-y-4">
-              <CustomButton
-                title="Complete"
-                onClick={() => alert("Onboarding Complete!")}
-                className="bg-green-600 hover:bg-green-700"
-              />
-              <button onClick={handleGoBack} className="goBack">
-                {" "}
-                Go back
-              </button>
-            </div>
-          </div>
-        );
+        return <ServiceFour continue={handleContinue} back={handleGoBack}/>
 
       default:
         return null;

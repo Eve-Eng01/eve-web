@@ -5,6 +5,7 @@ import React, { useState } from "react";
 export interface DropdownOption {
   value: string;
   label: string;
+  flag?: string; // Add flag property
 }
 
 interface DropdownInputProps {
@@ -47,7 +48,11 @@ export const DropdownInput: React.FC<DropdownInputProps> = ({
 
   const handleAddNew = (): void => {
     if (newOptionText.trim()) {
-      const newOption: DropdownOption = { value: newOptionText, label: newOptionText };
+      const newOption: DropdownOption = {
+        value: newOptionText,
+        label: newOptionText,
+        flag: " ", // Fallback flag emoji for custom countries
+      };
       onAddNew && onAddNew(newOption);
       setNewOptionText("");
       setShowAddInput(false);
@@ -62,7 +67,7 @@ export const DropdownInput: React.FC<DropdownInputProps> = ({
   };
 
   return (
-    <div className={`relative w-full ${className}`}>
+    <div className={`relative w-full ${className} mb-[30px]`}>
       {label && <label className="block text-gray-600 text-sm mb-2 font-medium">{label}</label>}
 
       <div className="relative">
@@ -71,7 +76,16 @@ export const DropdownInput: React.FC<DropdownInputProps> = ({
           onClick={() => setIsOpen(!isOpen)}
           className="w-full px-4 py-3 bg-gray-100 border-0 rounded-lg text-left text-gray-800 focus:bg-white focus:ring-2 focus:ring-purple-500 focus:outline-none transition-all flex justify-between items-center"
         >
-          <span className={value ? "text-gray-800" : "text-gray-500"}>{value ? value.label : placeholder}</span>
+          <span className="flex items-center gap-2">
+            {value && value.flag ? (
+              <>
+                <span>{value.flag}</span>
+                <span className="text-gray-800">{value.label}</span>
+              </>
+            ) : (
+              <span className="text-gray-500">{placeholder}</span>
+            )}
+          </span>
           <ArrowDown2
             color="#000"
             className={`w-5 h-5 text-gray-400 transition-transform ${isOpen ? "rotate-180" : ""}`}
@@ -101,7 +115,10 @@ export const DropdownInput: React.FC<DropdownInputProps> = ({
                   onClick={() => handleOptionSelect(option)}
                   className="w-full px-4 py-3 text-left hover:bg-gray-50 flex items-center justify-between"
                 >
-                  <span className="text-gray-800">{option.label}</span>
+                  <span className="flex items-center gap-2">
+                    <span>{option.flag || " "}</span> {/* Fallback flag */}
+                    <span className="text-gray-800">{option.label}</span>
+                  </span>
                   {value?.value === option.value && <Check className="w-5 h-5 text-purple-600" />}
                 </button>
               ))}
@@ -122,7 +139,7 @@ export const DropdownInput: React.FC<DropdownInputProps> = ({
                   <div className="flex gap-2">
                     <input
                       type="text"
-                      placeholder="Enter new business type"
+                      placeholder="Enter new country"
                       value={newOptionText}
                       onChange={(e) => setNewOptionText(e.target.value)}
                       className="text-black flex-1 px-3 py-2 bg-gray-100 rounded border-0 focus:ring-2 focus:ring-purple-500 focus:outline-none"
