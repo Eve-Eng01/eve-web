@@ -12,7 +12,7 @@ function RouteComponent() {
     const handleContinue = () => {
       // Handle navigation to next screen
       console.log("Continuing to next screen...");
-      navigate({ to: "/Authentication/SignIn" });
+      navigate({ to: "/Pages/Screens/Events" });
     };
 
   return (

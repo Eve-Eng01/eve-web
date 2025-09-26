@@ -147,7 +147,7 @@ export function ServiceThree({continue: handleContinue, back: handleGoBack}: Ser
                       <select
                         value={option.currency}
                         onChange={(e) => updateCurrency(option.id, e.target.value)}
-                        className="bg-transparent text-white text-sm font-medium outline-none appearance-none cursor-pointer"
+                        className="bg-transparent text-black text-sm font-medium outline-none appearance-none cursor-pointer"
                       >
                         <option value="NGN" className="text-black">NGN</option>
                         <option value="USD" className="text-black">USD</option>
