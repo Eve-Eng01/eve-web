@@ -126,10 +126,10 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children, user
     <>      
         {/* Top Header */}
         <Navbar user={{
-                    name: 'Gabriel Emumwen',
-                    email: 'gabrielemumwen20@gmail.com',
-                    avatar: undefined
-                }}/>
+            name: 'Gabriel Emumwen',
+            email: 'gabrielemumwen20@gmail.com',
+            avatar: undefined
+        }}/>
         <div className="flex h-screen bg-gray-50">
             {/* Sidebar */}            
             <div className="hidden md:flex md:w-64 md:flex-col">

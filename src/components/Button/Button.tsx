@@ -18,8 +18,8 @@ const CustomButton: React.FC<CustomButtonProps> = ({ title, icon, onClick, disab
       disabled={disabled}
       className={`
         w-full
-        bg-purple-600
-        hover:bg-purple-700
+        bg-[#7417C6]
+        hover:bg-[#7417C6]
         disabled:bg-purple-400
         text-white
         font-medium
@@ -38,8 +38,8 @@ const CustomButton: React.FC<CustomButtonProps> = ({ title, icon, onClick, disab
         ${className}
       `}
     >
-      {icon && <span className="flex-shrink-0">{icon}</span>}
       <span>{title}</span>
+      {icon && <span className="flex-shrink-0">{icon}</span>}
     </button>
   );
 };
