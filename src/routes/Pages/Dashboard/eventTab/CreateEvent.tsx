@@ -1,30 +1,464 @@
-import React, { useState } from 'react';
-import { ChevronLeft, ChevronRight, Clock, Users } from 'lucide-react';
+import React, { JSX, useState } from 'react';
+import { ChevronLeft, ChevronRight, Clock, Users, X } from 'lucide-react';
 import { ArrowDown2, ArrowRight, Calendar } from 'iconsax-reactjs';
 import { CustomButton } from '../../../../components/Button/Button';
-import { DateTimePicker } from '../../../Accessories/DateTimePicker';
+import { DropdownInput, DropdownOption } from '../../../Accessories/DropdownInput';
+import EventFormatSelector from '../../../Accessories/EventFormatSelector';
 import Ticketing from './Ticketing';
 import MediaUpload from './MedisUpload';
 import Review from './Review';
-import { DropdownInput, DropdownOption } from '../../../Accessories/DropdownInput';
+import { TimePicker } from '../../../Accessories/TimePicker';
 
+// Define interface for a single date-time entry (used in Recurring DateTimePicker)
+interface DateTimeEntry {
+  id: number;
+  date: number;
+  month: number;
+  year: number;
+  startTime: string;
+  endTime: string;
+}
+
+// One-Time DateTimePicker Component
+interface OneTimeDateTimePickerProps {
+  selectedDate: number;
+  setSelectedDate: (date: number) => void;
+  endTime: string;
+  setEndTime: (time: string) => void;
+  startTime: string;
+  setStartTime: (time: string) => void;
+}
+
+const OneTimeDateTimePicker: React.FC<OneTimeDateTimePickerProps> = ({
+  selectedDate,
+  setSelectedDate,
+  endTime,
+  setEndTime,
+  startTime,
+  setStartTime,
+}) => {
+  const [selectedMonth, setSelectedMonth] = useState<number>(0); // January
+  const [selectedYear, setSelectedYear] = useState<number>(2025);
+  const [showEndTimePicker, setShowEndTimePicker] = useState<boolean>(false);
+  const [showStartTimePicker, setShowStartTimePicker] = useState<boolean>(false);
+
+  const months = [
+    'January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December',
+  ];
+
+  const renderCalendar = () => {
+    const firstDay = new Date(selectedYear, selectedMonth, 1).getDay();
+    const daysInMonth = new Date(selectedYear, selectedMonth + 1, 0).getDate();
+    const daysInPrevMonth = new Date(selectedYear, selectedMonth, 0).getDate();
+    
+    const startDay = firstDay === 0 ? 6 : firstDay - 1;
+    const days: JSX.Element[] = [];
+
+    // Previous month days
+    for (let i = startDay - 1; i >= 0; i--) {
+      days.push(
+        <button
+          key={`prev-${i}`}
+          className="aspect-square flex items-center justify-center text-gray-300 text-sm hover:bg-gray-50 rounded-lg"
+        >
+          {daysInPrevMonth - i}
+        </button>
+      );
+    }
+
+    // Current month days
+    for (let day = 1; day <= daysInMonth; day++) {
+      const isSelected = day === selectedDate;
+      days.push(
+        <button
+          key={day}
+          onClick={() => setSelectedDate(day)}
+          className={`aspect-square flex items-center justify-center text-sm rounded-full transition-colors ${
+            isSelected
+              ? 'bg-purple-600 text-white font-semibold'
+              : 'text-gray-900 hover:bg-gray-100'
+          }`}
+        >
+          {day}
+        </button>
+      );
+    }
+
+    // Next month days
+    const remainingCells = 42 - days.length;
+    for (let i = 1; i <= remainingCells; i++) {
+      days.push(
+        <button
+          key={`next-${i}`}
+          className="aspect-square flex items-center justify-center text-gray-300 text-sm hover:bg-gray-50 rounded-lg"
+        >
+          {i}
+        </button>
+      );
+    }
+
+    return days;
+  };
+
+  return (
+    <>
+      <div className="grid grid-cols-2 gap-4 bg-[#F4F4F4] p-[20px]">
+        <div className="col-span-2 lg:col-span-1">
+          <div className="bg-white border border-gray-200 rounded-lg p-4 mt-2">
+            <div className="flex items-center justify-between mb-4">
+              <button 
+                onClick={() => {
+                  if (selectedMonth === 0) {
+                    setSelectedMonth(11);
+                    setSelectedYear(selectedYear - 1);
+                  } else {
+                    setSelectedMonth(selectedMonth - 1);
+                  }
+                }}
+                className="p-1 hover:bg-gray-100 rounded transition-colors"
+              >
+                <ChevronLeft className="w-5 h-5 text-gray-600" />
+              </button>
+              <span className="font-semibold text-gray-900">
+                {months[selectedMonth]} {selectedYear}
+              </span>
+              <button 
+                onClick={() => {
+                  if (selectedMonth === 11) {
+                    setSelectedMonth(0);
+                    setSelectedYear(selectedYear + 1);
+                  } else {
+                    setSelectedMonth(selectedMonth + 1);
+                  }
+                }}
+                className="p-1 hover:bg-gray-100 rounded transition-colors"
+              >
+                <ChevronRight className="w-5 h-5 text-gray-600" />
+              </button>
+            </div>
+
+            <div className="grid grid-cols-7 gap-1 mb-2">
+              {['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'].map(day => (
+                <div key={day} className="text-center text-xs font-medium text-gray-600 py-2">
+                  {day}
+                </div>
+              ))}
+            </div>
+
+            <div className="grid grid-cols-7 gap-1">
+              {renderCalendar()}
+            </div>
+          </div>
+        </div>
+
+        <div className="col-span-2 lg:col-span-1 space-y-4">
+          <div className="lg:mt-12">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              End Time
+            </label>
+            <div className="relative">
+              <Clock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+              <input
+                type="text"
+                value={endTime}
+                readOnly
+                onClick={() => setShowEndTimePicker(true)}
+                className={`w-full pl-10 pr-4 py-3 bg-gray-50 border border-dashed text-black cursor-pointer ${
+                  endTime ? 'border-[#DFDFDF]' : 'border-red-500'
+                } rounded-lg focus:ring-2 focus:ring-purple-500 outline-none`}
+              />
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Start Time
+            </label>
+            <div className="relative">
+              <Clock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+              <input
+                type="text"
+                value={startTime}
+                readOnly
+                onClick={() => setShowStartTimePicker(true)}
+                className={`w-full pl-10 pr-4 py-3 bg-gray-50 border border-dashed text-black cursor-pointer ${
+                  startTime ? 'border-[#DFDFDF]' : 'border-red-500'
+                } rounded-lg focus:ring-2 focus:ring-purple-500 outline-none`}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {showEndTimePicker && (
+        <TimePicker
+          initialTime={endTime}
+          onSelectTime={setEndTime}
+          onClose={() => setShowEndTimePicker(false)}
+        />
+      )}
+
+      {showStartTimePicker && (
+        <TimePicker
+          initialTime={startTime}
+          onSelectTime={setStartTime}
+          onClose={() => setShowStartTimePicker(false)}
+        />
+      )}
+    </>
+  );
+};
+
+// Recurring DateTimePicker Component
+interface RecurringDateTimePickerProps {
+  dateTimeEntries: DateTimeEntry[];
+  setDateTimeEntries: (entries: DateTimeEntry[]) => void;
+}
+
+const RecurringDateTimePicker: React.FC<RecurringDateTimePickerProps> = ({
+  dateTimeEntries,
+  setDateTimeEntries,
+}) => {
+  const [selectedMonth, setSelectedMonth] = useState<number>(0); // January
+  const [selectedYear, setSelectedYear] = useState<number>(2025);
+  const [showEndTimePicker, setShowEndTimePicker] = useState<number | null>(null);
+  const [showStartTimePicker, setShowStartTimePicker] = useState<number | null>(null);
+
+  const months = [
+    'January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December',
+  ];
+
+  const addNewEntry = () => {
+    const newEntry: DateTimeEntry = {
+      id: Date.now(),
+      date: 1,
+      month: selectedMonth,
+      year: selectedYear,
+      startTime: '',
+      endTime: '',
+    };
+    setDateTimeEntries([...dateTimeEntries, newEntry]);
+  };
+
+  const removeEntry = (id: number) => {
+    setDateTimeEntries(dateTimeEntries.filter(entry => entry.id !== id));
+  };
+
+  const updateEntry = (id: number, field: keyof DateTimeEntry, value: any) => {
+    setDateTimeEntries(
+      dateTimeEntries.map(entry =>
+        entry.id === id ? { ...entry, [field]: value } : entry
+      )
+    );
+  };
+
+  const renderCalendar = () => {
+    const firstDay = new Date(selectedYear, selectedMonth, 1).getDay();
+    const daysInMonth = new Date(selectedYear, selectedMonth + 1, 0).getDate();
+    const daysInPrevMonth = new Date(selectedYear, selectedMonth, 0).getDate();
+    
+    const startDay = firstDay === 0 ? 6 : firstDay - 1;
+    const days: JSX.Element[] = [];
+
+    for (let i = startDay - 1; i >= 0; i--) {
+      days.push(
+        <button
+          key={`prev-${i}`}
+          className="aspect-square flex items-center justify-center text-gray-300 text-sm hover:bg-gray-50 rounded-lg w-[40px] h-[40px]"
+        >
+          {daysInPrevMonth - i}
+        </button>
+      );
+    }
+
+    for (let day = 1; day <= daysInMonth; day++) {
+      const isSelected = dateTimeEntries.some(entry => 
+        entry.date === day && 
+        entry.month === selectedMonth && 
+        entry.year === selectedYear
+      );
+      days.push(
+        <button
+          key={day}
+          onClick={() => {
+            const newEntry: DateTimeEntry = {
+              id: Date.now(),
+              date: day,
+              month: selectedMonth,
+              year: selectedYear,
+              startTime: '',
+              endTime: '',
+            };
+            setDateTimeEntries([...dateTimeEntries, newEntry]);
+          }}
+          className={`aspect-square flex items-center justify-center text-sm rounded-full transition-colors ${
+            isSelected
+              ? 'bg-[#7417C6] text-white font-semibold w-[40px] h-[40px]'
+              : 'text-gray-900 hover:bg-gray-100 w-[40px] h-[40px]'
+          }`}
+        >
+          {day}
+        </button>
+      );
+    }
+
+    const remainingCells = 42 - days.length;
+    for (let i = 1; i <= remainingCells; i++) {
+      days.push(
+        <button
+          key={`next-${i}`}
+          className="aspect-square flex items-center justify-center text-gray-300 text-sm hover:bg-gray-50 rounded-lg w-[40px] h-[40px]"
+        >
+          {i}
+        </button>
+      );
+    }
+
+    return days;
+  };
+
+  return (
+    <>
+      <div className='bg-[#F4F4F4] p-[20px]'>
+        <div className="flex justify-between border border-[#DFDFDF] p-[20px] rounded-lg bg-white mb-4">
+          <label className="block text-sm font-medium text-gray-700">
+            Select Dates and Times for your event
+          </label>
+          <button
+            onClick={addNewEntry}
+            className="bg-[#7417C6] text-white px-4 py-2 rounded-lg hover:bg-purple-700"
+          >
+            Add New Date
+          </button>
+        </div>
+
+        <div className="bg-white border border-gray-200 rounded-lg p-4 mt-2">
+          <div className="flex items-center justify-between mb-4">
+            <button 
+              onClick={() => {
+                if (selectedMonth === 0) {
+                  setSelectedMonth(11);
+                  setSelectedYear(selectedYear - 1);
+                } else {
+                  setSelectedMonth(selectedMonth - 1);
+                }
+              }}
+              className="p-1 hover:bg-gray-100 rounded transition-colors"
+            >
+              <ChevronLeft className="w-5 h-5 text-gray-600" />
+            </button>
+            <span className="font-semibold text-gray-900">
+              {months[selectedMonth]} {selectedYear}
+            </span>
+            <button 
+              onClick={() => {
+                if (selectedMonth === 11) {
+                  setSelectedMonth(0);
+                  setSelectedYear(selectedYear + 1);
+                } else {
+                  setSelectedMonth(selectedMonth + 1);
+                }
+              }}
+              className="p-1 hover:bg-gray-100 rounded transition-colors"
+            >
+              <ChevronRight className="w-5 h-5 text-gray-600" />
+            </button>
+          </div>
+
+          <div className="grid grid-cols-7 gap-1 mb-2">
+            {['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'].map(day => (
+              <div key={day} className="text-center text-xs font-medium text-gray-600 py-2">
+                {day}
+              </div>
+            ))}
+          </div>
+
+          <div className="grid grid-cols-7 gap-[30px]">
+            {renderCalendar()}
+          </div>
+        </div>
+
+        <div className="mt-4 space-y-4">
+          {dateTimeEntries.map(entry => (
+            <div key={entry.id} className="bg-white border border-gray-200 rounded-lg p-4 flex items-center justify-between">
+              <div className="flex items-center gap-4">
+                <span className="font-medium text-gray-700">
+                  {entry.date} {months[entry.month]} {entry.year}
+                </span>
+                <div className="relative">
+                  <Clock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                  <input
+                    type="text"
+                    value={entry.startTime}
+                    readOnly
+                    onClick={() => setShowStartTimePicker(entry.id)}
+                    className={`w-32 pl-10 pr-4 py-2 bg-gray-50 border border-dashed text-black cursor-pointer text-gray-700 ${
+                      entry.startTime ? 'border-[#DFDFDF]' : 'border-red-500'
+                    } rounded-lg focus:ring-2 focus:ring-purple-500 outline-none`}
+                  />
+                </div>
+                <span>-</span>
+                <div className="relative">
+                  <Clock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                  <input
+                    type="text"
+                    value={entry.endTime}
+                    readOnly
+                    onClick={() => setShowEndTimePicker(entry.id)}
+                    className={`w-32 pl-10 pr-4 py-2 bg-gray-50 border border-dashed text-black cursor-pointer text-gray-700 ${
+                      entry.endTime ? 'border-[#DFDFDF]' : 'border-red-500'
+                    } rounded-lg focus:ring-2 focus:ring-purple-500 outline-none`}
+                  />
+                </div>
+              </div>
+              <button
+                onClick={() => removeEntry(entry.id)}
+                className="text-red-500 hover:text-red-700"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {showEndTimePicker !== null && (
+        <TimePicker
+          initialTime={dateTimeEntries.find(entry => entry.id === showEndTimePicker)?.endTime || ''}
+          onSelectTime={(time) => updateEntry(showEndTimePicker, 'endTime', time)}
+          onClose={() => setShowEndTimePicker(null)}
+        />
+      )}
+
+      {showStartTimePicker !== null && (
+        <TimePicker
+          initialTime={dateTimeEntries.find(entry => entry.id === showStartTimePicker)?.startTime || ''}
+          onSelectTime={(time) => updateEntry(showStartTimePicker, 'startTime', time)}
+          onClose={() => setShowStartTimePicker(null)}
+        />
+      )}
+    </>
+  );
+};
+
+// CreateEvent Component
 const CreateEvent = () => {
   const [showForm, setShowForm] = useState(false);
-  const [currentStep, setCurrentStep] = useState(0); // Track the current step
+  const [currentStep, setCurrentStep] = useState(0);
   const [eventName, setEventName] = useState('');
   const [description, setDescription] = useState('');
   const [customUrl, setCustomUrl] = useState('https://events.example.com/wedding/Anthony-Mary');
   const [category, setCategory] = useState<DropdownOption | null>(null);
   const [format, setFormat] = useState('');
-  const [recurrence, setRecurrence] = useState('');
+  const [recurrence, setRecurrence] = useState('on-time');
   const [timezone, setTimezone] = useState('West Africa Time (WAT) UTC +01:00');
   const [location, setLocation] = useState('');
-  const [selectedMonth, setSelectedMonth] = useState(0); // January
-  const [selectedYear, setSelectedYear] = useState(2025);
   const [selectedDate, setSelectedDate] = useState(10);
   const [endTime, setEndTime] = useState('10:45 AM');
   const [startTime, setStartTime] = useState('2:45 PM');
-  const [dateTimeEntries, setDateTimeEntries] = useState([
+  const [dateTimeEntries, setDateTimeEntries] = useState<DateTimeEntry[]>([
     {
       id: Date.now(),
       date: 1,
@@ -34,11 +468,12 @@ const CreateEvent = () => {
       endTime: '',
     },
   ]);
+
   const eventCategories = [
     { value: 'cultural-music', label: 'Cultural & Music' },
     { value: 'business-professional', label: 'Business & Professional' },
     { value: 'food-drink', label: 'Food & Drink' },
-    { value: 'sports-fitness', label: 'Sports & Fitness' }
+    { value: 'sports-fitness', label: 'Sports & Fitness' },
   ];
 
   const steps = [
@@ -47,10 +482,6 @@ const CreateEvent = () => {
     'Media Upload',
     'Review & Publish',
   ];
-
-  const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-  const daysInMonth = new Date(selectedYear, selectedMonth + 1, 0).getDate();
-  const firstDayOfMonth = new Date(selectedYear, selectedMonth, 1).getDay();
 
   const handleContinue = () => {
     setShowForm(true);
@@ -61,14 +492,20 @@ const CreateEvent = () => {
   };
 
   const handleNext = () => {
-    // Basic validation for Event Information step
     if (currentStep === 0) {
-      if (!eventName || !description || !customUrl || !category || !format || !recurrence || !location) {
+      if (!eventName || !description || !customUrl || !category || !recurrence || !location) {
         alert('Please fill in all required fields before proceeding.');
         return;
       }
+      if (recurrence === 'on-time' && (!selectedDate || !startTime || !endTime)) {
+        alert('Please select a date and times for a one-time event.');
+        return;
+      }
+      if (recurrence === 'recurring' && dateTimeEntries.every(entry => !entry.startTime || !entry.endTime)) {
+        alert('Please select at least one date with start and end times for a recurring event.');
+        return;
+      }
     }
-    // Move to the next step if not on the last step
     if (currentStep < steps.length - 1) {
       setCurrentStep(currentStep + 1);
     }
@@ -78,46 +515,6 @@ const CreateEvent = () => {
     if (currentStep > 0) {
       setCurrentStep(currentStep - 1);
     }
-  };
-
-  const renderCalendar = () => {
-    const days = [];
-    const prevMonthDays = new Date(selectedYear, selectedMonth, 0).getDate();
-
-    for (let i = firstDayOfMonth - 1; i >= 0; i--) {
-      days.push(
-        <div key={`prev-${i}`} className="text-center py-2 text-gray-300 text-sm">
-          {prevMonthDays - i}
-        </div>
-      );
-    }
-
-    for (let day = 1; day <= daysInMonth; day++) {
-      days.push(
-        <div
-          key={day}
-          onClick={() => setSelectedDate(day)}
-          className={`text-center py-2 text-sm cursor-pointer rounded-full ${
-            day === selectedDate
-              ? 'bg-purple-600 text-white font-semibold'
-              : 'text-gray-700 hover:bg-gray-100'
-          }`}
-        >
-          {day}
-        </div>
-      );
-    }
-
-    const remainingDays = 42 - days.length;
-    for (let i = 1; i <= remainingDays; i++) {
-      days.push(
-        <div key={`next-${i}`} className="text-center py-2 text-gray-300 text-sm">
-          {i}
-        </div>
-      );
-    }
-
-    return days;
   };
 
   const renderProgressBar = () => {
@@ -214,74 +611,20 @@ const CreateEvent = () => {
 
             {/* Event Category */}
             <div>
-                <DropdownInput
-                    label="Select Event Categories"
-                    options={eventCategories}
-                    value={category}
-                    onChange={(option) => setCategory(option)}
-                    placeholder="Select a category"
-                    searchable={true}
-                    addNewOption={false}
-                    onAddNew={(newCategory) => {
-                        // Add the new category to the options array if needed
-                        setCategory(newCategory);
-                    }}
-                />
+              <DropdownInput
+                label="Select Event Categories"
+                options={eventCategories}
+                value={category}
+                onChange={(option) => setCategory(option)}
+                placeholder="Select a category"
+                searchable={true}
+                addNewOption={true}
+                onAddNew={(newCategory) => setCategory(newCategory)}
+              />
             </div>
 
             {/* Format Selection */}
-            <div>
-              <label className="block text-lg font-medium text-gray-700 mb-4">
-                Select Format
-              </label>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {['in-person', 'virtual', 'hybrid'].map((fmt) => (
-                  <label
-                    key={fmt}
-                    className={`relative flex items-center px-6 py-4 rounded-2xl cursor-pointer transition-all ${
-                      format === fmt
-                        ? 'bg-gradient-to-br from-purple-100 to-purple-50 border-2 border-purple-400'
-                        : 'border-2 border-dashed border-gray-300 bg-white hover:border-gray-400'
-                    }`}
-                  >
-                    <div
-                      className={`flex items-center justify-center w-8 h-8 rounded-lg mr-3 ${
-                        format === fmt ? 'bg-purple-600' : 'bg-gray-200'
-                      }`}
-                    >
-                      <input
-                        type="radio"
-                        name="format"
-                        value={fmt}
-                        checked={format === fmt}
-                        onChange={(e) => setFormat(e.target.value)}
-                        className="appearance-none"
-                      />
-                      {format === fmt && (
-                        <svg
-                          className="w-5 h-5 text-white"
-                          fill="none"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path d="M5 13l4 4L19 7"></path>
-                        </svg>
-                      )}
-                    </div>
-                    <span
-                      className={`text-base font-medium ${
-                        format === fmt ? 'text-gray-900' : 'text-gray-500'
-                      }`}
-                    >
-                      {fmt.charAt(0).toUpperCase() + fmt.slice(1)}
-                    </span>
-                  </label>
-                ))}
-              </div>
-            </div>
+            <EventFormatSelector />
 
             {/* Recurrence */}
             <div>
@@ -407,38 +750,45 @@ const CreateEvent = () => {
 
             {/* Date and Time Picker */}
             <div className="bg-[#F4F4F4] p-[20px]">
-              <div className="flex justify-between border border-[#DFDFDF] p-[20px] rounded-lg bg-white">
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+              <div className="flex justify-between border border-[#DFDFDF] p-[20px] rounded-lg bg-white mb-4">
+                <label className="block text-sm font-medium text-gray-700">
                   Select Dates and Times for your event
                 </label>
-                <div className="flex gap-[20px]">
-                  <span className="text-[#2D2D2D]">
-                    {dateTimeEntries.length} Date{dateTimeEntries.length !== 1 ? 's' : ''} Selected
-                  </span>
-                  <div className="drop">
-                    <ArrowDown2 size="24" color="#000" />
+                {recurrence === 'recurring' && (
+                  <div className="flex gap-[20px]">
+                    <span className="text-[#2D2D2D]">
+                      {dateTimeEntries.length} Date{dateTimeEntries.length !== 1 ? 's' : ''} Selected
+                    </span>
+                    <div className="drop">
+                      <ArrowDown2 size="24" color="#000" />
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
-              <DateTimePicker
-                dateTimeEntries={dateTimeEntries}
-                setDateTimeEntries={setDateTimeEntries}
-              />
+              {recurrence === 'on-time' ? (
+                <OneTimeDateTimePicker
+                  selectedDate={selectedDate}
+                  setSelectedDate={setSelectedDate}
+                  endTime={endTime}
+                  setEndTime={setEndTime}
+                  startTime={startTime}
+                  setStartTime={setStartTime}
+                />
+              ) : (
+                <RecurringDateTimePicker
+                  dateTimeEntries={dateTimeEntries}
+                  setDateTimeEntries={setDateTimeEntries}
+                />
+              )}
             </div>
           </div>
         );
       case 1:
-        return (
-            <Ticketing/>
-        );
+        return <Ticketing />;
       case 2:
-        return (
-            <MediaUpload/>
-        );
+        return <MediaUpload />;
       case 3:
-        return (
-            <Review/>
-        );
+        return <Review />;
       default:
         return null;
     }
@@ -473,7 +823,6 @@ const CreateEvent = () => {
   return (
     <div className="min-h-screen bg-gray-50 p-4">
       <div className="mx-auto bg-white rounded-lg shadow-sm w-[80%]">
-        {/* Header */}
         <div className="flex items-center justify-between p-6 border-b">
           <button className="text-gray-600 hover:text-gray-900 cursor-pointer" onClick={handleGoBack}>
             Go back
@@ -482,13 +831,10 @@ const CreateEvent = () => {
           <div className="text-sm text-gray-600">August 5, 2025</div>
         </div>
 
-        {/* Progress Steps */}
         {renderProgressBar()}
 
-        {/* Form Content */}
         {renderFormContent()}
 
-        {/* Footer Buttons */}
         <div className="flex items-center justify-end gap-4 p-6 border-t">
           <button
             className="px-6 py-2 text-purple-600 font-medium hover:bg-purple-50 rounded-lg"
