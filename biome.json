@@ -128,7 +128,7 @@
             "useAsConstAssertion": "error"
           },
           "suspicious": {
-            "noExplicitAny": "error",
+            "noExplicitAny":"off",
             "noExtraNonNullAssertion": "error",
             "noMisleadingInstantiator": "error",
             "noUnsafeDeclarationMerging": "error",
