@@ -4,7 +4,7 @@ import { ArrowDown2, ArrowRight, Calendar } from 'iconsax-reactjs';
 import { CustomButton } from '../../../../components/Button/Button';
 import { DropdownInput, DropdownOption } from '../../../Accessories/DropdownInput';
 import EventFormatSelector from '../../../Accessories/EventFormatSelector';
-import Ticketing from './Ticketing';
+import Ticketing, { Ticket } from './Ticketing';
 import MediaUpload from './MedisUpload';
 import Review from './Review';
 import { TimePicker } from '../../../Accessories/TimePicker';
@@ -445,113 +445,124 @@ const RecurringDateTimePicker: React.FC<RecurringDateTimePickerProps> = ({
 
 // CreateEvent Component
 const CreateEvent = () => {
-  const [showForm, setShowForm] = useState(false);
-  const [currentStep, setCurrentStep] = useState(0);
-  const [eventName, setEventName] = useState('');
-  const [description, setDescription] = useState('');
-  const [customUrl, setCustomUrl] = useState('https://events.example.com/wedding/Anthony-Mary');
-  const [category, setCategory] = useState<DropdownOption | null>(null);
-  const [format, setFormat] = useState('');
-  const [recurrence, setRecurrence] = useState('on-time');
-  const [timezone, setTimezone] = useState('West Africa Time (WAT) UTC +01:00');
-  const [location, setLocation] = useState('');
-  const [selectedDate, setSelectedDate] = useState(10);
-  const [endTime, setEndTime] = useState('10:45 AM');
-  const [startTime, setStartTime] = useState('2:45 PM');
-  const [dateTimeEntries, setDateTimeEntries] = useState<DateTimeEntry[]>([
-    {
-      id: Date.now(),
-      date: 1,
-      month: 0,
-      year: 2025,
-      startTime: '',
-      endTime: '',
-    },
-  ]);
+    const [showForm, setShowForm] = useState(false);
+    const [currentStep, setCurrentStep] = useState(0);
+    const [eventName, setEventName] = useState('');
+    const [description, setDescription] = useState('');
+    const [customUrl, setCustomUrl] = useState('https://events.example.com/wedding/Anthony-Mary');
+    const [category, setCategory] = useState<DropdownOption | null>(null);
+    const [format, setFormat] = useState('');
+    const [recurrence, setRecurrence] = useState('on-time');
+    const [timezone, setTimezone] = useState('West Africa Time (WAT) UTC +01:00');
+    const [location, setLocation] = useState('');
+    const [selectedDate, setSelectedDate] = useState(10);
+    const [endTime, setEndTime] = useState('10:45 AM');
+    const [startTime, setStartTime] = useState('2:45 PM');
+    const [dateTimeEntries, setDateTimeEntries] = useState<DateTimeEntry[]>([
+      {
+        id: Date.now(),
+        date: 1,
+        month: 0,
+        year: 2025,
+        startTime: '',
+        endTime: '',
+      },
+    ]);
+    const [selectedTicketType, setSelectedTicketType] = useState('paid');
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [savedTickets, setSavedTickets] = useState<Ticket[]>([]); 
 
-  const eventCategories = [
-    { value: 'cultural-music', label: 'Cultural & Music' },
-    { value: 'business-professional', label: 'Business & Professional' },
-    { value: 'food-drink', label: 'Food & Drink' },
-    { value: 'sports-fitness', label: 'Sports & Fitness' },
-  ];
+    const eventCategories = [
+        { value: 'cultural-music', label: 'Cultural & Music' },
+        { value: 'business-professional', label: 'Business & Professional' },
+        { value: 'food-drink', label: 'Food & Drink' },
+        { value: 'sports-fitness', label: 'Sports & Fitness' },
+      ];
+    
+    const steps = [
+        'Event Information',
+        'Ticketing & Pricing',
+        'Media Upload',
+        'Review & Publish',
+    ];
 
-  const steps = [
-    'Event Information',
-    'Ticketing & Pricing',
-    'Media Upload',
-    'Review & Publish',
-  ];
+    const handleContinue = () => {
+        setShowForm(true);
+    };
 
-  const handleContinue = () => {
-    setShowForm(true);
-  };
+    const handleGoBack = () => {
+        setShowForm(false);
+    };
 
-  const handleGoBack = () => {
-    setShowForm(false);
-  };
+    const handleNext = () => {
+        if (currentStep === 0) {
+          if (!eventName || !description || !customUrl || !category || !recurrence || !location) {
+            alert('Please fill in all required fields before proceeding.');
+            return;
+          }
+          if (recurrence === 'on-time' && (!selectedDate || !startTime || !endTime)) {
+            alert('Please select a date and times for a one-time event.');
+            return;
+          }
+          if (recurrence === 'recurring' && dateTimeEntries.every(entry => !entry.startTime || !entry.endTime)) {
+            alert('Please select at least one date with start and end times for a recurring event.');
+            return;
+          }
+          setCurrentStep(currentStep + 1);
+        } else if (currentStep === 1) {
+          if (savedTickets.length === 0) {
+            setIsModalOpen(true); // Open modal if no tickets are created
+            return;
+          }
+          if (currentStep < steps.length - 1) {
+            setCurrentStep(currentStep + 1);
+          }
+        } else if (currentStep < steps.length - 1) {
+          setCurrentStep(currentStep + 1);
+        }
+      };
+    
+      const handlePrevious = () => {
+        if (currentStep > 0) {
+          setCurrentStep(currentStep - 1);
+        }
+      };
 
-  const handleNext = () => {
-    if (currentStep === 0) {
-      if (!eventName || !description || !customUrl || !category || !recurrence || !location) {
-        alert('Please fill in all required fields before proceeding.');
-        return;
-      }
-      if (recurrence === 'on-time' && (!selectedDate || !startTime || !endTime)) {
-        alert('Please select a date and times for a one-time event.');
-        return;
-      }
-      if (recurrence === 'recurring' && dateTimeEntries.every(entry => !entry.startTime || !entry.endTime)) {
-        alert('Please select at least one date with start and end times for a recurring event.');
-        return;
-      }
-    }
-    if (currentStep < steps.length - 1) {
-      setCurrentStep(currentStep + 1);
-    }
-  };
-
-  const handlePrevious = () => {
-    if (currentStep > 0) {
-      setCurrentStep(currentStep - 1);
-    }
-  };
-
-  const renderProgressBar = () => {
-    return (
-      <div className="flex items-center justify-center p-6 border-b">
-        <div className="flex items-center space-x-4">
-          {steps.map((step, index) => (
-            <React.Fragment key={index}>
-              <div className="flex items-center">
-                <div
-                  className={`w-[24px] h-[24px] rounded-full flex items-center justify-center ${
-                    index <= currentStep ? 'bg-green-500' : 'border-2 border-gray-300 bg-white'
-                  }`}
-                >
-                  <div
-                    className={`w-[12.8px] h-[12.8px] rounded-full ${
-                      index <= currentStep ? 'bg-white' : 'bg-gray-300'
-                    }`}
-                  ></div>
-                </div>
-                <span
-                  className={`ml-3 text-base ${
-                    index <= currentStep ? 'font-medium text-gray-900' : 'text-gray-400'
-                  }`}
-                >
-                  {step}
-                </span>
-              </div>
-              {index < steps.length - 1 && (
-                <div className="w-12 h-0.5 bg-gray-300"></div>
-              )}
-            </React.Fragment>
-          ))}
-        </div>
-      </div>
-    );
-  };
+    const renderProgressBar = () => {
+        return (
+          <div className="flex items-center justify-center p-6 border-b">
+            <div className="flex items-center space-x-4">
+              {steps.map((step, index) => (
+                <React.Fragment key={index}>
+                  <div className="flex items-center">
+                    <div
+                      className={`w-[24px] h-[24px] rounded-full flex items-center justify-center ${
+                        index <= currentStep ? 'bg-green-500' : 'border-2 border-gray-300 bg-white'
+                      }`}
+                    >
+                      <div
+                        className={`w-[12.8px] h-[12.8px] rounded-full ${
+                          index <= currentStep ? 'bg-white' : 'bg-gray-300'
+                        }`}
+                      ></div>
+                    </div>
+                    <span
+                      className={`ml-3 text-base ${
+                        index <= currentStep ? 'font-medium text-gray-900' : 'text-gray-400'
+                      }`}
+                    >
+                      {step}
+                    </span>
+                  </div>
+                  {index < steps.length - 1 && (
+                    <div className="w-12 h-0.5 bg-gray-300"></div>
+                  )}
+                </React.Fragment>
+              ))}
+            </div>
+          </div>
+        );
+      };
 
   const renderFormContent = () => {
     switch (currentStep) {
@@ -784,7 +795,16 @@ const CreateEvent = () => {
           </div>
         );
       case 1:
-        return <Ticketing />;
+        return (
+            <Ticketing
+                selectedTicketType={selectedTicketType}
+                setSelectedTicketType={setSelectedTicketType}
+                isModalOpen={isModalOpen}
+                setIsModalOpen={setIsModalOpen}
+                onNext={handleNext}
+                onTicketsChange={setSavedTickets}
+          />
+        );
       case 2:
         return <MediaUpload />;
       case 3:
