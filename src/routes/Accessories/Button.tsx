@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import React from "react";
+import { cn } from "../../shared/utils/classnames";
 
 // Button component interface
 interface CustomButtonProps {
@@ -11,12 +12,19 @@ interface CustomButtonProps {
 }
 
 // Custom Button Component
-const CustomButton: React.FC<CustomButtonProps> = ({ title, icon, onClick, disabled = false, className = "" }) => {
+const CustomButton: React.FC<CustomButtonProps> = ({
+  title,
+  icon,
+  onClick,
+  disabled = false,
+  className = "",
+}) => {
   return (
     <button
       onClick={onClick}
       disabled={disabled}
-      className={`
+      className={cn(
+        `
         w-full
         bg-[#7417C6]
         hover:bg-[#7417C6]
@@ -36,8 +44,9 @@ const CustomButton: React.FC<CustomButtonProps> = ({ title, icon, onClick, disab
         gap-2
         shadow-sm
         cursor-pointer
-        ${className}
-      `}
+        `,
+        className
+      )}
     >
       {icon && <span className="flex-shrink-0">{icon}</span>}
       <span>{title}</span>
@@ -57,7 +66,9 @@ const ButtonDemo: React.FC = () => {
   return (
     <div className="p-8 bg-gray-50 min-h-screen">
       <div className="max-w-md mx-auto space-y-6">
-        <h1 className="text-2xl font-bold text-gray-800 mb-8">Custom Button Examples</h1>
+        <h1 className="text-2xl font-bold text-gray-800 mb-8">
+          Custom Button Examples
+        </h1>
 
         {/* Basic button like in the image */}
         <CustomButton title="Continue" onClick={handleClick} />
@@ -66,8 +77,18 @@ const ButtonDemo: React.FC = () => {
         <CustomButton
           title="Save Changes"
           icon={
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M5 13l4 4L19 7"
+              />
             </svg>
           }
           onClick={handleClick}
@@ -77,7 +98,12 @@ const ButtonDemo: React.FC = () => {
         <CustomButton
           title="Download File"
           icon={
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -90,10 +116,17 @@ const ButtonDemo: React.FC = () => {
         />
 
         {/* Disabled button */}
-        <CustomButton title="Disabled Button" disabled={true} onClick={handleClick} />
+        <CustomButton
+          title="Disabled Button"
+          disabled={true}
+          onClick={handleClick}
+        />
 
         {/* Button without icon (icon is optional) */}
-        <CustomButton title="Simple Button" onClick={() => console.log("Simple button clicked")} />
+        <CustomButton
+          title="Simple Button"
+          onClick={() => console.log("Simple button clicked")}
+        />
       </div>
     </div>
   );

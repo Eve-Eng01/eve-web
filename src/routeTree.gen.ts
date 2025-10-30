@@ -23,6 +23,8 @@ import { Route as AuthenticationOtpVerificationRouteImport } from './routes/Auth
 import { Route as AccessoriesUploadRouteImport } from './routes/Accessories/Upload'
 import { Route as AccessoriesSuccessPageRouteImport } from './routes/Accessories/SuccessPage'
 import { Route as AccessoriesButtonRouteImport } from './routes/Accessories/Button'
+import { Route as PagesVendorDashboardRouteImport } from './routes/Pages/Vendor/Dashboard'
+import { Route as PagesVendorEventIdRouteImport } from './routes/Pages/Vendor/$eventId'
 import { Route as PagesScreensEventsRouteImport } from './routes/Pages/Screens/Events'
 import { Route as PagesScreensAttendeeRouteImport } from './routes/Pages/Screens/Attendee'
 import { Route as OnboardingVendorSubserviceTwoRouteImport } from './routes/Onboarding/VendorSubservice/Two'
@@ -106,6 +108,16 @@ const AccessoriesSuccessPageRoute = AccessoriesSuccessPageRouteImport.update({
 const AccessoriesButtonRoute = AccessoriesButtonRouteImport.update({
   id: '/Accessories/Button',
   path: '/Accessories/Button',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PagesVendorDashboardRoute = PagesVendorDashboardRouteImport.update({
+  id: '/Pages/Vendor/Dashboard',
+  path: '/Pages/Vendor/Dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PagesVendorEventIdRoute = PagesVendorEventIdRouteImport.update({
+  id: '/Pages/Vendor/$eventId',
+  path: '/Pages/Vendor/$eventId',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PagesScreensEventsRoute = PagesScreensEventsRouteImport.update({
@@ -212,6 +224,8 @@ export interface FileRoutesByFullPath {
   '/Onboarding/VendorSubservice/Two': typeof OnboardingVendorSubserviceTwoRoute
   '/Pages/Screens/Attendee': typeof PagesScreensAttendeeRoute
   '/Pages/Screens/Events': typeof PagesScreensEventsRoute
+  '/Pages/Vendor/$eventId': typeof PagesVendorEventIdRoute
+  '/Pages/Vendor/Dashboard': typeof PagesVendorDashboardRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -240,6 +254,8 @@ export interface FileRoutesByTo {
   '/Onboarding/VendorSubservice/Two': typeof OnboardingVendorSubserviceTwoRoute
   '/Pages/Screens/Attendee': typeof PagesScreensAttendeeRoute
   '/Pages/Screens/Events': typeof PagesScreensEventsRoute
+  '/Pages/Vendor/$eventId': typeof PagesVendorEventIdRoute
+  '/Pages/Vendor/Dashboard': typeof PagesVendorDashboardRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -270,6 +286,8 @@ export interface FileRoutesById {
   '/Onboarding/VendorSubservice/Two': typeof OnboardingVendorSubserviceTwoRoute
   '/Pages/Screens/Attendee': typeof PagesScreensAttendeeRoute
   '/Pages/Screens/Events': typeof PagesScreensEventsRoute
+  '/Pages/Vendor/$eventId': typeof PagesVendorEventIdRoute
+  '/Pages/Vendor/Dashboard': typeof PagesVendorDashboardRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -300,6 +318,8 @@ export interface FileRouteTypes {
     | '/Onboarding/VendorSubservice/Two'
     | '/Pages/Screens/Attendee'
     | '/Pages/Screens/Events'
+    | '/Pages/Vendor/$eventId'
+    | '/Pages/Vendor/Dashboard'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -328,6 +348,8 @@ export interface FileRouteTypes {
     | '/Onboarding/VendorSubservice/Two'
     | '/Pages/Screens/Attendee'
     | '/Pages/Screens/Events'
+    | '/Pages/Vendor/$eventId'
+    | '/Pages/Vendor/Dashboard'
   id:
     | '__root__'
     | '/'
@@ -357,6 +379,8 @@ export interface FileRouteTypes {
     | '/Onboarding/VendorSubservice/Two'
     | '/Pages/Screens/Attendee'
     | '/Pages/Screens/Events'
+    | '/Pages/Vendor/$eventId'
+    | '/Pages/Vendor/Dashboard'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -386,6 +410,8 @@ export interface RootRouteChildren {
   OnboardingVendorSubserviceTwoRoute: typeof OnboardingVendorSubserviceTwoRoute
   PagesScreensAttendeeRoute: typeof PagesScreensAttendeeRoute
   PagesScreensEventsRoute: typeof PagesScreensEventsRoute
+  PagesVendorEventIdRoute: typeof PagesVendorEventIdRoute
+  PagesVendorDashboardRoute: typeof PagesVendorDashboardRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -486,6 +512,20 @@ declare module '@tanstack/react-router' {
       path: '/Accessories/Button'
       fullPath: '/Accessories/Button'
       preLoaderRoute: typeof AccessoriesButtonRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/Pages/Vendor/Dashboard': {
+      id: '/Pages/Vendor/Dashboard'
+      path: '/Pages/Vendor/Dashboard'
+      fullPath: '/Pages/Vendor/Dashboard'
+      preLoaderRoute: typeof PagesVendorDashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/Pages/Vendor/$eventId': {
+      id: '/Pages/Vendor/$eventId'
+      path: '/Pages/Vendor/$eventId'
+      fullPath: '/Pages/Vendor/$eventId'
+      preLoaderRoute: typeof PagesVendorEventIdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/Pages/Screens/Events': {
@@ -624,6 +664,8 @@ const rootRouteChildren: RootRouteChildren = {
   OnboardingVendorSubserviceTwoRoute: OnboardingVendorSubserviceTwoRoute,
   PagesScreensAttendeeRoute: PagesScreensAttendeeRoute,
   PagesScreensEventsRoute: PagesScreensEventsRoute,
+  PagesVendorEventIdRoute: PagesVendorEventIdRoute,
+  PagesVendorDashboardRoute: PagesVendorDashboardRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
