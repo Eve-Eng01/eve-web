@@ -43,7 +43,7 @@ function RouteComponent() {
   const router = useRouter();
   return (
     <DashboardLayout isVendor user={User}>
-      <div className="space-y-8 bg-primary">
+      <div className="space-y-8">
         <CustomButton
           onClick={() => router.history.back()}
           title="Go back"
