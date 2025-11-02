@@ -23,6 +23,7 @@
     "react": "^19.0.0",
     "react-country-flag": "^3.1.0",
     "react-dom": "^19.0.0",
+    "recharts": "^3.3.0",
     "tailwindcss": "^4.1.11",
     "world-countries": "^5.1.0"
   },

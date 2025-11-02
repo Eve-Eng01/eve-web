@@ -23,6 +23,7 @@ import { Route as AuthenticationOtpVerificationRouteImport } from './routes/Auth
 import { Route as AccessoriesUploadRouteImport } from './routes/Accessories/Upload'
 import { Route as AccessoriesSuccessPageRouteImport } from './routes/Accessories/SuccessPage'
 import { Route as AccessoriesButtonRouteImport } from './routes/Accessories/Button'
+import { Route as PagesScreensSalesRouteImport } from './routes/Pages/Screens/Sales'
 import { Route as PagesScreensEventsRouteImport } from './routes/Pages/Screens/Events'
 import { Route as PagesScreensAttendeeRouteImport } from './routes/Pages/Screens/Attendee'
 import { Route as OnboardingVendorSubserviceTwoRouteImport } from './routes/Onboarding/VendorSubservice/Two'
@@ -106,6 +107,11 @@ const AccessoriesSuccessPageRoute = AccessoriesSuccessPageRouteImport.update({
 const AccessoriesButtonRoute = AccessoriesButtonRouteImport.update({
   id: '/Accessories/Button',
   path: '/Accessories/Button',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PagesScreensSalesRoute = PagesScreensSalesRouteImport.update({
+  id: '/Pages/Screens/Sales',
+  path: '/Pages/Screens/Sales',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PagesScreensEventsRoute = PagesScreensEventsRouteImport.update({
@@ -212,6 +218,7 @@ export interface FileRoutesByFullPath {
   '/Onboarding/VendorSubservice/Two': typeof OnboardingVendorSubserviceTwoRoute
   '/Pages/Screens/Attendee': typeof PagesScreensAttendeeRoute
   '/Pages/Screens/Events': typeof PagesScreensEventsRoute
+  '/Pages/Screens/Sales': typeof PagesScreensSalesRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -240,6 +247,7 @@ export interface FileRoutesByTo {
   '/Onboarding/VendorSubservice/Two': typeof OnboardingVendorSubserviceTwoRoute
   '/Pages/Screens/Attendee': typeof PagesScreensAttendeeRoute
   '/Pages/Screens/Events': typeof PagesScreensEventsRoute
+  '/Pages/Screens/Sales': typeof PagesScreensSalesRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -270,6 +278,7 @@ export interface FileRoutesById {
   '/Onboarding/VendorSubservice/Two': typeof OnboardingVendorSubserviceTwoRoute
   '/Pages/Screens/Attendee': typeof PagesScreensAttendeeRoute
   '/Pages/Screens/Events': typeof PagesScreensEventsRoute
+  '/Pages/Screens/Sales': typeof PagesScreensSalesRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -300,6 +309,7 @@ export interface FileRouteTypes {
     | '/Onboarding/VendorSubservice/Two'
     | '/Pages/Screens/Attendee'
     | '/Pages/Screens/Events'
+    | '/Pages/Screens/Sales'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -328,6 +338,7 @@ export interface FileRouteTypes {
     | '/Onboarding/VendorSubservice/Two'
     | '/Pages/Screens/Attendee'
     | '/Pages/Screens/Events'
+    | '/Pages/Screens/Sales'
   id:
     | '__root__'
     | '/'
@@ -357,6 +368,7 @@ export interface FileRouteTypes {
     | '/Onboarding/VendorSubservice/Two'
     | '/Pages/Screens/Attendee'
     | '/Pages/Screens/Events'
+    | '/Pages/Screens/Sales'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -386,6 +398,7 @@ export interface RootRouteChildren {
   OnboardingVendorSubserviceTwoRoute: typeof OnboardingVendorSubserviceTwoRoute
   PagesScreensAttendeeRoute: typeof PagesScreensAttendeeRoute
   PagesScreensEventsRoute: typeof PagesScreensEventsRoute
+  PagesScreensSalesRoute: typeof PagesScreensSalesRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -486,6 +499,13 @@ declare module '@tanstack/react-router' {
       path: '/Accessories/Button'
       fullPath: '/Accessories/Button'
       preLoaderRoute: typeof AccessoriesButtonRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/Pages/Screens/Sales': {
+      id: '/Pages/Screens/Sales'
+      path: '/Pages/Screens/Sales'
+      fullPath: '/Pages/Screens/Sales'
+      preLoaderRoute: typeof PagesScreensSalesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/Pages/Screens/Events': {
@@ -624,6 +644,7 @@ const rootRouteChildren: RootRouteChildren = {
   OnboardingVendorSubserviceTwoRoute: OnboardingVendorSubserviceTwoRoute,
   PagesScreensAttendeeRoute: PagesScreensAttendeeRoute,
   PagesScreensEventsRoute: PagesScreensEventsRoute,
+  PagesScreensSalesRoute: PagesScreensSalesRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

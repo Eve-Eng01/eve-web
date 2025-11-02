@@ -48,7 +48,7 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children, user
         return 'Create New';
       case '/Pages/Screens/Attendee':
         return 'Attendees';
-      case '/sales':
+      case '/Pages/Screens/Sales':
         return 'Sales & Reports';
       case '/vendors':
         return 'Browse Vendors';
@@ -74,11 +74,13 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children, user
     navigate({ to: href });
   };
 
+
+  //Todo Work on this the routing doesn't make sense
   const generalNavItems: NavItem[] = [
     { icon: Calendar, label: 'My Events', href: '/Pages/Screens/Events', isActive: activeSection === 'My Events' },
     { icon: Plus, label: 'Create New', href: '/events/create', isActive: activeSection === 'Create New' },
     { icon: Users, label: 'Attendees', href: '/Pages/Screens/Attendee', isActive: activeSection === 'Attendees' },
-    { icon: TrendingUp, label: 'Sales & Reports', href: '/sales', isActive: activeSection === 'Sales & Reports' },
+    { icon: TrendingUp, label: 'Sales & Reports', href: '/Pages/Screens/Sales', isActive: activeSection === 'Sales & Reports' },
   ];
 
   const vendorNavItems: NavItem[] = [
@@ -93,6 +95,7 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children, user
     { icon: LogOut, label: 'Log Out', href: '/logout', isActive: activeSection === 'Log Out' },
   ];
 
+  // @Ufuoma we have a white background on the main content area, so we need to make the sidebar background color the same as the main content area
   const NavSection: React.FC<{ title: string; items: NavItem[] }> = ({ title, items }) => (
     <div className="mb-8">
       <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3 px-3">
@@ -153,7 +156,7 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children, user
             <div className="flex flex-col flex-1 overflow-hidden">
 
                 {/* Main Content Area */}
-                <main className="flex-1 overflow-y-auto bg-gray-50">
+                <main className="flex-1 overflow-y-auto bg-white">
                 <div className="py-6 px-6">
                     {children}
                 </div>
