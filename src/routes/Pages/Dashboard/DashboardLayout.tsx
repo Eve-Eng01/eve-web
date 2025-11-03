@@ -55,7 +55,7 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
         return "Create New";
       case "/Pages/Screens/Attendee":
         return "Attendees";
-      case "/sales":
+      case "/Pages/Screens/Sales":
         return "Sales & Reports";
       case "/vendors":
         return "Browse Vendors";
@@ -81,6 +81,8 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
     navigate({ to: href });
   };
 
+
+  //Todo Work on this the routing doesn't make sense
   const generalNavItems: NavItem[] = useMemo(
     () =>
       isVendor
@@ -132,7 +134,7 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
             {
               icon: TrendingUp,
               label: "Sales & Reports",
-              href: "/sales",
+              href: "/Pages/Screens/Sales",
               isActive: activeSection === "Sales & Reports",
             },
           ],
@@ -219,6 +221,7 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
     [isVendor]
   );
 
+  // @Ufuoma we have a white background on the main content area, so we need to make the sidebar background color the same as the main content area
   const NavSection: React.FC<{ title: string; items: NavItem[] }> = ({
     title,
     items,
@@ -292,7 +295,7 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
         {/* Main Content */}
         <div className="flex flex-col flex-1 overflow-hidden">
           {/* Main Content Area */}
-          <main className="flex-1 overflow-y-auto bg-gray-50">
+          <main className="flex-1 overflow-y-auto bg-white">
             <div className="py-6 px-6">{children}</div>
           </main>
         </div>
