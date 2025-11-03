@@ -1,37 +1,98 @@
-import { Calendar } from 'iconsax-reactjs'
-import { Users } from 'lucide-react'
-import { CustomButton } from '../../../../components/Button/Button'
-import { useNavigate } from '@tanstack/react-router';
+import React, { useState } from 'react';
+import { Trash2 } from 'lucide-react';
+import DeleteConfirmationModal from '../../../Accessories/DeleteConfirmationModal';
 
 const DraftedEvent = () => {
-    const navigate = useNavigate();
-    const handleContinue = () => {
-        navigate({ to: "/Accessories/SuccessPage" });
-    };
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const events = [
+    {
+      id: 1,
+      title: 'Elevate 2025: Innovation & Impact Summit',
+      time: '10:00 AM - 4:00 PM',
+      status: 'Draft (to Start: 15 Mar 2025)',
+      lastEdited: '10 Feb 2025',
+      type: 'Visual Event',
+      image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&q=80',
+    },
+    {
+      id: 2,
+      title: 'Elevate 2025: Innovation & Impact Summit',
+      time: '10:00 AM - 4:00 PM',
+      status: 'Draft (to Start: 15 Mar 2025)',
+      lastEdited: '10 Feb 2025',
+      type: 'Physical Event',
+      image: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=800&q=80',
+    }
+  ];
 
   return (
-    <div className="flex flex-col items-center justify-center py-12">
-        <div className="w-64 h-48 mb-8">
-            <div className="w-full h-full bg-gradient-to-br from-amber-100 to-amber-200 rounded-2xl flex items-center justify-center">
-                <div className="relative">
-                    <Calendar className="w-20 h-20 text-amber-400" />
-                    <div className="absolute -top-2 -right-2 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-lg">
-                        <Users className="w-4 h-4 text-amber-500" />
-                    </div>
-                </div>
-            </div>
-        </div>
-        <h3 className="text-xl font-semibold text-gray-900 mb-2">
-            No Draft Events
-        </h3>
-        <p className="text-gray-600 text-center max-w-md mb-8">
-            Save your event ideas as drafts and come back to finish them later.
-        </p>
-        <div className="w-[267px]">
-            <CustomButton title="PASSED EVENT" onClick={handleContinue} />
-        </div>
-    </div>
-  )
-}
+    <>
+      <div className="w-full max-w-7xl mx-auto p-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {events.map((event) => (
+            <div
+              key={event.id}
+              className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow"
+            >
+              {/* Event Image */}
+              <div className={`h-[254px] relative overflow-hidden`}>
+                <img
+                  src={event.image}
+                  alt={event.title}
+                  className="w-full h-full object-cover"
+                />
+              </div>
 
-export default DraftedEvent
+              {/* Event Details */}
+              <div className="p-6 bg-[#f4f4f4]">
+                <div className="flex items-start justify-between mb-4">
+                  <h3 className="text-lg font-semibold text-gray-900 flex-1 pr-4">
+                    {event.title}
+                  </h3>
+                  <button onClick={() => {setDeleteModalOpen(true)}} className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
+                    <Trash2 className="w-5 h-5 text-gray-400" />
+                  </button>
+                </div>
+
+                <div className="space-y-2 mb-4">
+                  <p className="text-sm text-gray-600">
+                    <span className="font-medium">Time</span> {event.time}
+                  </p>
+                  <p className="text-sm text-gray-600">
+                    <span className="font-medium">Status:</span> {event.status}
+                  </p>
+                  <p className="text-sm text-gray-600">
+                    <span className="font-medium">Last Edited:</span> {event.lastEdited}
+                  </p>
+                </div>
+
+                {/* Event Type Badge */}
+                <div className="flex justify-end">
+                  <span className={`inline-flex items-center text-sm font-medium ${
+                    event.type === 'Visual Event' 
+                      ? 'text-purple-600' 
+                      : 'text-purple-600'
+                  }`}>
+                    <span className="w-2 h-2 rounded-full bg-purple-600 mr-2"></span>
+                    {event.type}
+                  </span>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <DeleteConfirmationModal
+        isOpen={deleteModalOpen}
+        onClose={() => {
+          setDeleteModalOpen(false);
+        }}
+        onConfirm={() => {}}
+        title='Delete Draft'
+        description= {<p className="text-gray-600 mb-8 px-4 leading-relaxed">This action cannot be undone. Once you delete this draft, all event details you've saved so far will be permanently removed.</p>}
+      />
+    </>
+  );
+};
+
+export default DraftedEvent;

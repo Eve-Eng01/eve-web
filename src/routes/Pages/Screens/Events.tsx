@@ -30,7 +30,7 @@ export function RouteComponent() {
   const renderTabContent = () => {
     switch (activeTab) {
       case "Current Event":
-        return <CreateEvent />;
+        return <CreateEvent onNavigateToTab={setActiveTab} />;
 
       case "Scheduled Event":
         return <ScheduledEvent />;

@@ -8,6 +8,7 @@ import Ticketing, { Ticket } from './Ticketing';
 import MediaUpload from './MedisUpload';
 import Review from './Review';
 import { TimePicker } from '../../../Accessories/TimePicker';
+import SuccesConfirmationModal from '../../../Accessories/SuccesConfirmationModal';
 
 // Define interface for a single date-time entry (used in Recurring DateTimePicker)
 interface DateTimeEntry {
@@ -443,8 +444,12 @@ const RecurringDateTimePicker: React.FC<RecurringDateTimePickerProps> = ({
   );
 };
 
+type CreateEventProps = {
+    onNavigateToTab: (tab: string) => void;
+  };
+
 // CreateEvent Component
-const CreateEvent = () => {
+const CreateEvent = ({ onNavigateToTab }: CreateEventProps) => {
     const [showForm, setShowForm] = useState(false);
     const [currentStep, setCurrentStep] = useState(0);
     const [eventName, setEventName] = useState('');
@@ -471,6 +476,7 @@ const CreateEvent = () => {
     const [selectedTicketType, setSelectedTicketType] = useState('paid');
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [savedTickets, setSavedTickets] = useState<Ticket[]>([]); 
+    const [successModalOpen, setSuccessModalOpen] = useState(false);
 
     const eventCategories = [
         { value: 'cultural-music', label: 'Cultural & Music' },
@@ -493,6 +499,10 @@ const CreateEvent = () => {
     const handleGoBack = () => {
         setShowForm(false);
     };
+
+    const handleSuccess = () => {
+        onNavigateToTab("Drafted Event");
+    }
 
     const handleNext = () => {
         if (currentStep === 0) {
@@ -518,7 +528,9 @@ const CreateEvent = () => {
             setCurrentStep(currentStep + 1);
           }
         } else if (currentStep < steps.length - 1) {
-          setCurrentStep(currentStep + 1);
+            setCurrentStep(currentStep + 1);
+        } else if (currentStep === steps.length - 1) {
+            setSuccessModalOpen(true)
         }
       };
     
@@ -841,46 +853,58 @@ const CreateEvent = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 p-4">
-      <div className="mx-auto bg-white rounded-lg shadow-sm w-[80%]">
-        <div className="flex items-center justify-between p-6 border-b">
-          <button className="text-gray-600 hover:text-gray-900 cursor-pointer" onClick={handleGoBack}>
-            Go back
-          </button>
-          <h1 className="text-lg font-semibold text-black">Create Event</h1>
-          <div className="text-sm text-gray-600">August 5, 2025</div>
+    <>
+        <div className="min-h-screen bg-gray-50 p-4">
+            <div className="mx-auto bg-white rounded-lg shadow-sm w-[80%]">
+                <div className="flex items-center justify-between p-6 border-b">
+                    <button className="text-gray-600 hover:text-gray-900 cursor-pointer" onClick={handleGoBack}>
+                        Go back
+                    </button>
+                    <h1 className="text-lg font-semibold text-black">Create Event</h1>
+                    <div className="text-sm text-gray-600">August 5, 2025</div>
+                </div>
+
+                {renderProgressBar()}
+
+                {renderFormContent()}
+
+                <div className="flex items-center justify-end gap-4 p-6 border-t">
+                    <button
+                        className="px-6 py-2 text-purple-600 font-medium hover:bg-purple-50 rounded-lg"
+                        onClick={handleGoBack}
+                    >
+                        Cancel
+                    </button>
+                {currentStep > 0 && (
+                    <button
+                    className="px-6 py-2 text-purple-600 font-medium hover:bg-purple-50 rounded-lg"
+                    onClick={handlePrevious}
+                    >
+                    Previous
+                    </button>
+                )}
+                <div className="w-[131px]">
+                    <CustomButton
+                    title={currentStep === steps.length - 1 ? 'Publish' : 'Next'}
+                    icon={<ArrowRight size="24" color="#fff" />}
+                    onClick={handleNext}
+                    className="w-auto px-6 py-2"
+                    />
+                </div>
+                </div>
+            </div>
         </div>
 
-        {renderProgressBar()}
-
-        {renderFormContent()}
-
-        <div className="flex items-center justify-end gap-4 p-6 border-t">
-          <button
-            className="px-6 py-2 text-purple-600 font-medium hover:bg-purple-50 rounded-lg"
-            onClick={handleGoBack}
-          >
-            Cancel
-          </button>
-          {currentStep > 0 && (
-            <button
-              className="px-6 py-2 text-purple-600 font-medium hover:bg-purple-50 rounded-lg"
-              onClick={handlePrevious}
-            >
-              Previous
-            </button>
-          )}
-          <div className="w-[131px]">
-            <CustomButton
-              title={currentStep === steps.length - 1 ? 'Publish' : 'Next'}
-              icon={<ArrowRight size="24" color="#fff" />}
-              onClick={handleNext}
-              className="w-auto px-6 py-2"
-            />
-          </div>
-        </div>
-      </div>
-    </div>
+        <SuccesConfirmationModal
+            isOpen={successModalOpen}
+            onClose={() => {
+                setSuccessModalOpen(false);
+              }}
+            onConfirm={handleSuccess}
+            title = "Event Booked Successfully!"
+            description = {<p className="text-gray-600 mb-8 px-4 leading-relaxed">Your event <b>Elevate 2025: Innovation & Impact Summit</b>  has been created. Next, you can go to your dashboard to manage all details, or start searching for vendors and sending proposal requests</p>}
+        />
+    </>
   );
 };
 

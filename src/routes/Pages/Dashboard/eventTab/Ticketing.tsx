@@ -3,6 +3,7 @@ import { DollarSign, Hand, Heart, Trash2, MoreVertical, Edit, Copy, EyeOff } fro
 import Modal from '../../../Accessories/MainModal';
 import { DropdownInput, DropdownOption } from '../../../Accessories/DropdownInput';
 import img from '../../../../assets/circle.png'
+import DeleteConfirmationModal from '../../../Accessories/DeleteConfirmationModal';
 
 // Ticket interface
 export interface Ticket {
@@ -16,62 +17,6 @@ export interface Ticket {
   ticketType: string;
   ticketsSold: number;
 }
-
-// Delete Confirmation Modal Component
-const DeleteConfirmationModal: React.FC<{
-  isOpen: boolean;
-  onClose: () => void;
-  onConfirm: () => void;
-}> = ({ isOpen, onClose, onConfirm }) => {
-  if (!isOpen) return null;
-
-  return (
-    <Modal
-      isOpen={isOpen}
-      onClose={onClose}
-      title=""
-      size="xl"
-      animationDuration={300}
-    >
-      <div className="text-center py-6">
-        {/* Trash Icon */}
-        <div className="flex justify-center mb-6">
-          <div className="w-24 h-24 bg-red-50 rounded-full flex items-center justify-center">
-            <Trash2 className="w-12 h-12 text-red-500" />
-          </div>
-        </div>
-
-        {/* Title */}
-        <h2 className="text-3xl font-bold text-gray-900 mb-4">
-          Delete This Ticket?
-        </h2>
-
-        {/* Description */}
-        <p className="text-gray-600 mb-8 px-4 leading-relaxed">
-          If you delete this ticket, it will be permanently removed from your event. All information 
-          attached to it including ticket name, price, availability, attendee registrations, and any 
-          related settings will also be deleted. This action cannot be undone.
-        </p>
-
-        {/* Action Buttons */}
-        <div className="flex gap-4">
-          <button
-            onClick={onClose}
-            className="flex-1 px-6 py-4 border-2 border-[#7417C6] text-[#7417C6] rounded-2xl hover:bg-purple-50 transition-colors font-semibold text-lg"
-          >
-            Cancel
-          </button>
-          <button
-            onClick={onConfirm}
-            className="flex-1 px-6 py-4 bg-red-500 text-white rounded-2xl hover:bg-red-600 transition-colors font-semibold text-lg"
-          >
-            Delet Ticket
-          </button>
-        </div>
-      </div>
-    </Modal>
-  );
-};
 
 // Dropdown Menu Component
 const TicketOptionsDropdown: React.FC<{
@@ -607,6 +552,8 @@ interface TicketingProps {
           setTicketToDelete(null);
         }}
         onConfirm={handleConfirmDelete}
+        title='Delete This Ticket'
+        description= {<p className="text-gray-600 mb-8 px-4 leading-relaxed">If you delete this ticket, it will be permanently removed from your event. All information attached to it including ticket name, price, availability, attendee registrations, and any related settings will also be deleted. This action cannot be undone.</p>}
       />
 
       {/* Dropdown Menu */}

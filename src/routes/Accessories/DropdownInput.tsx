@@ -77,9 +77,9 @@ export const DropdownInput: React.FC<DropdownInputProps> = ({
           className="w-full px-4 py-3 bg-gray-100 border-0 rounded-lg text-left text-gray-800 focus:bg-white focus:ring-2 focus:ring-purple-500 focus:outline-none transition-all flex justify-between items-center"
         >
           <span className="flex items-center gap-2">
-            {value && value.flag ? (
+            {value ? (
               <>
-                <span>{value.flag}</span>
+                {value.flag && <span>{value.flag}</span>}
                 <span className="text-gray-800">{value.label}</span>
               </>
             ) : (
