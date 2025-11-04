@@ -1,16 +1,16 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import React, { useState } from "react";
-import logo from "../../assets/evaLogo.png";
-import bottom from "../../assets/onBoarding/bottom.png";
-import { CustomButton } from "../Accessories/Button";
-import { DropdownInput } from "../Accessories/DropdownInput";
-import { InputField } from "../Accessories/InputFIeld";
+import logo from "@assets/evaLogo.png";
+import bottom from "@assets/onBoarding/bottom.png";
+import { CustomButton } from "@components/accessories/button";
+import { DropdownInput } from "@components/accessories/dropdown-input";
+import { InputField } from "@components/accessories/input-field";
 import "./onboard.css";
 import CountryList from "country-list-with-dial-code-and-flag";
-import { ServiceOne } from "./SubServices/one";
-import { ServiceTwo } from "./SubServices/two";
-import { ServiceThree } from "./SubServices/three";
-import { ServiceFour } from "./SubServices/four";
+import { ServiceOne } from "./sub-services/one";
+import { ServiceTwo } from "./sub-services/two";
+import { ServiceThree } from "./sub-services/three";
+import { ServiceFour } from "./sub-services/four";
 
 // Type definitions
 export interface DropdownOption {
@@ -44,7 +44,11 @@ export interface CustomPhoneInputProps {
   onChange: (data: PhoneData) => void;
 }
 
-export const CustomPhoneInput: React.FC<CustomPhoneInputProps> = ({ label, value, onChange }) => {
+export const CustomPhoneInput: React.FC<CustomPhoneInputProps> = ({
+  label,
+  value,
+  onChange,
+}) => {
   // Get all countries from the npm package
   const countries: Country[] = CountryList.getAll();
 
@@ -55,11 +59,14 @@ export const CustomPhoneInput: React.FC<CustomPhoneInputProps> = ({ label, value
   }));
 
   const selectedCountryOption = value
-    ? countryOptions.find((option) => option.value === value.country.code) || null
+    ? countryOptions.find((option) => option.value === value.country.code) ||
+      null
     : null;
 
   const handleCountryChange = (option: DropdownOption) => {
-    const selectedCountry = countries.find((country) => country.code === option.value);
+    const selectedCountry = countries.find(
+      (country) => country.code === option.value
+    );
     if (selectedCountry) {
       onChange({
         country: selectedCountry,
@@ -79,7 +86,11 @@ export const CustomPhoneInput: React.FC<CustomPhoneInputProps> = ({ label, value
 
   return (
     <div className="w-full">
-      {label && <label className="block text-gray-600 text-sm mb-2 font-medium">{label}</label>}
+      {label && (
+        <label className="block text-gray-600 text-sm mb-2 font-medium">
+          {label}
+        </label>
+      )}
 
       <div className="flex gap-2">
         {/* Country Dropdown */}
@@ -108,7 +119,8 @@ export const CustomPhoneInput: React.FC<CustomPhoneInputProps> = ({ label, value
       {/* Display selected country dial code */}
       {value?.country && (
         <div className="mt-1 text-sm text-gray-500">
-          Selected: {value.country.flag} {value.country.name} ({value.country.dial_code})
+          Selected: {value.country.flag} {value.country.name} (
+          {value.country.dial_code})
         </div>
       )}
     </div>
@@ -118,7 +130,7 @@ export const CustomPhoneInput: React.FC<CustomPhoneInputProps> = ({ label, value
 // Main Onboarding Form Component
 export function RouteComponent() {
   const [currentTab, setCurrentTab] = useState(1);
-      const navigate = useNavigate();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState<FormData>({
     companyName: "Eve Even Platform",
     businessType: null,
@@ -141,8 +153,8 @@ export function RouteComponent() {
   const handleContinue = () => {
     if (currentTab < 5) {
       setCurrentTab(currentTab + 1);
-    } else{
-      navigate({ to: "/Onboarding/SubServices/Review" });
+    } else {
+      navigate({ to: "/onboarding/sub-services/review" });
     }
   };
 
@@ -161,9 +173,12 @@ export function RouteComponent() {
               <div className="mx-auto mb-4 flex items-center justify-center">
                 <img src={logo} alt="" className="w-[60px] h-[60px]" />
               </div>
-              <h2 className="text-black header">How are you going to use Eve?</h2>
+              <h2 className="text-black header">
+                How are you going to use Eve?
+              </h2>
               <p className="text-black para">
-                Tell Us Who You Are, Choose one to get the most relevant features and recommendations.
+                Tell Us Who You Are, Choose one to get the most relevant
+                features and recommendations.
               </p>
             </div>
 
@@ -171,14 +186,18 @@ export function RouteComponent() {
               label="Company Name"
               placeholder="Eve Even Platform"
               value={formData.companyName}
-              onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, companyName: e.target.value })
+              }
             />
 
             <DropdownInput
               label="Business Type"
               options={businessTypes}
               value={formData.businessType}
-              onChange={(option) => setFormData({ ...formData, businessType: option })}
+              onChange={(option) =>
+                setFormData({ ...formData, businessType: option })
+              }
               placeholder="Select business type"
               searchable={true}
               addNewOption={true}
@@ -195,16 +214,23 @@ export function RouteComponent() {
               label="Location"
               placeholder="Ibeju Lekki Lagos, Nigeria."
               value={formData.location}
-              onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, location: e.target.value })
+              }
             />
 
             <div className="space-y-4 bottom">
-              <CustomButton disabled={
-                formData.companyName && 
-                formData.businessType && 
-                formData.phoneData && 
-                formData.location === "" ? true : false} 
-                title="Continue" onClick={handleContinue}
+              <CustomButton
+                disabled={
+                  formData.companyName &&
+                  formData.businessType &&
+                  formData.phoneData &&
+                  formData.location === ""
+                    ? true
+                    : false
+                }
+                title="Continue"
+                onClick={handleContinue}
               />
             </div>
           </div>
@@ -213,14 +239,12 @@ export function RouteComponent() {
       case 2:
         return <ServiceOne continue={handleContinue} back={handleGoBack} />;
       case 3:
-        return ( 
-          <ServiceTwo continue={handleContinue} back={handleGoBack}/>
-        )
+        return <ServiceTwo continue={handleContinue} back={handleGoBack} />;
       case 4:
-        return <ServiceThree continue={handleContinue} back={handleGoBack}/>
+        return <ServiceThree continue={handleContinue} back={handleGoBack} />;
 
       case 5:
-        return <ServiceFour continue={handleContinue} back={handleGoBack}/>
+        return <ServiceFour continue={handleContinue} back={handleGoBack} />;
 
       default:
         return null;
@@ -261,6 +285,6 @@ export function RouteComponent() {
 }
 
 // Define the route using createFileRoute
-export const Route = createFileRoute("/Onboarding/Services")({
+export const Route = createFileRoute("/onboarding/services")({
   component: RouteComponent,
 });
