@@ -1,125 +1,204 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import React, { useState } from "react";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { Lock1, Sms } from "iconsax-reactjs";
+import { useState } from "react";
 import logo from "@assets/evaLogo.png";
-import bottom from "@assets/onBoarding/bottom.png";
-import { CustomButton } from "@components/accessories/button";
-import "./onboard.css";
-import { TickCircle } from "iconsax-reactjs";
-import { UserTypeCardProps, userTypes } from "../../dummy-data/data";
+import img from "@assets/onBoarding/signInImage.png";
+import smile from "@assets/onBoarding/smile.png";
 
-const UserTypeCard: React.FC<UserTypeCardProps> = ({
-  userType,
-  isSelected,
-  onClick,
-}) => {
-  return (
-    <div
-      onClick={onClick}
-      className={`
-        w-full
-        p-4
-        rounded-2xl
-        border-2
-        cursor-pointer
-        transition-all
-        duration-200
-        flex
-        items-center
-        justify-between
-        mb-4
-        ${isSelected ? "border-[#7417C6] bg-purple-50" : "border-gray-200 bg-white hover:border-gray-300"}
-      `}
-    >
-      <div className="flex-1">
-        <h3
-          className={`
-          text-lg
-          font-medium
-          ${isSelected ? "text-[#7417C6]" : "text-gray-800"}
-        `}
-        >
-          {userType.title}
-        </h3>
-        {userType.description && (
-          <p
-            className={`
-            text-sm
-            mt-1
-            ${isSelected ? "text-purple-600" : "text-gray-600"}
-          `}
-          >
-            {userType.description}
-          </p>
-        )}
-      </div>
-
-      {/* Check icon */}
-      <div>
-        <TickCircle
-          color={isSelected ? "#7417C6" : "#D5D5D5"}
-          variant="Outline"
-        />
-      </div>
-    </div>
-  );
-};
-
-export const Route = createFileRoute("/onboarding/onboarding")({
+export const Route = createFileRoute("/auth/signin")({
   component: RouteComponent,
 });
 
 export function RouteComponent() {
-  const [selectedType, setSelectedType] = useState<string>("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleContinue = () => {
+  // Check if both fields are filled
+  const isFormValid = email.trim() !== "" && password.trim() !== "";
+
+  const handleSignUp = () => {
     /* eslint-disable */ console.log(
-      ...oo_oo(`2149273860_76_4_76_52_4`, "Selected user type:", selectedType)
+      ...oo_oo(`698497997_21_4_21_34_4`, "Sign up clicked")
     );
-    if (selectedType === "event-organizer") {
-      navigate({ to: "/onboarding/services" });
-    } else {
-      navigate({ to: "/onboarding/service-vendor" });
-    }
+    navigate({ to: "/onboarding/onboarding" });
+  };
+
+  const handleGoogleSignup = () => {
+    /* eslint-disable */ console.log(
+      ...oo_oo(`698497997_26_4_26_40_4`, "Google signup clicked")
+    );
+  };
+
+  const handleFacebookSignUp = () => {
+    /* eslint-disable */ console.log(
+      ...oo_oo(`698497997_30_4_30_42_4`, "Facebook signUp clicked")
+    );
+  };
+
+  const handleLogin = () => {
+    /* eslint-disable */ console.log(
+      ...oo_oo(`698497997_34_4_34_32_4`, "Login clicked")
+    );
+    navigate({ to: "/auth/sign-up" });
   };
 
   return (
-    <div className="min-h-screen flex bg-white justify-center items-center">
-      <div className="flex flex-col justify-center items-center px-4">
-        <div className="mx-auto mb-4">
-          <img src={logo} alt="" className="w-[60px] h-[60px]" />
-        </div>
-        <h2 className="text-black header">How are you going to use Eve?</h2>
-        <p className="text-black para">
-          Tell Us Who You Are, Choose one to get the most relevant features and
-          recommendations.
-        </p>
+    <div className="min-h-screen flex">
+      {/* Left side - Image with overlay */}
+      <div className="flex-1 relative">
+        <img
+          src={img}
+          alt="Sign in background"
+          className="w-full h-[100vh] object-cover"
+        />
+      </div>
 
-        {/* User type selector */}
-        <div className="w-full max-w-md space-y-0 mb-8">
-          {userTypes.map((userType) => (
-            <UserTypeCard
-              key={userType.id}
-              userType={userType}
-              isSelected={selectedType === userType.id}
-              onClick={() => setSelectedType(userType.id)}
-            />
-          ))}
-        </div>
-
+      {/* Right side - Sign up form */}
+      <div className="flex-1 bg-white flex items-center justify-center p-8">
         <div className="w-full max-w-md">
-          <CustomButton
-            title="Continue"
-            onClick={handleContinue}
-            disabled={selectedType === "" ? true : false}
-          />
+          {/* Logo */}
+          <div className="text-center mb-8">
+            <div className="mx-auto mb-4 flex items-center justify-center">
+              <img src={logo} alt="" className="w-[60px] h-[60px]" />
+            </div>
+            <h1 className="text-[32px] font-bold text-gray-900 mb-2">
+              Welcome Back To Eve
+            </h1>
+            <p className="text-gray-600 text-[14px] leading-relaxed">
+              Log in to access your EVE account and continue creating or
+              discovering amazing events.
+            </p>
+          </div>
+
+          {/* Form */}
+          <div className="space-y-6">
+            {/* Email field */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Email
+              </label>
+              <div className="relative">
+                <div className="border-r-1 border-[#EAEAEA] pr-2 absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <Sms size="24" color="#BFBFBF" variant="Outline" />
+                </div>
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter your email"
+                  className="text-[#2D2D2D] w-full pl-13 pr-4 py-3 border border-gray-300 rounded-[14px] focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all"
+                />
+              </div>
+            </div>
+
+            {/* Password field */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Password
+              </label>
+              <div className="relative">
+                <div className="border-r-1 border-[#EAEAEA] pr-2 absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <Lock1 size="24" color="#BFBFBF" variant="Outline" />
+                </div>
+                <input
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Enter password"
+                  className="text-[#2D2D2D] w-full pl-13 pr-4 py-3 border border-gray-300 rounded-[14px] focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all"
+                />
+              </div>
+            </div>
+
+            {/* Terms checkbox */}
+            <div className="flex items-start">
+              <Link
+                to="/auth/password/forget"
+                className="text-sm text-gray-600"
+              >
+                <span className="text-[#7417C6] hover:text-[#7417C6] cursor-pointer">
+                  Forgot Password?
+                </span>
+              </Link>
+            </div>
+
+            {/* Sign Up button */}
+            <button
+              onClick={handleSignUp}
+              className={`w-full text-white font-medium py-3 px-4 rounded-[14px] transition-colors duration-200 ${
+                isFormValid
+                  ? "bg-[#7417C6] hover:bg-[#5f1399]"
+                  : "bg-gray-400 hover:bg-gray-500"
+              }`}
+            >
+              Sign In
+            </button>
+
+            {/* Social login buttons */}
+            <div className="space-y-3">
+              <button
+                onClick={handleGoogleSignup}
+                className="w-full flex items-center justify-center px-4 py-3 border border-gray-300 rounded-[14px] text-gray-700 bg-white hover:bg-gray-50 transition-colors duration-200"
+              >
+                <svg className="w-5 h-5 mr-3" viewBox="0 0 24 24">
+                  <path
+                    fill="#4285F4"
+                    d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+                  />
+                  <path
+                    fill="#34A853"
+                    d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+                  />
+                  <path
+                    fill="#FBBC05"
+                    d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
+                  />
+                  <path
+                    fill="#EA4335"
+                    d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+                  />
+                </svg>
+                Sign up with Google
+              </button>
+
+              <button
+                onClick={handleFacebookSignUp}
+                className="w-full flex items-center justify-center px-4 py-3 border border-gray-300 rounded-[14px] text-gray-700 bg-white hover:bg-gray-50 transition-colors duration-200"
+              >
+                <svg
+                  className="w-5 h-5 mr-3"
+                  fill="#1877F2"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                </svg>
+                Sign up with Facebook
+              </button>
+            </div>
+
+            {/* Login link */}
+            <div className="text-center">
+              <span className="text-sm text-gray-600">
+                Don't have an account?{" "}
+                <button
+                  onClick={handleLogin}
+                  className="text-purple-600 hover:text-purple-700 font-medium"
+                >
+                  Sign Up
+                </button>
+              </span>
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Decorative elements on the bottom side */}
+      {/* <OtpVerification/> */}
+
+      {/* Decorative elements on the right side */}
       <div className="absolute bottom-0 right-0 overflow-hidden pointer-events-none">
         <div className="relative">
-          <img src={bottom} alt="" className="w-full" />
+          <img src={smile} alt="" className="w-[247px] h-[245px]" />
         </div>
       </div>
     </div>

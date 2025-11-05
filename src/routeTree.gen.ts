@@ -12,33 +12,30 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as AuthenticatedProtectedRouteRouteImport } from './routes/_authenticated/protected-route'
-import { Route as PagesLayoutRouteImport } from './routes/Pages/Layout'
-import { Route as OnboardingOnboardingRouteImport } from './routes/Onboarding/onboarding'
-import { Route as OnboardingServicesRouteImport } from './routes/Onboarding/Services'
-import { Route as OnboardingServiceVendorRouteImport } from './routes/Onboarding/ServiceVendor'
-import { Route as AuthenticationSignUpRouteImport } from './routes/Authentication/SignUp'
-import { Route as AuthenticationSignInRouteImport } from './routes/Authentication/SignIn'
-import { Route as AuthenticationOtpVerificationRouteImport } from './routes/Authentication/OtpVerification'
-import { Route as AccessoriesUploadRouteImport } from './routes/Accessories/Upload'
-import { Route as AccessoriesSuccessPageRouteImport } from './routes/Accessories/SuccessPage'
-import { Route as AccessoriesButtonRouteImport } from './routes/Accessories/Button'
-import { Route as PagesVendorDashboardRouteImport } from './routes/Pages/Vendor/Dashboard'
-import { Route as PagesVendorEventIdRouteImport } from './routes/Pages/Vendor/$eventId'
-import { Route as PagesScreensSalesRouteImport } from './routes/Pages/Screens/Sales'
-import { Route as PagesScreensEventsRouteImport } from './routes/Pages/Screens/Events'
-import { Route as PagesScreensAttendeeRouteImport } from './routes/Pages/Screens/Attendee'
-import { Route as OnboardingVendorSubserviceTwoRouteImport } from './routes/Onboarding/VendorSubservice/Two'
-import { Route as OnboardingVendorSubserviceThreeRouteImport } from './routes/Onboarding/VendorSubservice/Three'
-import { Route as OnboardingSubServicesTwoRouteImport } from './routes/Onboarding/SubServices/two'
-import { Route as OnboardingSubServicesThreeRouteImport } from './routes/Onboarding/SubServices/three'
-import { Route as OnboardingSubServicesOneRouteImport } from './routes/Onboarding/SubServices/one'
-import { Route as OnboardingSubServicesFourRouteImport } from './routes/Onboarding/SubServices/four'
-import { Route as OnboardingSubServicesFiveRouteImport } from './routes/Onboarding/SubServices/five'
-import { Route as OnboardingSubServicesUploadFormModalRouteImport } from './routes/Onboarding/SubServices/UploadFormModal'
-import { Route as OnboardingSubServicesReviewRouteImport } from './routes/Onboarding/SubServices/Review'
-import { Route as AuthenticationForgetPasswordForgetPassOtpRouteImport } from './routes/Authentication/ForgetPassword/ForgetPassOtp'
-import { Route as AuthenticationForgetPasswordForgetPassRouteImport } from './routes/Authentication/ForgetPassword/ForgetPass'
+import { Route as VendorIndexRouteImport } from './routes/vendor/index'
+import { Route as OrganizerIndexRouteImport } from './routes/organizer/index'
+import { Route as StatusSuccessRouteImport } from './routes/status/success'
+import { Route as OrganizerSalesRouteImport } from './routes/organizer/sales'
+import { Route as OrganizerLayoutRouteImport } from './routes/organizer/layout'
+import { Route as OrganizerAttendeeRouteImport } from './routes/organizer/attendee'
+import { Route as OnboardingServicesRouteImport } from './routes/onboarding/services'
+import { Route as OnboardingServiceVendorRouteImport } from './routes/onboarding/service-vendor'
+import { Route as OnboardingOnboardingRouteImport } from './routes/onboarding/onboarding'
+import { Route as AuthSigninRouteImport } from './routes/auth/signin'
+import { Route as AuthSignUpRouteImport } from './routes/auth/sign-up'
+import { Route as VendorEventIndexRouteImport } from './routes/vendor/event/index'
+import { Route as VendorEventEventIdRouteImport } from './routes/vendor/event/$eventId'
+import { Route as OnboardingVendorSubServicesTwoRouteImport } from './routes/onboarding/vendor-sub-services/two'
+import { Route as OnboardingVendorSubServicesThreeRouteImport } from './routes/onboarding/vendor-sub-services/three'
+import { Route as OnboardingSubServicesTwoRouteImport } from './routes/onboarding/sub-services/two'
+import { Route as OnboardingSubServicesThreeRouteImport } from './routes/onboarding/sub-services/three'
+import { Route as OnboardingSubServicesReviewRouteImport } from './routes/onboarding/sub-services/review'
+import { Route as OnboardingSubServicesOneRouteImport } from './routes/onboarding/sub-services/one'
+import { Route as OnboardingSubServicesFourRouteImport } from './routes/onboarding/sub-services/four'
+import { Route as OnboardingSubServicesFiveRouteImport } from './routes/onboarding/sub-services/five'
+import { Route as AuthPasswordOtpRouteImport } from './routes/auth/password/otp'
+import { Route as AuthPasswordForgetRouteImport } from './routes/auth/password/forget'
+import { Route as AuthOtpVerifyRouteImport } from './routes/auth/otp/verify'
 
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
@@ -54,377 +51,337 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedProtectedRouteRoute =
-  AuthenticatedProtectedRouteRouteImport.update({
-    id: '/protected-route',
-    path: '/protected-route',
-    getParentRoute: () => AuthenticatedRoute,
-  } as any)
-const PagesLayoutRoute = PagesLayoutRouteImport.update({
-  id: '/Pages/Layout',
-  path: '/Pages/Layout',
+const VendorIndexRoute = VendorIndexRouteImport.update({
+  id: '/vendor/',
+  path: '/vendor/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const OnboardingOnboardingRoute = OnboardingOnboardingRouteImport.update({
-  id: '/Onboarding/onboarding',
-  path: '/Onboarding/onboarding',
+const OrganizerIndexRoute = OrganizerIndexRouteImport.update({
+  id: '/organizer/',
+  path: '/organizer/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StatusSuccessRoute = StatusSuccessRouteImport.update({
+  id: '/status/success',
+  path: '/status/success',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OrganizerSalesRoute = OrganizerSalesRouteImport.update({
+  id: '/organizer/sales',
+  path: '/organizer/sales',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OrganizerLayoutRoute = OrganizerLayoutRouteImport.update({
+  id: '/organizer/layout',
+  path: '/organizer/layout',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OrganizerAttendeeRoute = OrganizerAttendeeRouteImport.update({
+  id: '/organizer/attendee',
+  path: '/organizer/attendee',
   getParentRoute: () => rootRouteImport,
 } as any)
 const OnboardingServicesRoute = OnboardingServicesRouteImport.update({
-  id: '/Onboarding/Services',
-  path: '/Onboarding/Services',
+  id: '/onboarding/services',
+  path: '/onboarding/services',
   getParentRoute: () => rootRouteImport,
 } as any)
 const OnboardingServiceVendorRoute = OnboardingServiceVendorRouteImport.update({
-  id: '/Onboarding/ServiceVendor',
-  path: '/Onboarding/ServiceVendor',
+  id: '/onboarding/service-vendor',
+  path: '/onboarding/service-vendor',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticationSignUpRoute = AuthenticationSignUpRouteImport.update({
-  id: '/Authentication/SignUp',
-  path: '/Authentication/SignUp',
+const OnboardingOnboardingRoute = OnboardingOnboardingRouteImport.update({
+  id: '/onboarding/onboarding',
+  path: '/onboarding/onboarding',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticationSignInRoute = AuthenticationSignInRouteImport.update({
-  id: '/Authentication/SignIn',
-  path: '/Authentication/SignIn',
+const AuthSigninRoute = AuthSigninRouteImport.update({
+  id: '/auth/signin',
+  path: '/auth/signin',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticationOtpVerificationRoute =
-  AuthenticationOtpVerificationRouteImport.update({
-    id: '/Authentication/OtpVerification',
-    path: '/Authentication/OtpVerification',
+const AuthSignUpRoute = AuthSignUpRouteImport.update({
+  id: '/auth/sign-up',
+  path: '/auth/sign-up',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VendorEventIndexRoute = VendorEventIndexRouteImport.update({
+  id: '/vendor/event/',
+  path: '/vendor/event/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VendorEventEventIdRoute = VendorEventEventIdRouteImport.update({
+  id: '/vendor/event/$eventId',
+  path: '/vendor/event/$eventId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OnboardingVendorSubServicesTwoRoute =
+  OnboardingVendorSubServicesTwoRouteImport.update({
+    id: '/onboarding/vendor-sub-services/two',
+    path: '/onboarding/vendor-sub-services/two',
     getParentRoute: () => rootRouteImport,
   } as any)
-const AccessoriesUploadRoute = AccessoriesUploadRouteImport.update({
-  id: '/Accessories/Upload',
-  path: '/Accessories/Upload',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AccessoriesSuccessPageRoute = AccessoriesSuccessPageRouteImport.update({
-  id: '/Accessories/SuccessPage',
-  path: '/Accessories/SuccessPage',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AccessoriesButtonRoute = AccessoriesButtonRouteImport.update({
-  id: '/Accessories/Button',
-  path: '/Accessories/Button',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PagesVendorDashboardRoute = PagesVendorDashboardRouteImport.update({
-  id: '/Pages/Vendor/Dashboard',
-  path: '/Pages/Vendor/Dashboard',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PagesVendorEventIdRoute = PagesVendorEventIdRouteImport.update({
-  id: '/Pages/Vendor/$eventId',
-  path: '/Pages/Vendor/$eventId',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PagesScreensSalesRoute = PagesScreensSalesRouteImport.update({
-  id: '/Pages/Screens/Sales',
-  path: '/Pages/Screens/Sales',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PagesScreensEventsRoute = PagesScreensEventsRouteImport.update({
-  id: '/Pages/Screens/Events',
-  path: '/Pages/Screens/Events',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PagesScreensAttendeeRoute = PagesScreensAttendeeRouteImport.update({
-  id: '/Pages/Screens/Attendee',
-  path: '/Pages/Screens/Attendee',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const OnboardingVendorSubserviceTwoRoute =
-  OnboardingVendorSubserviceTwoRouteImport.update({
-    id: '/Onboarding/VendorSubservice/Two',
-    path: '/Onboarding/VendorSubservice/Two',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const OnboardingVendorSubserviceThreeRoute =
-  OnboardingVendorSubserviceThreeRouteImport.update({
-    id: '/Onboarding/VendorSubservice/Three',
-    path: '/Onboarding/VendorSubservice/Three',
+const OnboardingVendorSubServicesThreeRoute =
+  OnboardingVendorSubServicesThreeRouteImport.update({
+    id: '/onboarding/vendor-sub-services/three',
+    path: '/onboarding/vendor-sub-services/three',
     getParentRoute: () => rootRouteImport,
   } as any)
 const OnboardingSubServicesTwoRoute =
   OnboardingSubServicesTwoRouteImport.update({
-    id: '/Onboarding/SubServices/two',
-    path: '/Onboarding/SubServices/two',
+    id: '/onboarding/sub-services/two',
+    path: '/onboarding/sub-services/two',
     getParentRoute: () => rootRouteImport,
   } as any)
 const OnboardingSubServicesThreeRoute =
   OnboardingSubServicesThreeRouteImport.update({
-    id: '/Onboarding/SubServices/three',
-    path: '/Onboarding/SubServices/three',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const OnboardingSubServicesOneRoute =
-  OnboardingSubServicesOneRouteImport.update({
-    id: '/Onboarding/SubServices/one',
-    path: '/Onboarding/SubServices/one',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const OnboardingSubServicesFourRoute =
-  OnboardingSubServicesFourRouteImport.update({
-    id: '/Onboarding/SubServices/four',
-    path: '/Onboarding/SubServices/four',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const OnboardingSubServicesFiveRoute =
-  OnboardingSubServicesFiveRouteImport.update({
-    id: '/Onboarding/SubServices/five',
-    path: '/Onboarding/SubServices/five',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const OnboardingSubServicesUploadFormModalRoute =
-  OnboardingSubServicesUploadFormModalRouteImport.update({
-    id: '/Onboarding/SubServices/UploadFormModal',
-    path: '/Onboarding/SubServices/UploadFormModal',
+    id: '/onboarding/sub-services/three',
+    path: '/onboarding/sub-services/three',
     getParentRoute: () => rootRouteImport,
   } as any)
 const OnboardingSubServicesReviewRoute =
   OnboardingSubServicesReviewRouteImport.update({
-    id: '/Onboarding/SubServices/Review',
-    path: '/Onboarding/SubServices/Review',
+    id: '/onboarding/sub-services/review',
+    path: '/onboarding/sub-services/review',
     getParentRoute: () => rootRouteImport,
   } as any)
-const AuthenticationForgetPasswordForgetPassOtpRoute =
-  AuthenticationForgetPasswordForgetPassOtpRouteImport.update({
-    id: '/Authentication/ForgetPassword/ForgetPassOtp',
-    path: '/Authentication/ForgetPassword/ForgetPassOtp',
+const OnboardingSubServicesOneRoute =
+  OnboardingSubServicesOneRouteImport.update({
+    id: '/onboarding/sub-services/one',
+    path: '/onboarding/sub-services/one',
     getParentRoute: () => rootRouteImport,
   } as any)
-const AuthenticationForgetPasswordForgetPassRoute =
-  AuthenticationForgetPasswordForgetPassRouteImport.update({
-    id: '/Authentication/ForgetPassword/ForgetPass',
-    path: '/Authentication/ForgetPassword/ForgetPass',
+const OnboardingSubServicesFourRoute =
+  OnboardingSubServicesFourRouteImport.update({
+    id: '/onboarding/sub-services/four',
+    path: '/onboarding/sub-services/four',
     getParentRoute: () => rootRouteImport,
   } as any)
+const OnboardingSubServicesFiveRoute =
+  OnboardingSubServicesFiveRouteImport.update({
+    id: '/onboarding/sub-services/five',
+    path: '/onboarding/sub-services/five',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const AuthPasswordOtpRoute = AuthPasswordOtpRouteImport.update({
+  id: '/auth/password/otp',
+  path: '/auth/password/otp',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthPasswordForgetRoute = AuthPasswordForgetRouteImport.update({
+  id: '/auth/password/forget',
+  path: '/auth/password/forget',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthOtpVerifyRoute = AuthOtpVerifyRouteImport.update({
+  id: '/auth/otp/verify',
+  path: '/auth/otp/verify',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/Accessories/Button': typeof AccessoriesButtonRoute
-  '/Accessories/SuccessPage': typeof AccessoriesSuccessPageRoute
-  '/Accessories/Upload': typeof AccessoriesUploadRoute
-  '/Authentication/OtpVerification': typeof AuthenticationOtpVerificationRoute
-  '/Authentication/SignIn': typeof AuthenticationSignInRoute
-  '/Authentication/SignUp': typeof AuthenticationSignUpRoute
-  '/Onboarding/ServiceVendor': typeof OnboardingServiceVendorRoute
-  '/Onboarding/Services': typeof OnboardingServicesRoute
-  '/Onboarding/onboarding': typeof OnboardingOnboardingRoute
-  '/Pages/Layout': typeof PagesLayoutRoute
-  '/protected-route': typeof AuthenticatedProtectedRouteRoute
-  '/Authentication/ForgetPassword/ForgetPass': typeof AuthenticationForgetPasswordForgetPassRoute
-  '/Authentication/ForgetPassword/ForgetPassOtp': typeof AuthenticationForgetPasswordForgetPassOtpRoute
-  '/Onboarding/SubServices/Review': typeof OnboardingSubServicesReviewRoute
-  '/Onboarding/SubServices/UploadFormModal': typeof OnboardingSubServicesUploadFormModalRoute
-  '/Onboarding/SubServices/five': typeof OnboardingSubServicesFiveRoute
-  '/Onboarding/SubServices/four': typeof OnboardingSubServicesFourRoute
-  '/Onboarding/SubServices/one': typeof OnboardingSubServicesOneRoute
-  '/Onboarding/SubServices/three': typeof OnboardingSubServicesThreeRoute
-  '/Onboarding/SubServices/two': typeof OnboardingSubServicesTwoRoute
-  '/Onboarding/VendorSubservice/Three': typeof OnboardingVendorSubserviceThreeRoute
-  '/Onboarding/VendorSubservice/Two': typeof OnboardingVendorSubserviceTwoRoute
-  '/Pages/Screens/Attendee': typeof PagesScreensAttendeeRoute
-  '/Pages/Screens/Events': typeof PagesScreensEventsRoute
-  '/Pages/Screens/Sales': typeof PagesScreensSalesRoute
-  '/Pages/Vendor/$eventId': typeof PagesVendorEventIdRoute
-  '/Pages/Vendor/Dashboard': typeof PagesVendorDashboardRoute
+  '/auth/sign-up': typeof AuthSignUpRoute
+  '/auth/signin': typeof AuthSigninRoute
+  '/onboarding/onboarding': typeof OnboardingOnboardingRoute
+  '/onboarding/service-vendor': typeof OnboardingServiceVendorRoute
+  '/onboarding/services': typeof OnboardingServicesRoute
+  '/organizer/attendee': typeof OrganizerAttendeeRoute
+  '/organizer/layout': typeof OrganizerLayoutRoute
+  '/organizer/sales': typeof OrganizerSalesRoute
+  '/status/success': typeof StatusSuccessRoute
+  '/organizer': typeof OrganizerIndexRoute
+  '/vendor': typeof VendorIndexRoute
+  '/auth/otp/verify': typeof AuthOtpVerifyRoute
+  '/auth/password/forget': typeof AuthPasswordForgetRoute
+  '/auth/password/otp': typeof AuthPasswordOtpRoute
+  '/onboarding/sub-services/five': typeof OnboardingSubServicesFiveRoute
+  '/onboarding/sub-services/four': typeof OnboardingSubServicesFourRoute
+  '/onboarding/sub-services/one': typeof OnboardingSubServicesOneRoute
+  '/onboarding/sub-services/review': typeof OnboardingSubServicesReviewRoute
+  '/onboarding/sub-services/three': typeof OnboardingSubServicesThreeRoute
+  '/onboarding/sub-services/two': typeof OnboardingSubServicesTwoRoute
+  '/onboarding/vendor-sub-services/three': typeof OnboardingVendorSubServicesThreeRoute
+  '/onboarding/vendor-sub-services/two': typeof OnboardingVendorSubServicesTwoRoute
+  '/vendor/event/$eventId': typeof VendorEventEventIdRoute
+  '/vendor/event': typeof VendorEventIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/Accessories/Button': typeof AccessoriesButtonRoute
-  '/Accessories/SuccessPage': typeof AccessoriesSuccessPageRoute
-  '/Accessories/Upload': typeof AccessoriesUploadRoute
-  '/Authentication/OtpVerification': typeof AuthenticationOtpVerificationRoute
-  '/Authentication/SignIn': typeof AuthenticationSignInRoute
-  '/Authentication/SignUp': typeof AuthenticationSignUpRoute
-  '/Onboarding/ServiceVendor': typeof OnboardingServiceVendorRoute
-  '/Onboarding/Services': typeof OnboardingServicesRoute
-  '/Onboarding/onboarding': typeof OnboardingOnboardingRoute
-  '/Pages/Layout': typeof PagesLayoutRoute
-  '/protected-route': typeof AuthenticatedProtectedRouteRoute
-  '/Authentication/ForgetPassword/ForgetPass': typeof AuthenticationForgetPasswordForgetPassRoute
-  '/Authentication/ForgetPassword/ForgetPassOtp': typeof AuthenticationForgetPasswordForgetPassOtpRoute
-  '/Onboarding/SubServices/Review': typeof OnboardingSubServicesReviewRoute
-  '/Onboarding/SubServices/UploadFormModal': typeof OnboardingSubServicesUploadFormModalRoute
-  '/Onboarding/SubServices/five': typeof OnboardingSubServicesFiveRoute
-  '/Onboarding/SubServices/four': typeof OnboardingSubServicesFourRoute
-  '/Onboarding/SubServices/one': typeof OnboardingSubServicesOneRoute
-  '/Onboarding/SubServices/three': typeof OnboardingSubServicesThreeRoute
-  '/Onboarding/SubServices/two': typeof OnboardingSubServicesTwoRoute
-  '/Onboarding/VendorSubservice/Three': typeof OnboardingVendorSubserviceThreeRoute
-  '/Onboarding/VendorSubservice/Two': typeof OnboardingVendorSubserviceTwoRoute
-  '/Pages/Screens/Attendee': typeof PagesScreensAttendeeRoute
-  '/Pages/Screens/Events': typeof PagesScreensEventsRoute
-  '/Pages/Screens/Sales': typeof PagesScreensSalesRoute
-  '/Pages/Vendor/$eventId': typeof PagesVendorEventIdRoute
-  '/Pages/Vendor/Dashboard': typeof PagesVendorDashboardRoute
+  '/auth/sign-up': typeof AuthSignUpRoute
+  '/auth/signin': typeof AuthSigninRoute
+  '/onboarding/onboarding': typeof OnboardingOnboardingRoute
+  '/onboarding/service-vendor': typeof OnboardingServiceVendorRoute
+  '/onboarding/services': typeof OnboardingServicesRoute
+  '/organizer/attendee': typeof OrganizerAttendeeRoute
+  '/organizer/layout': typeof OrganizerLayoutRoute
+  '/organizer/sales': typeof OrganizerSalesRoute
+  '/status/success': typeof StatusSuccessRoute
+  '/organizer': typeof OrganizerIndexRoute
+  '/vendor': typeof VendorIndexRoute
+  '/auth/otp/verify': typeof AuthOtpVerifyRoute
+  '/auth/password/forget': typeof AuthPasswordForgetRoute
+  '/auth/password/otp': typeof AuthPasswordOtpRoute
+  '/onboarding/sub-services/five': typeof OnboardingSubServicesFiveRoute
+  '/onboarding/sub-services/four': typeof OnboardingSubServicesFourRoute
+  '/onboarding/sub-services/one': typeof OnboardingSubServicesOneRoute
+  '/onboarding/sub-services/review': typeof OnboardingSubServicesReviewRoute
+  '/onboarding/sub-services/three': typeof OnboardingSubServicesThreeRoute
+  '/onboarding/sub-services/two': typeof OnboardingSubServicesTwoRoute
+  '/onboarding/vendor-sub-services/three': typeof OnboardingVendorSubServicesThreeRoute
+  '/onboarding/vendor-sub-services/two': typeof OnboardingVendorSubServicesTwoRoute
+  '/vendor/event/$eventId': typeof VendorEventEventIdRoute
+  '/vendor/event': typeof VendorEventIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/_authenticated': typeof AuthenticatedRouteWithChildren
+  '/_authenticated': typeof AuthenticatedRoute
   '/about': typeof AboutRoute
-  '/Accessories/Button': typeof AccessoriesButtonRoute
-  '/Accessories/SuccessPage': typeof AccessoriesSuccessPageRoute
-  '/Accessories/Upload': typeof AccessoriesUploadRoute
-  '/Authentication/OtpVerification': typeof AuthenticationOtpVerificationRoute
-  '/Authentication/SignIn': typeof AuthenticationSignInRoute
-  '/Authentication/SignUp': typeof AuthenticationSignUpRoute
-  '/Onboarding/ServiceVendor': typeof OnboardingServiceVendorRoute
-  '/Onboarding/Services': typeof OnboardingServicesRoute
-  '/Onboarding/onboarding': typeof OnboardingOnboardingRoute
-  '/Pages/Layout': typeof PagesLayoutRoute
-  '/_authenticated/protected-route': typeof AuthenticatedProtectedRouteRoute
-  '/Authentication/ForgetPassword/ForgetPass': typeof AuthenticationForgetPasswordForgetPassRoute
-  '/Authentication/ForgetPassword/ForgetPassOtp': typeof AuthenticationForgetPasswordForgetPassOtpRoute
-  '/Onboarding/SubServices/Review': typeof OnboardingSubServicesReviewRoute
-  '/Onboarding/SubServices/UploadFormModal': typeof OnboardingSubServicesUploadFormModalRoute
-  '/Onboarding/SubServices/five': typeof OnboardingSubServicesFiveRoute
-  '/Onboarding/SubServices/four': typeof OnboardingSubServicesFourRoute
-  '/Onboarding/SubServices/one': typeof OnboardingSubServicesOneRoute
-  '/Onboarding/SubServices/three': typeof OnboardingSubServicesThreeRoute
-  '/Onboarding/SubServices/two': typeof OnboardingSubServicesTwoRoute
-  '/Onboarding/VendorSubservice/Three': typeof OnboardingVendorSubserviceThreeRoute
-  '/Onboarding/VendorSubservice/Two': typeof OnboardingVendorSubserviceTwoRoute
-  '/Pages/Screens/Attendee': typeof PagesScreensAttendeeRoute
-  '/Pages/Screens/Events': typeof PagesScreensEventsRoute
-  '/Pages/Screens/Sales': typeof PagesScreensSalesRoute
-  '/Pages/Vendor/$eventId': typeof PagesVendorEventIdRoute
-  '/Pages/Vendor/Dashboard': typeof PagesVendorDashboardRoute
+  '/auth/sign-up': typeof AuthSignUpRoute
+  '/auth/signin': typeof AuthSigninRoute
+  '/onboarding/onboarding': typeof OnboardingOnboardingRoute
+  '/onboarding/service-vendor': typeof OnboardingServiceVendorRoute
+  '/onboarding/services': typeof OnboardingServicesRoute
+  '/organizer/attendee': typeof OrganizerAttendeeRoute
+  '/organizer/layout': typeof OrganizerLayoutRoute
+  '/organizer/sales': typeof OrganizerSalesRoute
+  '/status/success': typeof StatusSuccessRoute
+  '/organizer/': typeof OrganizerIndexRoute
+  '/vendor/': typeof VendorIndexRoute
+  '/auth/otp/verify': typeof AuthOtpVerifyRoute
+  '/auth/password/forget': typeof AuthPasswordForgetRoute
+  '/auth/password/otp': typeof AuthPasswordOtpRoute
+  '/onboarding/sub-services/five': typeof OnboardingSubServicesFiveRoute
+  '/onboarding/sub-services/four': typeof OnboardingSubServicesFourRoute
+  '/onboarding/sub-services/one': typeof OnboardingSubServicesOneRoute
+  '/onboarding/sub-services/review': typeof OnboardingSubServicesReviewRoute
+  '/onboarding/sub-services/three': typeof OnboardingSubServicesThreeRoute
+  '/onboarding/sub-services/two': typeof OnboardingSubServicesTwoRoute
+  '/onboarding/vendor-sub-services/three': typeof OnboardingVendorSubServicesThreeRoute
+  '/onboarding/vendor-sub-services/two': typeof OnboardingVendorSubServicesTwoRoute
+  '/vendor/event/$eventId': typeof VendorEventEventIdRoute
+  '/vendor/event/': typeof VendorEventIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/about'
-    | '/Accessories/Button'
-    | '/Accessories/SuccessPage'
-    | '/Accessories/Upload'
-    | '/Authentication/OtpVerification'
-    | '/Authentication/SignIn'
-    | '/Authentication/SignUp'
-    | '/Onboarding/ServiceVendor'
-    | '/Onboarding/Services'
-    | '/Onboarding/onboarding'
-    | '/Pages/Layout'
-    | '/protected-route'
-    | '/Authentication/ForgetPassword/ForgetPass'
-    | '/Authentication/ForgetPassword/ForgetPassOtp'
-    | '/Onboarding/SubServices/Review'
-    | '/Onboarding/SubServices/UploadFormModal'
-    | '/Onboarding/SubServices/five'
-    | '/Onboarding/SubServices/four'
-    | '/Onboarding/SubServices/one'
-    | '/Onboarding/SubServices/three'
-    | '/Onboarding/SubServices/two'
-    | '/Onboarding/VendorSubservice/Three'
-    | '/Onboarding/VendorSubservice/Two'
-    | '/Pages/Screens/Attendee'
-    | '/Pages/Screens/Events'
-    | '/Pages/Screens/Sales'
-    | '/Pages/Vendor/$eventId'
-    | '/Pages/Vendor/Dashboard'
+    | '/auth/sign-up'
+    | '/auth/signin'
+    | '/onboarding/onboarding'
+    | '/onboarding/service-vendor'
+    | '/onboarding/services'
+    | '/organizer/attendee'
+    | '/organizer/layout'
+    | '/organizer/sales'
+    | '/status/success'
+    | '/organizer'
+    | '/vendor'
+    | '/auth/otp/verify'
+    | '/auth/password/forget'
+    | '/auth/password/otp'
+    | '/onboarding/sub-services/five'
+    | '/onboarding/sub-services/four'
+    | '/onboarding/sub-services/one'
+    | '/onboarding/sub-services/review'
+    | '/onboarding/sub-services/three'
+    | '/onboarding/sub-services/two'
+    | '/onboarding/vendor-sub-services/three'
+    | '/onboarding/vendor-sub-services/two'
+    | '/vendor/event/$eventId'
+    | '/vendor/event'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
-    | '/Accessories/Button'
-    | '/Accessories/SuccessPage'
-    | '/Accessories/Upload'
-    | '/Authentication/OtpVerification'
-    | '/Authentication/SignIn'
-    | '/Authentication/SignUp'
-    | '/Onboarding/ServiceVendor'
-    | '/Onboarding/Services'
-    | '/Onboarding/onboarding'
-    | '/Pages/Layout'
-    | '/protected-route'
-    | '/Authentication/ForgetPassword/ForgetPass'
-    | '/Authentication/ForgetPassword/ForgetPassOtp'
-    | '/Onboarding/SubServices/Review'
-    | '/Onboarding/SubServices/UploadFormModal'
-    | '/Onboarding/SubServices/five'
-    | '/Onboarding/SubServices/four'
-    | '/Onboarding/SubServices/one'
-    | '/Onboarding/SubServices/three'
-    | '/Onboarding/SubServices/two'
-    | '/Onboarding/VendorSubservice/Three'
-    | '/Onboarding/VendorSubservice/Two'
-    | '/Pages/Screens/Attendee'
-    | '/Pages/Screens/Events'
-    | '/Pages/Screens/Sales'
-    | '/Pages/Vendor/$eventId'
-    | '/Pages/Vendor/Dashboard'
+    | '/auth/sign-up'
+    | '/auth/signin'
+    | '/onboarding/onboarding'
+    | '/onboarding/service-vendor'
+    | '/onboarding/services'
+    | '/organizer/attendee'
+    | '/organizer/layout'
+    | '/organizer/sales'
+    | '/status/success'
+    | '/organizer'
+    | '/vendor'
+    | '/auth/otp/verify'
+    | '/auth/password/forget'
+    | '/auth/password/otp'
+    | '/onboarding/sub-services/five'
+    | '/onboarding/sub-services/four'
+    | '/onboarding/sub-services/one'
+    | '/onboarding/sub-services/review'
+    | '/onboarding/sub-services/three'
+    | '/onboarding/sub-services/two'
+    | '/onboarding/vendor-sub-services/three'
+    | '/onboarding/vendor-sub-services/two'
+    | '/vendor/event/$eventId'
+    | '/vendor/event'
   id:
     | '__root__'
     | '/'
     | '/_authenticated'
     | '/about'
-    | '/Accessories/Button'
-    | '/Accessories/SuccessPage'
-    | '/Accessories/Upload'
-    | '/Authentication/OtpVerification'
-    | '/Authentication/SignIn'
-    | '/Authentication/SignUp'
-    | '/Onboarding/ServiceVendor'
-    | '/Onboarding/Services'
-    | '/Onboarding/onboarding'
-    | '/Pages/Layout'
-    | '/_authenticated/protected-route'
-    | '/Authentication/ForgetPassword/ForgetPass'
-    | '/Authentication/ForgetPassword/ForgetPassOtp'
-    | '/Onboarding/SubServices/Review'
-    | '/Onboarding/SubServices/UploadFormModal'
-    | '/Onboarding/SubServices/five'
-    | '/Onboarding/SubServices/four'
-    | '/Onboarding/SubServices/one'
-    | '/Onboarding/SubServices/three'
-    | '/Onboarding/SubServices/two'
-    | '/Onboarding/VendorSubservice/Three'
-    | '/Onboarding/VendorSubservice/Two'
-    | '/Pages/Screens/Attendee'
-    | '/Pages/Screens/Events'
-    | '/Pages/Screens/Sales'
-    | '/Pages/Vendor/$eventId'
-    | '/Pages/Vendor/Dashboard'
+    | '/auth/sign-up'
+    | '/auth/signin'
+    | '/onboarding/onboarding'
+    | '/onboarding/service-vendor'
+    | '/onboarding/services'
+    | '/organizer/attendee'
+    | '/organizer/layout'
+    | '/organizer/sales'
+    | '/status/success'
+    | '/organizer/'
+    | '/vendor/'
+    | '/auth/otp/verify'
+    | '/auth/password/forget'
+    | '/auth/password/otp'
+    | '/onboarding/sub-services/five'
+    | '/onboarding/sub-services/four'
+    | '/onboarding/sub-services/one'
+    | '/onboarding/sub-services/review'
+    | '/onboarding/sub-services/three'
+    | '/onboarding/sub-services/two'
+    | '/onboarding/vendor-sub-services/three'
+    | '/onboarding/vendor-sub-services/two'
+    | '/vendor/event/$eventId'
+    | '/vendor/event/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
+  AuthenticatedRoute: typeof AuthenticatedRoute
   AboutRoute: typeof AboutRoute
-  AccessoriesButtonRoute: typeof AccessoriesButtonRoute
-  AccessoriesSuccessPageRoute: typeof AccessoriesSuccessPageRoute
-  AccessoriesUploadRoute: typeof AccessoriesUploadRoute
-  AuthenticationOtpVerificationRoute: typeof AuthenticationOtpVerificationRoute
-  AuthenticationSignInRoute: typeof AuthenticationSignInRoute
-  AuthenticationSignUpRoute: typeof AuthenticationSignUpRoute
+  AuthSignUpRoute: typeof AuthSignUpRoute
+  AuthSigninRoute: typeof AuthSigninRoute
+  OnboardingOnboardingRoute: typeof OnboardingOnboardingRoute
   OnboardingServiceVendorRoute: typeof OnboardingServiceVendorRoute
   OnboardingServicesRoute: typeof OnboardingServicesRoute
-  OnboardingOnboardingRoute: typeof OnboardingOnboardingRoute
-  PagesLayoutRoute: typeof PagesLayoutRoute
-  AuthenticationForgetPasswordForgetPassRoute: typeof AuthenticationForgetPasswordForgetPassRoute
-  AuthenticationForgetPasswordForgetPassOtpRoute: typeof AuthenticationForgetPasswordForgetPassOtpRoute
-  OnboardingSubServicesReviewRoute: typeof OnboardingSubServicesReviewRoute
-  OnboardingSubServicesUploadFormModalRoute: typeof OnboardingSubServicesUploadFormModalRoute
+  OrganizerAttendeeRoute: typeof OrganizerAttendeeRoute
+  OrganizerLayoutRoute: typeof OrganizerLayoutRoute
+  OrganizerSalesRoute: typeof OrganizerSalesRoute
+  StatusSuccessRoute: typeof StatusSuccessRoute
+  OrganizerIndexRoute: typeof OrganizerIndexRoute
+  VendorIndexRoute: typeof VendorIndexRoute
+  AuthOtpVerifyRoute: typeof AuthOtpVerifyRoute
+  AuthPasswordForgetRoute: typeof AuthPasswordForgetRoute
+  AuthPasswordOtpRoute: typeof AuthPasswordOtpRoute
   OnboardingSubServicesFiveRoute: typeof OnboardingSubServicesFiveRoute
   OnboardingSubServicesFourRoute: typeof OnboardingSubServicesFourRoute
   OnboardingSubServicesOneRoute: typeof OnboardingSubServicesOneRoute
+  OnboardingSubServicesReviewRoute: typeof OnboardingSubServicesReviewRoute
   OnboardingSubServicesThreeRoute: typeof OnboardingSubServicesThreeRoute
   OnboardingSubServicesTwoRoute: typeof OnboardingSubServicesTwoRoute
-  OnboardingVendorSubserviceThreeRoute: typeof OnboardingVendorSubserviceThreeRoute
-  OnboardingVendorSubserviceTwoRoute: typeof OnboardingVendorSubserviceTwoRoute
-  PagesScreensAttendeeRoute: typeof PagesScreensAttendeeRoute
-  PagesScreensEventsRoute: typeof PagesScreensEventsRoute
-  PagesScreensSalesRoute: typeof PagesScreensSalesRoute
-  PagesVendorEventIdRoute: typeof PagesVendorEventIdRoute
-  PagesVendorDashboardRoute: typeof PagesVendorDashboardRoute
+  OnboardingVendorSubServicesThreeRoute: typeof OnboardingVendorSubServicesThreeRoute
+  OnboardingVendorSubServicesTwoRoute: typeof OnboardingVendorSubServicesTwoRoute
+  VendorEventEventIdRoute: typeof VendorEventEventIdRoute
+  VendorEventIndexRoute: typeof VendorEventIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -450,243 +407,205 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_authenticated/protected-route': {
-      id: '/_authenticated/protected-route'
-      path: '/protected-route'
-      fullPath: '/protected-route'
-      preLoaderRoute: typeof AuthenticatedProtectedRouteRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
-    '/Pages/Layout': {
-      id: '/Pages/Layout'
-      path: '/Pages/Layout'
-      fullPath: '/Pages/Layout'
-      preLoaderRoute: typeof PagesLayoutRouteImport
+    '/vendor/': {
+      id: '/vendor/'
+      path: '/vendor'
+      fullPath: '/vendor'
+      preLoaderRoute: typeof VendorIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/Onboarding/onboarding': {
-      id: '/Onboarding/onboarding'
-      path: '/Onboarding/onboarding'
-      fullPath: '/Onboarding/onboarding'
-      preLoaderRoute: typeof OnboardingOnboardingRouteImport
+    '/organizer/': {
+      id: '/organizer/'
+      path: '/organizer'
+      fullPath: '/organizer'
+      preLoaderRoute: typeof OrganizerIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/Onboarding/Services': {
-      id: '/Onboarding/Services'
-      path: '/Onboarding/Services'
-      fullPath: '/Onboarding/Services'
+    '/status/success': {
+      id: '/status/success'
+      path: '/status/success'
+      fullPath: '/status/success'
+      preLoaderRoute: typeof StatusSuccessRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/organizer/sales': {
+      id: '/organizer/sales'
+      path: '/organizer/sales'
+      fullPath: '/organizer/sales'
+      preLoaderRoute: typeof OrganizerSalesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/organizer/layout': {
+      id: '/organizer/layout'
+      path: '/organizer/layout'
+      fullPath: '/organizer/layout'
+      preLoaderRoute: typeof OrganizerLayoutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/organizer/attendee': {
+      id: '/organizer/attendee'
+      path: '/organizer/attendee'
+      fullPath: '/organizer/attendee'
+      preLoaderRoute: typeof OrganizerAttendeeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/onboarding/services': {
+      id: '/onboarding/services'
+      path: '/onboarding/services'
+      fullPath: '/onboarding/services'
       preLoaderRoute: typeof OnboardingServicesRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/Onboarding/ServiceVendor': {
-      id: '/Onboarding/ServiceVendor'
-      path: '/Onboarding/ServiceVendor'
-      fullPath: '/Onboarding/ServiceVendor'
+    '/onboarding/service-vendor': {
+      id: '/onboarding/service-vendor'
+      path: '/onboarding/service-vendor'
+      fullPath: '/onboarding/service-vendor'
       preLoaderRoute: typeof OnboardingServiceVendorRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/Authentication/SignUp': {
-      id: '/Authentication/SignUp'
-      path: '/Authentication/SignUp'
-      fullPath: '/Authentication/SignUp'
-      preLoaderRoute: typeof AuthenticationSignUpRouteImport
+    '/onboarding/onboarding': {
+      id: '/onboarding/onboarding'
+      path: '/onboarding/onboarding'
+      fullPath: '/onboarding/onboarding'
+      preLoaderRoute: typeof OnboardingOnboardingRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/Authentication/SignIn': {
-      id: '/Authentication/SignIn'
-      path: '/Authentication/SignIn'
-      fullPath: '/Authentication/SignIn'
-      preLoaderRoute: typeof AuthenticationSignInRouteImport
+    '/auth/signin': {
+      id: '/auth/signin'
+      path: '/auth/signin'
+      fullPath: '/auth/signin'
+      preLoaderRoute: typeof AuthSigninRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/Authentication/OtpVerification': {
-      id: '/Authentication/OtpVerification'
-      path: '/Authentication/OtpVerification'
-      fullPath: '/Authentication/OtpVerification'
-      preLoaderRoute: typeof AuthenticationOtpVerificationRouteImport
+    '/auth/sign-up': {
+      id: '/auth/sign-up'
+      path: '/auth/sign-up'
+      fullPath: '/auth/sign-up'
+      preLoaderRoute: typeof AuthSignUpRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/Accessories/Upload': {
-      id: '/Accessories/Upload'
-      path: '/Accessories/Upload'
-      fullPath: '/Accessories/Upload'
-      preLoaderRoute: typeof AccessoriesUploadRouteImport
+    '/vendor/event/': {
+      id: '/vendor/event/'
+      path: '/vendor/event'
+      fullPath: '/vendor/event'
+      preLoaderRoute: typeof VendorEventIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/Accessories/SuccessPage': {
-      id: '/Accessories/SuccessPage'
-      path: '/Accessories/SuccessPage'
-      fullPath: '/Accessories/SuccessPage'
-      preLoaderRoute: typeof AccessoriesSuccessPageRouteImport
+    '/vendor/event/$eventId': {
+      id: '/vendor/event/$eventId'
+      path: '/vendor/event/$eventId'
+      fullPath: '/vendor/event/$eventId'
+      preLoaderRoute: typeof VendorEventEventIdRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/Accessories/Button': {
-      id: '/Accessories/Button'
-      path: '/Accessories/Button'
-      fullPath: '/Accessories/Button'
-      preLoaderRoute: typeof AccessoriesButtonRouteImport
+    '/onboarding/vendor-sub-services/two': {
+      id: '/onboarding/vendor-sub-services/two'
+      path: '/onboarding/vendor-sub-services/two'
+      fullPath: '/onboarding/vendor-sub-services/two'
+      preLoaderRoute: typeof OnboardingVendorSubServicesTwoRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/Pages/Vendor/Dashboard': {
-      id: '/Pages/Vendor/Dashboard'
-      path: '/Pages/Vendor/Dashboard'
-      fullPath: '/Pages/Vendor/Dashboard'
-      preLoaderRoute: typeof PagesVendorDashboardRouteImport
+    '/onboarding/vendor-sub-services/three': {
+      id: '/onboarding/vendor-sub-services/three'
+      path: '/onboarding/vendor-sub-services/three'
+      fullPath: '/onboarding/vendor-sub-services/three'
+      preLoaderRoute: typeof OnboardingVendorSubServicesThreeRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/Pages/Vendor/$eventId': {
-      id: '/Pages/Vendor/$eventId'
-      path: '/Pages/Vendor/$eventId'
-      fullPath: '/Pages/Vendor/$eventId'
-      preLoaderRoute: typeof PagesVendorEventIdRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/Pages/Screens/Sales': {
-      id: '/Pages/Screens/Sales'
-      path: '/Pages/Screens/Sales'
-      fullPath: '/Pages/Screens/Sales'
-      preLoaderRoute: typeof PagesScreensSalesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/Pages/Screens/Events': {
-      id: '/Pages/Screens/Events'
-      path: '/Pages/Screens/Events'
-      fullPath: '/Pages/Screens/Events'
-      preLoaderRoute: typeof PagesScreensEventsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/Pages/Screens/Attendee': {
-      id: '/Pages/Screens/Attendee'
-      path: '/Pages/Screens/Attendee'
-      fullPath: '/Pages/Screens/Attendee'
-      preLoaderRoute: typeof PagesScreensAttendeeRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/Onboarding/VendorSubservice/Two': {
-      id: '/Onboarding/VendorSubservice/Two'
-      path: '/Onboarding/VendorSubservice/Two'
-      fullPath: '/Onboarding/VendorSubservice/Two'
-      preLoaderRoute: typeof OnboardingVendorSubserviceTwoRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/Onboarding/VendorSubservice/Three': {
-      id: '/Onboarding/VendorSubservice/Three'
-      path: '/Onboarding/VendorSubservice/Three'
-      fullPath: '/Onboarding/VendorSubservice/Three'
-      preLoaderRoute: typeof OnboardingVendorSubserviceThreeRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/Onboarding/SubServices/two': {
-      id: '/Onboarding/SubServices/two'
-      path: '/Onboarding/SubServices/two'
-      fullPath: '/Onboarding/SubServices/two'
+    '/onboarding/sub-services/two': {
+      id: '/onboarding/sub-services/two'
+      path: '/onboarding/sub-services/two'
+      fullPath: '/onboarding/sub-services/two'
       preLoaderRoute: typeof OnboardingSubServicesTwoRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/Onboarding/SubServices/three': {
-      id: '/Onboarding/SubServices/three'
-      path: '/Onboarding/SubServices/three'
-      fullPath: '/Onboarding/SubServices/three'
+    '/onboarding/sub-services/three': {
+      id: '/onboarding/sub-services/three'
+      path: '/onboarding/sub-services/three'
+      fullPath: '/onboarding/sub-services/three'
       preLoaderRoute: typeof OnboardingSubServicesThreeRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/Onboarding/SubServices/one': {
-      id: '/Onboarding/SubServices/one'
-      path: '/Onboarding/SubServices/one'
-      fullPath: '/Onboarding/SubServices/one'
-      preLoaderRoute: typeof OnboardingSubServicesOneRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/Onboarding/SubServices/four': {
-      id: '/Onboarding/SubServices/four'
-      path: '/Onboarding/SubServices/four'
-      fullPath: '/Onboarding/SubServices/four'
-      preLoaderRoute: typeof OnboardingSubServicesFourRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/Onboarding/SubServices/five': {
-      id: '/Onboarding/SubServices/five'
-      path: '/Onboarding/SubServices/five'
-      fullPath: '/Onboarding/SubServices/five'
-      preLoaderRoute: typeof OnboardingSubServicesFiveRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/Onboarding/SubServices/UploadFormModal': {
-      id: '/Onboarding/SubServices/UploadFormModal'
-      path: '/Onboarding/SubServices/UploadFormModal'
-      fullPath: '/Onboarding/SubServices/UploadFormModal'
-      preLoaderRoute: typeof OnboardingSubServicesUploadFormModalRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/Onboarding/SubServices/Review': {
-      id: '/Onboarding/SubServices/Review'
-      path: '/Onboarding/SubServices/Review'
-      fullPath: '/Onboarding/SubServices/Review'
+    '/onboarding/sub-services/review': {
+      id: '/onboarding/sub-services/review'
+      path: '/onboarding/sub-services/review'
+      fullPath: '/onboarding/sub-services/review'
       preLoaderRoute: typeof OnboardingSubServicesReviewRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/Authentication/ForgetPassword/ForgetPassOtp': {
-      id: '/Authentication/ForgetPassword/ForgetPassOtp'
-      path: '/Authentication/ForgetPassword/ForgetPassOtp'
-      fullPath: '/Authentication/ForgetPassword/ForgetPassOtp'
-      preLoaderRoute: typeof AuthenticationForgetPasswordForgetPassOtpRouteImport
+    '/onboarding/sub-services/one': {
+      id: '/onboarding/sub-services/one'
+      path: '/onboarding/sub-services/one'
+      fullPath: '/onboarding/sub-services/one'
+      preLoaderRoute: typeof OnboardingSubServicesOneRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/Authentication/ForgetPassword/ForgetPass': {
-      id: '/Authentication/ForgetPassword/ForgetPass'
-      path: '/Authentication/ForgetPassword/ForgetPass'
-      fullPath: '/Authentication/ForgetPassword/ForgetPass'
-      preLoaderRoute: typeof AuthenticationForgetPasswordForgetPassRouteImport
+    '/onboarding/sub-services/four': {
+      id: '/onboarding/sub-services/four'
+      path: '/onboarding/sub-services/four'
+      fullPath: '/onboarding/sub-services/four'
+      preLoaderRoute: typeof OnboardingSubServicesFourRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/onboarding/sub-services/five': {
+      id: '/onboarding/sub-services/five'
+      path: '/onboarding/sub-services/five'
+      fullPath: '/onboarding/sub-services/five'
+      preLoaderRoute: typeof OnboardingSubServicesFiveRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth/password/otp': {
+      id: '/auth/password/otp'
+      path: '/auth/password/otp'
+      fullPath: '/auth/password/otp'
+      preLoaderRoute: typeof AuthPasswordOtpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth/password/forget': {
+      id: '/auth/password/forget'
+      path: '/auth/password/forget'
+      fullPath: '/auth/password/forget'
+      preLoaderRoute: typeof AuthPasswordForgetRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth/otp/verify': {
+      id: '/auth/otp/verify'
+      path: '/auth/otp/verify'
+      fullPath: '/auth/otp/verify'
+      preLoaderRoute: typeof AuthOtpVerifyRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
 }
 
-interface AuthenticatedRouteChildren {
-  AuthenticatedProtectedRouteRoute: typeof AuthenticatedProtectedRouteRoute
-}
-
-const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
-  AuthenticatedProtectedRouteRoute: AuthenticatedProtectedRouteRoute,
-}
-
-const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
-  AuthenticatedRouteChildren,
-)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AuthenticatedRoute: AuthenticatedRouteWithChildren,
+  AuthenticatedRoute: AuthenticatedRoute,
   AboutRoute: AboutRoute,
-  AccessoriesButtonRoute: AccessoriesButtonRoute,
-  AccessoriesSuccessPageRoute: AccessoriesSuccessPageRoute,
-  AccessoriesUploadRoute: AccessoriesUploadRoute,
-  AuthenticationOtpVerificationRoute: AuthenticationOtpVerificationRoute,
-  AuthenticationSignInRoute: AuthenticationSignInRoute,
-  AuthenticationSignUpRoute: AuthenticationSignUpRoute,
+  AuthSignUpRoute: AuthSignUpRoute,
+  AuthSigninRoute: AuthSigninRoute,
+  OnboardingOnboardingRoute: OnboardingOnboardingRoute,
   OnboardingServiceVendorRoute: OnboardingServiceVendorRoute,
   OnboardingServicesRoute: OnboardingServicesRoute,
-  OnboardingOnboardingRoute: OnboardingOnboardingRoute,
-  PagesLayoutRoute: PagesLayoutRoute,
-  AuthenticationForgetPasswordForgetPassRoute:
-    AuthenticationForgetPasswordForgetPassRoute,
-  AuthenticationForgetPasswordForgetPassOtpRoute:
-    AuthenticationForgetPasswordForgetPassOtpRoute,
-  OnboardingSubServicesReviewRoute: OnboardingSubServicesReviewRoute,
-  OnboardingSubServicesUploadFormModalRoute:
-    OnboardingSubServicesUploadFormModalRoute,
+  OrganizerAttendeeRoute: OrganizerAttendeeRoute,
+  OrganizerLayoutRoute: OrganizerLayoutRoute,
+  OrganizerSalesRoute: OrganizerSalesRoute,
+  StatusSuccessRoute: StatusSuccessRoute,
+  OrganizerIndexRoute: OrganizerIndexRoute,
+  VendorIndexRoute: VendorIndexRoute,
+  AuthOtpVerifyRoute: AuthOtpVerifyRoute,
+  AuthPasswordForgetRoute: AuthPasswordForgetRoute,
+  AuthPasswordOtpRoute: AuthPasswordOtpRoute,
   OnboardingSubServicesFiveRoute: OnboardingSubServicesFiveRoute,
   OnboardingSubServicesFourRoute: OnboardingSubServicesFourRoute,
   OnboardingSubServicesOneRoute: OnboardingSubServicesOneRoute,
+  OnboardingSubServicesReviewRoute: OnboardingSubServicesReviewRoute,
   OnboardingSubServicesThreeRoute: OnboardingSubServicesThreeRoute,
   OnboardingSubServicesTwoRoute: OnboardingSubServicesTwoRoute,
-  OnboardingVendorSubserviceThreeRoute: OnboardingVendorSubserviceThreeRoute,
-  OnboardingVendorSubserviceTwoRoute: OnboardingVendorSubserviceTwoRoute,
-  PagesScreensAttendeeRoute: PagesScreensAttendeeRoute,
-  PagesScreensEventsRoute: PagesScreensEventsRoute,
-  PagesScreensSalesRoute: PagesScreensSalesRoute,
-  PagesVendorEventIdRoute: PagesVendorEventIdRoute,
-  PagesVendorDashboardRoute: PagesVendorDashboardRoute,
+  OnboardingVendorSubServicesThreeRoute: OnboardingVendorSubServicesThreeRoute,
+  OnboardingVendorSubServicesTwoRoute: OnboardingVendorSubServicesTwoRoute,
+  VendorEventEventIdRoute: VendorEventEventIdRoute,
+  VendorEventIndexRoute: VendorEventIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

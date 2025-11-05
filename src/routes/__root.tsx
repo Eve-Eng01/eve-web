@@ -3,7 +3,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { createRootRouteWithContext, Outlet } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import { AuthContextType } from "../providers/auth-provider";
-import PWABadge from "../shared/components/pwa-badge/PWABadge";
+import PWABadge from "@components/pwa-badge/PWABadge";
 
 interface MyRouterContext {
   queryClient: QueryClient;
