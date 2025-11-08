@@ -1,0 +1,130 @@
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { useState } from "react";
+import type { ChangeEvent } from "react";
+import { ArrowLeft, Plus } from "lucide-react";
+import { DashboardLayout } from "@components/layouts/dashboard-layout";
+import TabSwitch from "@components/accessories/tab-switch";
+import ProfileSetting, {
+  type ProfileFormData,
+} from "./profile-setting";
+import PayoutSetting, {
+  type PayoutAccountData,
+} from "./payout-setting";
+
+export const Route = createFileRoute("/account/")({
+  component: RouteComponent,
+});
+
+export const User = {
+  name: "Gabriel Emumwen",
+  email: "gabrielemumwen20@gmail.com",
+};
+
+function RouteComponent() {
+  const navigate = useNavigate();
+  const [activeTab, setActiveTab] = useState("Profile Setting");
+
+  const [formData, setFormData] = useState<ProfileFormData>({
+    fullName: "Emumwen Gabriel Osauonamen",
+    email: "gabrielemumwen20@gmail.com",
+    companyName: "Eve Even Platform",
+    location: "ibeju Lekki Lagos, Nigeria.",
+    organizerNumber: "+234-081- 5882-5489",
+  });
+
+  const payoutAccountData: PayoutAccountData = {
+    accountNumber: "2109019402",
+    bankName: "United Bank for Africa",
+    accountName: "Emumwen Gabriel Osauonamen",
+    currency: "NGN",
+    countryCode: "NG",
+  };
+
+  const tabs = [
+    { id: "Profile Setting", label: "Profile Setting" },
+    { id: "Payout Setting", label: "Payout Setting" },
+  ];
+
+  const handleInputChange = (field: keyof ProfileFormData) => (
+    e: ChangeEvent<HTMLInputElement>
+  ) => {
+    setFormData((prev) => ({
+      ...prev,
+      [field]: e.target.value,
+    }));
+  };
+
+  const handleGoBack = () => {
+    navigate({ to: "/organizer" });
+  };
+
+  const handleSaveChanges = () => {
+    // TODO: Implement save functionality
+    console.log("Saving changes:", formData);
+  };
+
+  const handleAddNewPayoutAccount = () => {
+    // TODO: Implement add new payout account functionality
+    console.log("Add new payout account");
+  };
+
+  const handleChangeDetails = () => {
+    // TODO: Implement change details functionality
+    console.log("Change payout account details");
+  };
+
+  return (
+    <DashboardLayout user={User}>
+      <div className="bg-white">
+        {/* Go Back Button and Add New Payout Account Button */}
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 sm:gap-0 mb-6 sm:mb-8">
+          <button
+            onClick={handleGoBack}
+            className="flex items-center justify-center gap-2 px-3 py-3.5 border border-[#eaeaea] rounded-[14px] text-sm font-medium text-[#777777] hover:bg-gray-50 transition-colors w-full sm:w-auto"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            Go back
+          </button>
+          {activeTab === "Payout Setting" && (
+            <button
+              onClick={handleAddNewPayoutAccount}
+              className="flex items-center justify-center gap-1 bg-[#7417c6] text-white px-4 py-3 sm:py-4 rounded-[10px] text-sm sm:text-base font-medium leading-6 tracking-[0.08px] hover:bg-[#6a15b8] transition-colors w-full sm:w-auto"
+            >
+              <span className="whitespace-nowrap">Add New Payout Account</span>
+              <Plus className="h-5 w-5 sm:h-6 sm:w-6" />
+            </button>
+          )}
+        </div>
+
+        {/* Tab Switcher */}
+        <TabSwitch
+          tabs={tabs.map((tab) =>
+            tab.id === "Payout Setting" && activeTab === "Payout Setting"
+              ? { id: tab.id, label: "Payout" }
+              : tab
+          )}
+          activeTab={activeTab}
+          onTabChange={setActiveTab}
+          containerClassName="bg-[#f4f4f4] p-1 rounded-2xl mb-6 sm:mb-8 inline-flex gap-2 w-full sm:w-auto"
+          tabClassName="px-3 py-2 sm:py-3 rounded-[14px] text-xs sm:text-sm font-medium border flex-1 sm:flex-none"
+          activeTabClassName="bg-white text-[#7417c6] border-[#d5b9ee]"
+          inactiveTabClassName="text-[#777777] border-[#dfdfdf] hover:bg-gray-50 bg-transparent"
+        />
+
+        {/* Content */}
+        {activeTab === "Profile Setting" ? (
+          <ProfileSetting
+            formData={formData}
+            onFormDataChange={handleInputChange}
+            onSaveChanges={handleSaveChanges}
+          />
+        ) : (
+          <PayoutSetting
+            payoutAccountData={payoutAccountData}
+            onChangeDetails={handleChangeDetails}
+          />
+        )}
+      </div>
+    </DashboardLayout>
+  );
+}

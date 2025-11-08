@@ -14,6 +14,7 @@ import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as VendorIndexRouteImport } from './routes/vendor/index'
 import { Route as OrganizerIndexRouteImport } from './routes/organizer/index'
+import { Route as AccountIndexRouteImport } from './routes/account/index'
 import { Route as StatusSuccessRouteImport } from './routes/status/success'
 import { Route as OrganizerSalesRouteImport } from './routes/organizer/sales'
 import { Route as OrganizerLayoutRouteImport } from './routes/organizer/layout'
@@ -59,6 +60,11 @@ const VendorIndexRoute = VendorIndexRouteImport.update({
 const OrganizerIndexRoute = OrganizerIndexRouteImport.update({
   id: '/organizer/',
   path: '/organizer/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AccountIndexRoute = AccountIndexRouteImport.update({
+  id: '/account/',
+  path: '/account/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const StatusSuccessRoute = StatusSuccessRouteImport.update({
@@ -192,6 +198,7 @@ export interface FileRoutesByFullPath {
   '/organizer/layout': typeof OrganizerLayoutRoute
   '/organizer/sales': typeof OrganizerSalesRoute
   '/status/success': typeof StatusSuccessRoute
+  '/account': typeof AccountIndexRoute
   '/organizer': typeof OrganizerIndexRoute
   '/vendor': typeof VendorIndexRoute
   '/auth/otp/verify': typeof AuthOtpVerifyRoute
@@ -220,6 +227,7 @@ export interface FileRoutesByTo {
   '/organizer/layout': typeof OrganizerLayoutRoute
   '/organizer/sales': typeof OrganizerSalesRoute
   '/status/success': typeof StatusSuccessRoute
+  '/account': typeof AccountIndexRoute
   '/organizer': typeof OrganizerIndexRoute
   '/vendor': typeof VendorIndexRoute
   '/auth/otp/verify': typeof AuthOtpVerifyRoute
@@ -250,6 +258,7 @@ export interface FileRoutesById {
   '/organizer/layout': typeof OrganizerLayoutRoute
   '/organizer/sales': typeof OrganizerSalesRoute
   '/status/success': typeof StatusSuccessRoute
+  '/account/': typeof AccountIndexRoute
   '/organizer/': typeof OrganizerIndexRoute
   '/vendor/': typeof VendorIndexRoute
   '/auth/otp/verify': typeof AuthOtpVerifyRoute
@@ -280,6 +289,7 @@ export interface FileRouteTypes {
     | '/organizer/layout'
     | '/organizer/sales'
     | '/status/success'
+    | '/account'
     | '/organizer'
     | '/vendor'
     | '/auth/otp/verify'
@@ -308,6 +318,7 @@ export interface FileRouteTypes {
     | '/organizer/layout'
     | '/organizer/sales'
     | '/status/success'
+    | '/account'
     | '/organizer'
     | '/vendor'
     | '/auth/otp/verify'
@@ -337,6 +348,7 @@ export interface FileRouteTypes {
     | '/organizer/layout'
     | '/organizer/sales'
     | '/status/success'
+    | '/account/'
     | '/organizer/'
     | '/vendor/'
     | '/auth/otp/verify'
@@ -367,6 +379,7 @@ export interface RootRouteChildren {
   OrganizerLayoutRoute: typeof OrganizerLayoutRoute
   OrganizerSalesRoute: typeof OrganizerSalesRoute
   StatusSuccessRoute: typeof StatusSuccessRoute
+  AccountIndexRoute: typeof AccountIndexRoute
   OrganizerIndexRoute: typeof OrganizerIndexRoute
   VendorIndexRoute: typeof VendorIndexRoute
   AuthOtpVerifyRoute: typeof AuthOtpVerifyRoute
@@ -419,6 +432,13 @@ declare module '@tanstack/react-router' {
       path: '/organizer'
       fullPath: '/organizer'
       preLoaderRoute: typeof OrganizerIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/account/': {
+      id: '/account/'
+      path: '/account'
+      fullPath: '/account'
+      preLoaderRoute: typeof AccountIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/status/success': {
@@ -591,6 +611,7 @@ const rootRouteChildren: RootRouteChildren = {
   OrganizerLayoutRoute: OrganizerLayoutRoute,
   OrganizerSalesRoute: OrganizerSalesRoute,
   StatusSuccessRoute: StatusSuccessRoute,
+  AccountIndexRoute: AccountIndexRoute,
   OrganizerIndexRoute: OrganizerIndexRoute,
   VendorIndexRoute: VendorIndexRoute,
   AuthOtpVerifyRoute: AuthOtpVerifyRoute,
