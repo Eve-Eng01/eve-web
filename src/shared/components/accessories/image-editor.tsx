@@ -1,20 +1,45 @@
+// ──────────────────────────────────────────────────────────────────────
+//  image-editor.tsx  (only the parts that changed)
+// ──────────────────────────────────────────────────────────────────────
 import { Minus, Move, Plus } from "lucide-react";
-import { useRef, useState, MouseEvent } from "react";
+import { useRef, useState, MouseEvent, useEffect } from "react";
 
-// Define the props interface
+export interface ImageEditData {
+  zoom: number;
+  position: { x: number; y: number };
+}
+
+/* NEW PROP */
 interface ImageEditorProps {
   imageUrl: string;
-  onSave: (data: { zoom: number; position: { x: number; y: number } }) => void;
+  initialEdit?: ImageEditData;          // <-- restore previous state
+  onSave: (croppedUrl: string, edit: ImageEditData) => void;
   onCancel: () => void;
 }
 
-const ImageEditor = ({ imageUrl, onSave, onCancel }: ImageEditorProps) => {
-  const [zoom, setZoom] = useState(100);
-  const [position, setPosition] = useState({ x: 0, y: 0 });
+/* Crop size (same as the thumbnail preview) */
+const CROP_W = 339;
+const CROP_H = 300;
+
+const ImageEditor = ({
+  imageUrl,
+  initialEdit,
+  onSave,
+  onCancel,
+}: ImageEditorProps) => {
+  /* initialise from props (fallback to defaults) */
+  const [zoom, setZoom] = useState(initialEdit?.zoom ?? 100);
+  const [position, setPosition] = useState(
+    initialEdit?.position ?? { x: 0, y: 0 }
+  );
+
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
-  const imageRef = useRef<HTMLImageElement>(null);
 
+  const imgRef = useRef<HTMLImageElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  /* ---------- DRAG ---------- */
   const handleMouseDown = (e: MouseEvent<HTMLImageElement>) => {
     setIsDragging(true);
     setDragStart({
@@ -24,32 +49,66 @@ const ImageEditor = ({ imageUrl, onSave, onCancel }: ImageEditorProps) => {
   };
 
   const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
-    if (isDragging) {
-      setPosition({
-        x: e.clientX - dragStart.x,
-        y: e.clientY - dragStart.y,
-      });
-    }
+    if (!isDragging) return;
+    setPosition({
+      x: e.clientX - dragStart.x,
+      y: e.clientY - dragStart.y,
+    });
   };
 
-  const handleMouseUp = () => {
-    setIsDragging(false);
+  const handleMouseUp = () => setIsDragging(false);
+
+  /* ---------- ZOOM ---------- */
+  const handleZoomIn = () => setZoom((z) => Math.min(z + 10, 400));
+  const handleZoomOut = () => setZoom((z) => Math.max(z - 10, 50));
+
+  /* ---------- CANVAS DRAW (crop preview) ---------- */
+  const drawCrop = () => {
+    const canvas = canvasRef.current;
+    const img = imgRef.current;
+    if (!canvas || !img) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    ctx.clearRect(0, 0, CROP_W, CROP_H);
+
+    const thumbScale = zoom / 200;               // thumbnail uses half-scale
+    const tx = position.x * 0.5;
+    const ty = position.y * 0.5;
+
+    const imgW = img.naturalWidth * thumbScale;
+    const imgH = img.naturalHeight * thumbScale;
+
+    const offsetX = CROP_W / 2 - (imgW / 2 + tx);
+    const offsetY = CROP_H / 2 - (imgH / 2 + ty);
+
+    ctx.drawImage(img, offsetX, offsetY, imgW, imgH);
   };
 
-  const handleZoomIn = () => {
-    setZoom((prev) => Math.min(prev + 10, 400));
-  };
+  useEffect(() => {
+    drawCrop();
+  }, [zoom, position]);
 
-  const handleZoomOut = () => {
-    setZoom((prev) => Math.max(prev - 10, 50));
+  /* ---------- SAVE ---------- */
+  const handleSave = () => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const cropped = canvas.toDataURL("image/png");
+    onSave(cropped, { zoom, position });
   };
 
   return (
     <div className="space-y-6">
       <div className="flex gap-6 items-start">
-        {/* Thumbnail Preview */}
+        {/* THUMBNAIL (crop preview) */}
         <div className="flex-shrink-0">
           <div className="relative rounded-2xl overflow-hidden border-4 border-dashed border-purple-400 w-[339px] h-[300px] flex items-center justify-center">
+            <canvas
+              ref={canvasRef}
+              width={CROP_W}
+              height={CROP_H}
+              className="absolute inset-0 opacity-0 pointer-events-none"
+            />
             <img
               src={imageUrl}
               alt="Thumbnail"
@@ -64,25 +123,9 @@ const ImageEditor = ({ imageUrl, onSave, onCancel }: ImageEditorProps) => {
               </div>
             </div>
           </div>
-          <button className="mt-4 w-full px-4 py-2 border-2 border-purple-600 text-purple-600 rounded-xl hover:bg-purple-50 transition-colors font-medium text-sm flex items-center justify-center gap-2">
-            <svg
-              className="w-4 h-4"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-              />
-            </svg>
-            Edit Image
-          </button>
         </div>
 
-        {/* Main Preview */}
+        {/* BIG PREVIEW (draggable) */}
         <div className="flex-1">
           <div
             className="relative bg-purple-500 rounded-2xl overflow-hidden border-4 border-dashed border-purple-400"
@@ -93,7 +136,7 @@ const ImageEditor = ({ imageUrl, onSave, onCancel }: ImageEditorProps) => {
           >
             <div className="absolute inset-0 flex items-center justify-center">
               <img
-                ref={imageRef}
+                ref={imgRef}
                 src={imageUrl}
                 alt="Preview"
                 className="max-w-full max-h-full object-contain cursor-move"
@@ -114,6 +157,7 @@ const ImageEditor = ({ imageUrl, onSave, onCancel }: ImageEditorProps) => {
         </div>
       </div>
 
+      {/* ZOOM CONTROLS */}
       <div className="flex items-center justify-center gap-4">
         <button
           title="Zoom Out"
@@ -122,8 +166,8 @@ const ImageEditor = ({ imageUrl, onSave, onCancel }: ImageEditorProps) => {
         >
           <Minus className="w-5 h-5 text-gray-700" />
         </button>
+
         <input
-          title="Zoom range"
           type="range"
           min="50"
           max="400"
@@ -131,9 +175,10 @@ const ImageEditor = ({ imageUrl, onSave, onCancel }: ImageEditorProps) => {
           onChange={(e) => setZoom(Number(e.target.value))}
           className="w-80 accent-purple-600"
           style={{
-            background: `linear-gradient(to right, #9333ea 0%, #9333ea ${((zoom - 50) / 150) * 100}%, #e5e7eb ${((zoom - 50) / 150) * 100}%, #e5e7eb 100%)`,
+            background: `linear-gradient(to right, #9333ea 0%, #9333ea ${((zoom - 50) / 350) * 100}%, #e5e7eb ${((zoom - 50) / 350) * 100}%, #e5e7eb 100%)`,
           }}
         />
+
         <button
           title="Zoom In"
           onClick={handleZoomIn}
@@ -143,6 +188,7 @@ const ImageEditor = ({ imageUrl, onSave, onCancel }: ImageEditorProps) => {
         </button>
       </div>
 
+      {/* ACTION BUTTONS */}
       <div className="flex justify-end gap-4 pt-4">
         <button
           onClick={onCancel}
@@ -151,7 +197,7 @@ const ImageEditor = ({ imageUrl, onSave, onCancel }: ImageEditorProps) => {
           Cancel
         </button>
         <button
-          onClick={() => onSave({ zoom, position })}
+          onClick={handleSave}
           className="px-12 py-3 bg-purple-600 text-white rounded-xl hover:bg-purple-700 transition-colors font-medium"
         >
           Save Image

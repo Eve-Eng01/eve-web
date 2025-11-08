@@ -34,7 +34,7 @@ const DraftedEvent = () => {
           {events.map((event) => (
             <div
               key={event.id}
-              className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow"
+              className="bg-[#f4f4f4] p-2 shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow"
             >
               {/* Event Image */}
               <div className={`h-[254px] relative overflow-hidden`}>
@@ -77,7 +77,7 @@ const DraftedEvent = () => {
                 {/* Event Type Badge */}
                 <div className="flex justify-end">
                   <span
-                    className={`inline-flex items-center text-sm font-medium ${
+                    className={`inline-flex items-center text-sm font-medium bg-[#F1E8F9] p-5 rounded-xl ${
                       event.type === "Visual Event"
                         ? "text-purple-600"
                         : "text-purple-600"
