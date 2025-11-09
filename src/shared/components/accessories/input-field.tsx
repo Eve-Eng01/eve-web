@@ -19,7 +19,11 @@ export const InputField: React.FC<InputFieldProps> = ({
 }) => {
   return (
     <div className="w-full mb-[30px]">
-      {label && <label className="block text-gray-600 text-sm mb-2 font-medium">{label}</label>}
+      {label && (
+        <label className="block text-gray-600 text-sm mb-2 font-medium">
+          {label}
+        </label>
+      )}
       <input
         type={type}
         placeholder={placeholder}
