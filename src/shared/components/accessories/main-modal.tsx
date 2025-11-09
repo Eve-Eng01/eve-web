@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { X } from 'lucide-react';
 import { Xrp } from 'iconsax-reactjs';
 
 interface ModalProps {
@@ -79,7 +78,7 @@ const Modal: React.FC<ModalProps> = ({
     sm: 'max-w-md',
     md: 'max-w-lg',
     lg: 'max-w-2xl',
-    xl: 'max-w-4xl',
+    xl: 'max-w-4xl ',
     full: 'max-w-[95vw] max-h-[95vh]'
   };
 
@@ -90,8 +89,8 @@ const Modal: React.FC<ModalProps> = ({
   `;
 
   const modalClasses = `
-    relative bg-white rounded-lg shadow-xl w-full mx-4 my-8 
-    ${sizeClasses[size]} max-h-[90vh] overflow-hidden
+    relative bg-white rounded-lg shadow-xl w-full mx-2 sm:mx-4 my-2 sm:my-8 
+    ${sizeClasses[size]} max-h-[98vh] sm:max-h-[90vh] overflow-hidden
     transition-all duration-${animationDuration} ease-out transform
     ${isAnimating 
       ? 'opacity-100 scale-100 translate-y-0' 
@@ -123,9 +122,9 @@ const Modal: React.FC<ModalProps> = ({
       >
         {/* Header */}
         {(title || showCloseButton) && (
-          <div className="flex items-center justify-between p-6 border-b border-gray-200">
+          <div className="flex items-center justify-between p-4 sm:p-6 border-b border-gray-200">
             {title && (
-              <h2 id="modal-title" className="text-xl font-semibold text-gray-900">
+              <h2 id="modal-title" className="text-lg sm:text-xl font-semibold text-gray-900">
                 {title}
               </h2>
             )}
@@ -142,7 +141,7 @@ const Modal: React.FC<ModalProps> = ({
         )}
 
         {/* Body */}
-        <div className="p-6 overflow-y-auto max-h-[calc(90vh-8rem)]">
+        <div className="p-4 sm:p-6 overflow-y-auto max-h-[calc(98vh-4rem)] sm:max-h-[calc(90vh-8rem)]">
           {children}
         </div>
       </div>

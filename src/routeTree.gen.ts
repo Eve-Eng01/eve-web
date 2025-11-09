@@ -24,6 +24,7 @@ import { Route as OnboardingServiceVendorRouteImport } from './routes/onboarding
 import { Route as OnboardingOnboardingRouteImport } from './routes/onboarding/onboarding'
 import { Route as AuthSigninRouteImport } from './routes/auth/signin'
 import { Route as AuthSignUpRouteImport } from './routes/auth/sign-up'
+import { Route as AccountAddPayoutAccountRouteImport } from './routes/account/add-payout-account'
 import { Route as VendorEventIndexRouteImport } from './routes/vendor/event/index'
 import { Route as VendorEventEventIdRouteImport } from './routes/vendor/event/$eventId'
 import { Route as OnboardingVendorSubServicesTwoRouteImport } from './routes/onboarding/vendor-sub-services/two'
@@ -112,6 +113,11 @@ const AuthSignUpRoute = AuthSignUpRouteImport.update({
   path: '/auth/sign-up',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AccountAddPayoutAccountRoute = AccountAddPayoutAccountRouteImport.update({
+  id: '/account/add-payout-account',
+  path: '/account/add-payout-account',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const VendorEventIndexRoute = VendorEventIndexRouteImport.update({
   id: '/vendor/event/',
   path: '/vendor/event/',
@@ -189,6 +195,7 @@ const AuthOtpVerifyRoute = AuthOtpVerifyRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/account/add-payout-account': typeof AccountAddPayoutAccountRoute
   '/auth/sign-up': typeof AuthSignUpRoute
   '/auth/signin': typeof AuthSigninRoute
   '/onboarding/onboarding': typeof OnboardingOnboardingRoute
@@ -218,6 +225,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/account/add-payout-account': typeof AccountAddPayoutAccountRoute
   '/auth/sign-up': typeof AuthSignUpRoute
   '/auth/signin': typeof AuthSigninRoute
   '/onboarding/onboarding': typeof OnboardingOnboardingRoute
@@ -249,6 +257,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRoute
   '/about': typeof AboutRoute
+  '/account/add-payout-account': typeof AccountAddPayoutAccountRoute
   '/auth/sign-up': typeof AuthSignUpRoute
   '/auth/signin': typeof AuthSigninRoute
   '/onboarding/onboarding': typeof OnboardingOnboardingRoute
@@ -280,6 +289,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/account/add-payout-account'
     | '/auth/sign-up'
     | '/auth/signin'
     | '/onboarding/onboarding'
@@ -309,6 +319,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/account/add-payout-account'
     | '/auth/sign-up'
     | '/auth/signin'
     | '/onboarding/onboarding'
@@ -339,6 +350,7 @@ export interface FileRouteTypes {
     | '/'
     | '/_authenticated'
     | '/about'
+    | '/account/add-payout-account'
     | '/auth/sign-up'
     | '/auth/signin'
     | '/onboarding/onboarding'
@@ -370,6 +382,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRoute: typeof AuthenticatedRoute
   AboutRoute: typeof AboutRoute
+  AccountAddPayoutAccountRoute: typeof AccountAddPayoutAccountRoute
   AuthSignUpRoute: typeof AuthSignUpRoute
   AuthSigninRoute: typeof AuthSigninRoute
   OnboardingOnboardingRoute: typeof OnboardingOnboardingRoute
@@ -504,6 +517,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthSignUpRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/account/add-payout-account': {
+      id: '/account/add-payout-account'
+      path: '/account/add-payout-account'
+      fullPath: '/account/add-payout-account'
+      preLoaderRoute: typeof AccountAddPayoutAccountRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/vendor/event/': {
       id: '/vendor/event/'
       path: '/vendor/event'
@@ -602,6 +622,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRoute: AuthenticatedRoute,
   AboutRoute: AboutRoute,
+  AccountAddPayoutAccountRoute: AccountAddPayoutAccountRoute,
   AuthSignUpRoute: AuthSignUpRoute,
   AuthSigninRoute: AuthSigninRoute,
   OnboardingOnboardingRoute: OnboardingOnboardingRoute,

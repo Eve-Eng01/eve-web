@@ -10,6 +10,8 @@ import ProfileSetting, {
 import PayoutSetting, {
   type PayoutAccountData,
 } from "./payout-setting";
+import { ChangePayoutDetailsModal } from "./change-payout-details-modal";
+import { Toast } from "@components/accessories/toast";
 
 export const Route = createFileRoute("/account/")({
   component: RouteComponent,
@@ -23,6 +25,15 @@ export const User = {
 function RouteComponent() {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("Profile Setting");
+  const [isChangeDetailsModalOpen, setIsChangeDetailsModalOpen] = useState(false);
+  const [showToast, setShowToast] = useState(false);
+  const [payoutAccountData, setPayoutAccountData] = useState<PayoutAccountData>({
+    accountNumber: "2109019402",
+    bankName: "United Bank for Africa",
+    accountName: "Emumwen Gabriel Osauonamen",
+    currency: "NGN",
+    countryCode: "NG",
+  });
 
   const [formData, setFormData] = useState<ProfileFormData>({
     fullName: "Emumwen Gabriel Osauonamen",
@@ -31,14 +42,6 @@ function RouteComponent() {
     location: "ibeju Lekki Lagos, Nigeria.",
     organizerNumber: "+234-081- 5882-5489",
   });
-
-  const payoutAccountData: PayoutAccountData = {
-    accountNumber: "2109019402",
-    bankName: "United Bank for Africa",
-    accountName: "Emumwen Gabriel Osauonamen",
-    currency: "NGN",
-    countryCode: "NG",
-  };
 
   const tabs = [
     { id: "Profile Setting", label: "Profile Setting" },
@@ -64,13 +67,19 @@ function RouteComponent() {
   };
 
   const handleAddNewPayoutAccount = () => {
-    // TODO: Implement add new payout account functionality
-    console.log("Add new payout account");
+    navigate({ to: "/account/add-payout-account" });
   };
 
   const handleChangeDetails = () => {
-    // TODO: Implement change details functionality
-    console.log("Change payout account details");
+    setIsChangeDetailsModalOpen(true);
+  };
+
+  const handleSavePayoutDetails = async (data: PayoutAccountData): Promise<void> => {
+    // Simulate API call with delay
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+    setPayoutAccountData(data);
+    setIsChangeDetailsModalOpen(false);
+    setShowToast(true);
   };
 
   return (
@@ -125,6 +134,22 @@ function RouteComponent() {
           />
         )}
       </div>
+
+      {/* Change Payout Details Modal */}
+      <ChangePayoutDetailsModal
+        isOpen={isChangeDetailsModalOpen}
+        onClose={() => setIsChangeDetailsModalOpen(false)}
+        onSave={handleSavePayoutDetails}
+        initialData={payoutAccountData}
+      />
+
+      {/* Toast Notification */}
+      <Toast
+        message="Changed Saved"
+        isVisible={showToast}
+        onClose={() => setShowToast(false)}
+        duration={3000}
+      />
     </DashboardLayout>
   );
 }

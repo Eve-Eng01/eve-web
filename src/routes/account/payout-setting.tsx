@@ -1,6 +1,6 @@
 import React from "react";
-import { Building2 } from "lucide-react";
 import ReactCountryFlag from "react-country-flag";
+import BuildingIcon from "@assets/building-icon.svg";
 
 export interface PayoutAccountData {
   accountNumber: string;
@@ -28,8 +28,8 @@ const PayoutSetting: React.FC<PayoutSettingProps> = ({
         </h2>
         <p className="text-base sm:text-lg font-normal text-[#5a5a5a] leading-[22px] sm:leading-[26px] tracking-[0.09px]">
           This is where your payouts will be sent. You can update your account
-          details anytime. and please ensure all you details are correct to avoid
-          being sent to another account or bank account that is not duly
+          details anytime. and please ensure all you details are correct to
+          avoid being sent to another account or bank account that is not duly
           registered.
         </p>
       </div>
@@ -41,7 +41,11 @@ const PayoutSetting: React.FC<PayoutSettingProps> = ({
           <h3 className="text-lg sm:text-xl font-semibold text-[#2d2d2d] leading-[24px] sm:leading-[28px] tracking-[0.1px]">
             Account details
           </h3>
-          <Building2 className="h-4 w-4 sm:h-5 sm:w-5 text-black shrink-0" />
+          <img
+            src={BuildingIcon}
+            alt="Building icon"
+            className="h-4 w-4 sm:h-5 sm:w-5 text-black shrink-0"
+          />
         </div>
 
         {/* Divider */}
@@ -82,14 +86,15 @@ const PayoutSetting: React.FC<PayoutSettingProps> = ({
           <p className="text-base sm:text-lg font-normal text-[#5a5a5a] leading-[22px] sm:leading-[26px] tracking-[0.09px]">
             Currency
           </p>
-          <div className="bg-[#f4f4f4] flex items-center gap-1 p-1 rounded-[4px] w-fit">
-            <div className="w-6 h-[18px] sm:w-[28px] sm:h-[20px]">
+          <div className="bg-[#f4f4f4] flex  gap-1 p-1 rounded-[4px] w-fit">
+            <div className="w-6 h-[18px] sm:w-[28px] sm:h-[20px] ">
               <ReactCountryFlag
                 countryCode={payoutAccountData.countryCode}
                 svg
                 style={{
                   width: "100%",
                   height: "100%",
+                  borderRadius: "4px",
                 }}
               />
             </div>
@@ -115,4 +120,3 @@ const PayoutSetting: React.FC<PayoutSettingProps> = ({
 };
 
 export default PayoutSetting;
-
