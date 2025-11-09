@@ -27,13 +27,41 @@ function RouteComponent() {
   const [activeTab, setActiveTab] = useState("Profile Setting");
   const [isChangeDetailsModalOpen, setIsChangeDetailsModalOpen] = useState(false);
   const [showToast, setShowToast] = useState(false);
-  const [payoutAccountData, setPayoutAccountData] = useState<PayoutAccountData>({
-    accountNumber: "2109019402",
-    bankName: "United Bank for Africa",
-    accountName: "Emumwen Gabriel Osauonamen",
-    currency: "NGN",
-    countryCode: "NG",
-  });
+  // Mock data for multiple payout accounts
+  const [payoutAccountData, setPayoutAccountData] = useState<PayoutAccountData[]>([
+    {
+      id: "1",
+      accountNumber: "2109019402",
+      bankName: "United Bank for Africa",
+      accountName: "Emumwen Gabriel Osauonamen",
+      currency: "NGN",
+      countryCode: "NG",
+    },
+    {
+      id: "2",
+      accountNumber: "1234567890",
+      bankName: "Access Bank",
+      accountName: "Emumwen Gabriel Osauonamen",
+      currency: "NGN",
+      countryCode: "NG",
+    },
+    {
+      id: "3",
+      accountNumber: "9876543210",
+      bankName: "GTBank",
+      accountName: "Emumwen Gabriel Osauonamen",
+      currency: "NGN",
+      countryCode: "NG",
+    },
+    {
+      id: "4",
+      accountNumber: "5555555555",
+      bankName: "First Bank of Nigeria",
+      accountName: "Emumwen Gabriel Osauonamen",
+      currency: "NGN",
+      countryCode: "NG",
+    },
+  ]);
 
   const [formData, setFormData] = useState<ProfileFormData>({
     fullName: "Emumwen Gabriel Osauonamen",
@@ -70,15 +98,28 @@ function RouteComponent() {
     navigate({ to: "/account/add-payout-account" });
   };
 
-  const handleChangeDetails = () => {
+  const [selectedAccount, setSelectedAccount] = useState<PayoutAccountData | null>(null);
+
+  const handleChangeDetails = (account: PayoutAccountData) => {
+    setSelectedAccount(account);
     setIsChangeDetailsModalOpen(true);
   };
 
   const handleSavePayoutDetails = async (data: PayoutAccountData): Promise<void> => {
     // Simulate API call with delay
     await new Promise((resolve) => setTimeout(resolve, 2000));
-    setPayoutAccountData(data);
+    
+    // Update the specific account in the array
+    setPayoutAccountData((prev) =>
+      prev.map((account) =>
+        account.id === data.id || account.id === selectedAccount?.id
+          ? { ...data, id: account.id }
+          : account
+      )
+    );
+    
     setIsChangeDetailsModalOpen(false);
+    setSelectedAccount(null);
     setShowToast(true);
   };
 
@@ -136,12 +177,17 @@ function RouteComponent() {
       </div>
 
       {/* Change Payout Details Modal */}
-      <ChangePayoutDetailsModal
-        isOpen={isChangeDetailsModalOpen}
-        onClose={() => setIsChangeDetailsModalOpen(false)}
-        onSave={handleSavePayoutDetails}
-        initialData={payoutAccountData}
-      />
+      {selectedAccount && (
+        <ChangePayoutDetailsModal
+          isOpen={isChangeDetailsModalOpen}
+          onClose={() => {
+            setIsChangeDetailsModalOpen(false);
+            setSelectedAccount(null);
+          }}
+          onSave={handleSavePayoutDetails}
+          initialData={selectedAccount}
+        />
+      )}
 
       {/* Toast Notification */}
       <Toast
