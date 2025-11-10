@@ -14,6 +14,7 @@ import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as VendorIndexRouteImport } from './routes/vendor/index'
 import { Route as OrganizerIndexRouteImport } from './routes/organizer/index'
+import { Route as AccountIndexRouteImport } from './routes/account/index'
 import { Route as StatusSuccessRouteImport } from './routes/status/success'
 import { Route as OrganizerSalesRouteImport } from './routes/organizer/sales'
 import { Route as OrganizerLayoutRouteImport } from './routes/organizer/layout'
@@ -23,7 +24,11 @@ import { Route as OnboardingServiceVendorRouteImport } from './routes/onboarding
 import { Route as OnboardingOnboardingRouteImport } from './routes/onboarding/onboarding'
 import { Route as AuthSigninRouteImport } from './routes/auth/signin'
 import { Route as AuthSignUpRouteImport } from './routes/auth/sign-up'
+<<<<<<< HEAD
 import { Route as VendorProposalIndexRouteImport } from './routes/vendor/proposal/index'
+=======
+import { Route as AccountAddPayoutAccountRouteImport } from './routes/account/add-payout-account'
+>>>>>>> main
 import { Route as VendorEventIndexRouteImport } from './routes/vendor/event/index'
 import { Route as VendorProposalProposalIdRouteImport } from './routes/vendor/proposal/$proposalId'
 import { Route as OnboardingVendorSubServicesTwoRouteImport } from './routes/onboarding/vendor-sub-services/two'
@@ -62,6 +67,11 @@ const VendorIndexRoute = VendorIndexRouteImport.update({
 const OrganizerIndexRoute = OrganizerIndexRouteImport.update({
   id: '/organizer/',
   path: '/organizer/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AccountIndexRoute = AccountIndexRouteImport.update({
+  id: '/account/',
+  path: '/account/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const StatusSuccessRoute = StatusSuccessRouteImport.update({
@@ -109,9 +119,15 @@ const AuthSignUpRoute = AuthSignUpRouteImport.update({
   path: '/auth/sign-up',
   getParentRoute: () => rootRouteImport,
 } as any)
+<<<<<<< HEAD
 const VendorProposalIndexRoute = VendorProposalIndexRouteImport.update({
   id: '/vendor/proposal/',
   path: '/vendor/proposal/',
+=======
+const AccountAddPayoutAccountRoute = AccountAddPayoutAccountRouteImport.update({
+  id: '/account/add-payout-account',
+  path: '/account/add-payout-account',
+>>>>>>> main
   getParentRoute: () => rootRouteImport,
 } as any)
 const VendorEventIndexRoute = VendorEventIndexRouteImport.update({
@@ -203,6 +219,7 @@ const VendorEventEventIdProposalRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/account/add-payout-account': typeof AccountAddPayoutAccountRoute
   '/auth/sign-up': typeof AuthSignUpRoute
   '/auth/signin': typeof AuthSigninRoute
   '/onboarding/onboarding': typeof OnboardingOnboardingRoute
@@ -212,6 +229,7 @@ export interface FileRoutesByFullPath {
   '/organizer/layout': typeof OrganizerLayoutRoute
   '/organizer/sales': typeof OrganizerSalesRoute
   '/status/success': typeof StatusSuccessRoute
+  '/account': typeof AccountIndexRoute
   '/organizer': typeof OrganizerIndexRoute
   '/vendor': typeof VendorIndexRoute
   '/auth/otp/verify': typeof AuthOtpVerifyRoute
@@ -234,6 +252,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/account/add-payout-account': typeof AccountAddPayoutAccountRoute
   '/auth/sign-up': typeof AuthSignUpRoute
   '/auth/signin': typeof AuthSigninRoute
   '/onboarding/onboarding': typeof OnboardingOnboardingRoute
@@ -243,6 +262,7 @@ export interface FileRoutesByTo {
   '/organizer/layout': typeof OrganizerLayoutRoute
   '/organizer/sales': typeof OrganizerSalesRoute
   '/status/success': typeof StatusSuccessRoute
+  '/account': typeof AccountIndexRoute
   '/organizer': typeof OrganizerIndexRoute
   '/vendor': typeof VendorIndexRoute
   '/auth/otp/verify': typeof AuthOtpVerifyRoute
@@ -267,6 +287,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRoute
   '/about': typeof AboutRoute
+  '/account/add-payout-account': typeof AccountAddPayoutAccountRoute
   '/auth/sign-up': typeof AuthSignUpRoute
   '/auth/signin': typeof AuthSigninRoute
   '/onboarding/onboarding': typeof OnboardingOnboardingRoute
@@ -276,6 +297,7 @@ export interface FileRoutesById {
   '/organizer/layout': typeof OrganizerLayoutRoute
   '/organizer/sales': typeof OrganizerSalesRoute
   '/status/success': typeof StatusSuccessRoute
+  '/account/': typeof AccountIndexRoute
   '/organizer/': typeof OrganizerIndexRoute
   '/vendor/': typeof VendorIndexRoute
   '/auth/otp/verify': typeof AuthOtpVerifyRoute
@@ -300,6 +322,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/account/add-payout-account'
     | '/auth/sign-up'
     | '/auth/signin'
     | '/onboarding/onboarding'
@@ -309,6 +332,7 @@ export interface FileRouteTypes {
     | '/organizer/layout'
     | '/organizer/sales'
     | '/status/success'
+    | '/account'
     | '/organizer'
     | '/vendor'
     | '/auth/otp/verify'
@@ -331,6 +355,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/account/add-payout-account'
     | '/auth/sign-up'
     | '/auth/signin'
     | '/onboarding/onboarding'
@@ -340,6 +365,7 @@ export interface FileRouteTypes {
     | '/organizer/layout'
     | '/organizer/sales'
     | '/status/success'
+    | '/account'
     | '/organizer'
     | '/vendor'
     | '/auth/otp/verify'
@@ -363,6 +389,7 @@ export interface FileRouteTypes {
     | '/'
     | '/_authenticated'
     | '/about'
+    | '/account/add-payout-account'
     | '/auth/sign-up'
     | '/auth/signin'
     | '/onboarding/onboarding'
@@ -372,6 +399,7 @@ export interface FileRouteTypes {
     | '/organizer/layout'
     | '/organizer/sales'
     | '/status/success'
+    | '/account/'
     | '/organizer/'
     | '/vendor/'
     | '/auth/otp/verify'
@@ -396,6 +424,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRoute: typeof AuthenticatedRoute
   AboutRoute: typeof AboutRoute
+  AccountAddPayoutAccountRoute: typeof AccountAddPayoutAccountRoute
   AuthSignUpRoute: typeof AuthSignUpRoute
   AuthSigninRoute: typeof AuthSigninRoute
   OnboardingOnboardingRoute: typeof OnboardingOnboardingRoute
@@ -405,6 +434,7 @@ export interface RootRouteChildren {
   OrganizerLayoutRoute: typeof OrganizerLayoutRoute
   OrganizerSalesRoute: typeof OrganizerSalesRoute
   StatusSuccessRoute: typeof StatusSuccessRoute
+  AccountIndexRoute: typeof AccountIndexRoute
   OrganizerIndexRoute: typeof OrganizerIndexRoute
   VendorIndexRoute: typeof VendorIndexRoute
   AuthOtpVerifyRoute: typeof AuthOtpVerifyRoute
@@ -460,6 +490,13 @@ declare module '@tanstack/react-router' {
       path: '/organizer'
       fullPath: '/organizer'
       preLoaderRoute: typeof OrganizerIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/account/': {
+      id: '/account/'
+      path: '/account'
+      fullPath: '/account'
+      preLoaderRoute: typeof AccountIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/status/success': {
@@ -525,11 +562,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthSignUpRouteImport
       parentRoute: typeof rootRouteImport
     }
+<<<<<<< HEAD
     '/vendor/proposal/': {
       id: '/vendor/proposal/'
       path: '/vendor/proposal'
       fullPath: '/vendor/proposal'
       preLoaderRoute: typeof VendorProposalIndexRouteImport
+=======
+    '/account/add-payout-account': {
+      id: '/account/add-payout-account'
+      path: '/account/add-payout-account'
+      fullPath: '/account/add-payout-account'
+      preLoaderRoute: typeof AccountAddPayoutAccountRouteImport
+>>>>>>> main
       parentRoute: typeof rootRouteImport
     }
     '/vendor/event/': {
@@ -644,6 +689,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRoute: AuthenticatedRoute,
   AboutRoute: AboutRoute,
+  AccountAddPayoutAccountRoute: AccountAddPayoutAccountRoute,
   AuthSignUpRoute: AuthSignUpRoute,
   AuthSigninRoute: AuthSigninRoute,
   OnboardingOnboardingRoute: OnboardingOnboardingRoute,
@@ -653,6 +699,7 @@ const rootRouteChildren: RootRouteChildren = {
   OrganizerLayoutRoute: OrganizerLayoutRoute,
   OrganizerSalesRoute: OrganizerSalesRoute,
   StatusSuccessRoute: StatusSuccessRoute,
+  AccountIndexRoute: AccountIndexRoute,
   OrganizerIndexRoute: OrganizerIndexRoute,
   VendorIndexRoute: VendorIndexRoute,
   AuthOtpVerifyRoute: AuthOtpVerifyRoute,
