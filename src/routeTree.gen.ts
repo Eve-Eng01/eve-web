@@ -23,8 +23,9 @@ import { Route as OnboardingServiceVendorRouteImport } from './routes/onboarding
 import { Route as OnboardingOnboardingRouteImport } from './routes/onboarding/onboarding'
 import { Route as AuthSigninRouteImport } from './routes/auth/signin'
 import { Route as AuthSignUpRouteImport } from './routes/auth/sign-up'
+import { Route as VendorProposalIndexRouteImport } from './routes/vendor/proposal/index'
 import { Route as VendorEventIndexRouteImport } from './routes/vendor/event/index'
-import { Route as VendorEventEventIdRouteImport } from './routes/vendor/event/$eventId'
+import { Route as VendorProposalProposalIdRouteImport } from './routes/vendor/proposal/$proposalId'
 import { Route as OnboardingVendorSubServicesTwoRouteImport } from './routes/onboarding/vendor-sub-services/two'
 import { Route as OnboardingVendorSubServicesThreeRouteImport } from './routes/onboarding/vendor-sub-services/three'
 import { Route as OnboardingSubServicesTwoRouteImport } from './routes/onboarding/sub-services/two'
@@ -36,6 +37,8 @@ import { Route as OnboardingSubServicesFiveRouteImport } from './routes/onboardi
 import { Route as AuthPasswordOtpRouteImport } from './routes/auth/password/otp'
 import { Route as AuthPasswordForgetRouteImport } from './routes/auth/password/forget'
 import { Route as AuthOtpVerifyRouteImport } from './routes/auth/otp/verify'
+import { Route as VendorEventEventIdIndexRouteImport } from './routes/vendor/event/$eventId/index'
+import { Route as VendorEventEventIdProposalRouteImport } from './routes/vendor/event/$eventId/proposal'
 
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
@@ -106,16 +109,22 @@ const AuthSignUpRoute = AuthSignUpRouteImport.update({
   path: '/auth/sign-up',
   getParentRoute: () => rootRouteImport,
 } as any)
+const VendorProposalIndexRoute = VendorProposalIndexRouteImport.update({
+  id: '/vendor/proposal/',
+  path: '/vendor/proposal/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const VendorEventIndexRoute = VendorEventIndexRouteImport.update({
   id: '/vendor/event/',
   path: '/vendor/event/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const VendorEventEventIdRoute = VendorEventEventIdRouteImport.update({
-  id: '/vendor/event/$eventId',
-  path: '/vendor/event/$eventId',
-  getParentRoute: () => rootRouteImport,
-} as any)
+const VendorProposalProposalIdRoute =
+  VendorProposalProposalIdRouteImport.update({
+    id: '/vendor/proposal/$proposalId',
+    path: '/vendor/proposal/$proposalId',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const OnboardingVendorSubServicesTwoRoute =
   OnboardingVendorSubServicesTwoRouteImport.update({
     id: '/onboarding/vendor-sub-services/two',
@@ -179,6 +188,17 @@ const AuthOtpVerifyRoute = AuthOtpVerifyRouteImport.update({
   path: '/auth/otp/verify',
   getParentRoute: () => rootRouteImport,
 } as any)
+const VendorEventEventIdIndexRoute = VendorEventEventIdIndexRouteImport.update({
+  id: '/vendor/event/$eventId/',
+  path: '/vendor/event/$eventId/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VendorEventEventIdProposalRoute =
+  VendorEventEventIdProposalRouteImport.update({
+    id: '/vendor/event/$eventId/proposal',
+    path: '/vendor/event/$eventId/proposal',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -205,8 +225,11 @@ export interface FileRoutesByFullPath {
   '/onboarding/sub-services/two': typeof OnboardingSubServicesTwoRoute
   '/onboarding/vendor-sub-services/three': typeof OnboardingVendorSubServicesThreeRoute
   '/onboarding/vendor-sub-services/two': typeof OnboardingVendorSubServicesTwoRoute
-  '/vendor/event/$eventId': typeof VendorEventEventIdRoute
+  '/vendor/proposal/$proposalId': typeof VendorProposalProposalIdRoute
   '/vendor/event': typeof VendorEventIndexRoute
+  '/vendor/proposal': typeof VendorProposalIndexRoute
+  '/vendor/event/$eventId/proposal': typeof VendorEventEventIdProposalRoute
+  '/vendor/event/$eventId': typeof VendorEventEventIdIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -233,8 +256,11 @@ export interface FileRoutesByTo {
   '/onboarding/sub-services/two': typeof OnboardingSubServicesTwoRoute
   '/onboarding/vendor-sub-services/three': typeof OnboardingVendorSubServicesThreeRoute
   '/onboarding/vendor-sub-services/two': typeof OnboardingVendorSubServicesTwoRoute
-  '/vendor/event/$eventId': typeof VendorEventEventIdRoute
+  '/vendor/proposal/$proposalId': typeof VendorProposalProposalIdRoute
   '/vendor/event': typeof VendorEventIndexRoute
+  '/vendor/proposal': typeof VendorProposalIndexRoute
+  '/vendor/event/$eventId/proposal': typeof VendorEventEventIdProposalRoute
+  '/vendor/event/$eventId': typeof VendorEventEventIdIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -263,8 +289,11 @@ export interface FileRoutesById {
   '/onboarding/sub-services/two': typeof OnboardingSubServicesTwoRoute
   '/onboarding/vendor-sub-services/three': typeof OnboardingVendorSubServicesThreeRoute
   '/onboarding/vendor-sub-services/two': typeof OnboardingVendorSubServicesTwoRoute
-  '/vendor/event/$eventId': typeof VendorEventEventIdRoute
+  '/vendor/proposal/$proposalId': typeof VendorProposalProposalIdRoute
   '/vendor/event/': typeof VendorEventIndexRoute
+  '/vendor/proposal/': typeof VendorProposalIndexRoute
+  '/vendor/event/$eventId/proposal': typeof VendorEventEventIdProposalRoute
+  '/vendor/event/$eventId/': typeof VendorEventEventIdIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -293,8 +322,11 @@ export interface FileRouteTypes {
     | '/onboarding/sub-services/two'
     | '/onboarding/vendor-sub-services/three'
     | '/onboarding/vendor-sub-services/two'
-    | '/vendor/event/$eventId'
+    | '/vendor/proposal/$proposalId'
     | '/vendor/event'
+    | '/vendor/proposal'
+    | '/vendor/event/$eventId/proposal'
+    | '/vendor/event/$eventId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -321,8 +353,11 @@ export interface FileRouteTypes {
     | '/onboarding/sub-services/two'
     | '/onboarding/vendor-sub-services/three'
     | '/onboarding/vendor-sub-services/two'
-    | '/vendor/event/$eventId'
+    | '/vendor/proposal/$proposalId'
     | '/vendor/event'
+    | '/vendor/proposal'
+    | '/vendor/event/$eventId/proposal'
+    | '/vendor/event/$eventId'
   id:
     | '__root__'
     | '/'
@@ -350,8 +385,11 @@ export interface FileRouteTypes {
     | '/onboarding/sub-services/two'
     | '/onboarding/vendor-sub-services/three'
     | '/onboarding/vendor-sub-services/two'
-    | '/vendor/event/$eventId'
+    | '/vendor/proposal/$proposalId'
     | '/vendor/event/'
+    | '/vendor/proposal/'
+    | '/vendor/event/$eventId/proposal'
+    | '/vendor/event/$eventId/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -380,8 +418,11 @@ export interface RootRouteChildren {
   OnboardingSubServicesTwoRoute: typeof OnboardingSubServicesTwoRoute
   OnboardingVendorSubServicesThreeRoute: typeof OnboardingVendorSubServicesThreeRoute
   OnboardingVendorSubServicesTwoRoute: typeof OnboardingVendorSubServicesTwoRoute
-  VendorEventEventIdRoute: typeof VendorEventEventIdRoute
+  VendorProposalProposalIdRoute: typeof VendorProposalProposalIdRoute
   VendorEventIndexRoute: typeof VendorEventIndexRoute
+  VendorProposalIndexRoute: typeof VendorProposalIndexRoute
+  VendorEventEventIdProposalRoute: typeof VendorEventEventIdProposalRoute
+  VendorEventEventIdIndexRoute: typeof VendorEventEventIdIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -484,6 +525,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthSignUpRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/vendor/proposal/': {
+      id: '/vendor/proposal/'
+      path: '/vendor/proposal'
+      fullPath: '/vendor/proposal'
+      preLoaderRoute: typeof VendorProposalIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/vendor/event/': {
       id: '/vendor/event/'
       path: '/vendor/event'
@@ -491,11 +539,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof VendorEventIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/vendor/event/$eventId': {
-      id: '/vendor/event/$eventId'
-      path: '/vendor/event/$eventId'
-      fullPath: '/vendor/event/$eventId'
-      preLoaderRoute: typeof VendorEventEventIdRouteImport
+    '/vendor/proposal/$proposalId': {
+      id: '/vendor/proposal/$proposalId'
+      path: '/vendor/proposal/$proposalId'
+      fullPath: '/vendor/proposal/$proposalId'
+      preLoaderRoute: typeof VendorProposalProposalIdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/onboarding/vendor-sub-services/two': {
@@ -575,6 +623,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthOtpVerifyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/vendor/event/$eventId/': {
+      id: '/vendor/event/$eventId/'
+      path: '/vendor/event/$eventId'
+      fullPath: '/vendor/event/$eventId'
+      preLoaderRoute: typeof VendorEventEventIdIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/vendor/event/$eventId/proposal': {
+      id: '/vendor/event/$eventId/proposal'
+      path: '/vendor/event/$eventId/proposal'
+      fullPath: '/vendor/event/$eventId/proposal'
+      preLoaderRoute: typeof VendorEventEventIdProposalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -604,8 +666,11 @@ const rootRouteChildren: RootRouteChildren = {
   OnboardingSubServicesTwoRoute: OnboardingSubServicesTwoRoute,
   OnboardingVendorSubServicesThreeRoute: OnboardingVendorSubServicesThreeRoute,
   OnboardingVendorSubServicesTwoRoute: OnboardingVendorSubServicesTwoRoute,
-  VendorEventEventIdRoute: VendorEventEventIdRoute,
+  VendorProposalProposalIdRoute: VendorProposalProposalIdRoute,
   VendorEventIndexRoute: VendorEventIndexRoute,
+  VendorProposalIndexRoute: VendorProposalIndexRoute,
+  VendorEventEventIdProposalRoute: VendorEventEventIdProposalRoute,
+  VendorEventEventIdIndexRoute: VendorEventEventIdIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

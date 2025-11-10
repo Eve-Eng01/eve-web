@@ -700,6 +700,7 @@ const CreateEvent = ({ onNavigateToTab }: CreateEventProps) => {
             {/* Event Category */}
             <div>
               <DropdownInput
+                className="mb-[30px]"
                 label="Select Event Categories"
                 options={eventCategories}
                 value={category}

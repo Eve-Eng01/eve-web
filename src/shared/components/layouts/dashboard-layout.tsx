@@ -27,7 +27,7 @@ interface User {
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
-  user: User;
+  user?: User;
   isVendor?: boolean;
 }
 
@@ -38,50 +38,57 @@ interface NavItem {
   isActive?: boolean;
 }
 
-export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
-  children,
-  user,
-  isVendor,
+// @Ufuoma we have a white background on the main content area, so we need to make the sidebar background color the same as the main content area
+const NavSection: React.FC<{ title: string; items: NavItem[] }> = ({
+  title,
+  items,
 }) => {
   const navigate = useNavigate();
   const location = useLocation();
-
-  // Determine active section based on current route
-  const getActiveSectionFromRoute = (pathname: string): string => {
-    switch (pathname) {
-      case "/organizer":
-        return "My Events";
-      case "/events/create":
-        return "Create New";
-      case "/organizer/attendee":
-        return "Attendees";
-      case "/organizer/sales":
-        return "Sales & Reports";
-      case "/vendors":
-        return "Browse Vendors";
-      case "/proposals":
-        return "RFPs & Proposals";
-      case "/messages":
-        return "Messages";
-      case "/settings":
-        return "Setting";
-      case "/account":
-        return "Account";
-      case "/logout":
-        return "Log Out";
-      default:
-        return "My Events"; // Default fallback
-    }
-  };
-
-  const activeSection = getActiveSectionFromRoute(location.pathname);
+  const pathName = useMemo(() => location.pathname, [location.pathname]);
 
   const handleNavigation = (href: string, label: string) => {
     console.log(`Navigating to ${label}...`);
     navigate({ to: href });
   };
+  return (
+    <div className="mb-8">
+      <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3 px-3">
+        {title}
+      </h3>
+      <nav className="space-y-1">
+        {items.map((item) => {
+          const isActive = pathName === item.href;
+          return (
+            <button
+              key={item.label}
+              onClick={() => handleNavigation(item.href, item.label)}
+              className={`w-full group flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-colors duration-150 cursor-pointer ${
+                isActive
+                  ? "bg-purple-100 text-purple-700"
+                  : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+              }`}
+            >
+              <item.icon
+                className={`mr-3 h-5 w-5 ${
+                  isActive
+                    ? "text-purple-500"
+                    : "text-gray-400 group-hover:text-gray-500"
+                }`}
+              />
+              {item.label}
+            </button>
+          );
+        })}
+      </nav>
+    </div>
+  );
+};
 
-  //Todo Work on this the routing doesn't make sense
+export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
+  children,
+  isVendor,
+}) => {
   const generalNavItems: NavItem[] = useMemo(
     () =>
       isVendor
@@ -90,25 +97,21 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
               icon: TicketIcon,
               label: "My Dashboard",
               href: "/vendor",
-              isActive: activeSection === "My Dashboard",
             },
             {
               icon: PlusSquare,
               label: "Profile & services",
-              href: "/vendor/events",
-              isActive: activeSection === "Profile & services",
+              href: "/vendor/services",
             },
             {
               icon: UserStar,
               label: "Event opportunities",
-              href: "/organizer",
-              isActive: activeSection === "Event opportunities",
+              href: "/vendor/event",
             },
             {
               icon: LineChart,
               label: "Sales & reports",
               href: "/organizer",
-              isActive: activeSection === "Sales & reports",
             },
           ]
         : [
@@ -116,25 +119,21 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
               icon: Calendar,
               label: "My Events",
               href: "/organizer",
-              isActive: activeSection === "My Events",
             },
             {
               icon: Plus,
               label: "Create New",
               href: "/events/create",
-              isActive: activeSection === "Create New",
             },
             {
               icon: Users,
               label: "Attendees",
               href: "/organizer/attendee",
-              isActive: activeSection === "Attendees",
             },
             {
               icon: TrendingUp,
               label: "Sales & Reports",
               href: "/organizer/sales",
-              isActive: activeSection === "Sales & Reports",
             },
           ],
     [isVendor]
@@ -146,21 +145,18 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
         ? [
             {
               icon: Users,
-              label: "My propsals",
-              href: "/vendors",
-              isActive: activeSection === "My propsals",
+              label: "My proposals",
+              href: "/vendor/proposal",
             },
             {
               icon: Banknote,
               label: "Submit proposal",
-              href: "/vendors",
-              isActive: activeSection === "Submit proposal",
+              href: "/vendor",
             },
             {
               icon: MessageCircle,
               label: "Messages",
-              href: "/vendors",
-              isActive: activeSection === "Messages",
+              href: "/vendor",
             },
           ]
         : [
@@ -168,19 +164,16 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
               icon: Users,
               label: "Browse Vendors",
               href: "/vendors",
-              isActive: activeSection === "Browse Vendors",
             },
             {
               icon: FileText,
               label: "RFPs & Proposals",
               href: "/proposals",
-              isActive: activeSection === "RFPs & Proposals",
             },
             {
               icon: MessageSquare,
               label: "Messages",
               href: "/messages",
-              isActive: activeSection === "Messages",
             },
           ],
     [isVendor]
@@ -194,7 +187,6 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
               icon: Settings,
               label: "Setting",
               href: "/settings",
-              isActive: activeSection === "Setting",
             },
           ]
         : [
@@ -202,56 +194,19 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
               icon: Settings,
               label: "Setting",
               href: "/settings",
-              isActive: activeSection === "Setting",
             },
             {
               icon: User,
               label: "Account",
               href: "/account",
-              isActive: activeSection === "Account",
             },
             {
               icon: LogOut,
               label: "Log Out",
               href: "/logout",
-              isActive: activeSection === "Log Out",
             },
           ],
     [isVendor]
-  );
-
-  // @Ufuoma we have a white background on the main content area, so we need to make the sidebar background color the same as the main content area
-  const NavSection: React.FC<{ title: string; items: NavItem[] }> = ({
-    title,
-    items,
-  }) => (
-    <div className="mb-8">
-      <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3 px-3">
-        {title}
-      </h3>
-      <nav className="space-y-1">
-        {items.map((item) => (
-          <button
-            key={item.label}
-            onClick={() => handleNavigation(item.href, item.label)}
-            className={`w-full group flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-colors duration-150 ${
-              item.isActive
-                ? "bg-purple-100 text-purple-700"
-                : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
-            }`}
-          >
-            <item.icon
-              className={`mr-3 h-5 w-5 ${
-                item.isActive
-                  ? "text-purple-500"
-                  : "text-gray-400 group-hover:text-gray-500"
-              }`}
-            />
-            {item.label}
-          </button>
-        ))}
-      </nav>
-    </div>
   );
 
   return (
