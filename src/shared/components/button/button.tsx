@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import React from "react";
 import { cn } from "../../utils/classnames";
+import clsx from "clsx";
 
 // Button component interface
 interface CustomButtonProps {
@@ -24,8 +25,8 @@ const CustomButton: React.FC<CustomButtonProps> = ({
       onClick={onClick}
       disabled={disabled}
       className={cn(
-        `
-        w-full
+        clsx(
+          `w-full
         bg-[#7417C6]
         hover:bg-[#7417C6]
         disabled:bg-purple-400
@@ -44,7 +45,8 @@ const CustomButton: React.FC<CustomButtonProps> = ({
         shadow-sm
         cursor-pointer
       `,
-        className
+          className
+        )
       )}
     >
       <span>{title}</span>

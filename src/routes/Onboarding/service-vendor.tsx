@@ -105,6 +105,7 @@ export function RouteComponent() {
             </div>
 
             <InputField
+              parentClassName="mb-[30px]"
               label="Enter Registered Company Name"
               placeholder="Eve Even Platform"
               value={formData.companyName}
@@ -114,6 +115,7 @@ export function RouteComponent() {
             />
 
             <DropdownInput
+              className="mb-[30px]"
               label="Select your Country"
               options={countries} // Use countries instead of businessTypes
               value={formData.country} // Use country instead of businessType
@@ -133,6 +135,7 @@ export function RouteComponent() {
             />
 
             <InputField
+              parentClassName="mb-[30px]"
               label="Location"
               placeholder="Ibeju Lekki Lagos, Nigeria."
               value={formData.location}

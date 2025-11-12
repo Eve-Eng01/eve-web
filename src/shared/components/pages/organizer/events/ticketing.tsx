@@ -201,7 +201,7 @@ const TicketDetailsForm: React.FC<{
               setFormData({ ...formData, ticketQuantity: option })
             }
             placeholder="Select ticket quantity"
-            className="w-full"
+            className="w-full mb-[30px]"
           />
         </div>
         <div>
