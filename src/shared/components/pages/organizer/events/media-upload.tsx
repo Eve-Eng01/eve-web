@@ -1,8 +1,8 @@
 import React, { useState, ChangeEvent, DragEvent } from "react";
-import { Image } from "lucide-react";
+import { Image, Upload } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Modal from "../../../accessories/main-modal";
-import ImageEditor from "../../../accessories/image-editor";
+import ImageEditor, { ImageEditData } from "../../../accessories/image-editor";
 import upload1 from "@assets/uploads/upload1.png";
 import upload2 from "@assets/uploads/upload2.png";
 import upload3 from "@assets/uploads/upload3.png";
@@ -17,54 +17,30 @@ interface Theme {
   image: string;
 }
 
-interface ImageEditData {
-  zoom: number;
-  position: { x: number; y: number };
+interface CroppedImage {
+  url: string;
+  edit: ImageEditData;
 }
 
 const MediaUpload: React.FC = () => {
   const [selectedTheme, setSelectedTheme] = useState<number | null>(null);
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);
-  const [previewImage, setPreviewImage] = useState<string | null>(null);
+  const [cropped, setCropped] = useState<CroppedImage | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  // Hidden file input ref
+  const fileInputRef = React.useRef<HTMLInputElement>(null);
+
   const themes: Theme[] = [
-    {
-      id: 1,
-      image: upload1,
-    },
-    {
-      id: 2,
-      image: upload2,
-    },
-    {
-      id: 3,
-      image: upload3,
-    },
-    {
-      id: 4,
-      image: upload4,
-    },
-    {
-      id: 5,
-      image: upload5,
-    },
-    {
-      id: 6,
-      image: upload6,
-    },
-    {
-      id: 7,
-      image: upload7,
-    },
-    {
-      id: 8,
-      image: upload8,
-    },
-    {
-      id: 9,
-      image: upload1,
-    },
+    { id: 1, image: upload1 },
+    { id: 2, image: upload2 },
+    { id: 3, image: upload3 },
+    { id: 4, image: upload4 },
+    { id: 5, image: upload5 },
+    { id: 6, image: upload6 },
+    { id: 7, image: upload7 },
+    { id: 8, image: upload8 },
+    { id: 9, image: upload1 },
   ];
 
   const handleDragOver = (e: DragEvent<HTMLDivElement>) => {
@@ -76,13 +52,11 @@ const MediaUpload: React.FC = () => {
     const file = e.dataTransfer.files[0];
     if (file && file.type.startsWith("image/")) {
       const reader = new FileReader();
-      reader.onload = (ev: ProgressEvent<FileReader>) => {
-        const result = ev.target?.result;
-        if (typeof result === "string") {
-          setUploadedImage(result);
-          setPreviewImage(result);
-          setSelectedTheme(null);
-        }
+      reader.onload = (ev) => {
+        const url = ev.target?.result as string;
+        setUploadedImage(url);
+        setCropped(null);
+        setSelectedTheme(null);
       };
       reader.readAsDataURL(file);
     }
@@ -92,13 +66,11 @@ const MediaUpload: React.FC = () => {
     const file = e.target.files?.[0];
     if (file) {
       const reader = new FileReader();
-      reader.onload = (ev: ProgressEvent<FileReader>) => {
-        const result = ev.target?.result;
-        if (typeof result === "string") {
-          setUploadedImage(result);
-          setPreviewImage(result);
-          setSelectedTheme(null);
-        }
+      reader.onload = (ev) => {
+        const url = ev.target?.result as string;
+        setUploadedImage(url);
+        setCropped(null);
+        setSelectedTheme(null);
       };
       reader.readAsDataURL(file);
     }
@@ -107,23 +79,33 @@ const MediaUpload: React.FC = () => {
   const handleThemeClick = (theme: Theme) => {
     setSelectedTheme(theme.id);
     setUploadedImage(theme.image);
-    setPreviewImage(theme.image);
+    setCropped(null);
   };
 
   const handleChangeImage = () => {
-    if (previewImage) {
+    if (uploadedImage || cropped?.url) {
       setIsModalOpen(true);
     }
   };
 
-  const handleSaveImage = (editData: ImageEditData) => {
-    console.log("Image saved with settings:", editData);
+  const handleSaveImage = (croppedUrl: string, editData: ImageEditData) => {
+    setCropped({ url: croppedUrl, edit: editData });
     setIsModalOpen(false);
   };
+
+  const triggerFileUpload = () => {
+    fileInputRef.current?.click();
+  };
+
+  const hasImage = !!uploadedImage || !!cropped?.url;
+
+  const borderStyle =
+    "border-4 border-dashed border-purple-300 hover:border-purple-400";
 
   return (
     <div className="bg-gray-50 p-8">
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8">
+        {/* ── LEFT: Upload / Preview ── */}
         <div>
           <h2 className="text-2xl font-semibold text-gray-800 mb-6">
             Uploaded Image
@@ -132,38 +114,55 @@ const MediaUpload: React.FC = () => {
           <div
             onDragOver={handleDragOver}
             onDrop={handleDrop}
-            className="border-4 border-dashed border-purple-300 rounded-3xl bg-purple-50 flex flex-col items-center justify-center min-h-[400px] cursor-pointer hover:border-purple-400 transition-colors relative overflow-hidden"
+            className={`
+              ${borderStyle}
+              rounded-3xl bg-purple-50 flex flex-col items-center justify-center
+              transition-all duration-300 relative overflow-hidden
+              ${hasImage ? "w-[339px] h-[300px] mx-auto" : "min-h-[400px] w-full"}
+            `}
           >
-            <motion.div
-              key="placeholder"
-              className="flex flex-col items-center pointer-events-none"
-            >
-              <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center mb-4 shadow-sm">
-                <Image className="w-10 h-10 text-gray-400" />
-              </div>
-              <p className="text-xl font-medium text-gray-800 mb-2">Images</p>
-              <p className="text-gray-500">Drag and drop an image</p>
-            </motion.div>
+            {/* Placeholder */}
+            {!hasImage && (
+              <motion.div
+                key="placeholder"
+                className="flex flex-col items-center pointer-events-none"
+              >
+                <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center mb-4 shadow-sm">
+                  <Image className="w-10 h-10 text-gray-400" />
+                </div>
+                <p className="text-xl font-medium text-gray-800 mb-2">Images</p>
+                <p className="text-gray-500">Drag and drop an image</p>
+              </motion.div>
+            )}
 
+            {/* Cropped or Original Image Preview */}
             <AnimatePresence mode="wait">
-              {previewImage && (
+              {hasImage && (
                 <motion.div
-                  key={previewImage}
-                  initial={{ opacity: 0, scale: 0.8 }}
+                  key={cropped?.url || uploadedImage}
+                  initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.8 }}
-                  transition={{ duration: 0.4 }}
-                  className="absolute inset-8 flex items-center justify-center"
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  transition={{ duration: 0.3 }}
+                  className="absolute inset-0 flex items-center justify-center"
                 >
                   <img
-                    src={previewImage}
+                    src={cropped?.url || uploadedImage!}
                     alt="Preview"
-                    className="max-w-full max-h-full object-contain rounded-2xl"
+                    className="w-full h-full object-cover rounded-2xl"
                   />
                 </motion.div>
               )}
             </AnimatePresence>
 
+            {/* Hidden file inputs */}
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              onChange={handleFileInput}
+              className="hidden"
+            />
             <input
               type="file"
               accept="image/*"
@@ -172,19 +171,38 @@ const MediaUpload: React.FC = () => {
             />
           </div>
 
-          {previewImage && (
-            <motion.button
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              onClick={handleChangeImage}
-              className="mt-4 w-full py-3 bg-white border-2 border-purple-600 text-purple-600 rounded-xl hover:bg-purple-50 transition-colors font-medium flex items-center justify-center gap-2"
-            >
-              <Image className="w-5 h-5" />
-              Edit Image
-            </motion.button>
-          )}
+          {/* Action Buttons */}
+          <div className="mt-4 space-y-3">
+            {/* Edit Image Button */}
+            {hasImage && (
+              <motion.button
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                onClick={handleChangeImage}
+                className="w-full py-3 bg-white border-2 border-purple-600 text-purple-600 rounded-xl hover:bg-purple-50 transition-colors font-medium flex items-center justify-center gap-2"
+              >
+                <Image className="w-5 h-5" />
+                Edit Image
+              </motion.button>
+            )}
+
+            {/* Manual Upload Button (only when image exists) */}
+            {hasImage && (
+              <motion.button
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 }}
+                onClick={triggerFileUpload}
+                className="w-full py-3 bg-purple-600 text-white rounded-xl hover:bg-purple-700 transition-colors font-medium flex items-center justify-center gap-2"
+              >
+                <Upload className="w-5 h-5" />
+                Upload from Device
+              </motion.button>
+            )}
+          </div>
         </div>
 
+        {/* ── RIGHT: Theme Picker ── */}
         <div>
           <h2 className="text-2xl font-semibold text-gray-800 mb-6">
             Choose From Theme
@@ -194,11 +212,10 @@ const MediaUpload: React.FC = () => {
               <motion.div
                 key={theme.id}
                 onClick={() => handleThemeClick(theme)}
-                className={`aspect-square rounded-2xl overflow-hidden cursor-pointer transition-all ${
-                  selectedTheme === theme.id
-                    ? "ring-4 ring-purple-500 ring-offset-2"
-                    : ""
-                }`}
+                className={`
+                  aspect-square rounded-2xl overflow-hidden cursor-pointer transition-all
+                  ${selectedTheme === theme.id ? "ring-4 ring-purple-500 ring-offset-2" : ""}
+                `}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.05 }}
@@ -216,16 +233,18 @@ const MediaUpload: React.FC = () => {
         </div>
       </div>
 
+      {/* ── IMAGE EDITOR MODAL ── */}
       <Modal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        title="Image Preview"
+        title="Image Editor"
         size="xl"
         animationDuration={400}
       >
-        {previewImage && (
+        {(uploadedImage || cropped?.url) && (
           <ImageEditor
-            imageUrl={previewImage}
+            imageUrl={uploadedImage || cropped!.url}
+            initialEdit={cropped?.edit}
             onSave={handleSaveImage}
             onCancel={() => setIsModalOpen(false)}
           />

@@ -5,7 +5,7 @@ import logo from "@assets/evaLogo.png";
 import { useState } from "react";
 import Modal from "@components/accessories/main-modal";
 
-export const Route = createFileRoute("/onboarding/sub-services/four")({
+export const Route = createFileRoute("/Onboarding/sub-services/four")({
   component: ServiceFour,
 });
 
