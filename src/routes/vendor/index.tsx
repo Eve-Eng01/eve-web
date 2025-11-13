@@ -18,16 +18,17 @@ export function RouteComponent() {
   return (
     <DashboardLayout isVendor user={User}>
       <div className="space-y-10 md:space-y-14 py-4">
-        <div className="flex items-end justify-between">
-          <div className="space-y-2 flex-1">
-            <h1 className="text-3xl font-medium text-gray-900">
+        <div className="flex items-start min-[1300px]:items-end min-[1300px]:justify-between flex-col min-[1300px]:flex-row gap-4">
+          <div className="space-y-2 flex-1 shrink-0">
+            <h1 className="text-[clamp(1.3rem,2vw,2rem)] font-medium text-gray-900">
               Good morning, Anthony Mary 👋👋
             </h1>
             <p className="text-gray-500">
               Here’s what’s happening with your business today.
             </p>
           </div>
-          <div className="flex items-center flex-row gap-4">
+
+          <div className="flex min-[1300px]:items-center flex-row gap-4 shrink-0">
             <CustomButton className={BUTTON_CLASSNAME} title="Browse Event" />
             <CustomButton
               className={BUTTON_CLASSNAME}
@@ -36,7 +37,7 @@ export function RouteComponent() {
             <CustomButton className={BUTTON_CLASSNAME} title="View earnings" />
           </div>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 w-full">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 w-full">
           <DashboardStatCard
             title="Proposals Sent"
             value="10"
@@ -61,7 +62,7 @@ export function RouteComponent() {
             description="-8% this week"
           />
         </div>
-        <EventList events={events} />
+        <EventList events={events} title="Event Opportunities for You" />
       </div>
     </DashboardLayout>
   );

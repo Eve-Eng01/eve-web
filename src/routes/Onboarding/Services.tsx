@@ -96,6 +96,7 @@ export const CustomPhoneInput: React.FC<CustomPhoneInputProps> = ({
         {/* Country Dropdown */}
         <div className="w-2/5">
           <DropdownInput
+            className="mb-[30px]"
             options={countryOptions}
             value={selectedCountryOption}
             onChange={handleCountryChange}
@@ -183,6 +184,7 @@ export function RouteComponent() {
             </div>
 
             <InputField
+              parentClassName="mb-[30px]"
               label="Company Name"
               placeholder="Eve Even Platform"
               value={formData.companyName}
@@ -192,6 +194,7 @@ export function RouteComponent() {
             />
 
             <DropdownInput
+              className="mb-[30px]"
               label="Business Type"
               options={businessTypes}
               value={formData.businessType}
@@ -211,6 +214,7 @@ export function RouteComponent() {
             />
 
             <InputField
+              parentClassName="mb-[30px]"
               label="Location"
               placeholder="Ibeju Lekki Lagos, Nigeria."
               value={formData.location}

@@ -1,3 +1,4 @@
+import { cn } from "@utils/classnames";
 import { ArrowDown2 } from "iconsax-reactjs";
 import { Check, Plus } from "lucide-react";
 import React, { useState } from "react";
@@ -18,6 +19,10 @@ interface DropdownInputProps {
   addNewOption?: boolean;
   onAddNew?: (newOption: DropdownOption) => void;
   className?: string;
+  buttonClassName?: string;
+  dropDownClassName?: string;
+  itemClassName?: string;
+  addNewOptionClassName?: string;
 }
 
 export const DropdownInput: React.FC<DropdownInputProps> = ({
@@ -30,6 +35,10 @@ export const DropdownInput: React.FC<DropdownInputProps> = ({
   addNewOption = false,
   onAddNew,
   className = "",
+  buttonClassName = "",
+  dropDownClassName = "",
+  itemClassName = "",
+  addNewOptionClassName = "",
 }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -37,7 +46,9 @@ export const DropdownInput: React.FC<DropdownInputProps> = ({
   const [showAddInput, setShowAddInput] = useState<boolean>(false);
 
   const filteredOptions: DropdownOption[] = searchable
-    ? options.filter((option) => option.label.toLowerCase().includes(searchTerm.toLowerCase()))
+    ? options.filter((option) =>
+        option.label.toLowerCase().includes(searchTerm.toLowerCase())
+      )
     : options;
 
   const handleOptionSelect = (option: DropdownOption): void => {
@@ -67,14 +78,21 @@ export const DropdownInput: React.FC<DropdownInputProps> = ({
   };
 
   return (
-    <div className={`relative w-full ${className} mb-[30px]`}>
-      {label && <label className="block text-gray-600 text-sm mb-2 font-medium">{label}</label>}
+    <div className={cn("relative w-full", className)}>
+      {label && (
+        <label className="block text-gray-600 text-sm mb-2 font-medium">
+          {label}
+        </label>
+      )}
 
       <div className="relative">
         <button
           type="button"
           onClick={() => setIsOpen(!isOpen)}
-          className="w-full px-4 py-3 bg-gray-100 border-0 rounded-lg text-left text-gray-800 focus:bg-white focus:ring-2 focus:ring-purple-500 focus:outline-none transition-all flex justify-between items-center"
+          className={cn(
+            "w-full px-4 py-3 bg-gray-100 border-0 rounded-lg text-left text-gray-800 focus:bg-white focus:ring-2 focus:ring-purple-500 focus:outline-none transition-all flex justify-between items-center",
+            buttonClassName
+          )}
         >
           <span className="flex items-center gap-2">
             {value ? (
@@ -94,7 +112,12 @@ export const DropdownInput: React.FC<DropdownInputProps> = ({
         </button>
 
         {isOpen && (
-          <div className="absolute z-50 w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg max-h-60 overflow-y-auto">
+          <div
+            className={cn(
+              "absolute z-50 w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg max-h-60 overflow-y-auto",
+              dropDownClassName
+            )}
+          >
             {searchable && (
               <div className="p-3 border-b">
                 <input
@@ -113,13 +136,18 @@ export const DropdownInput: React.FC<DropdownInputProps> = ({
                   key={option.value}
                   type="button"
                   onClick={() => handleOptionSelect(option)}
-                  className="w-full px-4 py-3 text-left hover:bg-gray-50 flex items-center justify-between"
+                  className={cn(
+                    "w-full px-4 py-3 text-left hover:bg-gray-50 flex items-center justify-between",
+                    itemClassName
+                  )}
                 >
                   <span className="flex items-center gap-2">
                     <span>{option.flag || " "}</span> {/* Fallback flag */}
                     <span className="text-gray-800">{option.label}</span>
                   </span>
-                  {value?.value === option.value && <Check className="w-5 h-5 text-purple-600" />}
+                  {value?.value === option.value && (
+                    <Check className="w-5 h-5 text-purple-600" />
+                  )}
                 </button>
               ))}
 
@@ -127,7 +155,10 @@ export const DropdownInput: React.FC<DropdownInputProps> = ({
                 <button
                   type="button"
                   onClick={() => setShowAddInput(true)}
-                  className="w-full px-4 py-3 text-left hover:bg-gray-50 flex items-center text-purple-600"
+                  className={cn(
+                    "w-full px-4 py-3 text-left hover:bg-gray-50 flex items-center text-purple-600",
+                    addNewOptionClassName
+                  )}
                 >
                   <Plus className="w-4 h-4 mr-2" />
                   Add new option
@@ -164,7 +195,9 @@ export const DropdownInput: React.FC<DropdownInputProps> = ({
         )}
       </div>
 
-      {isOpen && <div className="fixed inset-0 z-40" onClick={() => setIsOpen(false)} />}
+      {isOpen && (
+        <div className="fixed inset-0 z-40" onClick={() => setIsOpen(false)} />
+      )}
     </div>
   );
 };
