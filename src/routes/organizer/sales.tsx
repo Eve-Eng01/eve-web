@@ -1,12 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ChevronDown } from "lucide-react";
-import { useState, useRef } from "react";
+import React, { useState, useRef } from "react";
 import { DashboardLayout } from "@components/layouts/dashboard-layout";
 import SalesTab from "@components/pages/organizer/sales/sales-tab";
 import OrderListTab from "@components/pages/organizer/sales/order-list-tab";
 import PayoutsTab from "@components/pages/organizer/sales/payout-tab";
 import SettingsModal from "@components/accessories/setting-modal";
 import DatePickerDropdown from "@components/accessories/date-picker-dropdown";
+import RequestPayoutModal from "@components/accessories/request-payout-modal";
+import PayoutSuccessModal from "@components/accessories/payout-success-modal";
+import type { PayoutAccountData } from "@routes/account/payout-setting";
 
 export const Route = createFileRoute("/organizer/sales")({
   component: RouteComponent,
@@ -25,6 +28,65 @@ export function RouteComponent() {
   const [activeTab, setActiveTab] = useState("Sales");
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const settingsButtonRef = useRef<HTMLDivElement>(null);
+  const [isRequestPayoutOpen, setIsRequestPayoutOpen] = useState(false);
+  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
+  const [payoutData, setPayoutData] = useState<{
+    amount: number;
+    account: PayoutAccountData;
+  } | null>(null);
+
+  // Mock payout accounts - replace with actual data from API
+  const mockPayoutAccounts: PayoutAccountData[] = [
+    {
+      id: "1",
+      accountNumber: "1234567890",
+      bankName: "GTBank",
+      accountName: "Gabriel Emumwen",
+      currency: "NGN",
+      countryCode: "NG",
+    },
+    {
+      id: "2",
+      accountNumber: "2109444094",
+      bankName: "Access Bank",
+      accountName: "Anthony Mary",
+      currency: "NGN",
+      countryCode: "NG",
+    },
+  ];
+
+  const handleRequestPayout = (): void => {
+    setIsRequestPayoutOpen(true);
+  };
+
+  const handlePayoutContinue = (data: {
+    amount: number;
+    account: PayoutAccountData;
+    transferFee: number;
+    totalAmount: number;
+  }): void => {
+    // TODO: Handle payout request submission
+    console.log("Payout request data:", data);
+    // Close request modal and show success modal
+    setIsRequestPayoutOpen(false);
+    setPayoutData({
+      amount: data.amount,
+      account: data.account,
+    });
+    setIsSuccessModalOpen(true);
+  };
+
+  const handleSuccessModalClose = (): void => {
+    setIsSuccessModalOpen(false);
+    setPayoutData(null);
+  };
+
+  const handleGoToHomepage = (): void => {
+    setIsSuccessModalOpen(false);
+    setPayoutData(null);
+    // TODO: Navigate to homepage/dashboard
+    // navigate({ to: "/organizer" });
+  };
 
   const tabs = ["Sales", "Order List", "Payouts"];
 
@@ -37,7 +99,7 @@ export function RouteComponent() {
         return <OrderListTab />;
 
       case "Payouts":
-        return <PayoutsTab />;
+        return <PayoutsTab onRequestPayout={handleRequestPayout} />;
 
       default:
         return null;
@@ -110,17 +172,37 @@ export function RouteComponent() {
       <SettingsModal
         isOpen={isSettingsOpen}
         onClose={() => setIsSettingsOpen(false)}
-        triggerRef={settingsButtonRef}
+        triggerRef={settingsButtonRef as React.RefObject<HTMLDivElement>}
       />
 
       {/* Date Picker Dropdown */}
       <DatePickerDropdown
         isOpen={isDatePickerOpen}
         onClose={() => setIsDatePickerOpen(false)}
-        triggerRef={datePickerButtonRef}
+        triggerRef={datePickerButtonRef as React.RefObject<HTMLDivElement>}
         selectedDate={selectedDate}
         onDateSelect={setSelectedDate}
       />
+
+      {/* Request Payout Modal */}
+      <RequestPayoutModal
+        isOpen={isRequestPayoutOpen}
+        onClose={() => setIsRequestPayoutOpen(false)}
+        payoutAccounts={mockPayoutAccounts}
+        onContinue={handlePayoutContinue}
+      />
+
+      {/* Success Modal */}
+      {payoutData && (
+        <PayoutSuccessModal
+          isOpen={isSuccessModalOpen}
+          onClose={handleSuccessModalClose}
+          onGoToHomepage={handleGoToHomepage}
+          amount={payoutData.amount}
+          bankName={payoutData.account.bankName}
+          currency={payoutData.account.currency}
+        />
+      )}
     </DashboardLayout>
   );
 }
