@@ -19,6 +19,7 @@ interface SearchableDropdownProps {
   triggerClassName?: string;
   dropdownWidth?: "auto" | "full";
   renderOption?: (option: DropdownOption) => React.ReactNode;
+  renderTrigger?: (option: DropdownOption) => React.ReactNode;
 }
 
 export const SearchableDropdown: React.FC<SearchableDropdownProps> = ({
@@ -32,6 +33,7 @@ export const SearchableDropdown: React.FC<SearchableDropdownProps> = ({
   triggerClassName = "",
   dropdownWidth = "full",
   renderOption,
+  renderTrigger,
 }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -126,27 +128,31 @@ export const SearchableDropdown: React.FC<SearchableDropdownProps> = ({
         >
           <div className="flex items-center gap-3 flex-1 min-w-0">
             {value ? (
-              <>
-                {value.icon && (
-                  <div className="shrink-0">
-                    {typeof value.icon === "string" ? (
-                      <img
-                        src={value.icon}
-                        alt={value.label}
-                        className="w-6 h-6 rounded object-cover"
-                      />
-                    ) : (
-                      value.icon
-                    )}
-                  </div>
-                )}
-                {value.flag && (
-                  <div className="shrink-0 text-base">{value.flag}</div>
-                )}
-                <span className="text-sm sm:text-base font-medium text-[#2d2d2d] leading-6 tracking-[0.08px] truncate">
-                  {value.label}
-                </span>
-              </>
+              renderTrigger ? (
+                renderTrigger(value)
+              ) : (
+                <>
+                  {value.icon && (
+                    <div className="shrink-0">
+                      {typeof value.icon === "string" ? (
+                        <img
+                          src={value.icon}
+                          alt={value.label}
+                          className="w-6 h-6 rounded object-cover"
+                        />
+                      ) : (
+                        value.icon
+                      )}
+                    </div>
+                  )}
+                  {value.flag && (
+                    <div className="shrink-0 text-base">{value.flag}</div>
+                  )}
+                  <span className="text-sm sm:text-base font-medium text-[#2d2d2d] leading-6 tracking-[0.08px] truncate">
+                    {value.label}
+                  </span>
+                </>
+              )
             ) : (
               <span className="text-sm sm:text-base font-medium text-[#5a5a5a] leading-6 tracking-[0.08px]">
                 {placeholder}

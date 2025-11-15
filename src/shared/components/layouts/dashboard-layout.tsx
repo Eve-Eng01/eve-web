@@ -220,8 +220,8 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
         }}
       />
       
-      {/* Sidebar - Fixed */}
-      <aside className="hidden md:flex fixed left-0 top-20 bottom-0 w-64 flex-col pt-5 pb-4 overflow-y-auto bg-white border-r border-gray-200 z-40">
+      {/* Sidebar - Fixed, hidden on mobile */}
+      <aside className="hidden md:flex fixed left-0 top-[64px] sm:top-[89px] bottom-0 w-64 flex-col pt-5 pb-4 overflow-y-auto bg-white border-r border-gray-200 z-40">
         {/* Navigation */}
         <div className="flex-1 px-3">
           <NavSection title="GENERAL" items={generalNavItems} />
@@ -244,10 +244,10 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
         </div>
       </aside>
 
-      {/* Main Content - Positioned to account for navbar and sidebar */}
-      <main className="pt-20 md:pl-64 min-h-screen bg-gray-50">
-        <div className="bg-white min-h-[calc(100vh-5rem)]">
-          <div className="py-6 px-6">{children}</div>
+      {/* Main Content - Responsive padding for mobile and desktop */}
+      <main className="pt-[64px] sm:pt-[89px] md:pl-64 min-h-screen bg-gray-50 w-full">
+        <div className="bg-white min-h-[calc(100vh-64px)] sm:min-h-[calc(100vh-89px)] w-full">
+          <div className="py-4 px-4 sm:py-6 sm:px-6 w-full max-w-full overflow-x-hidden">{children}</div>
         </div>
       </main>
     </>
