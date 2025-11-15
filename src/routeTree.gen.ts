@@ -19,26 +19,26 @@ import { Route as StatusSuccessRouteImport } from './routes/status/success'
 import { Route as OrganizerSalesRouteImport } from './routes/organizer/sales'
 import { Route as OrganizerLayoutRouteImport } from './routes/organizer/layout'
 import { Route as OrganizerAttendeeRouteImport } from './routes/organizer/attendee'
+import { Route as OnboardingServiceVendorRouteImport } from './routes/onboarding/service-vendor'
+import { Route as OnboardingOnboardingRouteImport } from './routes/onboarding/onboarding'
+import { Route as OnboardingServicesRouteImport } from './routes/onboarding/Services'
 import { Route as AuthSigninRouteImport } from './routes/auth/signin'
 import { Route as AuthSignUpRouteImport } from './routes/auth/sign-up'
 import { Route as AccountAddPayoutAccountRouteImport } from './routes/account/add-payout-account'
-import { Route as OnboardingServiceVendorRouteImport } from './routes/Onboarding/service-vendor'
-import { Route as OnboardingOnboardingRouteImport } from './routes/Onboarding/onboarding'
-import { Route as OnboardingServicesRouteImport } from './routes/Onboarding/Services'
 import { Route as VendorProposalIndexRouteImport } from './routes/vendor/proposal/index'
 import { Route as VendorEventIndexRouteImport } from './routes/vendor/event/index'
 import { Route as VendorProposalProposalIdRouteImport } from './routes/vendor/proposal/$proposalId'
+import { Route as OnboardingVendorSubServicesTwoRouteImport } from './routes/onboarding/vendor-sub-services/two'
+import { Route as OnboardingVendorSubServicesThreeRouteImport } from './routes/onboarding/vendor-sub-services/three'
+import { Route as OnboardingSubServicesTwoRouteImport } from './routes/onboarding/sub-services/two'
+import { Route as OnboardingSubServicesThreeRouteImport } from './routes/onboarding/sub-services/three'
+import { Route as OnboardingSubServicesReviewRouteImport } from './routes/onboarding/sub-services/review'
+import { Route as OnboardingSubServicesOneRouteImport } from './routes/onboarding/sub-services/one'
+import { Route as OnboardingSubServicesFourRouteImport } from './routes/onboarding/sub-services/four'
+import { Route as OnboardingSubServicesFiveRouteImport } from './routes/onboarding/sub-services/five'
 import { Route as AuthPasswordOtpRouteImport } from './routes/auth/password/otp'
 import { Route as AuthPasswordForgetRouteImport } from './routes/auth/password/forget'
 import { Route as AuthOtpVerifyRouteImport } from './routes/auth/otp/verify'
-import { Route as OnboardingVendorSubServicesTwoRouteImport } from './routes/Onboarding/vendor-sub-services/two'
-import { Route as OnboardingVendorSubServicesThreeRouteImport } from './routes/Onboarding/vendor-sub-services/three'
-import { Route as OnboardingSubServicesTwoRouteImport } from './routes/Onboarding/sub-services/two'
-import { Route as OnboardingSubServicesThreeRouteImport } from './routes/Onboarding/sub-services/three'
-import { Route as OnboardingSubServicesReviewRouteImport } from './routes/Onboarding/sub-services/review'
-import { Route as OnboardingSubServicesOneRouteImport } from './routes/Onboarding/sub-services/one'
-import { Route as OnboardingSubServicesFourRouteImport } from './routes/Onboarding/sub-services/four'
-import { Route as OnboardingSubServicesFiveRouteImport } from './routes/Onboarding/sub-services/five'
 import { Route as VendorEventEventIdIndexRouteImport } from './routes/vendor/event/$eventId/index'
 import { Route as VendorEventEventIdProposalRouteImport } from './routes/vendor/event/$eventId/proposal'
 
@@ -91,6 +91,21 @@ const OrganizerAttendeeRoute = OrganizerAttendeeRouteImport.update({
   path: '/organizer/attendee',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OnboardingServiceVendorRoute = OnboardingServiceVendorRouteImport.update({
+  id: '/onboarding/service-vendor',
+  path: '/onboarding/service-vendor',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OnboardingOnboardingRoute = OnboardingOnboardingRouteImport.update({
+  id: '/onboarding/onboarding',
+  path: '/onboarding/onboarding',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OnboardingServicesRoute = OnboardingServicesRouteImport.update({
+  id: '/onboarding/Services',
+  path: '/onboarding/Services',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthSigninRoute = AuthSigninRouteImport.update({
   id: '/auth/signin',
   path: '/auth/signin',
@@ -104,21 +119,6 @@ const AuthSignUpRoute = AuthSignUpRouteImport.update({
 const AccountAddPayoutAccountRoute = AccountAddPayoutAccountRouteImport.update({
   id: '/account/add-payout-account',
   path: '/account/add-payout-account',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const OnboardingServiceVendorRoute = OnboardingServiceVendorRouteImport.update({
-  id: '/Onboarding/service-vendor',
-  path: '/Onboarding/service-vendor',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const OnboardingOnboardingRoute = OnboardingOnboardingRouteImport.update({
-  id: '/Onboarding/onboarding',
-  path: '/Onboarding/onboarding',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const OnboardingServicesRoute = OnboardingServicesRouteImport.update({
-  id: '/Onboarding/Services',
-  path: '/Onboarding/Services',
   getParentRoute: () => rootRouteImport,
 } as any)
 const VendorProposalIndexRoute = VendorProposalIndexRouteImport.update({
@@ -137,6 +137,54 @@ const VendorProposalProposalIdRoute =
     path: '/vendor/proposal/$proposalId',
     getParentRoute: () => rootRouteImport,
   } as any)
+const OnboardingVendorSubServicesTwoRoute =
+  OnboardingVendorSubServicesTwoRouteImport.update({
+    id: '/onboarding/vendor-sub-services/two',
+    path: '/onboarding/vendor-sub-services/two',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const OnboardingVendorSubServicesThreeRoute =
+  OnboardingVendorSubServicesThreeRouteImport.update({
+    id: '/onboarding/vendor-sub-services/three',
+    path: '/onboarding/vendor-sub-services/three',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const OnboardingSubServicesTwoRoute =
+  OnboardingSubServicesTwoRouteImport.update({
+    id: '/onboarding/sub-services/two',
+    path: '/onboarding/sub-services/two',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const OnboardingSubServicesThreeRoute =
+  OnboardingSubServicesThreeRouteImport.update({
+    id: '/onboarding/sub-services/three',
+    path: '/onboarding/sub-services/three',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const OnboardingSubServicesReviewRoute =
+  OnboardingSubServicesReviewRouteImport.update({
+    id: '/onboarding/sub-services/review',
+    path: '/onboarding/sub-services/review',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const OnboardingSubServicesOneRoute =
+  OnboardingSubServicesOneRouteImport.update({
+    id: '/onboarding/sub-services/one',
+    path: '/onboarding/sub-services/one',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const OnboardingSubServicesFourRoute =
+  OnboardingSubServicesFourRouteImport.update({
+    id: '/onboarding/sub-services/four',
+    path: '/onboarding/sub-services/four',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const OnboardingSubServicesFiveRoute =
+  OnboardingSubServicesFiveRouteImport.update({
+    id: '/onboarding/sub-services/five',
+    path: '/onboarding/sub-services/five',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const AuthPasswordOtpRoute = AuthPasswordOtpRouteImport.update({
   id: '/auth/password/otp',
   path: '/auth/password/otp',
@@ -152,54 +200,6 @@ const AuthOtpVerifyRoute = AuthOtpVerifyRouteImport.update({
   path: '/auth/otp/verify',
   getParentRoute: () => rootRouteImport,
 } as any)
-const OnboardingVendorSubServicesTwoRoute =
-  OnboardingVendorSubServicesTwoRouteImport.update({
-    id: '/Onboarding/vendor-sub-services/two',
-    path: '/Onboarding/vendor-sub-services/two',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const OnboardingVendorSubServicesThreeRoute =
-  OnboardingVendorSubServicesThreeRouteImport.update({
-    id: '/Onboarding/vendor-sub-services/three',
-    path: '/Onboarding/vendor-sub-services/three',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const OnboardingSubServicesTwoRoute =
-  OnboardingSubServicesTwoRouteImport.update({
-    id: '/Onboarding/sub-services/two',
-    path: '/Onboarding/sub-services/two',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const OnboardingSubServicesThreeRoute =
-  OnboardingSubServicesThreeRouteImport.update({
-    id: '/Onboarding/sub-services/three',
-    path: '/Onboarding/sub-services/three',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const OnboardingSubServicesReviewRoute =
-  OnboardingSubServicesReviewRouteImport.update({
-    id: '/Onboarding/sub-services/review',
-    path: '/Onboarding/sub-services/review',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const OnboardingSubServicesOneRoute =
-  OnboardingSubServicesOneRouteImport.update({
-    id: '/Onboarding/sub-services/one',
-    path: '/Onboarding/sub-services/one',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const OnboardingSubServicesFourRoute =
-  OnboardingSubServicesFourRouteImport.update({
-    id: '/Onboarding/sub-services/four',
-    path: '/Onboarding/sub-services/four',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const OnboardingSubServicesFiveRoute =
-  OnboardingSubServicesFiveRouteImport.update({
-    id: '/Onboarding/sub-services/five',
-    path: '/Onboarding/sub-services/five',
-    getParentRoute: () => rootRouteImport,
-  } as any)
 const VendorEventEventIdIndexRoute = VendorEventEventIdIndexRouteImport.update({
   id: '/vendor/event/$eventId/',
   path: '/vendor/event/$eventId/',
@@ -215,12 +215,12 @@ const VendorEventEventIdProposalRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/Onboarding/Services': typeof OnboardingServicesRoute
-  '/Onboarding/onboarding': typeof OnboardingOnboardingRoute
-  '/Onboarding/service-vendor': typeof OnboardingServiceVendorRoute
   '/account/add-payout-account': typeof AccountAddPayoutAccountRoute
   '/auth/sign-up': typeof AuthSignUpRoute
   '/auth/signin': typeof AuthSigninRoute
+  '/onboarding/Services': typeof OnboardingServicesRoute
+  '/onboarding/onboarding': typeof OnboardingOnboardingRoute
+  '/onboarding/service-vendor': typeof OnboardingServiceVendorRoute
   '/organizer/attendee': typeof OrganizerAttendeeRoute
   '/organizer/layout': typeof OrganizerLayoutRoute
   '/organizer/sales': typeof OrganizerSalesRoute
@@ -228,17 +228,17 @@ export interface FileRoutesByFullPath {
   '/account': typeof AccountIndexRoute
   '/organizer': typeof OrganizerIndexRoute
   '/vendor': typeof VendorIndexRoute
-  '/Onboarding/sub-services/five': typeof OnboardingSubServicesFiveRoute
-  '/Onboarding/sub-services/four': typeof OnboardingSubServicesFourRoute
-  '/Onboarding/sub-services/one': typeof OnboardingSubServicesOneRoute
-  '/Onboarding/sub-services/review': typeof OnboardingSubServicesReviewRoute
-  '/Onboarding/sub-services/three': typeof OnboardingSubServicesThreeRoute
-  '/Onboarding/sub-services/two': typeof OnboardingSubServicesTwoRoute
-  '/Onboarding/vendor-sub-services/three': typeof OnboardingVendorSubServicesThreeRoute
-  '/Onboarding/vendor-sub-services/two': typeof OnboardingVendorSubServicesTwoRoute
   '/auth/otp/verify': typeof AuthOtpVerifyRoute
   '/auth/password/forget': typeof AuthPasswordForgetRoute
   '/auth/password/otp': typeof AuthPasswordOtpRoute
+  '/onboarding/sub-services/five': typeof OnboardingSubServicesFiveRoute
+  '/onboarding/sub-services/four': typeof OnboardingSubServicesFourRoute
+  '/onboarding/sub-services/one': typeof OnboardingSubServicesOneRoute
+  '/onboarding/sub-services/review': typeof OnboardingSubServicesReviewRoute
+  '/onboarding/sub-services/three': typeof OnboardingSubServicesThreeRoute
+  '/onboarding/sub-services/two': typeof OnboardingSubServicesTwoRoute
+  '/onboarding/vendor-sub-services/three': typeof OnboardingVendorSubServicesThreeRoute
+  '/onboarding/vendor-sub-services/two': typeof OnboardingVendorSubServicesTwoRoute
   '/vendor/proposal/$proposalId': typeof VendorProposalProposalIdRoute
   '/vendor/event': typeof VendorEventIndexRoute
   '/vendor/proposal': typeof VendorProposalIndexRoute
@@ -248,12 +248,12 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/Onboarding/Services': typeof OnboardingServicesRoute
-  '/Onboarding/onboarding': typeof OnboardingOnboardingRoute
-  '/Onboarding/service-vendor': typeof OnboardingServiceVendorRoute
   '/account/add-payout-account': typeof AccountAddPayoutAccountRoute
   '/auth/sign-up': typeof AuthSignUpRoute
   '/auth/signin': typeof AuthSigninRoute
+  '/onboarding/Services': typeof OnboardingServicesRoute
+  '/onboarding/onboarding': typeof OnboardingOnboardingRoute
+  '/onboarding/service-vendor': typeof OnboardingServiceVendorRoute
   '/organizer/attendee': typeof OrganizerAttendeeRoute
   '/organizer/layout': typeof OrganizerLayoutRoute
   '/organizer/sales': typeof OrganizerSalesRoute
@@ -261,17 +261,17 @@ export interface FileRoutesByTo {
   '/account': typeof AccountIndexRoute
   '/organizer': typeof OrganizerIndexRoute
   '/vendor': typeof VendorIndexRoute
-  '/Onboarding/sub-services/five': typeof OnboardingSubServicesFiveRoute
-  '/Onboarding/sub-services/four': typeof OnboardingSubServicesFourRoute
-  '/Onboarding/sub-services/one': typeof OnboardingSubServicesOneRoute
-  '/Onboarding/sub-services/review': typeof OnboardingSubServicesReviewRoute
-  '/Onboarding/sub-services/three': typeof OnboardingSubServicesThreeRoute
-  '/Onboarding/sub-services/two': typeof OnboardingSubServicesTwoRoute
-  '/Onboarding/vendor-sub-services/three': typeof OnboardingVendorSubServicesThreeRoute
-  '/Onboarding/vendor-sub-services/two': typeof OnboardingVendorSubServicesTwoRoute
   '/auth/otp/verify': typeof AuthOtpVerifyRoute
   '/auth/password/forget': typeof AuthPasswordForgetRoute
   '/auth/password/otp': typeof AuthPasswordOtpRoute
+  '/onboarding/sub-services/five': typeof OnboardingSubServicesFiveRoute
+  '/onboarding/sub-services/four': typeof OnboardingSubServicesFourRoute
+  '/onboarding/sub-services/one': typeof OnboardingSubServicesOneRoute
+  '/onboarding/sub-services/review': typeof OnboardingSubServicesReviewRoute
+  '/onboarding/sub-services/three': typeof OnboardingSubServicesThreeRoute
+  '/onboarding/sub-services/two': typeof OnboardingSubServicesTwoRoute
+  '/onboarding/vendor-sub-services/three': typeof OnboardingVendorSubServicesThreeRoute
+  '/onboarding/vendor-sub-services/two': typeof OnboardingVendorSubServicesTwoRoute
   '/vendor/proposal/$proposalId': typeof VendorProposalProposalIdRoute
   '/vendor/event': typeof VendorEventIndexRoute
   '/vendor/proposal': typeof VendorProposalIndexRoute
@@ -283,12 +283,12 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRoute
   '/about': typeof AboutRoute
-  '/Onboarding/Services': typeof OnboardingServicesRoute
-  '/Onboarding/onboarding': typeof OnboardingOnboardingRoute
-  '/Onboarding/service-vendor': typeof OnboardingServiceVendorRoute
   '/account/add-payout-account': typeof AccountAddPayoutAccountRoute
   '/auth/sign-up': typeof AuthSignUpRoute
   '/auth/signin': typeof AuthSigninRoute
+  '/onboarding/Services': typeof OnboardingServicesRoute
+  '/onboarding/onboarding': typeof OnboardingOnboardingRoute
+  '/onboarding/service-vendor': typeof OnboardingServiceVendorRoute
   '/organizer/attendee': typeof OrganizerAttendeeRoute
   '/organizer/layout': typeof OrganizerLayoutRoute
   '/organizer/sales': typeof OrganizerSalesRoute
@@ -296,17 +296,17 @@ export interface FileRoutesById {
   '/account/': typeof AccountIndexRoute
   '/organizer/': typeof OrganizerIndexRoute
   '/vendor/': typeof VendorIndexRoute
-  '/Onboarding/sub-services/five': typeof OnboardingSubServicesFiveRoute
-  '/Onboarding/sub-services/four': typeof OnboardingSubServicesFourRoute
-  '/Onboarding/sub-services/one': typeof OnboardingSubServicesOneRoute
-  '/Onboarding/sub-services/review': typeof OnboardingSubServicesReviewRoute
-  '/Onboarding/sub-services/three': typeof OnboardingSubServicesThreeRoute
-  '/Onboarding/sub-services/two': typeof OnboardingSubServicesTwoRoute
-  '/Onboarding/vendor-sub-services/three': typeof OnboardingVendorSubServicesThreeRoute
-  '/Onboarding/vendor-sub-services/two': typeof OnboardingVendorSubServicesTwoRoute
   '/auth/otp/verify': typeof AuthOtpVerifyRoute
   '/auth/password/forget': typeof AuthPasswordForgetRoute
   '/auth/password/otp': typeof AuthPasswordOtpRoute
+  '/onboarding/sub-services/five': typeof OnboardingSubServicesFiveRoute
+  '/onboarding/sub-services/four': typeof OnboardingSubServicesFourRoute
+  '/onboarding/sub-services/one': typeof OnboardingSubServicesOneRoute
+  '/onboarding/sub-services/review': typeof OnboardingSubServicesReviewRoute
+  '/onboarding/sub-services/three': typeof OnboardingSubServicesThreeRoute
+  '/onboarding/sub-services/two': typeof OnboardingSubServicesTwoRoute
+  '/onboarding/vendor-sub-services/three': typeof OnboardingVendorSubServicesThreeRoute
+  '/onboarding/vendor-sub-services/two': typeof OnboardingVendorSubServicesTwoRoute
   '/vendor/proposal/$proposalId': typeof VendorProposalProposalIdRoute
   '/vendor/event/': typeof VendorEventIndexRoute
   '/vendor/proposal/': typeof VendorProposalIndexRoute
@@ -318,12 +318,12 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
-    | '/Onboarding/Services'
-    | '/Onboarding/onboarding'
-    | '/Onboarding/service-vendor'
     | '/account/add-payout-account'
     | '/auth/sign-up'
     | '/auth/signin'
+    | '/onboarding/Services'
+    | '/onboarding/onboarding'
+    | '/onboarding/service-vendor'
     | '/organizer/attendee'
     | '/organizer/layout'
     | '/organizer/sales'
@@ -331,17 +331,17 @@ export interface FileRouteTypes {
     | '/account'
     | '/organizer'
     | '/vendor'
-    | '/Onboarding/sub-services/five'
-    | '/Onboarding/sub-services/four'
-    | '/Onboarding/sub-services/one'
-    | '/Onboarding/sub-services/review'
-    | '/Onboarding/sub-services/three'
-    | '/Onboarding/sub-services/two'
-    | '/Onboarding/vendor-sub-services/three'
-    | '/Onboarding/vendor-sub-services/two'
     | '/auth/otp/verify'
     | '/auth/password/forget'
     | '/auth/password/otp'
+    | '/onboarding/sub-services/five'
+    | '/onboarding/sub-services/four'
+    | '/onboarding/sub-services/one'
+    | '/onboarding/sub-services/review'
+    | '/onboarding/sub-services/three'
+    | '/onboarding/sub-services/two'
+    | '/onboarding/vendor-sub-services/three'
+    | '/onboarding/vendor-sub-services/two'
     | '/vendor/proposal/$proposalId'
     | '/vendor/event'
     | '/vendor/proposal'
@@ -351,12 +351,12 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
-    | '/Onboarding/Services'
-    | '/Onboarding/onboarding'
-    | '/Onboarding/service-vendor'
     | '/account/add-payout-account'
     | '/auth/sign-up'
     | '/auth/signin'
+    | '/onboarding/Services'
+    | '/onboarding/onboarding'
+    | '/onboarding/service-vendor'
     | '/organizer/attendee'
     | '/organizer/layout'
     | '/organizer/sales'
@@ -364,17 +364,17 @@ export interface FileRouteTypes {
     | '/account'
     | '/organizer'
     | '/vendor'
-    | '/Onboarding/sub-services/five'
-    | '/Onboarding/sub-services/four'
-    | '/Onboarding/sub-services/one'
-    | '/Onboarding/sub-services/review'
-    | '/Onboarding/sub-services/three'
-    | '/Onboarding/sub-services/two'
-    | '/Onboarding/vendor-sub-services/three'
-    | '/Onboarding/vendor-sub-services/two'
     | '/auth/otp/verify'
     | '/auth/password/forget'
     | '/auth/password/otp'
+    | '/onboarding/sub-services/five'
+    | '/onboarding/sub-services/four'
+    | '/onboarding/sub-services/one'
+    | '/onboarding/sub-services/review'
+    | '/onboarding/sub-services/three'
+    | '/onboarding/sub-services/two'
+    | '/onboarding/vendor-sub-services/three'
+    | '/onboarding/vendor-sub-services/two'
     | '/vendor/proposal/$proposalId'
     | '/vendor/event'
     | '/vendor/proposal'
@@ -385,12 +385,12 @@ export interface FileRouteTypes {
     | '/'
     | '/_authenticated'
     | '/about'
-    | '/Onboarding/Services'
-    | '/Onboarding/onboarding'
-    | '/Onboarding/service-vendor'
     | '/account/add-payout-account'
     | '/auth/sign-up'
     | '/auth/signin'
+    | '/onboarding/Services'
+    | '/onboarding/onboarding'
+    | '/onboarding/service-vendor'
     | '/organizer/attendee'
     | '/organizer/layout'
     | '/organizer/sales'
@@ -398,17 +398,17 @@ export interface FileRouteTypes {
     | '/account/'
     | '/organizer/'
     | '/vendor/'
-    | '/Onboarding/sub-services/five'
-    | '/Onboarding/sub-services/four'
-    | '/Onboarding/sub-services/one'
-    | '/Onboarding/sub-services/review'
-    | '/Onboarding/sub-services/three'
-    | '/Onboarding/sub-services/two'
-    | '/Onboarding/vendor-sub-services/three'
-    | '/Onboarding/vendor-sub-services/two'
     | '/auth/otp/verify'
     | '/auth/password/forget'
     | '/auth/password/otp'
+    | '/onboarding/sub-services/five'
+    | '/onboarding/sub-services/four'
+    | '/onboarding/sub-services/one'
+    | '/onboarding/sub-services/review'
+    | '/onboarding/sub-services/three'
+    | '/onboarding/sub-services/two'
+    | '/onboarding/vendor-sub-services/three'
+    | '/onboarding/vendor-sub-services/two'
     | '/vendor/proposal/$proposalId'
     | '/vendor/event/'
     | '/vendor/proposal/'
@@ -420,12 +420,12 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRoute: typeof AuthenticatedRoute
   AboutRoute: typeof AboutRoute
-  OnboardingServicesRoute: typeof OnboardingServicesRoute
-  OnboardingOnboardingRoute: typeof OnboardingOnboardingRoute
-  OnboardingServiceVendorRoute: typeof OnboardingServiceVendorRoute
   AccountAddPayoutAccountRoute: typeof AccountAddPayoutAccountRoute
   AuthSignUpRoute: typeof AuthSignUpRoute
   AuthSigninRoute: typeof AuthSigninRoute
+  OnboardingServicesRoute: typeof OnboardingServicesRoute
+  OnboardingOnboardingRoute: typeof OnboardingOnboardingRoute
+  OnboardingServiceVendorRoute: typeof OnboardingServiceVendorRoute
   OrganizerAttendeeRoute: typeof OrganizerAttendeeRoute
   OrganizerLayoutRoute: typeof OrganizerLayoutRoute
   OrganizerSalesRoute: typeof OrganizerSalesRoute
@@ -433,6 +433,9 @@ export interface RootRouteChildren {
   AccountIndexRoute: typeof AccountIndexRoute
   OrganizerIndexRoute: typeof OrganizerIndexRoute
   VendorIndexRoute: typeof VendorIndexRoute
+  AuthOtpVerifyRoute: typeof AuthOtpVerifyRoute
+  AuthPasswordForgetRoute: typeof AuthPasswordForgetRoute
+  AuthPasswordOtpRoute: typeof AuthPasswordOtpRoute
   OnboardingSubServicesFiveRoute: typeof OnboardingSubServicesFiveRoute
   OnboardingSubServicesFourRoute: typeof OnboardingSubServicesFourRoute
   OnboardingSubServicesOneRoute: typeof OnboardingSubServicesOneRoute
@@ -441,9 +444,6 @@ export interface RootRouteChildren {
   OnboardingSubServicesTwoRoute: typeof OnboardingSubServicesTwoRoute
   OnboardingVendorSubServicesThreeRoute: typeof OnboardingVendorSubServicesThreeRoute
   OnboardingVendorSubServicesTwoRoute: typeof OnboardingVendorSubServicesTwoRoute
-  AuthOtpVerifyRoute: typeof AuthOtpVerifyRoute
-  AuthPasswordForgetRoute: typeof AuthPasswordForgetRoute
-  AuthPasswordOtpRoute: typeof AuthPasswordOtpRoute
   VendorProposalProposalIdRoute: typeof VendorProposalProposalIdRoute
   VendorEventIndexRoute: typeof VendorEventIndexRoute
   VendorProposalIndexRoute: typeof VendorProposalIndexRoute
@@ -523,6 +523,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OrganizerAttendeeRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/onboarding/service-vendor': {
+      id: '/onboarding/service-vendor'
+      path: '/onboarding/service-vendor'
+      fullPath: '/onboarding/service-vendor'
+      preLoaderRoute: typeof OnboardingServiceVendorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/onboarding/onboarding': {
+      id: '/onboarding/onboarding'
+      path: '/onboarding/onboarding'
+      fullPath: '/onboarding/onboarding'
+      preLoaderRoute: typeof OnboardingOnboardingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/onboarding/Services': {
+      id: '/onboarding/Services'
+      path: '/onboarding/Services'
+      fullPath: '/onboarding/Services'
+      preLoaderRoute: typeof OnboardingServicesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/auth/signin': {
       id: '/auth/signin'
       path: '/auth/signin'
@@ -542,27 +563,6 @@ declare module '@tanstack/react-router' {
       path: '/account/add-payout-account'
       fullPath: '/account/add-payout-account'
       preLoaderRoute: typeof AccountAddPayoutAccountRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/Onboarding/service-vendor': {
-      id: '/Onboarding/service-vendor'
-      path: '/Onboarding/service-vendor'
-      fullPath: '/Onboarding/service-vendor'
-      preLoaderRoute: typeof OnboardingServiceVendorRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/Onboarding/onboarding': {
-      id: '/Onboarding/onboarding'
-      path: '/Onboarding/onboarding'
-      fullPath: '/Onboarding/onboarding'
-      preLoaderRoute: typeof OnboardingOnboardingRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/Onboarding/Services': {
-      id: '/Onboarding/Services'
-      path: '/Onboarding/Services'
-      fullPath: '/Onboarding/Services'
-      preLoaderRoute: typeof OnboardingServicesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/vendor/proposal/': {
@@ -586,6 +586,62 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof VendorProposalProposalIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/onboarding/vendor-sub-services/two': {
+      id: '/onboarding/vendor-sub-services/two'
+      path: '/onboarding/vendor-sub-services/two'
+      fullPath: '/onboarding/vendor-sub-services/two'
+      preLoaderRoute: typeof OnboardingVendorSubServicesTwoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/onboarding/vendor-sub-services/three': {
+      id: '/onboarding/vendor-sub-services/three'
+      path: '/onboarding/vendor-sub-services/three'
+      fullPath: '/onboarding/vendor-sub-services/three'
+      preLoaderRoute: typeof OnboardingVendorSubServicesThreeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/onboarding/sub-services/two': {
+      id: '/onboarding/sub-services/two'
+      path: '/onboarding/sub-services/two'
+      fullPath: '/onboarding/sub-services/two'
+      preLoaderRoute: typeof OnboardingSubServicesTwoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/onboarding/sub-services/three': {
+      id: '/onboarding/sub-services/three'
+      path: '/onboarding/sub-services/three'
+      fullPath: '/onboarding/sub-services/three'
+      preLoaderRoute: typeof OnboardingSubServicesThreeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/onboarding/sub-services/review': {
+      id: '/onboarding/sub-services/review'
+      path: '/onboarding/sub-services/review'
+      fullPath: '/onboarding/sub-services/review'
+      preLoaderRoute: typeof OnboardingSubServicesReviewRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/onboarding/sub-services/one': {
+      id: '/onboarding/sub-services/one'
+      path: '/onboarding/sub-services/one'
+      fullPath: '/onboarding/sub-services/one'
+      preLoaderRoute: typeof OnboardingSubServicesOneRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/onboarding/sub-services/four': {
+      id: '/onboarding/sub-services/four'
+      path: '/onboarding/sub-services/four'
+      fullPath: '/onboarding/sub-services/four'
+      preLoaderRoute: typeof OnboardingSubServicesFourRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/onboarding/sub-services/five': {
+      id: '/onboarding/sub-services/five'
+      path: '/onboarding/sub-services/five'
+      fullPath: '/onboarding/sub-services/five'
+      preLoaderRoute: typeof OnboardingSubServicesFiveRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/auth/password/otp': {
       id: '/auth/password/otp'
       path: '/auth/password/otp'
@@ -605,62 +661,6 @@ declare module '@tanstack/react-router' {
       path: '/auth/otp/verify'
       fullPath: '/auth/otp/verify'
       preLoaderRoute: typeof AuthOtpVerifyRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/Onboarding/vendor-sub-services/two': {
-      id: '/Onboarding/vendor-sub-services/two'
-      path: '/Onboarding/vendor-sub-services/two'
-      fullPath: '/Onboarding/vendor-sub-services/two'
-      preLoaderRoute: typeof OnboardingVendorSubServicesTwoRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/Onboarding/vendor-sub-services/three': {
-      id: '/Onboarding/vendor-sub-services/three'
-      path: '/Onboarding/vendor-sub-services/three'
-      fullPath: '/Onboarding/vendor-sub-services/three'
-      preLoaderRoute: typeof OnboardingVendorSubServicesThreeRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/Onboarding/sub-services/two': {
-      id: '/Onboarding/sub-services/two'
-      path: '/Onboarding/sub-services/two'
-      fullPath: '/Onboarding/sub-services/two'
-      preLoaderRoute: typeof OnboardingSubServicesTwoRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/Onboarding/sub-services/three': {
-      id: '/Onboarding/sub-services/three'
-      path: '/Onboarding/sub-services/three'
-      fullPath: '/Onboarding/sub-services/three'
-      preLoaderRoute: typeof OnboardingSubServicesThreeRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/Onboarding/sub-services/review': {
-      id: '/Onboarding/sub-services/review'
-      path: '/Onboarding/sub-services/review'
-      fullPath: '/Onboarding/sub-services/review'
-      preLoaderRoute: typeof OnboardingSubServicesReviewRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/Onboarding/sub-services/one': {
-      id: '/Onboarding/sub-services/one'
-      path: '/Onboarding/sub-services/one'
-      fullPath: '/Onboarding/sub-services/one'
-      preLoaderRoute: typeof OnboardingSubServicesOneRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/Onboarding/sub-services/four': {
-      id: '/Onboarding/sub-services/four'
-      path: '/Onboarding/sub-services/four'
-      fullPath: '/Onboarding/sub-services/four'
-      preLoaderRoute: typeof OnboardingSubServicesFourRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/Onboarding/sub-services/five': {
-      id: '/Onboarding/sub-services/five'
-      path: '/Onboarding/sub-services/five'
-      fullPath: '/Onboarding/sub-services/five'
-      preLoaderRoute: typeof OnboardingSubServicesFiveRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/vendor/event/$eventId/': {
@@ -684,12 +684,12 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRoute: AuthenticatedRoute,
   AboutRoute: AboutRoute,
-  OnboardingServicesRoute: OnboardingServicesRoute,
-  OnboardingOnboardingRoute: OnboardingOnboardingRoute,
-  OnboardingServiceVendorRoute: OnboardingServiceVendorRoute,
   AccountAddPayoutAccountRoute: AccountAddPayoutAccountRoute,
   AuthSignUpRoute: AuthSignUpRoute,
   AuthSigninRoute: AuthSigninRoute,
+  OnboardingServicesRoute: OnboardingServicesRoute,
+  OnboardingOnboardingRoute: OnboardingOnboardingRoute,
+  OnboardingServiceVendorRoute: OnboardingServiceVendorRoute,
   OrganizerAttendeeRoute: OrganizerAttendeeRoute,
   OrganizerLayoutRoute: OrganizerLayoutRoute,
   OrganizerSalesRoute: OrganizerSalesRoute,
@@ -697,6 +697,9 @@ const rootRouteChildren: RootRouteChildren = {
   AccountIndexRoute: AccountIndexRoute,
   OrganizerIndexRoute: OrganizerIndexRoute,
   VendorIndexRoute: VendorIndexRoute,
+  AuthOtpVerifyRoute: AuthOtpVerifyRoute,
+  AuthPasswordForgetRoute: AuthPasswordForgetRoute,
+  AuthPasswordOtpRoute: AuthPasswordOtpRoute,
   OnboardingSubServicesFiveRoute: OnboardingSubServicesFiveRoute,
   OnboardingSubServicesFourRoute: OnboardingSubServicesFourRoute,
   OnboardingSubServicesOneRoute: OnboardingSubServicesOneRoute,
@@ -705,9 +708,6 @@ const rootRouteChildren: RootRouteChildren = {
   OnboardingSubServicesTwoRoute: OnboardingSubServicesTwoRoute,
   OnboardingVendorSubServicesThreeRoute: OnboardingVendorSubServicesThreeRoute,
   OnboardingVendorSubServicesTwoRoute: OnboardingVendorSubServicesTwoRoute,
-  AuthOtpVerifyRoute: AuthOtpVerifyRoute,
-  AuthPasswordForgetRoute: AuthPasswordForgetRoute,
-  AuthPasswordOtpRoute: AuthPasswordOtpRoute,
   VendorProposalProposalIdRoute: VendorProposalProposalIdRoute,
   VendorEventIndexRoute: VendorEventIndexRoute,
   VendorProposalIndexRoute: VendorProposalIndexRoute,

@@ -289,6 +289,6 @@ export function RouteComponent() {
 }
 
 // Define the route using createFileRoute
-export const Route = createFileRoute("/Onboarding/Services")({
+export const Route = createFileRoute("/onboarding/Services")({
   component: RouteComponent,
 });

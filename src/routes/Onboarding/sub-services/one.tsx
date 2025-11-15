@@ -10,7 +10,7 @@ export interface ServiceOneProps {
   back: () => void;
 }
 
-export const Route = createFileRoute("/Onboarding/sub-services/one")({
+export const Route = createFileRoute("/onboarding/sub-services/one")({
   component: ServiceOne,
 });
 

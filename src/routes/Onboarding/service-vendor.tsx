@@ -10,7 +10,7 @@ import countries from "world-countries";
 import { VendorTwo } from "./vendor-sub-services/two";
 import { VendorThree } from "./vendor-sub-services/three";
 
-export const Route = createFileRoute("/Onboarding/service-vendor")({
+export const Route = createFileRoute("/onboarding/service-vendor")({
   component: RouteComponent,
 });
 interface FormData {

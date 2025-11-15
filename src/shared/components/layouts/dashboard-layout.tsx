@@ -211,7 +211,7 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
 
   return (
     <>
-      {/* Top Header */}
+      {/* Top Header - Fixed */}
       <Navbar
         user={{
           name: "Gabriel Emumwen",
@@ -219,41 +219,37 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
           avatar: undefined,
         }}
       />
-      <div className="flex h-screen bg-gray-50">
-        {/* Sidebar */}
-        <div className="hidden md:flex md:w-64 md:flex-col">
-          <div className="flex flex-col flex-grow pt-5 pb-4 overflow-y-auto bg-white border-r border-gray-200">
-            {/* Navigation */}
-            <div className="flex-1 px-3">
-              <NavSection title="GENERAL" items={generalNavItems} />
-              <NavSection
-                title={
-                  isVendor
-                    ? "Proposals & communications"
-                    : "VENDORS & PROPOSALS"
-                }
-                items={vendorNavItems}
-              />
-            </div>
-
-            {/* Bottom Navigation */}
-            <div className="px-3 mt-auto">
-              <NavSection
-                title={isVendor ? "Account" : "GENERAL"}
-                items={bottomNavItems}
-              />
-            </div>
-          </div>
+      
+      {/* Sidebar - Fixed */}
+      <aside className="hidden md:flex fixed left-0 top-20 bottom-0 w-64 flex-col pt-5 pb-4 overflow-y-auto bg-white border-r border-gray-200 z-40">
+        {/* Navigation */}
+        <div className="flex-1 px-3">
+          <NavSection title="GENERAL" items={generalNavItems} />
+          <NavSection
+            title={
+              isVendor
+                ? "Proposals & communications"
+                : "VENDORS & PROPOSALS"
+            }
+            items={vendorNavItems}
+          />
         </div>
 
-        {/* Main Content */}
-        <div className="flex flex-col flex-1 overflow-hidden">
-          {/* Main Content Area */}
-          <main className="flex-1 overflow-y-auto bg-white">
-            <div className="py-6 px-6">{children}</div>
-          </main>
+        {/* Bottom Navigation */}
+        <div className="px-3 mt-auto">
+          <NavSection
+            title={isVendor ? "Account" : "GENERAL"}
+            items={bottomNavItems}
+          />
         </div>
-      </div>
+      </aside>
+
+      {/* Main Content - Positioned to account for navbar and sidebar */}
+      <main className="pt-20 md:pl-64 min-h-screen bg-gray-50">
+        <div className="bg-white min-h-[calc(100vh-5rem)]">
+          <div className="py-6 px-6">{children}</div>
+        </div>
+      </main>
     </>
   );
 };
