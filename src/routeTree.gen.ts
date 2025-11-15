@@ -19,6 +19,7 @@ import { Route as StatusSuccessRouteImport } from './routes/status/success'
 import { Route as OrganizerSalesRouteImport } from './routes/organizer/sales'
 import { Route as OrganizerLayoutRouteImport } from './routes/organizer/layout'
 import { Route as OrganizerAttendeeRouteImport } from './routes/organizer/attendee'
+import { Route as OnboardingServicesRouteImport } from './routes/onboarding/services'
 import { Route as OnboardingServiceVendorRouteImport } from './routes/onboarding/service-vendor'
 import { Route as OnboardingOnboardingRouteImport } from './routes/onboarding/onboarding'
 import { Route as AuthSigninRouteImport } from './routes/auth/signin'
@@ -88,6 +89,11 @@ const OrganizerLayoutRoute = OrganizerLayoutRouteImport.update({
 const OrganizerAttendeeRoute = OrganizerAttendeeRouteImport.update({
   id: '/organizer/attendee',
   path: '/organizer/attendee',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OnboardingServicesRoute = OnboardingServicesRouteImport.update({
+  id: '/onboarding/services',
+  path: '/onboarding/services',
   getParentRoute: () => rootRouteImport,
 } as any)
 const OnboardingServiceVendorRoute = OnboardingServiceVendorRouteImport.update({
@@ -214,6 +220,7 @@ export interface FileRoutesByFullPath {
   '/auth/signin': typeof AuthSigninRoute
   '/onboarding/onboarding': typeof OnboardingOnboardingRoute
   '/onboarding/service-vendor': typeof OnboardingServiceVendorRoute
+  '/onboarding/services': typeof OnboardingServicesRoute
   '/organizer/attendee': typeof OrganizerAttendeeRoute
   '/organizer/layout': typeof OrganizerLayoutRoute
   '/organizer/sales': typeof OrganizerSalesRoute
@@ -246,6 +253,7 @@ export interface FileRoutesByTo {
   '/auth/signin': typeof AuthSigninRoute
   '/onboarding/onboarding': typeof OnboardingOnboardingRoute
   '/onboarding/service-vendor': typeof OnboardingServiceVendorRoute
+  '/onboarding/services': typeof OnboardingServicesRoute
   '/organizer/attendee': typeof OrganizerAttendeeRoute
   '/organizer/layout': typeof OrganizerLayoutRoute
   '/organizer/sales': typeof OrganizerSalesRoute
@@ -280,6 +288,7 @@ export interface FileRoutesById {
   '/auth/signin': typeof AuthSigninRoute
   '/onboarding/onboarding': typeof OnboardingOnboardingRoute
   '/onboarding/service-vendor': typeof OnboardingServiceVendorRoute
+  '/onboarding/services': typeof OnboardingServicesRoute
   '/organizer/attendee': typeof OrganizerAttendeeRoute
   '/organizer/layout': typeof OrganizerLayoutRoute
   '/organizer/sales': typeof OrganizerSalesRoute
@@ -314,6 +323,7 @@ export interface FileRouteTypes {
     | '/auth/signin'
     | '/onboarding/onboarding'
     | '/onboarding/service-vendor'
+    | '/onboarding/services'
     | '/organizer/attendee'
     | '/organizer/layout'
     | '/organizer/sales'
@@ -346,6 +356,7 @@ export interface FileRouteTypes {
     | '/auth/signin'
     | '/onboarding/onboarding'
     | '/onboarding/service-vendor'
+    | '/onboarding/services'
     | '/organizer/attendee'
     | '/organizer/layout'
     | '/organizer/sales'
@@ -379,6 +390,7 @@ export interface FileRouteTypes {
     | '/auth/signin'
     | '/onboarding/onboarding'
     | '/onboarding/service-vendor'
+    | '/onboarding/services'
     | '/organizer/attendee'
     | '/organizer/layout'
     | '/organizer/sales'
@@ -413,6 +425,7 @@ export interface RootRouteChildren {
   AuthSigninRoute: typeof AuthSigninRoute
   OnboardingOnboardingRoute: typeof OnboardingOnboardingRoute
   OnboardingServiceVendorRoute: typeof OnboardingServiceVendorRoute
+  OnboardingServicesRoute: typeof OnboardingServicesRoute
   OrganizerAttendeeRoute: typeof OrganizerAttendeeRoute
   OrganizerLayoutRoute: typeof OrganizerLayoutRoute
   OrganizerSalesRoute: typeof OrganizerSalesRoute
@@ -508,6 +521,13 @@ declare module '@tanstack/react-router' {
       path: '/organizer/attendee'
       fullPath: '/organizer/attendee'
       preLoaderRoute: typeof OrganizerAttendeeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/onboarding/services': {
+      id: '/onboarding/services'
+      path: '/onboarding/services'
+      fullPath: '/onboarding/services'
+      preLoaderRoute: typeof OnboardingServicesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/onboarding/service-vendor': {
@@ -669,6 +689,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthSigninRoute: AuthSigninRoute,
   OnboardingOnboardingRoute: OnboardingOnboardingRoute,
   OnboardingServiceVendorRoute: OnboardingServiceVendorRoute,
+  OnboardingServicesRoute: OnboardingServicesRoute,
   OrganizerAttendeeRoute: OrganizerAttendeeRoute,
   OrganizerLayoutRoute: OrganizerLayoutRoute,
   OrganizerSalesRoute: OrganizerSalesRoute,
