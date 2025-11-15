@@ -1,6 +1,7 @@
 import React, { JSX, useState } from "react";
 import { ChevronLeft, ChevronRight, Clock, Users, X } from "lucide-react";
 import { ArrowDown2, ArrowRight, Calendar } from "iconsax-reactjs";
+import { useNavigate } from "@tanstack/react-router";
 import { CustomButton } from "../../../button/button";
 import {
   DropdownInput,
@@ -494,6 +495,7 @@ type CreateEventProps = {
 
 // CreateEvent Component
 const CreateEvent = ({ onNavigateToTab }: CreateEventProps) => {
+  const navigate = useNavigate();
   const [showForm, setShowForm] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
   const [eventName, setEventName] = useState("");
@@ -976,6 +978,10 @@ const CreateEvent = ({ onNavigateToTab }: CreateEventProps) => {
           setSuccessModalOpen(false);
         }}
         onConfirm={handleSuccess}
+        onRequestVendors={() => {
+          setSuccessModalOpen(false);
+          navigate({ to: "/organizer/request-vendors" });
+        }}
         title="Event Booked Successfully!"
         description={
           <p className="text-gray-600 mb-8 px-4 leading-relaxed">

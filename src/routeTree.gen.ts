@@ -17,6 +17,7 @@ import { Route as OrganizerIndexRouteImport } from './routes/organizer/index'
 import { Route as AccountIndexRouteImport } from './routes/account/index'
 import { Route as StatusSuccessRouteImport } from './routes/status/success'
 import { Route as OrganizerSalesRouteImport } from './routes/organizer/sales'
+import { Route as OrganizerRequestVendorsRouteImport } from './routes/organizer/request-vendors'
 import { Route as OrganizerLayoutRouteImport } from './routes/organizer/layout'
 import { Route as OrganizerAttendeeRouteImport } from './routes/organizer/attendee'
 import { Route as OnboardingServicesRouteImport } from './routes/onboarding/services'
@@ -79,6 +80,11 @@ const StatusSuccessRoute = StatusSuccessRouteImport.update({
 const OrganizerSalesRoute = OrganizerSalesRouteImport.update({
   id: '/organizer/sales',
   path: '/organizer/sales',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OrganizerRequestVendorsRoute = OrganizerRequestVendorsRouteImport.update({
+  id: '/organizer/request-vendors',
+  path: '/organizer/request-vendors',
   getParentRoute: () => rootRouteImport,
 } as any)
 const OrganizerLayoutRoute = OrganizerLayoutRouteImport.update({
@@ -223,6 +229,7 @@ export interface FileRoutesByFullPath {
   '/onboarding/services': typeof OnboardingServicesRoute
   '/organizer/attendee': typeof OrganizerAttendeeRoute
   '/organizer/layout': typeof OrganizerLayoutRoute
+  '/organizer/request-vendors': typeof OrganizerRequestVendorsRoute
   '/organizer/sales': typeof OrganizerSalesRoute
   '/status/success': typeof StatusSuccessRoute
   '/account': typeof AccountIndexRoute
@@ -256,6 +263,7 @@ export interface FileRoutesByTo {
   '/onboarding/services': typeof OnboardingServicesRoute
   '/organizer/attendee': typeof OrganizerAttendeeRoute
   '/organizer/layout': typeof OrganizerLayoutRoute
+  '/organizer/request-vendors': typeof OrganizerRequestVendorsRoute
   '/organizer/sales': typeof OrganizerSalesRoute
   '/status/success': typeof StatusSuccessRoute
   '/account': typeof AccountIndexRoute
@@ -291,6 +299,7 @@ export interface FileRoutesById {
   '/onboarding/services': typeof OnboardingServicesRoute
   '/organizer/attendee': typeof OrganizerAttendeeRoute
   '/organizer/layout': typeof OrganizerLayoutRoute
+  '/organizer/request-vendors': typeof OrganizerRequestVendorsRoute
   '/organizer/sales': typeof OrganizerSalesRoute
   '/status/success': typeof StatusSuccessRoute
   '/account/': typeof AccountIndexRoute
@@ -326,6 +335,7 @@ export interface FileRouteTypes {
     | '/onboarding/services'
     | '/organizer/attendee'
     | '/organizer/layout'
+    | '/organizer/request-vendors'
     | '/organizer/sales'
     | '/status/success'
     | '/account'
@@ -359,6 +369,7 @@ export interface FileRouteTypes {
     | '/onboarding/services'
     | '/organizer/attendee'
     | '/organizer/layout'
+    | '/organizer/request-vendors'
     | '/organizer/sales'
     | '/status/success'
     | '/account'
@@ -393,6 +404,7 @@ export interface FileRouteTypes {
     | '/onboarding/services'
     | '/organizer/attendee'
     | '/organizer/layout'
+    | '/organizer/request-vendors'
     | '/organizer/sales'
     | '/status/success'
     | '/account/'
@@ -428,6 +440,7 @@ export interface RootRouteChildren {
   OnboardingServicesRoute: typeof OnboardingServicesRoute
   OrganizerAttendeeRoute: typeof OrganizerAttendeeRoute
   OrganizerLayoutRoute: typeof OrganizerLayoutRoute
+  OrganizerRequestVendorsRoute: typeof OrganizerRequestVendorsRoute
   OrganizerSalesRoute: typeof OrganizerSalesRoute
   StatusSuccessRoute: typeof StatusSuccessRoute
   AccountIndexRoute: typeof AccountIndexRoute
@@ -507,6 +520,13 @@ declare module '@tanstack/react-router' {
       path: '/organizer/sales'
       fullPath: '/organizer/sales'
       preLoaderRoute: typeof OrganizerSalesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/organizer/request-vendors': {
+      id: '/organizer/request-vendors'
+      path: '/organizer/request-vendors'
+      fullPath: '/organizer/request-vendors'
+      preLoaderRoute: typeof OrganizerRequestVendorsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/organizer/layout': {
@@ -692,6 +712,7 @@ const rootRouteChildren: RootRouteChildren = {
   OnboardingServicesRoute: OnboardingServicesRoute,
   OrganizerAttendeeRoute: OrganizerAttendeeRoute,
   OrganizerLayoutRoute: OrganizerLayoutRoute,
+  OrganizerRequestVendorsRoute: OrganizerRequestVendorsRoute,
   OrganizerSalesRoute: OrganizerSalesRoute,
   StatusSuccessRoute: StatusSuccessRoute,
   AccountIndexRoute: AccountIndexRoute,
