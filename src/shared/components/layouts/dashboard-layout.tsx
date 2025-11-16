@@ -175,7 +175,7 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
             {
               icon: MessageCircle,
               label: "Messages",
-              href: "/vendor",
+              href: "/vendor/messages",
             },
           ]
         : [
