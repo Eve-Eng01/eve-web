@@ -175,7 +175,7 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
             {
               icon: MessageCircle,
               label: "Messages",
-              href: "/vendor",
+              href: "/vendor/messages",
             },
           ]
         : [
@@ -187,7 +187,7 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
             {
               icon: FileText,
               label: "RFPs & Proposals",
-              href: "/proposals",
+              href: "/organizer/request-vendors",
             },
             {
               icon: MessageSquare,

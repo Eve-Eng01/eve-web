@@ -14,6 +14,7 @@ import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as VendorIndexRouteImport } from './routes/vendor/index'
 import { Route as OrganizerIndexRouteImport } from './routes/organizer/index'
+import { Route as MessagesIndexRouteImport } from './routes/messages/index'
 import { Route as AccountIndexRouteImport } from './routes/account/index'
 import { Route as StatusSuccessRouteImport } from './routes/status/success'
 import { Route as OrganizerSalesRouteImport } from './routes/organizer/sales'
@@ -27,6 +28,7 @@ import { Route as AuthSigninRouteImport } from './routes/auth/signin'
 import { Route as AuthSignUpRouteImport } from './routes/auth/sign-up'
 import { Route as AccountAddPayoutAccountRouteImport } from './routes/account/add-payout-account'
 import { Route as VendorProposalIndexRouteImport } from './routes/vendor/proposal/index'
+import { Route as VendorMessagesIndexRouteImport } from './routes/vendor/messages/index'
 import { Route as VendorEventIndexRouteImport } from './routes/vendor/event/index'
 import { Route as VendorProposalProposalIdRouteImport } from './routes/vendor/proposal/$proposalId'
 import { Route as OnboardingVendorSubServicesTwoRouteImport } from './routes/onboarding/vendor-sub-services/two'
@@ -65,6 +67,11 @@ const VendorIndexRoute = VendorIndexRouteImport.update({
 const OrganizerIndexRoute = OrganizerIndexRouteImport.update({
   id: '/organizer/',
   path: '/organizer/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MessagesIndexRoute = MessagesIndexRouteImport.update({
+  id: '/messages/',
+  path: '/messages/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AccountIndexRoute = AccountIndexRouteImport.update({
@@ -130,6 +137,11 @@ const AccountAddPayoutAccountRoute = AccountAddPayoutAccountRouteImport.update({
 const VendorProposalIndexRoute = VendorProposalIndexRouteImport.update({
   id: '/vendor/proposal/',
   path: '/vendor/proposal/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VendorMessagesIndexRoute = VendorMessagesIndexRouteImport.update({
+  id: '/vendor/messages/',
+  path: '/vendor/messages/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const VendorEventIndexRoute = VendorEventIndexRouteImport.update({
@@ -233,6 +245,7 @@ export interface FileRoutesByFullPath {
   '/organizer/sales': typeof OrganizerSalesRoute
   '/status/success': typeof StatusSuccessRoute
   '/account': typeof AccountIndexRoute
+  '/messages': typeof MessagesIndexRoute
   '/organizer': typeof OrganizerIndexRoute
   '/vendor': typeof VendorIndexRoute
   '/auth/otp/verify': typeof AuthOtpVerifyRoute
@@ -248,6 +261,7 @@ export interface FileRoutesByFullPath {
   '/onboarding/vendor-sub-services/two': typeof OnboardingVendorSubServicesTwoRoute
   '/vendor/proposal/$proposalId': typeof VendorProposalProposalIdRoute
   '/vendor/event': typeof VendorEventIndexRoute
+  '/vendor/messages': typeof VendorMessagesIndexRoute
   '/vendor/proposal': typeof VendorProposalIndexRoute
   '/vendor/event/$eventId/proposal': typeof VendorEventEventIdProposalRoute
   '/vendor/event/$eventId': typeof VendorEventEventIdIndexRoute
@@ -267,6 +281,7 @@ export interface FileRoutesByTo {
   '/organizer/sales': typeof OrganizerSalesRoute
   '/status/success': typeof StatusSuccessRoute
   '/account': typeof AccountIndexRoute
+  '/messages': typeof MessagesIndexRoute
   '/organizer': typeof OrganizerIndexRoute
   '/vendor': typeof VendorIndexRoute
   '/auth/otp/verify': typeof AuthOtpVerifyRoute
@@ -282,6 +297,7 @@ export interface FileRoutesByTo {
   '/onboarding/vendor-sub-services/two': typeof OnboardingVendorSubServicesTwoRoute
   '/vendor/proposal/$proposalId': typeof VendorProposalProposalIdRoute
   '/vendor/event': typeof VendorEventIndexRoute
+  '/vendor/messages': typeof VendorMessagesIndexRoute
   '/vendor/proposal': typeof VendorProposalIndexRoute
   '/vendor/event/$eventId/proposal': typeof VendorEventEventIdProposalRoute
   '/vendor/event/$eventId': typeof VendorEventEventIdIndexRoute
@@ -303,6 +319,7 @@ export interface FileRoutesById {
   '/organizer/sales': typeof OrganizerSalesRoute
   '/status/success': typeof StatusSuccessRoute
   '/account/': typeof AccountIndexRoute
+  '/messages/': typeof MessagesIndexRoute
   '/organizer/': typeof OrganizerIndexRoute
   '/vendor/': typeof VendorIndexRoute
   '/auth/otp/verify': typeof AuthOtpVerifyRoute
@@ -318,6 +335,7 @@ export interface FileRoutesById {
   '/onboarding/vendor-sub-services/two': typeof OnboardingVendorSubServicesTwoRoute
   '/vendor/proposal/$proposalId': typeof VendorProposalProposalIdRoute
   '/vendor/event/': typeof VendorEventIndexRoute
+  '/vendor/messages/': typeof VendorMessagesIndexRoute
   '/vendor/proposal/': typeof VendorProposalIndexRoute
   '/vendor/event/$eventId/proposal': typeof VendorEventEventIdProposalRoute
   '/vendor/event/$eventId/': typeof VendorEventEventIdIndexRoute
@@ -339,6 +357,7 @@ export interface FileRouteTypes {
     | '/organizer/sales'
     | '/status/success'
     | '/account'
+    | '/messages'
     | '/organizer'
     | '/vendor'
     | '/auth/otp/verify'
@@ -354,6 +373,7 @@ export interface FileRouteTypes {
     | '/onboarding/vendor-sub-services/two'
     | '/vendor/proposal/$proposalId'
     | '/vendor/event'
+    | '/vendor/messages'
     | '/vendor/proposal'
     | '/vendor/event/$eventId/proposal'
     | '/vendor/event/$eventId'
@@ -373,6 +393,7 @@ export interface FileRouteTypes {
     | '/organizer/sales'
     | '/status/success'
     | '/account'
+    | '/messages'
     | '/organizer'
     | '/vendor'
     | '/auth/otp/verify'
@@ -388,6 +409,7 @@ export interface FileRouteTypes {
     | '/onboarding/vendor-sub-services/two'
     | '/vendor/proposal/$proposalId'
     | '/vendor/event'
+    | '/vendor/messages'
     | '/vendor/proposal'
     | '/vendor/event/$eventId/proposal'
     | '/vendor/event/$eventId'
@@ -408,6 +430,7 @@ export interface FileRouteTypes {
     | '/organizer/sales'
     | '/status/success'
     | '/account/'
+    | '/messages/'
     | '/organizer/'
     | '/vendor/'
     | '/auth/otp/verify'
@@ -423,6 +446,7 @@ export interface FileRouteTypes {
     | '/onboarding/vendor-sub-services/two'
     | '/vendor/proposal/$proposalId'
     | '/vendor/event/'
+    | '/vendor/messages/'
     | '/vendor/proposal/'
     | '/vendor/event/$eventId/proposal'
     | '/vendor/event/$eventId/'
@@ -444,6 +468,7 @@ export interface RootRouteChildren {
   OrganizerSalesRoute: typeof OrganizerSalesRoute
   StatusSuccessRoute: typeof StatusSuccessRoute
   AccountIndexRoute: typeof AccountIndexRoute
+  MessagesIndexRoute: typeof MessagesIndexRoute
   OrganizerIndexRoute: typeof OrganizerIndexRoute
   VendorIndexRoute: typeof VendorIndexRoute
   AuthOtpVerifyRoute: typeof AuthOtpVerifyRoute
@@ -459,6 +484,7 @@ export interface RootRouteChildren {
   OnboardingVendorSubServicesTwoRoute: typeof OnboardingVendorSubServicesTwoRoute
   VendorProposalProposalIdRoute: typeof VendorProposalProposalIdRoute
   VendorEventIndexRoute: typeof VendorEventIndexRoute
+  VendorMessagesIndexRoute: typeof VendorMessagesIndexRoute
   VendorProposalIndexRoute: typeof VendorProposalIndexRoute
   VendorEventEventIdProposalRoute: typeof VendorEventEventIdProposalRoute
   VendorEventEventIdIndexRoute: typeof VendorEventEventIdIndexRoute
@@ -499,6 +525,13 @@ declare module '@tanstack/react-router' {
       path: '/organizer'
       fullPath: '/organizer'
       preLoaderRoute: typeof OrganizerIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/messages/': {
+      id: '/messages/'
+      path: '/messages'
+      fullPath: '/messages'
+      preLoaderRoute: typeof MessagesIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/account/': {
@@ -590,6 +623,13 @@ declare module '@tanstack/react-router' {
       path: '/vendor/proposal'
       fullPath: '/vendor/proposal'
       preLoaderRoute: typeof VendorProposalIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/vendor/messages/': {
+      id: '/vendor/messages/'
+      path: '/vendor/messages'
+      fullPath: '/vendor/messages'
+      preLoaderRoute: typeof VendorMessagesIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/vendor/event/': {
@@ -716,6 +756,7 @@ const rootRouteChildren: RootRouteChildren = {
   OrganizerSalesRoute: OrganizerSalesRoute,
   StatusSuccessRoute: StatusSuccessRoute,
   AccountIndexRoute: AccountIndexRoute,
+  MessagesIndexRoute: MessagesIndexRoute,
   OrganizerIndexRoute: OrganizerIndexRoute,
   VendorIndexRoute: VendorIndexRoute,
   AuthOtpVerifyRoute: AuthOtpVerifyRoute,
@@ -731,6 +772,7 @@ const rootRouteChildren: RootRouteChildren = {
   OnboardingVendorSubServicesTwoRoute: OnboardingVendorSubServicesTwoRoute,
   VendorProposalProposalIdRoute: VendorProposalProposalIdRoute,
   VendorEventIndexRoute: VendorEventIndexRoute,
+  VendorMessagesIndexRoute: VendorMessagesIndexRoute,
   VendorProposalIndexRoute: VendorProposalIndexRoute,
   VendorEventEventIdProposalRoute: VendorEventEventIdProposalRoute,
   VendorEventEventIdIndexRoute: VendorEventEventIdIndexRoute,
