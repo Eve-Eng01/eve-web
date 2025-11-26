@@ -16,7 +16,9 @@ import { Route as VendorIndexRouteImport } from './routes/vendor/index'
 import { Route as OrganizerIndexRouteImport } from './routes/organizer/index'
 import { Route as AccountIndexRouteImport } from './routes/account/index'
 import { Route as StatusSuccessRouteImport } from './routes/status/success'
+import { Route as OrganizerVendorsRouteImport } from './routes/organizer/vendors'
 import { Route as OrganizerSalesRouteImport } from './routes/organizer/sales'
+import { Route as OrganizerProposalsRouteImport } from './routes/organizer/proposals'
 import { Route as OrganizerLayoutRouteImport } from './routes/organizer/layout'
 import { Route as OrganizerAttendeeRouteImport } from './routes/organizer/attendee'
 import { Route as AuthSigninRouteImport } from './routes/auth/signin'
@@ -76,9 +78,19 @@ const StatusSuccessRoute = StatusSuccessRouteImport.update({
   path: '/status/success',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OrganizerVendorsRoute = OrganizerVendorsRouteImport.update({
+  id: '/organizer/vendors',
+  path: '/organizer/vendors',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const OrganizerSalesRoute = OrganizerSalesRouteImport.update({
   id: '/organizer/sales',
   path: '/organizer/sales',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OrganizerProposalsRoute = OrganizerProposalsRouteImport.update({
+  id: '/organizer/proposals',
+  path: '/organizer/proposals',
   getParentRoute: () => rootRouteImport,
 } as any)
 const OrganizerLayoutRoute = OrganizerLayoutRouteImport.update({
@@ -223,7 +235,9 @@ export interface FileRoutesByFullPath {
   '/auth/signin': typeof AuthSigninRoute
   '/organizer/attendee': typeof OrganizerAttendeeRoute
   '/organizer/layout': typeof OrganizerLayoutRoute
+  '/organizer/proposals': typeof OrganizerProposalsRoute
   '/organizer/sales': typeof OrganizerSalesRoute
+  '/organizer/vendors': typeof OrganizerVendorsRoute
   '/status/success': typeof StatusSuccessRoute
   '/account': typeof AccountIndexRoute
   '/organizer': typeof OrganizerIndexRoute
@@ -256,7 +270,9 @@ export interface FileRoutesByTo {
   '/auth/signin': typeof AuthSigninRoute
   '/organizer/attendee': typeof OrganizerAttendeeRoute
   '/organizer/layout': typeof OrganizerLayoutRoute
+  '/organizer/proposals': typeof OrganizerProposalsRoute
   '/organizer/sales': typeof OrganizerSalesRoute
+  '/organizer/vendors': typeof OrganizerVendorsRoute
   '/status/success': typeof StatusSuccessRoute
   '/account': typeof AccountIndexRoute
   '/organizer': typeof OrganizerIndexRoute
@@ -291,7 +307,9 @@ export interface FileRoutesById {
   '/auth/signin': typeof AuthSigninRoute
   '/organizer/attendee': typeof OrganizerAttendeeRoute
   '/organizer/layout': typeof OrganizerLayoutRoute
+  '/organizer/proposals': typeof OrganizerProposalsRoute
   '/organizer/sales': typeof OrganizerSalesRoute
+  '/organizer/vendors': typeof OrganizerVendorsRoute
   '/status/success': typeof StatusSuccessRoute
   '/account/': typeof AccountIndexRoute
   '/organizer/': typeof OrganizerIndexRoute
@@ -326,7 +344,9 @@ export interface FileRouteTypes {
     | '/auth/signin'
     | '/organizer/attendee'
     | '/organizer/layout'
+    | '/organizer/proposals'
     | '/organizer/sales'
+    | '/organizer/vendors'
     | '/status/success'
     | '/account'
     | '/organizer'
@@ -359,7 +379,9 @@ export interface FileRouteTypes {
     | '/auth/signin'
     | '/organizer/attendee'
     | '/organizer/layout'
+    | '/organizer/proposals'
     | '/organizer/sales'
+    | '/organizer/vendors'
     | '/status/success'
     | '/account'
     | '/organizer'
@@ -393,7 +415,9 @@ export interface FileRouteTypes {
     | '/auth/signin'
     | '/organizer/attendee'
     | '/organizer/layout'
+    | '/organizer/proposals'
     | '/organizer/sales'
+    | '/organizer/vendors'
     | '/status/success'
     | '/account/'
     | '/organizer/'
@@ -428,7 +452,9 @@ export interface RootRouteChildren {
   AuthSigninRoute: typeof AuthSigninRoute
   OrganizerAttendeeRoute: typeof OrganizerAttendeeRoute
   OrganizerLayoutRoute: typeof OrganizerLayoutRoute
+  OrganizerProposalsRoute: typeof OrganizerProposalsRoute
   OrganizerSalesRoute: typeof OrganizerSalesRoute
+  OrganizerVendorsRoute: typeof OrganizerVendorsRoute
   StatusSuccessRoute: typeof StatusSuccessRoute
   AccountIndexRoute: typeof AccountIndexRoute
   OrganizerIndexRoute: typeof OrganizerIndexRoute
@@ -502,11 +528,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StatusSuccessRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/organizer/vendors': {
+      id: '/organizer/vendors'
+      path: '/organizer/vendors'
+      fullPath: '/organizer/vendors'
+      preLoaderRoute: typeof OrganizerVendorsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/organizer/sales': {
       id: '/organizer/sales'
       path: '/organizer/sales'
       fullPath: '/organizer/sales'
       preLoaderRoute: typeof OrganizerSalesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/organizer/proposals': {
+      id: '/organizer/proposals'
+      path: '/organizer/proposals'
+      fullPath: '/organizer/proposals'
+      preLoaderRoute: typeof OrganizerProposalsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/organizer/layout': {
@@ -692,7 +732,9 @@ const rootRouteChildren: RootRouteChildren = {
   AuthSigninRoute: AuthSigninRoute,
   OrganizerAttendeeRoute: OrganizerAttendeeRoute,
   OrganizerLayoutRoute: OrganizerLayoutRoute,
+  OrganizerProposalsRoute: OrganizerProposalsRoute,
   OrganizerSalesRoute: OrganizerSalesRoute,
+  OrganizerVendorsRoute: OrganizerVendorsRoute,
   StatusSuccessRoute: StatusSuccessRoute,
   AccountIndexRoute: AccountIndexRoute,
   OrganizerIndexRoute: OrganizerIndexRoute,

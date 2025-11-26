@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import Navbar from "../accessories/nav-bar";
 import { useNavigate, useLocation } from "@tanstack/react-router";
+import ChatWidget from "@components/accessories/MessagePopup";
 
 interface User {
   name: string;
@@ -163,7 +164,7 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
             {
               icon: Users,
               label: "Browse Vendors",
-              href: "/vendors",
+              href: "/organizer/vendors",
             },
             {
               icon: FileText,
@@ -254,6 +255,7 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
           </main>
         </div>
       </div>
+      <ChatWidget/>
     </>
   );
 };
