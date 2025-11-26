@@ -84,8 +84,7 @@ function RouteComponent() {
 
   const handleRequestVendors = (): void => {
     setIsSuccessModalOpen(false);
-    // TODO: Navigate to request vendors page
-    navigate({ to: "/organizer" });
+    navigate({ to: "/organizer/request-vendors" });
   };
 
   const isFormValid =

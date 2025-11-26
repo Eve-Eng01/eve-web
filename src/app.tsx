@@ -1,6 +1,7 @@
 import { RouterProvider } from "@tanstack/react-router";
 import { router } from "./main";
 import { AuthProvider, useAuth } from "./providers/auth-provider";
+import { SidebarProvider } from "./shared/contexts/sidebar-context";
 
 function InnerApp() {
   const auth = useAuth();
@@ -19,7 +20,9 @@ function InnerApp() {
 export function App() {
   return (
     <AuthProvider>
-      <InnerApp />
+      <SidebarProvider>
+        <InnerApp />
+      </SidebarProvider>
     </AuthProvider>
   );
 }

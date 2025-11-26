@@ -2,7 +2,7 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
 import logo from "@assets/evaLogo.png";
 import bottom from "@assets/onBoarding/bottom.png";
-import { CustomPhoneInput, DropdownOption } from "./services";
+import { CustomPhoneInput, DropdownOption } from "./services.tsx";
 import { InputField } from "@components/accessories/input-field";
 import { DropdownInput } from "@components/accessories/dropdown-input";
 import { CustomButton } from "@components/accessories/button";
@@ -10,7 +10,7 @@ import countries from "world-countries";
 import { VendorTwo } from "./vendor-sub-services/two";
 import { VendorThree } from "./vendor-sub-services/three";
 
-export const Route = createFileRoute("/Onboarding/service-vendor")({
+export const Route = createFileRoute("/onboarding/service-vendor")({
   component: RouteComponent,
 });
 interface FormData {

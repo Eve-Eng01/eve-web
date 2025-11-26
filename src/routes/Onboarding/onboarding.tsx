@@ -64,7 +64,7 @@ const UserTypeCard: React.FC<UserTypeCardProps> = ({
   );
 };
 
-export const Route = createFileRoute("/Onboarding/onboarding")({
+export const Route = createFileRoute("/onboarding/onboarding")({
   component: RouteComponent,
 });
 

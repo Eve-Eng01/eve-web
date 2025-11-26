@@ -1,5 +1,6 @@
 import { Download, Calendar, Clock, MapPin } from "lucide-react";
 import { useMemo, useState } from "react";
+import React from "react";
 import SearchBar from "../../../accessories/SearchBar";
 import DataTable from "../../../accessories/data-table";
 import SalesRevenueChart from "../../../accessories/search-bar";
@@ -24,7 +25,11 @@ interface EventData {
   venue: string;
 }
 
-const PayoutsTab = () => {
+interface PayoutsTabProps {
+  onRequestPayout?: () => void;
+}
+
+const PayoutsTab: React.FC<PayoutsTabProps> = ({ onRequestPayout }) => {
   const [searchValue, setSearchValue] = useState("");
   const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
   const [selectedPeriod, setSelectedPeriod] = useState<
@@ -230,10 +235,18 @@ const PayoutsTab = () => {
           <h3 className="text-lg font-semibold text-gray-900">
             Payout History
           </h3>
-          <button className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-white rounded-lg border border-gray-200 transition-colors">
-            <Download className="w-4 h-4" />
-            Export
-          </button>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={onRequestPayout}
+              className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-[#7417C6] hover:bg-[#5f12a0] rounded-lg transition-colors"
+            >
+              Request Payout
+            </button>
+            <button className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-white rounded-lg border border-gray-200 transition-colors">
+              <Download className="w-4 h-4" />
+              Export
+            </button>
+          </div>
         </div>
 
         {/* DataTable */}

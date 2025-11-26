@@ -7,7 +7,8 @@ const SuccesConfirmationModal: React.FC<{
   onConfirm: () => void;
   title: string;
   description: React.ReactNode;
-}> = ({ isOpen, onClose, onConfirm, title, description }) => {
+  onRequestVendors?: () => void;
+}> = ({ isOpen, onClose, onConfirm, title, description, onRequestVendors }) => {
   if (!isOpen) return null;
 
   return (
@@ -33,7 +34,13 @@ const SuccesConfirmationModal: React.FC<{
         {/* Action Buttons */}
         <div className="flex gap-4">
           <button
-            onClick={onClose}
+            onClick={() => {
+              if (onRequestVendors) {
+                onRequestVendors();
+              } else {
+                onClose();
+              }
+            }}
             className="flex-1 px-6 py-4 border-2 border-[#7417C6] text-[#7417C6] rounded-2xl hover:bg-purple-50 transition-colors font-semibold text-lg"
           >
             Request Vendors

@@ -4,7 +4,7 @@ import { CustomButton } from "@components/accessories/button";
 import logo from "@assets/evaLogo.png";
 import { useState } from "react";
 
-export const Route = createFileRoute("/Onboarding/sub-services/three")({
+export const Route = createFileRoute("/onboarding/sub-services/three")({
   component: ServiceThree,
 });
 

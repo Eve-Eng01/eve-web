@@ -5,7 +5,7 @@ import logo from "@assets/evaLogo.png";
 import { Edit, TickCircle } from "iconsax-reactjs";
 import { useState } from "react";
 
-export const Route = createFileRoute("/Onboarding/vendor-sub-services/three")({
+export const Route = createFileRoute("/onboarding/vendor-sub-services/three")({
   component: VendorThree,
 });
 

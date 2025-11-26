@@ -10,7 +10,7 @@ import { CustomButton } from "@components/accessories/button";
 import { ServiceOneProps } from "../sub-services/one";
 import Modal from "@components/accessories/main-modal";
 
-export const Route = createFileRoute("/Onboarding/vendor-sub-services/two")({
+export const Route = createFileRoute("/onboarding/vendor-sub-services/two")({
   component: VendorTwo,
 });
 
