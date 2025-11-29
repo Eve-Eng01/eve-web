@@ -7,7 +7,7 @@ import { useState } from "react";
 import Modal from "@components/accessories/main-modal";
 import { UploadFormComponent } from "@components/accessories/upload-form-component";
 
-export const Route = createFileRoute("/onboarding/sub-services/review")({
+export const Route = createFileRoute("/Onboarding/sub-services/review")({
   component: RouteComponent,
 });
 

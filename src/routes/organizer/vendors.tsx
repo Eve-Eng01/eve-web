@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { Check, X, Circle } from 'lucide-react';
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import { DashboardLayout } from '@components/layouts/dashboard-layout';
 import { User } from '.';
 import { Heart } from 'iconsax-reactjs';
@@ -40,6 +40,7 @@ function RouteComponent() {
   const [jobSuccessRange, setJobSuccessRange] = useState([0, 0]);
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
   const [selectedStates, setSelectedStates] = useState<string[]>([]);
+  const navigate = useNavigate();
 
   const filteredVendors = useMemo(() => {
     return vendors.filter(vendor => {
@@ -65,6 +66,10 @@ function RouteComponent() {
     newRange[index] = value;
     setJobSuccessRange(newRange);
   };
+
+  const handleProposal = () => {
+    navigate({ to: "/organizer/Subvendor/VendorDetails" });
+  }
 
   const getSuccessIcon = (success: number) => {
     if (success >= 80) return <Check className="w-4 h-4 text-white" />;
@@ -323,7 +328,7 @@ function RouteComponent() {
                 </button>
 
                 {/* Send Proposal Button */}
-                <button className="px-5 py-2.5 bg-[#7417C6] text-white rounded-lg font-medium text-sm hover:bg-purple-700 transition flex items-center gap-2 shadow-md">
+                <button onClick={handleProposal} className="px-5 py-2.5 bg-[#7417C6] text-white rounded-lg font-medium text-sm hover:bg-purple-700 transition flex items-center gap-2 shadow-md">
                     Send Proposal
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />

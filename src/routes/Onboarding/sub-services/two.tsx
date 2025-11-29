@@ -67,7 +67,7 @@ const AvaliableTypeCard: React.FC<AvaliabilityTypeCardProps> = ({
   );
 };
 
-export const Route = createFileRoute("/onboarding/sub-services/two")({
+export const Route = createFileRoute("/Onboarding/sub-services/two")({
   component: ServiceTwo,
 });
 
