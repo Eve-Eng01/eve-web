@@ -3,7 +3,7 @@ import { DropdownInput } from "@components/accessories/dropdown-input";
 import { InputField } from "@components/accessories/input-field";
 import { DashboardLayout } from "@components/layouts/dashboard-layout";
 import EventList from "@components/pages/vendor/event-list";
-import { User } from "@routes/organizer";
+import { User } from "@routes/_organizer/organizer";
 import { createFileRoute } from "@tanstack/react-router";
 import { Search } from "lucide-react";
 
