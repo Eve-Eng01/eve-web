@@ -23,6 +23,7 @@ import Navbar from "../accessories/nav-bar";
 import { useNavigate, useLocation } from "@tanstack/react-router";
 import { useSidebar } from "../../contexts/sidebar-context";
 import { useLogout } from "../../api/services/auth/auth.hooks";
+import ChatWidget from "@components/accessories/MessagePopup";
 
 interface User {
   name: string;
@@ -211,7 +212,7 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
             {
               icon: Users,
               label: "Browse Vendors",
-              href: "/vendors",
+              href: "/organizer/vendors",
             },
             {
               icon: FileText,
@@ -389,6 +390,7 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
           </div>
         </div>
       </main>
+      <ChatWidget/>
     </>
   );
 };

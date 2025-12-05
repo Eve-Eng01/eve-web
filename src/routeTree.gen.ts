@@ -20,8 +20,10 @@ import { Route as VendorVendorIndexRouteImport } from './routes/_vendor/vendor/i
 import { Route as OrganizerOrganizerIndexRouteImport } from './routes/_organizer/organizer/index'
 import { Route as PublicAuthSigninRouteImport } from './routes/_public/auth/signin'
 import { Route as PublicAuthSignUpRouteImport } from './routes/_public/auth/sign-up'
+import { Route as OrganizerOrganizerVendorsRouteImport } from './routes/_organizer/organizer/vendors'
 import { Route as OrganizerOrganizerSalesRouteImport } from './routes/_organizer/organizer/sales'
 import { Route as OrganizerOrganizerRequestVendorsRouteImport } from './routes/_organizer/organizer/request-vendors'
+import { Route as OrganizerOrganizerProposalRouteImport } from './routes/_organizer/organizer/proposal'
 import { Route as OrganizerOrganizerLayoutRouteImport } from './routes/_organizer/organizer/layout'
 import { Route as OrganizerOrganizerAttendeeRouteImport } from './routes/_organizer/organizer/attendee'
 import { Route as AuthenticatedOnboardingUserTypeRouteImport } from './routes/_authenticated/onboarding/user-type'
@@ -38,6 +40,7 @@ import { Route as VendorVendorAccountAddPayoutAccountRouteImport } from './route
 import { Route as PublicAuthPasswordOtpRouteImport } from './routes/_public/auth/password/otp'
 import { Route as PublicAuthPasswordForgetRouteImport } from './routes/_public/auth/password/forget'
 import { Route as PublicAuthOtpVerifyRouteImport } from './routes/_public/auth/otp/verify'
+import { Route as OrganizerOrganizerVendorDetailsRouteImport } from './routes/_organizer/organizer/vendor/details'
 import { Route as OrganizerOrganizerOnboardingServicesRouteImport } from './routes/_organizer/organizer/onboarding/services'
 import { Route as OrganizerOrganizerOnboardingProfileRouteImport } from './routes/_organizer/organizer/onboarding/profile'
 import { Route as OrganizerOrganizerAccountAddPayoutAccountRouteImport } from './routes/_organizer/organizer/account/add-payout-account'
@@ -111,6 +114,12 @@ const PublicAuthSignUpRoute = PublicAuthSignUpRouteImport.update({
   path: '/auth/sign-up',
   getParentRoute: () => PublicRoute,
 } as any)
+const OrganizerOrganizerVendorsRoute =
+  OrganizerOrganizerVendorsRouteImport.update({
+    id: '/organizer/vendors',
+    path: '/organizer/vendors',
+    getParentRoute: () => OrganizerRoute,
+  } as any)
 const OrganizerOrganizerSalesRoute = OrganizerOrganizerSalesRouteImport.update({
   id: '/organizer/sales',
   path: '/organizer/sales',
@@ -120,6 +129,12 @@ const OrganizerOrganizerRequestVendorsRoute =
   OrganizerOrganizerRequestVendorsRouteImport.update({
     id: '/organizer/request-vendors',
     path: '/organizer/request-vendors',
+    getParentRoute: () => OrganizerRoute,
+  } as any)
+const OrganizerOrganizerProposalRoute =
+  OrganizerOrganizerProposalRouteImport.update({
+    id: '/organizer/proposal',
+    path: '/organizer/proposal',
     getParentRoute: () => OrganizerRoute,
   } as any)
 const OrganizerOrganizerLayoutRoute =
@@ -215,6 +230,12 @@ const PublicAuthOtpVerifyRoute = PublicAuthOtpVerifyRouteImport.update({
   path: '/auth/otp/verify',
   getParentRoute: () => PublicRoute,
 } as any)
+const OrganizerOrganizerVendorDetailsRoute =
+  OrganizerOrganizerVendorDetailsRouteImport.update({
+    id: '/organizer/vendor/details',
+    path: '/organizer/vendor/details',
+    getParentRoute: () => OrganizerRoute,
+  } as any)
 const OrganizerOrganizerOnboardingServicesRoute =
   OrganizerOrganizerOnboardingServicesRouteImport.update({
     id: '/organizer/onboarding/services',
@@ -349,8 +370,10 @@ export interface FileRoutesByFullPath {
   '/onboarding/user-type': typeof AuthenticatedOnboardingUserTypeRoute
   '/organizer/attendee': typeof OrganizerOrganizerAttendeeRoute
   '/organizer/layout': typeof OrganizerOrganizerLayoutRoute
+  '/organizer/proposal': typeof OrganizerOrganizerProposalRoute
   '/organizer/request-vendors': typeof OrganizerOrganizerRequestVendorsRoute
   '/organizer/sales': typeof OrganizerOrganizerSalesRoute
+  '/organizer/vendors': typeof OrganizerOrganizerVendorsRoute
   '/auth/sign-up': typeof PublicAuthSignUpRoute
   '/auth/signin': typeof PublicAuthSigninRoute
   '/organizer': typeof OrganizerOrganizerIndexRoute
@@ -358,6 +381,7 @@ export interface FileRoutesByFullPath {
   '/organizer/account/add-payout-account': typeof OrganizerOrganizerAccountAddPayoutAccountRoute
   '/organizer/onboarding/profile': typeof OrganizerOrganizerOnboardingProfileRoute
   '/organizer/onboarding/services': typeof OrganizerOrganizerOnboardingServicesRoute
+  '/organizer/vendor/details': typeof OrganizerOrganizerVendorDetailsRoute
   '/auth/otp/verify': typeof PublicAuthOtpVerifyRoute
   '/auth/password/forget': typeof PublicAuthPasswordForgetRoute
   '/auth/password/otp': typeof PublicAuthPasswordOtpRoute
@@ -397,8 +421,10 @@ export interface FileRoutesByTo {
   '/onboarding/user-type': typeof AuthenticatedOnboardingUserTypeRoute
   '/organizer/attendee': typeof OrganizerOrganizerAttendeeRoute
   '/organizer/layout': typeof OrganizerOrganizerLayoutRoute
+  '/organizer/proposal': typeof OrganizerOrganizerProposalRoute
   '/organizer/request-vendors': typeof OrganizerOrganizerRequestVendorsRoute
   '/organizer/sales': typeof OrganizerOrganizerSalesRoute
+  '/organizer/vendors': typeof OrganizerOrganizerVendorsRoute
   '/auth/sign-up': typeof PublicAuthSignUpRoute
   '/auth/signin': typeof PublicAuthSigninRoute
   '/organizer': typeof OrganizerOrganizerIndexRoute
@@ -406,6 +432,7 @@ export interface FileRoutesByTo {
   '/organizer/account/add-payout-account': typeof OrganizerOrganizerAccountAddPayoutAccountRoute
   '/organizer/onboarding/profile': typeof OrganizerOrganizerOnboardingProfileRoute
   '/organizer/onboarding/services': typeof OrganizerOrganizerOnboardingServicesRoute
+  '/organizer/vendor/details': typeof OrganizerOrganizerVendorDetailsRoute
   '/auth/otp/verify': typeof PublicAuthOtpVerifyRoute
   '/auth/password/forget': typeof PublicAuthPasswordForgetRoute
   '/auth/password/otp': typeof PublicAuthPasswordOtpRoute
@@ -450,8 +477,10 @@ export interface FileRoutesById {
   '/_authenticated/onboarding/user-type': typeof AuthenticatedOnboardingUserTypeRoute
   '/_organizer/organizer/attendee': typeof OrganizerOrganizerAttendeeRoute
   '/_organizer/organizer/layout': typeof OrganizerOrganizerLayoutRoute
+  '/_organizer/organizer/proposal': typeof OrganizerOrganizerProposalRoute
   '/_organizer/organizer/request-vendors': typeof OrganizerOrganizerRequestVendorsRoute
   '/_organizer/organizer/sales': typeof OrganizerOrganizerSalesRoute
+  '/_organizer/organizer/vendors': typeof OrganizerOrganizerVendorsRoute
   '/_public/auth/sign-up': typeof PublicAuthSignUpRoute
   '/_public/auth/signin': typeof PublicAuthSigninRoute
   '/_organizer/organizer/': typeof OrganizerOrganizerIndexRoute
@@ -459,6 +488,7 @@ export interface FileRoutesById {
   '/_organizer/organizer/account/add-payout-account': typeof OrganizerOrganizerAccountAddPayoutAccountRoute
   '/_organizer/organizer/onboarding/profile': typeof OrganizerOrganizerOnboardingProfileRoute
   '/_organizer/organizer/onboarding/services': typeof OrganizerOrganizerOnboardingServicesRoute
+  '/_organizer/organizer/vendor/details': typeof OrganizerOrganizerVendorDetailsRoute
   '/_public/auth/otp/verify': typeof PublicAuthOtpVerifyRoute
   '/_public/auth/password/forget': typeof PublicAuthPasswordForgetRoute
   '/_public/auth/password/otp': typeof PublicAuthPasswordOtpRoute
@@ -500,8 +530,10 @@ export interface FileRouteTypes {
     | '/onboarding/user-type'
     | '/organizer/attendee'
     | '/organizer/layout'
+    | '/organizer/proposal'
     | '/organizer/request-vendors'
     | '/organizer/sales'
+    | '/organizer/vendors'
     | '/auth/sign-up'
     | '/auth/signin'
     | '/organizer'
@@ -509,6 +541,7 @@ export interface FileRouteTypes {
     | '/organizer/account/add-payout-account'
     | '/organizer/onboarding/profile'
     | '/organizer/onboarding/services'
+    | '/organizer/vendor/details'
     | '/auth/otp/verify'
     | '/auth/password/forget'
     | '/auth/password/otp'
@@ -548,8 +581,10 @@ export interface FileRouteTypes {
     | '/onboarding/user-type'
     | '/organizer/attendee'
     | '/organizer/layout'
+    | '/organizer/proposal'
     | '/organizer/request-vendors'
     | '/organizer/sales'
+    | '/organizer/vendors'
     | '/auth/sign-up'
     | '/auth/signin'
     | '/organizer'
@@ -557,6 +592,7 @@ export interface FileRouteTypes {
     | '/organizer/account/add-payout-account'
     | '/organizer/onboarding/profile'
     | '/organizer/onboarding/services'
+    | '/organizer/vendor/details'
     | '/auth/otp/verify'
     | '/auth/password/forget'
     | '/auth/password/otp'
@@ -600,8 +636,10 @@ export interface FileRouteTypes {
     | '/_authenticated/onboarding/user-type'
     | '/_organizer/organizer/attendee'
     | '/_organizer/organizer/layout'
+    | '/_organizer/organizer/proposal'
     | '/_organizer/organizer/request-vendors'
     | '/_organizer/organizer/sales'
+    | '/_organizer/organizer/vendors'
     | '/_public/auth/sign-up'
     | '/_public/auth/signin'
     | '/_organizer/organizer/'
@@ -609,6 +647,7 @@ export interface FileRouteTypes {
     | '/_organizer/organizer/account/add-payout-account'
     | '/_organizer/organizer/onboarding/profile'
     | '/_organizer/organizer/onboarding/services'
+    | '/_organizer/organizer/vendor/details'
     | '/_public/auth/otp/verify'
     | '/_public/auth/password/forget'
     | '/_public/auth/password/otp'
@@ -730,6 +769,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicAuthSignUpRouteImport
       parentRoute: typeof PublicRoute
     }
+    '/_organizer/organizer/vendors': {
+      id: '/_organizer/organizer/vendors'
+      path: '/organizer/vendors'
+      fullPath: '/organizer/vendors'
+      preLoaderRoute: typeof OrganizerOrganizerVendorsRouteImport
+      parentRoute: typeof OrganizerRoute
+    }
     '/_organizer/organizer/sales': {
       id: '/_organizer/organizer/sales'
       path: '/organizer/sales'
@@ -742,6 +788,13 @@ declare module '@tanstack/react-router' {
       path: '/organizer/request-vendors'
       fullPath: '/organizer/request-vendors'
       preLoaderRoute: typeof OrganizerOrganizerRequestVendorsRouteImport
+      parentRoute: typeof OrganizerRoute
+    }
+    '/_organizer/organizer/proposal': {
+      id: '/_organizer/organizer/proposal'
+      path: '/organizer/proposal'
+      fullPath: '/organizer/proposal'
+      preLoaderRoute: typeof OrganizerOrganizerProposalRouteImport
       parentRoute: typeof OrganizerRoute
     }
     '/_organizer/organizer/layout': {
@@ -855,6 +908,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/auth/otp/verify'
       preLoaderRoute: typeof PublicAuthOtpVerifyRouteImport
       parentRoute: typeof PublicRoute
+    }
+    '/_organizer/organizer/vendor/details': {
+      id: '/_organizer/organizer/vendor/details'
+      path: '/organizer/vendor/details'
+      fullPath: '/organizer/vendor/details'
+      preLoaderRoute: typeof OrganizerOrganizerVendorDetailsRouteImport
+      parentRoute: typeof OrganizerRoute
     }
     '/_organizer/organizer/onboarding/services': {
       id: '/_organizer/organizer/onboarding/services'
@@ -1021,12 +1081,15 @@ const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
 interface OrganizerRouteChildren {
   OrganizerOrganizerAttendeeRoute: typeof OrganizerOrganizerAttendeeRoute
   OrganizerOrganizerLayoutRoute: typeof OrganizerOrganizerLayoutRoute
+  OrganizerOrganizerProposalRoute: typeof OrganizerOrganizerProposalRoute
   OrganizerOrganizerRequestVendorsRoute: typeof OrganizerOrganizerRequestVendorsRoute
   OrganizerOrganizerSalesRoute: typeof OrganizerOrganizerSalesRoute
+  OrganizerOrganizerVendorsRoute: typeof OrganizerOrganizerVendorsRoute
   OrganizerOrganizerIndexRoute: typeof OrganizerOrganizerIndexRoute
   OrganizerOrganizerAccountAddPayoutAccountRoute: typeof OrganizerOrganizerAccountAddPayoutAccountRoute
   OrganizerOrganizerOnboardingProfileRoute: typeof OrganizerOrganizerOnboardingProfileRoute
   OrganizerOrganizerOnboardingServicesRoute: typeof OrganizerOrganizerOnboardingServicesRoute
+  OrganizerOrganizerVendorDetailsRoute: typeof OrganizerOrganizerVendorDetailsRoute
   OrganizerOrganizerAccountIndexRoute: typeof OrganizerOrganizerAccountIndexRoute
   OrganizerOrganizerMessagesIndexRoute: typeof OrganizerOrganizerMessagesIndexRoute
   OrganizerOrganizerOnboardingSubServicesFiveRoute: typeof OrganizerOrganizerOnboardingSubServicesFiveRoute
@@ -1042,8 +1105,10 @@ interface OrganizerRouteChildren {
 const OrganizerRouteChildren: OrganizerRouteChildren = {
   OrganizerOrganizerAttendeeRoute: OrganizerOrganizerAttendeeRoute,
   OrganizerOrganizerLayoutRoute: OrganizerOrganizerLayoutRoute,
+  OrganizerOrganizerProposalRoute: OrganizerOrganizerProposalRoute,
   OrganizerOrganizerRequestVendorsRoute: OrganizerOrganizerRequestVendorsRoute,
   OrganizerOrganizerSalesRoute: OrganizerOrganizerSalesRoute,
+  OrganizerOrganizerVendorsRoute: OrganizerOrganizerVendorsRoute,
   OrganizerOrganizerIndexRoute: OrganizerOrganizerIndexRoute,
   OrganizerOrganizerAccountAddPayoutAccountRoute:
     OrganizerOrganizerAccountAddPayoutAccountRoute,
@@ -1051,6 +1116,7 @@ const OrganizerRouteChildren: OrganizerRouteChildren = {
     OrganizerOrganizerOnboardingProfileRoute,
   OrganizerOrganizerOnboardingServicesRoute:
     OrganizerOrganizerOnboardingServicesRoute,
+  OrganizerOrganizerVendorDetailsRoute: OrganizerOrganizerVendorDetailsRoute,
   OrganizerOrganizerAccountIndexRoute: OrganizerOrganizerAccountIndexRoute,
   OrganizerOrganizerMessagesIndexRoute: OrganizerOrganizerMessagesIndexRoute,
   OrganizerOrganizerOnboardingSubServicesFiveRoute:
