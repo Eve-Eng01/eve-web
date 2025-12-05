@@ -29,6 +29,8 @@ export const router = createRouter({
     auth: {
       user: null,
       loading: false,
+      isAuthenticated: false,
+      isInitialized: false,
     },
   },
 });

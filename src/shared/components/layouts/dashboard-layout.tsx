@@ -22,6 +22,7 @@ import {
 import Navbar from "../accessories/nav-bar";
 import { useNavigate, useLocation } from "@tanstack/react-router";
 import { useSidebar } from "../../contexts/sidebar-context";
+import { useLogout } from "../../api/services/auth/auth.hooks";
 
 interface User {
   name: string;
@@ -40,6 +41,8 @@ interface NavItem {
   label: string;
   href: string;
   isActive?: boolean;
+  onClick?: () => void;
+  isLogout?: boolean;
 }
 
 // @Ufuoma we have a white background on the main content area, so we need to make the sidebar background color the same as the main content area
@@ -52,10 +55,24 @@ const NavSection: React.FC<{
   const location = useLocation();
   const pathName = useMemo(() => location.pathname, [location.pathname]);
 
-  const handleNavigation = (href: string, label: string) => {
-    console.log(`Navigating to ${label}...`);
-    navigate({ to: href });
+  const handleNavigation = (item: NavItem) => {
+    // Handle logout specially
+    if (item.isLogout && item.onClick) {
+      item.onClick();
+      return;
+    }
+    
+    // Handle custom onClick
+    if (item.onClick) {
+      item.onClick();
+      return;
+    }
+    
+    // Regular navigation
+    console.log(`Navigating to ${item.label}...`);
+    navigate({ to: item.href });
   };
+  
   return (
     <div className="mb-8">
       {!isCollapsed && (
@@ -65,16 +82,18 @@ const NavSection: React.FC<{
       )}
       <nav className="space-y-1">
         {items.map((item) => {
-          const isActive = pathName === item.href;
+          const isActive = !item.isLogout && pathName === item.href;
           return (
             <button
               key={item.label}
-              onClick={() => handleNavigation(item.href, item.label)}
+              onClick={() => handleNavigation(item)}
               className={`w-full group flex items-center ${
                 isCollapsed ? "justify-center px-2" : "px-3"
               } py-2 text-sm font-medium rounded-lg transition-colors duration-150 cursor-pointer ${
                 isActive
                   ? "bg-purple-100 text-purple-700"
+                  : item.isLogout
+                  ? "text-red-600 hover:bg-red-50 hover:text-red-700"
                   : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
               }`}
               title={isCollapsed ? item.label : undefined}
@@ -83,6 +102,8 @@ const NavSection: React.FC<{
                 className={`${isCollapsed ? "" : "mr-3"} h-5 w-5 ${
                   isActive
                     ? "text-purple-500"
+                    : item.isLogout
+                    ? "text-red-500 group-hover:text-red-600"
                     : "text-gray-400 group-hover:text-gray-500"
                 }`}
               />
@@ -108,6 +129,9 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
     closeSidebar,
     toggleCollapse,
   } = useSidebar();
+  
+  // Get logout function
+  const handleLogout = useLogout();
   const generalNavItems: NavItem[] = useMemo(
     () =>
       isVendor
@@ -177,6 +201,11 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
               label: "Messages",
               href: "/vendor/messages",
             },
+            {
+              icon: User,
+              label: "Account",
+              href: "/vendor/account",
+            },
           ]
         : [
             {
@@ -192,7 +221,7 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
             {
               icon: MessageSquare,
               label: "Messages",
-              href: "/messages",
+              href: "/organizer/messages",
             },
           ],
     [isVendor]
@@ -207,6 +236,13 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
               label: "Setting",
               href: "/settings",
             },
+            {
+              icon: LogOut,
+              label: "Log Out",
+              href: "#",
+              isLogout: true,
+              onClick: handleLogout,
+            },
           ]
         : [
             {
@@ -217,15 +253,17 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
             {
               icon: User,
               label: "Account",
-              href: "/account",
+              href: "/organizer/account",
             },
             {
               icon: LogOut,
               label: "Log Out",
-              href: "/logout",
+              href: "#",
+              isLogout: true,
+              onClick: handleLogout,
             },
           ],
-    [isVendor]
+    [isVendor, handleLogout]
   );
 
   const sidebarWidth = isCollapsed ? "w-16" : "w-64";

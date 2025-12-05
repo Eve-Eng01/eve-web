@@ -1,16 +1,18 @@
+import { UserRoleEnum } from "@/shared/api/services/auth/types";
+
 export interface UserType {
-  id: string;
+  id: UserRoleEnum;
   title: string;
   description?: string;
 }
 
 export const userTypes: UserType[] = [
   {
-    id: "event-organizer",
+    id: UserRoleEnum.EVENT_ORGANIZER,
     title: "Event Organizer",
   },
   {
-    id: "vendor",
+    id: UserRoleEnum.VENDOR,
     title: "Vendor",
   },
 ];

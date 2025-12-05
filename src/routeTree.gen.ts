@@ -10,484 +10,645 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as VendorRouteImport } from './routes/_vendor'
+import { Route as PublicRouteImport } from './routes/_public'
+import { Route as OrganizerRouteImport } from './routes/_organizer'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as VendorIndexRouteImport } from './routes/vendor/index'
-import { Route as OrganizerIndexRouteImport } from './routes/organizer/index'
-import { Route as MessagesIndexRouteImport } from './routes/messages/index'
-import { Route as AccountIndexRouteImport } from './routes/account/index'
+import { Route as PublicIndexRouteImport } from './routes/_public/index'
 import { Route as StatusSuccessRouteImport } from './routes/status/success'
-import { Route as OrganizerSalesRouteImport } from './routes/organizer/sales'
-import { Route as OrganizerRequestVendorsRouteImport } from './routes/organizer/request-vendors'
-import { Route as OrganizerLayoutRouteImport } from './routes/organizer/layout'
-import { Route as OrganizerAttendeeRouteImport } from './routes/organizer/attendee'
-import { Route as OnboardingServicesRouteImport } from './routes/onboarding/services'
-import { Route as OnboardingServiceVendorRouteImport } from './routes/onboarding/service-vendor'
-import { Route as OnboardingOnboardingRouteImport } from './routes/onboarding/onboarding'
-import { Route as AuthSigninRouteImport } from './routes/auth/signin'
-import { Route as AuthSignUpRouteImport } from './routes/auth/sign-up'
-import { Route as AccountAddPayoutAccountRouteImport } from './routes/account/add-payout-account'
-import { Route as VendorProposalIndexRouteImport } from './routes/vendor/proposal/index'
-import { Route as VendorMessagesIndexRouteImport } from './routes/vendor/messages/index'
-import { Route as VendorEventIndexRouteImport } from './routes/vendor/event/index'
-import { Route as VendorProposalProposalIdRouteImport } from './routes/vendor/proposal/$proposalId'
-import { Route as OnboardingVendorSubServicesTwoRouteImport } from './routes/onboarding/vendor-sub-services/two'
-import { Route as OnboardingVendorSubServicesThreeRouteImport } from './routes/onboarding/vendor-sub-services/three'
-import { Route as OnboardingSubServicesTwoRouteImport } from './routes/onboarding/sub-services/two'
-import { Route as OnboardingSubServicesThreeRouteImport } from './routes/onboarding/sub-services/three'
-import { Route as OnboardingSubServicesReviewRouteImport } from './routes/onboarding/sub-services/review'
-import { Route as OnboardingSubServicesOneRouteImport } from './routes/onboarding/sub-services/one'
-import { Route as OnboardingSubServicesFourRouteImport } from './routes/onboarding/sub-services/four'
-import { Route as OnboardingSubServicesFiveRouteImport } from './routes/onboarding/sub-services/five'
-import { Route as AuthPasswordOtpRouteImport } from './routes/auth/password/otp'
-import { Route as AuthPasswordForgetRouteImport } from './routes/auth/password/forget'
-import { Route as AuthOtpVerifyRouteImport } from './routes/auth/otp/verify'
-import { Route as VendorEventEventIdIndexRouteImport } from './routes/vendor/event/$eventId/index'
-import { Route as VendorEventEventIdProposalRouteImport } from './routes/vendor/event/$eventId/proposal'
+import { Route as VendorVendorIndexRouteImport } from './routes/_vendor/vendor/index'
+import { Route as OrganizerOrganizerIndexRouteImport } from './routes/_organizer/organizer/index'
+import { Route as PublicAuthSigninRouteImport } from './routes/_public/auth/signin'
+import { Route as PublicAuthSignUpRouteImport } from './routes/_public/auth/sign-up'
+import { Route as OrganizerOrganizerSalesRouteImport } from './routes/_organizer/organizer/sales'
+import { Route as OrganizerOrganizerRequestVendorsRouteImport } from './routes/_organizer/organizer/request-vendors'
+import { Route as OrganizerOrganizerLayoutRouteImport } from './routes/_organizer/organizer/layout'
+import { Route as OrganizerOrganizerAttendeeRouteImport } from './routes/_organizer/organizer/attendee'
+import { Route as AuthenticatedOnboardingUserTypeRouteImport } from './routes/_authenticated/onboarding/user-type'
+import { Route as VendorVendorProposalIndexRouteImport } from './routes/_vendor/vendor/proposal/index'
+import { Route as VendorVendorMessagesIndexRouteImport } from './routes/_vendor/vendor/messages/index'
+import { Route as VendorVendorEventIndexRouteImport } from './routes/_vendor/vendor/event/index'
+import { Route as VendorVendorAccountIndexRouteImport } from './routes/_vendor/vendor/account/index'
+import { Route as OrganizerOrganizerMessagesIndexRouteImport } from './routes/_organizer/organizer/messages/index'
+import { Route as OrganizerOrganizerAccountIndexRouteImport } from './routes/_organizer/organizer/account/index'
+import { Route as VendorVendorProposalProposalIdRouteImport } from './routes/_vendor/vendor/proposal/$proposalId'
+import { Route as VendorVendorOnboardingServicesRouteImport } from './routes/_vendor/vendor/onboarding/services'
+import { Route as VendorVendorOnboardingProfileRouteImport } from './routes/_vendor/vendor/onboarding/profile'
+import { Route as VendorVendorAccountAddPayoutAccountRouteImport } from './routes/_vendor/vendor/account/add-payout-account'
+import { Route as PublicAuthPasswordOtpRouteImport } from './routes/_public/auth/password/otp'
+import { Route as PublicAuthPasswordForgetRouteImport } from './routes/_public/auth/password/forget'
+import { Route as PublicAuthOtpVerifyRouteImport } from './routes/_public/auth/otp/verify'
+import { Route as OrganizerOrganizerOnboardingServicesRouteImport } from './routes/_organizer/organizer/onboarding/services'
+import { Route as OrganizerOrganizerOnboardingProfileRouteImport } from './routes/_organizer/organizer/onboarding/profile'
+import { Route as OrganizerOrganizerAccountAddPayoutAccountRouteImport } from './routes/_organizer/organizer/account/add-payout-account'
+import { Route as VendorVendorEventEventIdIndexRouteImport } from './routes/_vendor/vendor/event/$eventId/index'
+import { Route as VendorVendorOnboardingVendorSubServicesTwoRouteImport } from './routes/_vendor/vendor/onboarding/vendor-sub-services/two'
+import { Route as VendorVendorOnboardingVendorSubServicesThreeRouteImport } from './routes/_vendor/vendor/onboarding/vendor-sub-services/three'
+import { Route as VendorVendorOnboardingSubServicesTwoRouteImport } from './routes/_vendor/vendor/onboarding/sub-services/two'
+import { Route as VendorVendorOnboardingSubServicesThreeRouteImport } from './routes/_vendor/vendor/onboarding/sub-services/three'
+import { Route as VendorVendorOnboardingSubServicesReviewRouteImport } from './routes/_vendor/vendor/onboarding/sub-services/review'
+import { Route as VendorVendorOnboardingSubServicesOneRouteImport } from './routes/_vendor/vendor/onboarding/sub-services/one'
+import { Route as VendorVendorOnboardingSubServicesFourRouteImport } from './routes/_vendor/vendor/onboarding/sub-services/four'
+import { Route as VendorVendorOnboardingSubServicesFiveRouteImport } from './routes/_vendor/vendor/onboarding/sub-services/five'
+import { Route as VendorVendorEventEventIdProposalRouteImport } from './routes/_vendor/vendor/event/$eventId/proposal'
+import { Route as OrganizerOrganizerOnboardingVendorSubServicesTwoRouteImport } from './routes/_organizer/organizer/onboarding/vendor-sub-services/two'
+import { Route as OrganizerOrganizerOnboardingVendorSubServicesThreeRouteImport } from './routes/_organizer/organizer/onboarding/vendor-sub-services/three'
+import { Route as OrganizerOrganizerOnboardingSubServicesTwoRouteImport } from './routes/_organizer/organizer/onboarding/sub-services/two'
+import { Route as OrganizerOrganizerOnboardingSubServicesThreeRouteImport } from './routes/_organizer/organizer/onboarding/sub-services/three'
+import { Route as OrganizerOrganizerOnboardingSubServicesReviewRouteImport } from './routes/_organizer/organizer/onboarding/sub-services/review'
+import { Route as OrganizerOrganizerOnboardingSubServicesOneRouteImport } from './routes/_organizer/organizer/onboarding/sub-services/one'
+import { Route as OrganizerOrganizerOnboardingSubServicesFourRouteImport } from './routes/_organizer/organizer/onboarding/sub-services/four'
+import { Route as OrganizerOrganizerOnboardingSubServicesFiveRouteImport } from './routes/_organizer/organizer/onboarding/sub-services/five'
 
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
+const VendorRoute = VendorRouteImport.update({
+  id: '/_vendor',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PublicRoute = PublicRouteImport.update({
+  id: '/_public',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OrganizerRoute = OrganizerRouteImport.update({
+  id: '/_organizer',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthenticatedRoute = AuthenticatedRouteImport.update({
   id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
+const PublicIndexRoute = PublicIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const VendorIndexRoute = VendorIndexRouteImport.update({
-  id: '/vendor/',
-  path: '/vendor/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const OrganizerIndexRoute = OrganizerIndexRouteImport.update({
-  id: '/organizer/',
-  path: '/organizer/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const MessagesIndexRoute = MessagesIndexRouteImport.update({
-  id: '/messages/',
-  path: '/messages/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AccountIndexRoute = AccountIndexRouteImport.update({
-  id: '/account/',
-  path: '/account/',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => PublicRoute,
 } as any)
 const StatusSuccessRoute = StatusSuccessRouteImport.update({
   id: '/status/success',
   path: '/status/success',
   getParentRoute: () => rootRouteImport,
 } as any)
-const OrganizerSalesRoute = OrganizerSalesRouteImport.update({
-  id: '/organizer/sales',
-  path: '/organizer/sales',
-  getParentRoute: () => rootRouteImport,
+const VendorVendorIndexRoute = VendorVendorIndexRouteImport.update({
+  id: '/vendor/',
+  path: '/vendor/',
+  getParentRoute: () => VendorRoute,
 } as any)
-const OrganizerRequestVendorsRoute = OrganizerRequestVendorsRouteImport.update({
-  id: '/organizer/request-vendors',
-  path: '/organizer/request-vendors',
-  getParentRoute: () => rootRouteImport,
+const OrganizerOrganizerIndexRoute = OrganizerOrganizerIndexRouteImport.update({
+  id: '/organizer/',
+  path: '/organizer/',
+  getParentRoute: () => OrganizerRoute,
 } as any)
-const OrganizerLayoutRoute = OrganizerLayoutRouteImport.update({
-  id: '/organizer/layout',
-  path: '/organizer/layout',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const OrganizerAttendeeRoute = OrganizerAttendeeRouteImport.update({
-  id: '/organizer/attendee',
-  path: '/organizer/attendee',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const OnboardingServicesRoute = OnboardingServicesRouteImport.update({
-  id: '/onboarding/services',
-  path: '/onboarding/services',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const OnboardingServiceVendorRoute = OnboardingServiceVendorRouteImport.update({
-  id: '/onboarding/service-vendor',
-  path: '/onboarding/service-vendor',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const OnboardingOnboardingRoute = OnboardingOnboardingRouteImport.update({
-  id: '/onboarding/onboarding',
-  path: '/onboarding/onboarding',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AuthSigninRoute = AuthSigninRouteImport.update({
+const PublicAuthSigninRoute = PublicAuthSigninRouteImport.update({
   id: '/auth/signin',
   path: '/auth/signin',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => PublicRoute,
 } as any)
-const AuthSignUpRoute = AuthSignUpRouteImport.update({
+const PublicAuthSignUpRoute = PublicAuthSignUpRouteImport.update({
   id: '/auth/sign-up',
   path: '/auth/sign-up',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => PublicRoute,
 } as any)
-const AccountAddPayoutAccountRoute = AccountAddPayoutAccountRouteImport.update({
-  id: '/account/add-payout-account',
-  path: '/account/add-payout-account',
-  getParentRoute: () => rootRouteImport,
+const OrganizerOrganizerSalesRoute = OrganizerOrganizerSalesRouteImport.update({
+  id: '/organizer/sales',
+  path: '/organizer/sales',
+  getParentRoute: () => OrganizerRoute,
 } as any)
-const VendorProposalIndexRoute = VendorProposalIndexRouteImport.update({
-  id: '/vendor/proposal/',
-  path: '/vendor/proposal/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const VendorMessagesIndexRoute = VendorMessagesIndexRouteImport.update({
-  id: '/vendor/messages/',
-  path: '/vendor/messages/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const VendorEventIndexRoute = VendorEventIndexRouteImport.update({
+const OrganizerOrganizerRequestVendorsRoute =
+  OrganizerOrganizerRequestVendorsRouteImport.update({
+    id: '/organizer/request-vendors',
+    path: '/organizer/request-vendors',
+    getParentRoute: () => OrganizerRoute,
+  } as any)
+const OrganizerOrganizerLayoutRoute =
+  OrganizerOrganizerLayoutRouteImport.update({
+    id: '/organizer/layout',
+    path: '/organizer/layout',
+    getParentRoute: () => OrganizerRoute,
+  } as any)
+const OrganizerOrganizerAttendeeRoute =
+  OrganizerOrganizerAttendeeRouteImport.update({
+    id: '/organizer/attendee',
+    path: '/organizer/attendee',
+    getParentRoute: () => OrganizerRoute,
+  } as any)
+const AuthenticatedOnboardingUserTypeRoute =
+  AuthenticatedOnboardingUserTypeRouteImport.update({
+    id: '/onboarding/user-type',
+    path: '/onboarding/user-type',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const VendorVendorProposalIndexRoute =
+  VendorVendorProposalIndexRouteImport.update({
+    id: '/vendor/proposal/',
+    path: '/vendor/proposal/',
+    getParentRoute: () => VendorRoute,
+  } as any)
+const VendorVendorMessagesIndexRoute =
+  VendorVendorMessagesIndexRouteImport.update({
+    id: '/vendor/messages/',
+    path: '/vendor/messages/',
+    getParentRoute: () => VendorRoute,
+  } as any)
+const VendorVendorEventIndexRoute = VendorVendorEventIndexRouteImport.update({
   id: '/vendor/event/',
   path: '/vendor/event/',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => VendorRoute,
 } as any)
-const VendorProposalProposalIdRoute =
-  VendorProposalProposalIdRouteImport.update({
+const VendorVendorAccountIndexRoute =
+  VendorVendorAccountIndexRouteImport.update({
+    id: '/vendor/account/',
+    path: '/vendor/account/',
+    getParentRoute: () => VendorRoute,
+  } as any)
+const OrganizerOrganizerMessagesIndexRoute =
+  OrganizerOrganizerMessagesIndexRouteImport.update({
+    id: '/organizer/messages/',
+    path: '/organizer/messages/',
+    getParentRoute: () => OrganizerRoute,
+  } as any)
+const OrganizerOrganizerAccountIndexRoute =
+  OrganizerOrganizerAccountIndexRouteImport.update({
+    id: '/organizer/account/',
+    path: '/organizer/account/',
+    getParentRoute: () => OrganizerRoute,
+  } as any)
+const VendorVendorProposalProposalIdRoute =
+  VendorVendorProposalProposalIdRouteImport.update({
     id: '/vendor/proposal/$proposalId',
     path: '/vendor/proposal/$proposalId',
-    getParentRoute: () => rootRouteImport,
+    getParentRoute: () => VendorRoute,
   } as any)
-const OnboardingVendorSubServicesTwoRoute =
-  OnboardingVendorSubServicesTwoRouteImport.update({
-    id: '/onboarding/vendor-sub-services/two',
-    path: '/onboarding/vendor-sub-services/two',
-    getParentRoute: () => rootRouteImport,
+const VendorVendorOnboardingServicesRoute =
+  VendorVendorOnboardingServicesRouteImport.update({
+    id: '/vendor/onboarding/services',
+    path: '/vendor/onboarding/services',
+    getParentRoute: () => VendorRoute,
   } as any)
-const OnboardingVendorSubServicesThreeRoute =
-  OnboardingVendorSubServicesThreeRouteImport.update({
-    id: '/onboarding/vendor-sub-services/three',
-    path: '/onboarding/vendor-sub-services/three',
-    getParentRoute: () => rootRouteImport,
+const VendorVendorOnboardingProfileRoute =
+  VendorVendorOnboardingProfileRouteImport.update({
+    id: '/vendor/onboarding/profile',
+    path: '/vendor/onboarding/profile',
+    getParentRoute: () => VendorRoute,
   } as any)
-const OnboardingSubServicesTwoRoute =
-  OnboardingSubServicesTwoRouteImport.update({
-    id: '/onboarding/sub-services/two',
-    path: '/onboarding/sub-services/two',
-    getParentRoute: () => rootRouteImport,
+const VendorVendorAccountAddPayoutAccountRoute =
+  VendorVendorAccountAddPayoutAccountRouteImport.update({
+    id: '/vendor/account/add-payout-account',
+    path: '/vendor/account/add-payout-account',
+    getParentRoute: () => VendorRoute,
   } as any)
-const OnboardingSubServicesThreeRoute =
-  OnboardingSubServicesThreeRouteImport.update({
-    id: '/onboarding/sub-services/three',
-    path: '/onboarding/sub-services/three',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const OnboardingSubServicesReviewRoute =
-  OnboardingSubServicesReviewRouteImport.update({
-    id: '/onboarding/sub-services/review',
-    path: '/onboarding/sub-services/review',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const OnboardingSubServicesOneRoute =
-  OnboardingSubServicesOneRouteImport.update({
-    id: '/onboarding/sub-services/one',
-    path: '/onboarding/sub-services/one',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const OnboardingSubServicesFourRoute =
-  OnboardingSubServicesFourRouteImport.update({
-    id: '/onboarding/sub-services/four',
-    path: '/onboarding/sub-services/four',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const OnboardingSubServicesFiveRoute =
-  OnboardingSubServicesFiveRouteImport.update({
-    id: '/onboarding/sub-services/five',
-    path: '/onboarding/sub-services/five',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const AuthPasswordOtpRoute = AuthPasswordOtpRouteImport.update({
+const PublicAuthPasswordOtpRoute = PublicAuthPasswordOtpRouteImport.update({
   id: '/auth/password/otp',
   path: '/auth/password/otp',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => PublicRoute,
 } as any)
-const AuthPasswordForgetRoute = AuthPasswordForgetRouteImport.update({
-  id: '/auth/password/forget',
-  path: '/auth/password/forget',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AuthOtpVerifyRoute = AuthOtpVerifyRouteImport.update({
+const PublicAuthPasswordForgetRoute =
+  PublicAuthPasswordForgetRouteImport.update({
+    id: '/auth/password/forget',
+    path: '/auth/password/forget',
+    getParentRoute: () => PublicRoute,
+  } as any)
+const PublicAuthOtpVerifyRoute = PublicAuthOtpVerifyRouteImport.update({
   id: '/auth/otp/verify',
   path: '/auth/otp/verify',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => PublicRoute,
 } as any)
-const VendorEventEventIdIndexRoute = VendorEventEventIdIndexRouteImport.update({
-  id: '/vendor/event/$eventId/',
-  path: '/vendor/event/$eventId/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const VendorEventEventIdProposalRoute =
-  VendorEventEventIdProposalRouteImport.update({
+const OrganizerOrganizerOnboardingServicesRoute =
+  OrganizerOrganizerOnboardingServicesRouteImport.update({
+    id: '/organizer/onboarding/services',
+    path: '/organizer/onboarding/services',
+    getParentRoute: () => OrganizerRoute,
+  } as any)
+const OrganizerOrganizerOnboardingProfileRoute =
+  OrganizerOrganizerOnboardingProfileRouteImport.update({
+    id: '/organizer/onboarding/profile',
+    path: '/organizer/onboarding/profile',
+    getParentRoute: () => OrganizerRoute,
+  } as any)
+const OrganizerOrganizerAccountAddPayoutAccountRoute =
+  OrganizerOrganizerAccountAddPayoutAccountRouteImport.update({
+    id: '/organizer/account/add-payout-account',
+    path: '/organizer/account/add-payout-account',
+    getParentRoute: () => OrganizerRoute,
+  } as any)
+const VendorVendorEventEventIdIndexRoute =
+  VendorVendorEventEventIdIndexRouteImport.update({
+    id: '/vendor/event/$eventId/',
+    path: '/vendor/event/$eventId/',
+    getParentRoute: () => VendorRoute,
+  } as any)
+const VendorVendorOnboardingVendorSubServicesTwoRoute =
+  VendorVendorOnboardingVendorSubServicesTwoRouteImport.update({
+    id: '/vendor/onboarding/vendor-sub-services/two',
+    path: '/vendor/onboarding/vendor-sub-services/two',
+    getParentRoute: () => VendorRoute,
+  } as any)
+const VendorVendorOnboardingVendorSubServicesThreeRoute =
+  VendorVendorOnboardingVendorSubServicesThreeRouteImport.update({
+    id: '/vendor/onboarding/vendor-sub-services/three',
+    path: '/vendor/onboarding/vendor-sub-services/three',
+    getParentRoute: () => VendorRoute,
+  } as any)
+const VendorVendorOnboardingSubServicesTwoRoute =
+  VendorVendorOnboardingSubServicesTwoRouteImport.update({
+    id: '/vendor/onboarding/sub-services/two',
+    path: '/vendor/onboarding/sub-services/two',
+    getParentRoute: () => VendorRoute,
+  } as any)
+const VendorVendorOnboardingSubServicesThreeRoute =
+  VendorVendorOnboardingSubServicesThreeRouteImport.update({
+    id: '/vendor/onboarding/sub-services/three',
+    path: '/vendor/onboarding/sub-services/three',
+    getParentRoute: () => VendorRoute,
+  } as any)
+const VendorVendorOnboardingSubServicesReviewRoute =
+  VendorVendorOnboardingSubServicesReviewRouteImport.update({
+    id: '/vendor/onboarding/sub-services/review',
+    path: '/vendor/onboarding/sub-services/review',
+    getParentRoute: () => VendorRoute,
+  } as any)
+const VendorVendorOnboardingSubServicesOneRoute =
+  VendorVendorOnboardingSubServicesOneRouteImport.update({
+    id: '/vendor/onboarding/sub-services/one',
+    path: '/vendor/onboarding/sub-services/one',
+    getParentRoute: () => VendorRoute,
+  } as any)
+const VendorVendorOnboardingSubServicesFourRoute =
+  VendorVendorOnboardingSubServicesFourRouteImport.update({
+    id: '/vendor/onboarding/sub-services/four',
+    path: '/vendor/onboarding/sub-services/four',
+    getParentRoute: () => VendorRoute,
+  } as any)
+const VendorVendorOnboardingSubServicesFiveRoute =
+  VendorVendorOnboardingSubServicesFiveRouteImport.update({
+    id: '/vendor/onboarding/sub-services/five',
+    path: '/vendor/onboarding/sub-services/five',
+    getParentRoute: () => VendorRoute,
+  } as any)
+const VendorVendorEventEventIdProposalRoute =
+  VendorVendorEventEventIdProposalRouteImport.update({
     id: '/vendor/event/$eventId/proposal',
     path: '/vendor/event/$eventId/proposal',
-    getParentRoute: () => rootRouteImport,
+    getParentRoute: () => VendorRoute,
+  } as any)
+const OrganizerOrganizerOnboardingVendorSubServicesTwoRoute =
+  OrganizerOrganizerOnboardingVendorSubServicesTwoRouteImport.update({
+    id: '/organizer/onboarding/vendor-sub-services/two',
+    path: '/organizer/onboarding/vendor-sub-services/two',
+    getParentRoute: () => OrganizerRoute,
+  } as any)
+const OrganizerOrganizerOnboardingVendorSubServicesThreeRoute =
+  OrganizerOrganizerOnboardingVendorSubServicesThreeRouteImport.update({
+    id: '/organizer/onboarding/vendor-sub-services/three',
+    path: '/organizer/onboarding/vendor-sub-services/three',
+    getParentRoute: () => OrganizerRoute,
+  } as any)
+const OrganizerOrganizerOnboardingSubServicesTwoRoute =
+  OrganizerOrganizerOnboardingSubServicesTwoRouteImport.update({
+    id: '/organizer/onboarding/sub-services/two',
+    path: '/organizer/onboarding/sub-services/two',
+    getParentRoute: () => OrganizerRoute,
+  } as any)
+const OrganizerOrganizerOnboardingSubServicesThreeRoute =
+  OrganizerOrganizerOnboardingSubServicesThreeRouteImport.update({
+    id: '/organizer/onboarding/sub-services/three',
+    path: '/organizer/onboarding/sub-services/three',
+    getParentRoute: () => OrganizerRoute,
+  } as any)
+const OrganizerOrganizerOnboardingSubServicesReviewRoute =
+  OrganizerOrganizerOnboardingSubServicesReviewRouteImport.update({
+    id: '/organizer/onboarding/sub-services/review',
+    path: '/organizer/onboarding/sub-services/review',
+    getParentRoute: () => OrganizerRoute,
+  } as any)
+const OrganizerOrganizerOnboardingSubServicesOneRoute =
+  OrganizerOrganizerOnboardingSubServicesOneRouteImport.update({
+    id: '/organizer/onboarding/sub-services/one',
+    path: '/organizer/onboarding/sub-services/one',
+    getParentRoute: () => OrganizerRoute,
+  } as any)
+const OrganizerOrganizerOnboardingSubServicesFourRoute =
+  OrganizerOrganizerOnboardingSubServicesFourRouteImport.update({
+    id: '/organizer/onboarding/sub-services/four',
+    path: '/organizer/onboarding/sub-services/four',
+    getParentRoute: () => OrganizerRoute,
+  } as any)
+const OrganizerOrganizerOnboardingSubServicesFiveRoute =
+  OrganizerOrganizerOnboardingSubServicesFiveRouteImport.update({
+    id: '/organizer/onboarding/sub-services/five',
+    path: '/organizer/onboarding/sub-services/five',
+    getParentRoute: () => OrganizerRoute,
   } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/account/add-payout-account': typeof AccountAddPayoutAccountRoute
-  '/auth/sign-up': typeof AuthSignUpRoute
-  '/auth/signin': typeof AuthSigninRoute
-  '/onboarding/onboarding': typeof OnboardingOnboardingRoute
-  '/onboarding/service-vendor': typeof OnboardingServiceVendorRoute
-  '/onboarding/services': typeof OnboardingServicesRoute
-  '/organizer/attendee': typeof OrganizerAttendeeRoute
-  '/organizer/layout': typeof OrganizerLayoutRoute
-  '/organizer/request-vendors': typeof OrganizerRequestVendorsRoute
-  '/organizer/sales': typeof OrganizerSalesRoute
   '/status/success': typeof StatusSuccessRoute
-  '/account': typeof AccountIndexRoute
-  '/messages': typeof MessagesIndexRoute
-  '/organizer': typeof OrganizerIndexRoute
-  '/vendor': typeof VendorIndexRoute
-  '/auth/otp/verify': typeof AuthOtpVerifyRoute
-  '/auth/password/forget': typeof AuthPasswordForgetRoute
-  '/auth/password/otp': typeof AuthPasswordOtpRoute
-  '/onboarding/sub-services/five': typeof OnboardingSubServicesFiveRoute
-  '/onboarding/sub-services/four': typeof OnboardingSubServicesFourRoute
-  '/onboarding/sub-services/one': typeof OnboardingSubServicesOneRoute
-  '/onboarding/sub-services/review': typeof OnboardingSubServicesReviewRoute
-  '/onboarding/sub-services/three': typeof OnboardingSubServicesThreeRoute
-  '/onboarding/sub-services/two': typeof OnboardingSubServicesTwoRoute
-  '/onboarding/vendor-sub-services/three': typeof OnboardingVendorSubServicesThreeRoute
-  '/onboarding/vendor-sub-services/two': typeof OnboardingVendorSubServicesTwoRoute
-  '/vendor/proposal/$proposalId': typeof VendorProposalProposalIdRoute
-  '/vendor/event': typeof VendorEventIndexRoute
-  '/vendor/messages': typeof VendorMessagesIndexRoute
-  '/vendor/proposal': typeof VendorProposalIndexRoute
-  '/vendor/event/$eventId/proposal': typeof VendorEventEventIdProposalRoute
-  '/vendor/event/$eventId': typeof VendorEventEventIdIndexRoute
+  '/': typeof PublicIndexRoute
+  '/onboarding/user-type': typeof AuthenticatedOnboardingUserTypeRoute
+  '/organizer/attendee': typeof OrganizerOrganizerAttendeeRoute
+  '/organizer/layout': typeof OrganizerOrganizerLayoutRoute
+  '/organizer/request-vendors': typeof OrganizerOrganizerRequestVendorsRoute
+  '/organizer/sales': typeof OrganizerOrganizerSalesRoute
+  '/auth/sign-up': typeof PublicAuthSignUpRoute
+  '/auth/signin': typeof PublicAuthSigninRoute
+  '/organizer': typeof OrganizerOrganizerIndexRoute
+  '/vendor': typeof VendorVendorIndexRoute
+  '/organizer/account/add-payout-account': typeof OrganizerOrganizerAccountAddPayoutAccountRoute
+  '/organizer/onboarding/profile': typeof OrganizerOrganizerOnboardingProfileRoute
+  '/organizer/onboarding/services': typeof OrganizerOrganizerOnboardingServicesRoute
+  '/auth/otp/verify': typeof PublicAuthOtpVerifyRoute
+  '/auth/password/forget': typeof PublicAuthPasswordForgetRoute
+  '/auth/password/otp': typeof PublicAuthPasswordOtpRoute
+  '/vendor/account/add-payout-account': typeof VendorVendorAccountAddPayoutAccountRoute
+  '/vendor/onboarding/profile': typeof VendorVendorOnboardingProfileRoute
+  '/vendor/onboarding/services': typeof VendorVendorOnboardingServicesRoute
+  '/vendor/proposal/$proposalId': typeof VendorVendorProposalProposalIdRoute
+  '/organizer/account': typeof OrganizerOrganizerAccountIndexRoute
+  '/organizer/messages': typeof OrganizerOrganizerMessagesIndexRoute
+  '/vendor/account': typeof VendorVendorAccountIndexRoute
+  '/vendor/event': typeof VendorVendorEventIndexRoute
+  '/vendor/messages': typeof VendorVendorMessagesIndexRoute
+  '/vendor/proposal': typeof VendorVendorProposalIndexRoute
+  '/organizer/onboarding/sub-services/five': typeof OrganizerOrganizerOnboardingSubServicesFiveRoute
+  '/organizer/onboarding/sub-services/four': typeof OrganizerOrganizerOnboardingSubServicesFourRoute
+  '/organizer/onboarding/sub-services/one': typeof OrganizerOrganizerOnboardingSubServicesOneRoute
+  '/organizer/onboarding/sub-services/review': typeof OrganizerOrganizerOnboardingSubServicesReviewRoute
+  '/organizer/onboarding/sub-services/three': typeof OrganizerOrganizerOnboardingSubServicesThreeRoute
+  '/organizer/onboarding/sub-services/two': typeof OrganizerOrganizerOnboardingSubServicesTwoRoute
+  '/organizer/onboarding/vendor-sub-services/three': typeof OrganizerOrganizerOnboardingVendorSubServicesThreeRoute
+  '/organizer/onboarding/vendor-sub-services/two': typeof OrganizerOrganizerOnboardingVendorSubServicesTwoRoute
+  '/vendor/event/$eventId/proposal': typeof VendorVendorEventEventIdProposalRoute
+  '/vendor/onboarding/sub-services/five': typeof VendorVendorOnboardingSubServicesFiveRoute
+  '/vendor/onboarding/sub-services/four': typeof VendorVendorOnboardingSubServicesFourRoute
+  '/vendor/onboarding/sub-services/one': typeof VendorVendorOnboardingSubServicesOneRoute
+  '/vendor/onboarding/sub-services/review': typeof VendorVendorOnboardingSubServicesReviewRoute
+  '/vendor/onboarding/sub-services/three': typeof VendorVendorOnboardingSubServicesThreeRoute
+  '/vendor/onboarding/sub-services/two': typeof VendorVendorOnboardingSubServicesTwoRoute
+  '/vendor/onboarding/vendor-sub-services/three': typeof VendorVendorOnboardingVendorSubServicesThreeRoute
+  '/vendor/onboarding/vendor-sub-services/two': typeof VendorVendorOnboardingVendorSubServicesTwoRoute
+  '/vendor/event/$eventId': typeof VendorVendorEventEventIdIndexRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/account/add-payout-account': typeof AccountAddPayoutAccountRoute
-  '/auth/sign-up': typeof AuthSignUpRoute
-  '/auth/signin': typeof AuthSigninRoute
-  '/onboarding/onboarding': typeof OnboardingOnboardingRoute
-  '/onboarding/service-vendor': typeof OnboardingServiceVendorRoute
-  '/onboarding/services': typeof OnboardingServicesRoute
-  '/organizer/attendee': typeof OrganizerAttendeeRoute
-  '/organizer/layout': typeof OrganizerLayoutRoute
-  '/organizer/request-vendors': typeof OrganizerRequestVendorsRoute
-  '/organizer/sales': typeof OrganizerSalesRoute
   '/status/success': typeof StatusSuccessRoute
-  '/account': typeof AccountIndexRoute
-  '/messages': typeof MessagesIndexRoute
-  '/organizer': typeof OrganizerIndexRoute
-  '/vendor': typeof VendorIndexRoute
-  '/auth/otp/verify': typeof AuthOtpVerifyRoute
-  '/auth/password/forget': typeof AuthPasswordForgetRoute
-  '/auth/password/otp': typeof AuthPasswordOtpRoute
-  '/onboarding/sub-services/five': typeof OnboardingSubServicesFiveRoute
-  '/onboarding/sub-services/four': typeof OnboardingSubServicesFourRoute
-  '/onboarding/sub-services/one': typeof OnboardingSubServicesOneRoute
-  '/onboarding/sub-services/review': typeof OnboardingSubServicesReviewRoute
-  '/onboarding/sub-services/three': typeof OnboardingSubServicesThreeRoute
-  '/onboarding/sub-services/two': typeof OnboardingSubServicesTwoRoute
-  '/onboarding/vendor-sub-services/three': typeof OnboardingVendorSubServicesThreeRoute
-  '/onboarding/vendor-sub-services/two': typeof OnboardingVendorSubServicesTwoRoute
-  '/vendor/proposal/$proposalId': typeof VendorProposalProposalIdRoute
-  '/vendor/event': typeof VendorEventIndexRoute
-  '/vendor/messages': typeof VendorMessagesIndexRoute
-  '/vendor/proposal': typeof VendorProposalIndexRoute
-  '/vendor/event/$eventId/proposal': typeof VendorEventEventIdProposalRoute
-  '/vendor/event/$eventId': typeof VendorEventEventIdIndexRoute
+  '/': typeof PublicIndexRoute
+  '/onboarding/user-type': typeof AuthenticatedOnboardingUserTypeRoute
+  '/organizer/attendee': typeof OrganizerOrganizerAttendeeRoute
+  '/organizer/layout': typeof OrganizerOrganizerLayoutRoute
+  '/organizer/request-vendors': typeof OrganizerOrganizerRequestVendorsRoute
+  '/organizer/sales': typeof OrganizerOrganizerSalesRoute
+  '/auth/sign-up': typeof PublicAuthSignUpRoute
+  '/auth/signin': typeof PublicAuthSigninRoute
+  '/organizer': typeof OrganizerOrganizerIndexRoute
+  '/vendor': typeof VendorVendorIndexRoute
+  '/organizer/account/add-payout-account': typeof OrganizerOrganizerAccountAddPayoutAccountRoute
+  '/organizer/onboarding/profile': typeof OrganizerOrganizerOnboardingProfileRoute
+  '/organizer/onboarding/services': typeof OrganizerOrganizerOnboardingServicesRoute
+  '/auth/otp/verify': typeof PublicAuthOtpVerifyRoute
+  '/auth/password/forget': typeof PublicAuthPasswordForgetRoute
+  '/auth/password/otp': typeof PublicAuthPasswordOtpRoute
+  '/vendor/account/add-payout-account': typeof VendorVendorAccountAddPayoutAccountRoute
+  '/vendor/onboarding/profile': typeof VendorVendorOnboardingProfileRoute
+  '/vendor/onboarding/services': typeof VendorVendorOnboardingServicesRoute
+  '/vendor/proposal/$proposalId': typeof VendorVendorProposalProposalIdRoute
+  '/organizer/account': typeof OrganizerOrganizerAccountIndexRoute
+  '/organizer/messages': typeof OrganizerOrganizerMessagesIndexRoute
+  '/vendor/account': typeof VendorVendorAccountIndexRoute
+  '/vendor/event': typeof VendorVendorEventIndexRoute
+  '/vendor/messages': typeof VendorVendorMessagesIndexRoute
+  '/vendor/proposal': typeof VendorVendorProposalIndexRoute
+  '/organizer/onboarding/sub-services/five': typeof OrganizerOrganizerOnboardingSubServicesFiveRoute
+  '/organizer/onboarding/sub-services/four': typeof OrganizerOrganizerOnboardingSubServicesFourRoute
+  '/organizer/onboarding/sub-services/one': typeof OrganizerOrganizerOnboardingSubServicesOneRoute
+  '/organizer/onboarding/sub-services/review': typeof OrganizerOrganizerOnboardingSubServicesReviewRoute
+  '/organizer/onboarding/sub-services/three': typeof OrganizerOrganizerOnboardingSubServicesThreeRoute
+  '/organizer/onboarding/sub-services/two': typeof OrganizerOrganizerOnboardingSubServicesTwoRoute
+  '/organizer/onboarding/vendor-sub-services/three': typeof OrganizerOrganizerOnboardingVendorSubServicesThreeRoute
+  '/organizer/onboarding/vendor-sub-services/two': typeof OrganizerOrganizerOnboardingVendorSubServicesTwoRoute
+  '/vendor/event/$eventId/proposal': typeof VendorVendorEventEventIdProposalRoute
+  '/vendor/onboarding/sub-services/five': typeof VendorVendorOnboardingSubServicesFiveRoute
+  '/vendor/onboarding/sub-services/four': typeof VendorVendorOnboardingSubServicesFourRoute
+  '/vendor/onboarding/sub-services/one': typeof VendorVendorOnboardingSubServicesOneRoute
+  '/vendor/onboarding/sub-services/review': typeof VendorVendorOnboardingSubServicesReviewRoute
+  '/vendor/onboarding/sub-services/three': typeof VendorVendorOnboardingSubServicesThreeRoute
+  '/vendor/onboarding/sub-services/two': typeof VendorVendorOnboardingSubServicesTwoRoute
+  '/vendor/onboarding/vendor-sub-services/three': typeof VendorVendorOnboardingVendorSubServicesThreeRoute
+  '/vendor/onboarding/vendor-sub-services/two': typeof VendorVendorOnboardingVendorSubServicesTwoRoute
+  '/vendor/event/$eventId': typeof VendorVendorEventEventIdIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
-  '/_authenticated': typeof AuthenticatedRoute
+  '/_authenticated': typeof AuthenticatedRouteWithChildren
+  '/_organizer': typeof OrganizerRouteWithChildren
+  '/_public': typeof PublicRouteWithChildren
+  '/_vendor': typeof VendorRouteWithChildren
   '/about': typeof AboutRoute
-  '/account/add-payout-account': typeof AccountAddPayoutAccountRoute
-  '/auth/sign-up': typeof AuthSignUpRoute
-  '/auth/signin': typeof AuthSigninRoute
-  '/onboarding/onboarding': typeof OnboardingOnboardingRoute
-  '/onboarding/service-vendor': typeof OnboardingServiceVendorRoute
-  '/onboarding/services': typeof OnboardingServicesRoute
-  '/organizer/attendee': typeof OrganizerAttendeeRoute
-  '/organizer/layout': typeof OrganizerLayoutRoute
-  '/organizer/request-vendors': typeof OrganizerRequestVendorsRoute
-  '/organizer/sales': typeof OrganizerSalesRoute
   '/status/success': typeof StatusSuccessRoute
-  '/account/': typeof AccountIndexRoute
-  '/messages/': typeof MessagesIndexRoute
-  '/organizer/': typeof OrganizerIndexRoute
-  '/vendor/': typeof VendorIndexRoute
-  '/auth/otp/verify': typeof AuthOtpVerifyRoute
-  '/auth/password/forget': typeof AuthPasswordForgetRoute
-  '/auth/password/otp': typeof AuthPasswordOtpRoute
-  '/onboarding/sub-services/five': typeof OnboardingSubServicesFiveRoute
-  '/onboarding/sub-services/four': typeof OnboardingSubServicesFourRoute
-  '/onboarding/sub-services/one': typeof OnboardingSubServicesOneRoute
-  '/onboarding/sub-services/review': typeof OnboardingSubServicesReviewRoute
-  '/onboarding/sub-services/three': typeof OnboardingSubServicesThreeRoute
-  '/onboarding/sub-services/two': typeof OnboardingSubServicesTwoRoute
-  '/onboarding/vendor-sub-services/three': typeof OnboardingVendorSubServicesThreeRoute
-  '/onboarding/vendor-sub-services/two': typeof OnboardingVendorSubServicesTwoRoute
-  '/vendor/proposal/$proposalId': typeof VendorProposalProposalIdRoute
-  '/vendor/event/': typeof VendorEventIndexRoute
-  '/vendor/messages/': typeof VendorMessagesIndexRoute
-  '/vendor/proposal/': typeof VendorProposalIndexRoute
-  '/vendor/event/$eventId/proposal': typeof VendorEventEventIdProposalRoute
-  '/vendor/event/$eventId/': typeof VendorEventEventIdIndexRoute
+  '/_public/': typeof PublicIndexRoute
+  '/_authenticated/onboarding/user-type': typeof AuthenticatedOnboardingUserTypeRoute
+  '/_organizer/organizer/attendee': typeof OrganizerOrganizerAttendeeRoute
+  '/_organizer/organizer/layout': typeof OrganizerOrganizerLayoutRoute
+  '/_organizer/organizer/request-vendors': typeof OrganizerOrganizerRequestVendorsRoute
+  '/_organizer/organizer/sales': typeof OrganizerOrganizerSalesRoute
+  '/_public/auth/sign-up': typeof PublicAuthSignUpRoute
+  '/_public/auth/signin': typeof PublicAuthSigninRoute
+  '/_organizer/organizer/': typeof OrganizerOrganizerIndexRoute
+  '/_vendor/vendor/': typeof VendorVendorIndexRoute
+  '/_organizer/organizer/account/add-payout-account': typeof OrganizerOrganizerAccountAddPayoutAccountRoute
+  '/_organizer/organizer/onboarding/profile': typeof OrganizerOrganizerOnboardingProfileRoute
+  '/_organizer/organizer/onboarding/services': typeof OrganizerOrganizerOnboardingServicesRoute
+  '/_public/auth/otp/verify': typeof PublicAuthOtpVerifyRoute
+  '/_public/auth/password/forget': typeof PublicAuthPasswordForgetRoute
+  '/_public/auth/password/otp': typeof PublicAuthPasswordOtpRoute
+  '/_vendor/vendor/account/add-payout-account': typeof VendorVendorAccountAddPayoutAccountRoute
+  '/_vendor/vendor/onboarding/profile': typeof VendorVendorOnboardingProfileRoute
+  '/_vendor/vendor/onboarding/services': typeof VendorVendorOnboardingServicesRoute
+  '/_vendor/vendor/proposal/$proposalId': typeof VendorVendorProposalProposalIdRoute
+  '/_organizer/organizer/account/': typeof OrganizerOrganizerAccountIndexRoute
+  '/_organizer/organizer/messages/': typeof OrganizerOrganizerMessagesIndexRoute
+  '/_vendor/vendor/account/': typeof VendorVendorAccountIndexRoute
+  '/_vendor/vendor/event/': typeof VendorVendorEventIndexRoute
+  '/_vendor/vendor/messages/': typeof VendorVendorMessagesIndexRoute
+  '/_vendor/vendor/proposal/': typeof VendorVendorProposalIndexRoute
+  '/_organizer/organizer/onboarding/sub-services/five': typeof OrganizerOrganizerOnboardingSubServicesFiveRoute
+  '/_organizer/organizer/onboarding/sub-services/four': typeof OrganizerOrganizerOnboardingSubServicesFourRoute
+  '/_organizer/organizer/onboarding/sub-services/one': typeof OrganizerOrganizerOnboardingSubServicesOneRoute
+  '/_organizer/organizer/onboarding/sub-services/review': typeof OrganizerOrganizerOnboardingSubServicesReviewRoute
+  '/_organizer/organizer/onboarding/sub-services/three': typeof OrganizerOrganizerOnboardingSubServicesThreeRoute
+  '/_organizer/organizer/onboarding/sub-services/two': typeof OrganizerOrganizerOnboardingSubServicesTwoRoute
+  '/_organizer/organizer/onboarding/vendor-sub-services/three': typeof OrganizerOrganizerOnboardingVendorSubServicesThreeRoute
+  '/_organizer/organizer/onboarding/vendor-sub-services/two': typeof OrganizerOrganizerOnboardingVendorSubServicesTwoRoute
+  '/_vendor/vendor/event/$eventId/proposal': typeof VendorVendorEventEventIdProposalRoute
+  '/_vendor/vendor/onboarding/sub-services/five': typeof VendorVendorOnboardingSubServicesFiveRoute
+  '/_vendor/vendor/onboarding/sub-services/four': typeof VendorVendorOnboardingSubServicesFourRoute
+  '/_vendor/vendor/onboarding/sub-services/one': typeof VendorVendorOnboardingSubServicesOneRoute
+  '/_vendor/vendor/onboarding/sub-services/review': typeof VendorVendorOnboardingSubServicesReviewRoute
+  '/_vendor/vendor/onboarding/sub-services/three': typeof VendorVendorOnboardingSubServicesThreeRoute
+  '/_vendor/vendor/onboarding/sub-services/two': typeof VendorVendorOnboardingSubServicesTwoRoute
+  '/_vendor/vendor/onboarding/vendor-sub-services/three': typeof VendorVendorOnboardingVendorSubServicesThreeRoute
+  '/_vendor/vendor/onboarding/vendor-sub-services/two': typeof VendorVendorOnboardingVendorSubServicesTwoRoute
+  '/_vendor/vendor/event/$eventId/': typeof VendorVendorEventEventIdIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | '/'
     | '/about'
-    | '/account/add-payout-account'
-    | '/auth/sign-up'
-    | '/auth/signin'
-    | '/onboarding/onboarding'
-    | '/onboarding/service-vendor'
-    | '/onboarding/services'
+    | '/status/success'
+    | '/'
+    | '/onboarding/user-type'
     | '/organizer/attendee'
     | '/organizer/layout'
     | '/organizer/request-vendors'
     | '/organizer/sales'
-    | '/status/success'
-    | '/account'
-    | '/messages'
+    | '/auth/sign-up'
+    | '/auth/signin'
     | '/organizer'
     | '/vendor'
+    | '/organizer/account/add-payout-account'
+    | '/organizer/onboarding/profile'
+    | '/organizer/onboarding/services'
     | '/auth/otp/verify'
     | '/auth/password/forget'
     | '/auth/password/otp'
-    | '/onboarding/sub-services/five'
-    | '/onboarding/sub-services/four'
-    | '/onboarding/sub-services/one'
-    | '/onboarding/sub-services/review'
-    | '/onboarding/sub-services/three'
-    | '/onboarding/sub-services/two'
-    | '/onboarding/vendor-sub-services/three'
-    | '/onboarding/vendor-sub-services/two'
+    | '/vendor/account/add-payout-account'
+    | '/vendor/onboarding/profile'
+    | '/vendor/onboarding/services'
     | '/vendor/proposal/$proposalId'
+    | '/organizer/account'
+    | '/organizer/messages'
+    | '/vendor/account'
     | '/vendor/event'
     | '/vendor/messages'
     | '/vendor/proposal'
+    | '/organizer/onboarding/sub-services/five'
+    | '/organizer/onboarding/sub-services/four'
+    | '/organizer/onboarding/sub-services/one'
+    | '/organizer/onboarding/sub-services/review'
+    | '/organizer/onboarding/sub-services/three'
+    | '/organizer/onboarding/sub-services/two'
+    | '/organizer/onboarding/vendor-sub-services/three'
+    | '/organizer/onboarding/vendor-sub-services/two'
     | '/vendor/event/$eventId/proposal'
+    | '/vendor/onboarding/sub-services/five'
+    | '/vendor/onboarding/sub-services/four'
+    | '/vendor/onboarding/sub-services/one'
+    | '/vendor/onboarding/sub-services/review'
+    | '/vendor/onboarding/sub-services/three'
+    | '/vendor/onboarding/sub-services/two'
+    | '/vendor/onboarding/vendor-sub-services/three'
+    | '/vendor/onboarding/vendor-sub-services/two'
     | '/vendor/event/$eventId'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/'
     | '/about'
-    | '/account/add-payout-account'
-    | '/auth/sign-up'
-    | '/auth/signin'
-    | '/onboarding/onboarding'
-    | '/onboarding/service-vendor'
-    | '/onboarding/services'
+    | '/status/success'
+    | '/'
+    | '/onboarding/user-type'
     | '/organizer/attendee'
     | '/organizer/layout'
     | '/organizer/request-vendors'
     | '/organizer/sales'
-    | '/status/success'
-    | '/account'
-    | '/messages'
+    | '/auth/sign-up'
+    | '/auth/signin'
     | '/organizer'
     | '/vendor'
+    | '/organizer/account/add-payout-account'
+    | '/organizer/onboarding/profile'
+    | '/organizer/onboarding/services'
     | '/auth/otp/verify'
     | '/auth/password/forget'
     | '/auth/password/otp'
-    | '/onboarding/sub-services/five'
-    | '/onboarding/sub-services/four'
-    | '/onboarding/sub-services/one'
-    | '/onboarding/sub-services/review'
-    | '/onboarding/sub-services/three'
-    | '/onboarding/sub-services/two'
-    | '/onboarding/vendor-sub-services/three'
-    | '/onboarding/vendor-sub-services/two'
+    | '/vendor/account/add-payout-account'
+    | '/vendor/onboarding/profile'
+    | '/vendor/onboarding/services'
     | '/vendor/proposal/$proposalId'
+    | '/organizer/account'
+    | '/organizer/messages'
+    | '/vendor/account'
     | '/vendor/event'
     | '/vendor/messages'
     | '/vendor/proposal'
+    | '/organizer/onboarding/sub-services/five'
+    | '/organizer/onboarding/sub-services/four'
+    | '/organizer/onboarding/sub-services/one'
+    | '/organizer/onboarding/sub-services/review'
+    | '/organizer/onboarding/sub-services/three'
+    | '/organizer/onboarding/sub-services/two'
+    | '/organizer/onboarding/vendor-sub-services/three'
+    | '/organizer/onboarding/vendor-sub-services/two'
     | '/vendor/event/$eventId/proposal'
+    | '/vendor/onboarding/sub-services/five'
+    | '/vendor/onboarding/sub-services/four'
+    | '/vendor/onboarding/sub-services/one'
+    | '/vendor/onboarding/sub-services/review'
+    | '/vendor/onboarding/sub-services/three'
+    | '/vendor/onboarding/sub-services/two'
+    | '/vendor/onboarding/vendor-sub-services/three'
+    | '/vendor/onboarding/vendor-sub-services/two'
     | '/vendor/event/$eventId'
   id:
     | '__root__'
-    | '/'
     | '/_authenticated'
+    | '/_organizer'
+    | '/_public'
+    | '/_vendor'
     | '/about'
-    | '/account/add-payout-account'
-    | '/auth/sign-up'
-    | '/auth/signin'
-    | '/onboarding/onboarding'
-    | '/onboarding/service-vendor'
-    | '/onboarding/services'
-    | '/organizer/attendee'
-    | '/organizer/layout'
-    | '/organizer/request-vendors'
-    | '/organizer/sales'
     | '/status/success'
-    | '/account/'
-    | '/messages/'
-    | '/organizer/'
-    | '/vendor/'
-    | '/auth/otp/verify'
-    | '/auth/password/forget'
-    | '/auth/password/otp'
-    | '/onboarding/sub-services/five'
-    | '/onboarding/sub-services/four'
-    | '/onboarding/sub-services/one'
-    | '/onboarding/sub-services/review'
-    | '/onboarding/sub-services/three'
-    | '/onboarding/sub-services/two'
-    | '/onboarding/vendor-sub-services/three'
-    | '/onboarding/vendor-sub-services/two'
-    | '/vendor/proposal/$proposalId'
-    | '/vendor/event/'
-    | '/vendor/messages/'
-    | '/vendor/proposal/'
-    | '/vendor/event/$eventId/proposal'
-    | '/vendor/event/$eventId/'
+    | '/_public/'
+    | '/_authenticated/onboarding/user-type'
+    | '/_organizer/organizer/attendee'
+    | '/_organizer/organizer/layout'
+    | '/_organizer/organizer/request-vendors'
+    | '/_organizer/organizer/sales'
+    | '/_public/auth/sign-up'
+    | '/_public/auth/signin'
+    | '/_organizer/organizer/'
+    | '/_vendor/vendor/'
+    | '/_organizer/organizer/account/add-payout-account'
+    | '/_organizer/organizer/onboarding/profile'
+    | '/_organizer/organizer/onboarding/services'
+    | '/_public/auth/otp/verify'
+    | '/_public/auth/password/forget'
+    | '/_public/auth/password/otp'
+    | '/_vendor/vendor/account/add-payout-account'
+    | '/_vendor/vendor/onboarding/profile'
+    | '/_vendor/vendor/onboarding/services'
+    | '/_vendor/vendor/proposal/$proposalId'
+    | '/_organizer/organizer/account/'
+    | '/_organizer/organizer/messages/'
+    | '/_vendor/vendor/account/'
+    | '/_vendor/vendor/event/'
+    | '/_vendor/vendor/messages/'
+    | '/_vendor/vendor/proposal/'
+    | '/_organizer/organizer/onboarding/sub-services/five'
+    | '/_organizer/organizer/onboarding/sub-services/four'
+    | '/_organizer/organizer/onboarding/sub-services/one'
+    | '/_organizer/organizer/onboarding/sub-services/review'
+    | '/_organizer/organizer/onboarding/sub-services/three'
+    | '/_organizer/organizer/onboarding/sub-services/two'
+    | '/_organizer/organizer/onboarding/vendor-sub-services/three'
+    | '/_organizer/organizer/onboarding/vendor-sub-services/two'
+    | '/_vendor/vendor/event/$eventId/proposal'
+    | '/_vendor/vendor/onboarding/sub-services/five'
+    | '/_vendor/vendor/onboarding/sub-services/four'
+    | '/_vendor/vendor/onboarding/sub-services/one'
+    | '/_vendor/vendor/onboarding/sub-services/review'
+    | '/_vendor/vendor/onboarding/sub-services/three'
+    | '/_vendor/vendor/onboarding/sub-services/two'
+    | '/_vendor/vendor/onboarding/vendor-sub-services/three'
+    | '/_vendor/vendor/onboarding/vendor-sub-services/two'
+    | '/_vendor/vendor/event/$eventId/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  AuthenticatedRoute: typeof AuthenticatedRoute
+  AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
+  OrganizerRoute: typeof OrganizerRouteWithChildren
+  PublicRoute: typeof PublicRouteWithChildren
+  VendorRoute: typeof VendorRouteWithChildren
   AboutRoute: typeof AboutRoute
-  AccountAddPayoutAccountRoute: typeof AccountAddPayoutAccountRoute
-  AuthSignUpRoute: typeof AuthSignUpRoute
-  AuthSigninRoute: typeof AuthSigninRoute
-  OnboardingOnboardingRoute: typeof OnboardingOnboardingRoute
-  OnboardingServiceVendorRoute: typeof OnboardingServiceVendorRoute
-  OnboardingServicesRoute: typeof OnboardingServicesRoute
-  OrganizerAttendeeRoute: typeof OrganizerAttendeeRoute
-  OrganizerLayoutRoute: typeof OrganizerLayoutRoute
-  OrganizerRequestVendorsRoute: typeof OrganizerRequestVendorsRoute
-  OrganizerSalesRoute: typeof OrganizerSalesRoute
   StatusSuccessRoute: typeof StatusSuccessRoute
-  AccountIndexRoute: typeof AccountIndexRoute
-  MessagesIndexRoute: typeof MessagesIndexRoute
-  OrganizerIndexRoute: typeof OrganizerIndexRoute
-  VendorIndexRoute: typeof VendorIndexRoute
-  AuthOtpVerifyRoute: typeof AuthOtpVerifyRoute
-  AuthPasswordForgetRoute: typeof AuthPasswordForgetRoute
-  AuthPasswordOtpRoute: typeof AuthPasswordOtpRoute
-  OnboardingSubServicesFiveRoute: typeof OnboardingSubServicesFiveRoute
-  OnboardingSubServicesFourRoute: typeof OnboardingSubServicesFourRoute
-  OnboardingSubServicesOneRoute: typeof OnboardingSubServicesOneRoute
-  OnboardingSubServicesReviewRoute: typeof OnboardingSubServicesReviewRoute
-  OnboardingSubServicesThreeRoute: typeof OnboardingSubServicesThreeRoute
-  OnboardingSubServicesTwoRoute: typeof OnboardingSubServicesTwoRoute
-  OnboardingVendorSubServicesThreeRoute: typeof OnboardingVendorSubServicesThreeRoute
-  OnboardingVendorSubServicesTwoRoute: typeof OnboardingVendorSubServicesTwoRoute
-  VendorProposalProposalIdRoute: typeof VendorProposalProposalIdRoute
-  VendorEventIndexRoute: typeof VendorEventIndexRoute
-  VendorMessagesIndexRoute: typeof VendorMessagesIndexRoute
-  VendorProposalIndexRoute: typeof VendorProposalIndexRoute
-  VendorEventEventIdProposalRoute: typeof VendorEventEventIdProposalRoute
-  VendorEventEventIdIndexRoute: typeof VendorEventEventIdIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -499,6 +660,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_vendor': {
+      id: '/_vendor'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof VendorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_public': {
+      id: '/_public'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof PublicRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_organizer': {
+      id: '/_organizer'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof OrganizerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_authenticated': {
       id: '/_authenticated'
       path: ''
@@ -506,40 +688,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
+    '/_public/': {
+      id: '/_public/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/vendor/': {
-      id: '/vendor/'
-      path: '/vendor'
-      fullPath: '/vendor'
-      preLoaderRoute: typeof VendorIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/organizer/': {
-      id: '/organizer/'
-      path: '/organizer'
-      fullPath: '/organizer'
-      preLoaderRoute: typeof OrganizerIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/messages/': {
-      id: '/messages/'
-      path: '/messages'
-      fullPath: '/messages'
-      preLoaderRoute: typeof MessagesIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/account/': {
-      id: '/account/'
-      path: '/account'
-      fullPath: '/account'
-      preLoaderRoute: typeof AccountIndexRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof PublicIndexRouteImport
+      parentRoute: typeof PublicRoute
     }
     '/status/success': {
       id: '/status/success'
@@ -548,234 +702,463 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StatusSuccessRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/organizer/sales': {
-      id: '/organizer/sales'
-      path: '/organizer/sales'
-      fullPath: '/organizer/sales'
-      preLoaderRoute: typeof OrganizerSalesRouteImport
-      parentRoute: typeof rootRouteImport
+    '/_vendor/vendor/': {
+      id: '/_vendor/vendor/'
+      path: '/vendor'
+      fullPath: '/vendor'
+      preLoaderRoute: typeof VendorVendorIndexRouteImport
+      parentRoute: typeof VendorRoute
     }
-    '/organizer/request-vendors': {
-      id: '/organizer/request-vendors'
-      path: '/organizer/request-vendors'
-      fullPath: '/organizer/request-vendors'
-      preLoaderRoute: typeof OrganizerRequestVendorsRouteImport
-      parentRoute: typeof rootRouteImport
+    '/_organizer/organizer/': {
+      id: '/_organizer/organizer/'
+      path: '/organizer'
+      fullPath: '/organizer'
+      preLoaderRoute: typeof OrganizerOrganizerIndexRouteImport
+      parentRoute: typeof OrganizerRoute
     }
-    '/organizer/layout': {
-      id: '/organizer/layout'
-      path: '/organizer/layout'
-      fullPath: '/organizer/layout'
-      preLoaderRoute: typeof OrganizerLayoutRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/organizer/attendee': {
-      id: '/organizer/attendee'
-      path: '/organizer/attendee'
-      fullPath: '/organizer/attendee'
-      preLoaderRoute: typeof OrganizerAttendeeRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/onboarding/services': {
-      id: '/onboarding/services'
-      path: '/onboarding/services'
-      fullPath: '/onboarding/services'
-      preLoaderRoute: typeof OnboardingServicesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/onboarding/service-vendor': {
-      id: '/onboarding/service-vendor'
-      path: '/onboarding/service-vendor'
-      fullPath: '/onboarding/service-vendor'
-      preLoaderRoute: typeof OnboardingServiceVendorRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/onboarding/onboarding': {
-      id: '/onboarding/onboarding'
-      path: '/onboarding/onboarding'
-      fullPath: '/onboarding/onboarding'
-      preLoaderRoute: typeof OnboardingOnboardingRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/auth/signin': {
-      id: '/auth/signin'
+    '/_public/auth/signin': {
+      id: '/_public/auth/signin'
       path: '/auth/signin'
       fullPath: '/auth/signin'
-      preLoaderRoute: typeof AuthSigninRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof PublicAuthSigninRouteImport
+      parentRoute: typeof PublicRoute
     }
-    '/auth/sign-up': {
-      id: '/auth/sign-up'
+    '/_public/auth/sign-up': {
+      id: '/_public/auth/sign-up'
       path: '/auth/sign-up'
       fullPath: '/auth/sign-up'
-      preLoaderRoute: typeof AuthSignUpRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof PublicAuthSignUpRouteImport
+      parentRoute: typeof PublicRoute
     }
-    '/account/add-payout-account': {
-      id: '/account/add-payout-account'
-      path: '/account/add-payout-account'
-      fullPath: '/account/add-payout-account'
-      preLoaderRoute: typeof AccountAddPayoutAccountRouteImport
-      parentRoute: typeof rootRouteImport
+    '/_organizer/organizer/sales': {
+      id: '/_organizer/organizer/sales'
+      path: '/organizer/sales'
+      fullPath: '/organizer/sales'
+      preLoaderRoute: typeof OrganizerOrganizerSalesRouteImport
+      parentRoute: typeof OrganizerRoute
     }
-    '/vendor/proposal/': {
-      id: '/vendor/proposal/'
+    '/_organizer/organizer/request-vendors': {
+      id: '/_organizer/organizer/request-vendors'
+      path: '/organizer/request-vendors'
+      fullPath: '/organizer/request-vendors'
+      preLoaderRoute: typeof OrganizerOrganizerRequestVendorsRouteImport
+      parentRoute: typeof OrganizerRoute
+    }
+    '/_organizer/organizer/layout': {
+      id: '/_organizer/organizer/layout'
+      path: '/organizer/layout'
+      fullPath: '/organizer/layout'
+      preLoaderRoute: typeof OrganizerOrganizerLayoutRouteImport
+      parentRoute: typeof OrganizerRoute
+    }
+    '/_organizer/organizer/attendee': {
+      id: '/_organizer/organizer/attendee'
+      path: '/organizer/attendee'
+      fullPath: '/organizer/attendee'
+      preLoaderRoute: typeof OrganizerOrganizerAttendeeRouteImport
+      parentRoute: typeof OrganizerRoute
+    }
+    '/_authenticated/onboarding/user-type': {
+      id: '/_authenticated/onboarding/user-type'
+      path: '/onboarding/user-type'
+      fullPath: '/onboarding/user-type'
+      preLoaderRoute: typeof AuthenticatedOnboardingUserTypeRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_vendor/vendor/proposal/': {
+      id: '/_vendor/vendor/proposal/'
       path: '/vendor/proposal'
       fullPath: '/vendor/proposal'
-      preLoaderRoute: typeof VendorProposalIndexRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof VendorVendorProposalIndexRouteImport
+      parentRoute: typeof VendorRoute
     }
-    '/vendor/messages/': {
-      id: '/vendor/messages/'
+    '/_vendor/vendor/messages/': {
+      id: '/_vendor/vendor/messages/'
       path: '/vendor/messages'
       fullPath: '/vendor/messages'
-      preLoaderRoute: typeof VendorMessagesIndexRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof VendorVendorMessagesIndexRouteImport
+      parentRoute: typeof VendorRoute
     }
-    '/vendor/event/': {
-      id: '/vendor/event/'
+    '/_vendor/vendor/event/': {
+      id: '/_vendor/vendor/event/'
       path: '/vendor/event'
       fullPath: '/vendor/event'
-      preLoaderRoute: typeof VendorEventIndexRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof VendorVendorEventIndexRouteImport
+      parentRoute: typeof VendorRoute
     }
-    '/vendor/proposal/$proposalId': {
-      id: '/vendor/proposal/$proposalId'
+    '/_vendor/vendor/account/': {
+      id: '/_vendor/vendor/account/'
+      path: '/vendor/account'
+      fullPath: '/vendor/account'
+      preLoaderRoute: typeof VendorVendorAccountIndexRouteImport
+      parentRoute: typeof VendorRoute
+    }
+    '/_organizer/organizer/messages/': {
+      id: '/_organizer/organizer/messages/'
+      path: '/organizer/messages'
+      fullPath: '/organizer/messages'
+      preLoaderRoute: typeof OrganizerOrganizerMessagesIndexRouteImport
+      parentRoute: typeof OrganizerRoute
+    }
+    '/_organizer/organizer/account/': {
+      id: '/_organizer/organizer/account/'
+      path: '/organizer/account'
+      fullPath: '/organizer/account'
+      preLoaderRoute: typeof OrganizerOrganizerAccountIndexRouteImport
+      parentRoute: typeof OrganizerRoute
+    }
+    '/_vendor/vendor/proposal/$proposalId': {
+      id: '/_vendor/vendor/proposal/$proposalId'
       path: '/vendor/proposal/$proposalId'
       fullPath: '/vendor/proposal/$proposalId'
-      preLoaderRoute: typeof VendorProposalProposalIdRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof VendorVendorProposalProposalIdRouteImport
+      parentRoute: typeof VendorRoute
     }
-    '/onboarding/vendor-sub-services/two': {
-      id: '/onboarding/vendor-sub-services/two'
-      path: '/onboarding/vendor-sub-services/two'
-      fullPath: '/onboarding/vendor-sub-services/two'
-      preLoaderRoute: typeof OnboardingVendorSubServicesTwoRouteImport
-      parentRoute: typeof rootRouteImport
+    '/_vendor/vendor/onboarding/services': {
+      id: '/_vendor/vendor/onboarding/services'
+      path: '/vendor/onboarding/services'
+      fullPath: '/vendor/onboarding/services'
+      preLoaderRoute: typeof VendorVendorOnboardingServicesRouteImport
+      parentRoute: typeof VendorRoute
     }
-    '/onboarding/vendor-sub-services/three': {
-      id: '/onboarding/vendor-sub-services/three'
-      path: '/onboarding/vendor-sub-services/three'
-      fullPath: '/onboarding/vendor-sub-services/three'
-      preLoaderRoute: typeof OnboardingVendorSubServicesThreeRouteImport
-      parentRoute: typeof rootRouteImport
+    '/_vendor/vendor/onboarding/profile': {
+      id: '/_vendor/vendor/onboarding/profile'
+      path: '/vendor/onboarding/profile'
+      fullPath: '/vendor/onboarding/profile'
+      preLoaderRoute: typeof VendorVendorOnboardingProfileRouteImport
+      parentRoute: typeof VendorRoute
     }
-    '/onboarding/sub-services/two': {
-      id: '/onboarding/sub-services/two'
-      path: '/onboarding/sub-services/two'
-      fullPath: '/onboarding/sub-services/two'
-      preLoaderRoute: typeof OnboardingSubServicesTwoRouteImport
-      parentRoute: typeof rootRouteImport
+    '/_vendor/vendor/account/add-payout-account': {
+      id: '/_vendor/vendor/account/add-payout-account'
+      path: '/vendor/account/add-payout-account'
+      fullPath: '/vendor/account/add-payout-account'
+      preLoaderRoute: typeof VendorVendorAccountAddPayoutAccountRouteImport
+      parentRoute: typeof VendorRoute
     }
-    '/onboarding/sub-services/three': {
-      id: '/onboarding/sub-services/three'
-      path: '/onboarding/sub-services/three'
-      fullPath: '/onboarding/sub-services/three'
-      preLoaderRoute: typeof OnboardingSubServicesThreeRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/onboarding/sub-services/review': {
-      id: '/onboarding/sub-services/review'
-      path: '/onboarding/sub-services/review'
-      fullPath: '/onboarding/sub-services/review'
-      preLoaderRoute: typeof OnboardingSubServicesReviewRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/onboarding/sub-services/one': {
-      id: '/onboarding/sub-services/one'
-      path: '/onboarding/sub-services/one'
-      fullPath: '/onboarding/sub-services/one'
-      preLoaderRoute: typeof OnboardingSubServicesOneRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/onboarding/sub-services/four': {
-      id: '/onboarding/sub-services/four'
-      path: '/onboarding/sub-services/four'
-      fullPath: '/onboarding/sub-services/four'
-      preLoaderRoute: typeof OnboardingSubServicesFourRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/onboarding/sub-services/five': {
-      id: '/onboarding/sub-services/five'
-      path: '/onboarding/sub-services/five'
-      fullPath: '/onboarding/sub-services/five'
-      preLoaderRoute: typeof OnboardingSubServicesFiveRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/auth/password/otp': {
-      id: '/auth/password/otp'
+    '/_public/auth/password/otp': {
+      id: '/_public/auth/password/otp'
       path: '/auth/password/otp'
       fullPath: '/auth/password/otp'
-      preLoaderRoute: typeof AuthPasswordOtpRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof PublicAuthPasswordOtpRouteImport
+      parentRoute: typeof PublicRoute
     }
-    '/auth/password/forget': {
-      id: '/auth/password/forget'
+    '/_public/auth/password/forget': {
+      id: '/_public/auth/password/forget'
       path: '/auth/password/forget'
       fullPath: '/auth/password/forget'
-      preLoaderRoute: typeof AuthPasswordForgetRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof PublicAuthPasswordForgetRouteImport
+      parentRoute: typeof PublicRoute
     }
-    '/auth/otp/verify': {
-      id: '/auth/otp/verify'
+    '/_public/auth/otp/verify': {
+      id: '/_public/auth/otp/verify'
       path: '/auth/otp/verify'
       fullPath: '/auth/otp/verify'
-      preLoaderRoute: typeof AuthOtpVerifyRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof PublicAuthOtpVerifyRouteImport
+      parentRoute: typeof PublicRoute
     }
-    '/vendor/event/$eventId/': {
-      id: '/vendor/event/$eventId/'
+    '/_organizer/organizer/onboarding/services': {
+      id: '/_organizer/organizer/onboarding/services'
+      path: '/organizer/onboarding/services'
+      fullPath: '/organizer/onboarding/services'
+      preLoaderRoute: typeof OrganizerOrganizerOnboardingServicesRouteImport
+      parentRoute: typeof OrganizerRoute
+    }
+    '/_organizer/organizer/onboarding/profile': {
+      id: '/_organizer/organizer/onboarding/profile'
+      path: '/organizer/onboarding/profile'
+      fullPath: '/organizer/onboarding/profile'
+      preLoaderRoute: typeof OrganizerOrganizerOnboardingProfileRouteImport
+      parentRoute: typeof OrganizerRoute
+    }
+    '/_organizer/organizer/account/add-payout-account': {
+      id: '/_organizer/organizer/account/add-payout-account'
+      path: '/organizer/account/add-payout-account'
+      fullPath: '/organizer/account/add-payout-account'
+      preLoaderRoute: typeof OrganizerOrganizerAccountAddPayoutAccountRouteImport
+      parentRoute: typeof OrganizerRoute
+    }
+    '/_vendor/vendor/event/$eventId/': {
+      id: '/_vendor/vendor/event/$eventId/'
       path: '/vendor/event/$eventId'
       fullPath: '/vendor/event/$eventId'
-      preLoaderRoute: typeof VendorEventEventIdIndexRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof VendorVendorEventEventIdIndexRouteImport
+      parentRoute: typeof VendorRoute
     }
-    '/vendor/event/$eventId/proposal': {
-      id: '/vendor/event/$eventId/proposal'
+    '/_vendor/vendor/onboarding/vendor-sub-services/two': {
+      id: '/_vendor/vendor/onboarding/vendor-sub-services/two'
+      path: '/vendor/onboarding/vendor-sub-services/two'
+      fullPath: '/vendor/onboarding/vendor-sub-services/two'
+      preLoaderRoute: typeof VendorVendorOnboardingVendorSubServicesTwoRouteImport
+      parentRoute: typeof VendorRoute
+    }
+    '/_vendor/vendor/onboarding/vendor-sub-services/three': {
+      id: '/_vendor/vendor/onboarding/vendor-sub-services/three'
+      path: '/vendor/onboarding/vendor-sub-services/three'
+      fullPath: '/vendor/onboarding/vendor-sub-services/three'
+      preLoaderRoute: typeof VendorVendorOnboardingVendorSubServicesThreeRouteImport
+      parentRoute: typeof VendorRoute
+    }
+    '/_vendor/vendor/onboarding/sub-services/two': {
+      id: '/_vendor/vendor/onboarding/sub-services/two'
+      path: '/vendor/onboarding/sub-services/two'
+      fullPath: '/vendor/onboarding/sub-services/two'
+      preLoaderRoute: typeof VendorVendorOnboardingSubServicesTwoRouteImport
+      parentRoute: typeof VendorRoute
+    }
+    '/_vendor/vendor/onboarding/sub-services/three': {
+      id: '/_vendor/vendor/onboarding/sub-services/three'
+      path: '/vendor/onboarding/sub-services/three'
+      fullPath: '/vendor/onboarding/sub-services/three'
+      preLoaderRoute: typeof VendorVendorOnboardingSubServicesThreeRouteImport
+      parentRoute: typeof VendorRoute
+    }
+    '/_vendor/vendor/onboarding/sub-services/review': {
+      id: '/_vendor/vendor/onboarding/sub-services/review'
+      path: '/vendor/onboarding/sub-services/review'
+      fullPath: '/vendor/onboarding/sub-services/review'
+      preLoaderRoute: typeof VendorVendorOnboardingSubServicesReviewRouteImport
+      parentRoute: typeof VendorRoute
+    }
+    '/_vendor/vendor/onboarding/sub-services/one': {
+      id: '/_vendor/vendor/onboarding/sub-services/one'
+      path: '/vendor/onboarding/sub-services/one'
+      fullPath: '/vendor/onboarding/sub-services/one'
+      preLoaderRoute: typeof VendorVendorOnboardingSubServicesOneRouteImport
+      parentRoute: typeof VendorRoute
+    }
+    '/_vendor/vendor/onboarding/sub-services/four': {
+      id: '/_vendor/vendor/onboarding/sub-services/four'
+      path: '/vendor/onboarding/sub-services/four'
+      fullPath: '/vendor/onboarding/sub-services/four'
+      preLoaderRoute: typeof VendorVendorOnboardingSubServicesFourRouteImport
+      parentRoute: typeof VendorRoute
+    }
+    '/_vendor/vendor/onboarding/sub-services/five': {
+      id: '/_vendor/vendor/onboarding/sub-services/five'
+      path: '/vendor/onboarding/sub-services/five'
+      fullPath: '/vendor/onboarding/sub-services/five'
+      preLoaderRoute: typeof VendorVendorOnboardingSubServicesFiveRouteImport
+      parentRoute: typeof VendorRoute
+    }
+    '/_vendor/vendor/event/$eventId/proposal': {
+      id: '/_vendor/vendor/event/$eventId/proposal'
       path: '/vendor/event/$eventId/proposal'
       fullPath: '/vendor/event/$eventId/proposal'
-      preLoaderRoute: typeof VendorEventEventIdProposalRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof VendorVendorEventEventIdProposalRouteImport
+      parentRoute: typeof VendorRoute
+    }
+    '/_organizer/organizer/onboarding/vendor-sub-services/two': {
+      id: '/_organizer/organizer/onboarding/vendor-sub-services/two'
+      path: '/organizer/onboarding/vendor-sub-services/two'
+      fullPath: '/organizer/onboarding/vendor-sub-services/two'
+      preLoaderRoute: typeof OrganizerOrganizerOnboardingVendorSubServicesTwoRouteImport
+      parentRoute: typeof OrganizerRoute
+    }
+    '/_organizer/organizer/onboarding/vendor-sub-services/three': {
+      id: '/_organizer/organizer/onboarding/vendor-sub-services/three'
+      path: '/organizer/onboarding/vendor-sub-services/three'
+      fullPath: '/organizer/onboarding/vendor-sub-services/three'
+      preLoaderRoute: typeof OrganizerOrganizerOnboardingVendorSubServicesThreeRouteImport
+      parentRoute: typeof OrganizerRoute
+    }
+    '/_organizer/organizer/onboarding/sub-services/two': {
+      id: '/_organizer/organizer/onboarding/sub-services/two'
+      path: '/organizer/onboarding/sub-services/two'
+      fullPath: '/organizer/onboarding/sub-services/two'
+      preLoaderRoute: typeof OrganizerOrganizerOnboardingSubServicesTwoRouteImport
+      parentRoute: typeof OrganizerRoute
+    }
+    '/_organizer/organizer/onboarding/sub-services/three': {
+      id: '/_organizer/organizer/onboarding/sub-services/three'
+      path: '/organizer/onboarding/sub-services/three'
+      fullPath: '/organizer/onboarding/sub-services/three'
+      preLoaderRoute: typeof OrganizerOrganizerOnboardingSubServicesThreeRouteImport
+      parentRoute: typeof OrganizerRoute
+    }
+    '/_organizer/organizer/onboarding/sub-services/review': {
+      id: '/_organizer/organizer/onboarding/sub-services/review'
+      path: '/organizer/onboarding/sub-services/review'
+      fullPath: '/organizer/onboarding/sub-services/review'
+      preLoaderRoute: typeof OrganizerOrganizerOnboardingSubServicesReviewRouteImport
+      parentRoute: typeof OrganizerRoute
+    }
+    '/_organizer/organizer/onboarding/sub-services/one': {
+      id: '/_organizer/organizer/onboarding/sub-services/one'
+      path: '/organizer/onboarding/sub-services/one'
+      fullPath: '/organizer/onboarding/sub-services/one'
+      preLoaderRoute: typeof OrganizerOrganizerOnboardingSubServicesOneRouteImport
+      parentRoute: typeof OrganizerRoute
+    }
+    '/_organizer/organizer/onboarding/sub-services/four': {
+      id: '/_organizer/organizer/onboarding/sub-services/four'
+      path: '/organizer/onboarding/sub-services/four'
+      fullPath: '/organizer/onboarding/sub-services/four'
+      preLoaderRoute: typeof OrganizerOrganizerOnboardingSubServicesFourRouteImport
+      parentRoute: typeof OrganizerRoute
+    }
+    '/_organizer/organizer/onboarding/sub-services/five': {
+      id: '/_organizer/organizer/onboarding/sub-services/five'
+      path: '/organizer/onboarding/sub-services/five'
+      fullPath: '/organizer/onboarding/sub-services/five'
+      preLoaderRoute: typeof OrganizerOrganizerOnboardingSubServicesFiveRouteImport
+      parentRoute: typeof OrganizerRoute
     }
   }
 }
 
+interface AuthenticatedRouteChildren {
+  AuthenticatedOnboardingUserTypeRoute: typeof AuthenticatedOnboardingUserTypeRoute
+}
+
+const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
+  AuthenticatedOnboardingUserTypeRoute: AuthenticatedOnboardingUserTypeRoute,
+}
+
+const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
+  AuthenticatedRouteChildren,
+)
+
+interface OrganizerRouteChildren {
+  OrganizerOrganizerAttendeeRoute: typeof OrganizerOrganizerAttendeeRoute
+  OrganizerOrganizerLayoutRoute: typeof OrganizerOrganizerLayoutRoute
+  OrganizerOrganizerRequestVendorsRoute: typeof OrganizerOrganizerRequestVendorsRoute
+  OrganizerOrganizerSalesRoute: typeof OrganizerOrganizerSalesRoute
+  OrganizerOrganizerIndexRoute: typeof OrganizerOrganizerIndexRoute
+  OrganizerOrganizerAccountAddPayoutAccountRoute: typeof OrganizerOrganizerAccountAddPayoutAccountRoute
+  OrganizerOrganizerOnboardingProfileRoute: typeof OrganizerOrganizerOnboardingProfileRoute
+  OrganizerOrganizerOnboardingServicesRoute: typeof OrganizerOrganizerOnboardingServicesRoute
+  OrganizerOrganizerAccountIndexRoute: typeof OrganizerOrganizerAccountIndexRoute
+  OrganizerOrganizerMessagesIndexRoute: typeof OrganizerOrganizerMessagesIndexRoute
+  OrganizerOrganizerOnboardingSubServicesFiveRoute: typeof OrganizerOrganizerOnboardingSubServicesFiveRoute
+  OrganizerOrganizerOnboardingSubServicesFourRoute: typeof OrganizerOrganizerOnboardingSubServicesFourRoute
+  OrganizerOrganizerOnboardingSubServicesOneRoute: typeof OrganizerOrganizerOnboardingSubServicesOneRoute
+  OrganizerOrganizerOnboardingSubServicesReviewRoute: typeof OrganizerOrganizerOnboardingSubServicesReviewRoute
+  OrganizerOrganizerOnboardingSubServicesThreeRoute: typeof OrganizerOrganizerOnboardingSubServicesThreeRoute
+  OrganizerOrganizerOnboardingSubServicesTwoRoute: typeof OrganizerOrganizerOnboardingSubServicesTwoRoute
+  OrganizerOrganizerOnboardingVendorSubServicesThreeRoute: typeof OrganizerOrganizerOnboardingVendorSubServicesThreeRoute
+  OrganizerOrganizerOnboardingVendorSubServicesTwoRoute: typeof OrganizerOrganizerOnboardingVendorSubServicesTwoRoute
+}
+
+const OrganizerRouteChildren: OrganizerRouteChildren = {
+  OrganizerOrganizerAttendeeRoute: OrganizerOrganizerAttendeeRoute,
+  OrganizerOrganizerLayoutRoute: OrganizerOrganizerLayoutRoute,
+  OrganizerOrganizerRequestVendorsRoute: OrganizerOrganizerRequestVendorsRoute,
+  OrganizerOrganizerSalesRoute: OrganizerOrganizerSalesRoute,
+  OrganizerOrganizerIndexRoute: OrganizerOrganizerIndexRoute,
+  OrganizerOrganizerAccountAddPayoutAccountRoute:
+    OrganizerOrganizerAccountAddPayoutAccountRoute,
+  OrganizerOrganizerOnboardingProfileRoute:
+    OrganizerOrganizerOnboardingProfileRoute,
+  OrganizerOrganizerOnboardingServicesRoute:
+    OrganizerOrganizerOnboardingServicesRoute,
+  OrganizerOrganizerAccountIndexRoute: OrganizerOrganizerAccountIndexRoute,
+  OrganizerOrganizerMessagesIndexRoute: OrganizerOrganizerMessagesIndexRoute,
+  OrganizerOrganizerOnboardingSubServicesFiveRoute:
+    OrganizerOrganizerOnboardingSubServicesFiveRoute,
+  OrganizerOrganizerOnboardingSubServicesFourRoute:
+    OrganizerOrganizerOnboardingSubServicesFourRoute,
+  OrganizerOrganizerOnboardingSubServicesOneRoute:
+    OrganizerOrganizerOnboardingSubServicesOneRoute,
+  OrganizerOrganizerOnboardingSubServicesReviewRoute:
+    OrganizerOrganizerOnboardingSubServicesReviewRoute,
+  OrganizerOrganizerOnboardingSubServicesThreeRoute:
+    OrganizerOrganizerOnboardingSubServicesThreeRoute,
+  OrganizerOrganizerOnboardingSubServicesTwoRoute:
+    OrganizerOrganizerOnboardingSubServicesTwoRoute,
+  OrganizerOrganizerOnboardingVendorSubServicesThreeRoute:
+    OrganizerOrganizerOnboardingVendorSubServicesThreeRoute,
+  OrganizerOrganizerOnboardingVendorSubServicesTwoRoute:
+    OrganizerOrganizerOnboardingVendorSubServicesTwoRoute,
+}
+
+const OrganizerRouteWithChildren = OrganizerRoute._addFileChildren(
+  OrganizerRouteChildren,
+)
+
+interface PublicRouteChildren {
+  PublicIndexRoute: typeof PublicIndexRoute
+  PublicAuthSignUpRoute: typeof PublicAuthSignUpRoute
+  PublicAuthSigninRoute: typeof PublicAuthSigninRoute
+  PublicAuthOtpVerifyRoute: typeof PublicAuthOtpVerifyRoute
+  PublicAuthPasswordForgetRoute: typeof PublicAuthPasswordForgetRoute
+  PublicAuthPasswordOtpRoute: typeof PublicAuthPasswordOtpRoute
+}
+
+const PublicRouteChildren: PublicRouteChildren = {
+  PublicIndexRoute: PublicIndexRoute,
+  PublicAuthSignUpRoute: PublicAuthSignUpRoute,
+  PublicAuthSigninRoute: PublicAuthSigninRoute,
+  PublicAuthOtpVerifyRoute: PublicAuthOtpVerifyRoute,
+  PublicAuthPasswordForgetRoute: PublicAuthPasswordForgetRoute,
+  PublicAuthPasswordOtpRoute: PublicAuthPasswordOtpRoute,
+}
+
+const PublicRouteWithChildren =
+  PublicRoute._addFileChildren(PublicRouteChildren)
+
+interface VendorRouteChildren {
+  VendorVendorIndexRoute: typeof VendorVendorIndexRoute
+  VendorVendorAccountAddPayoutAccountRoute: typeof VendorVendorAccountAddPayoutAccountRoute
+  VendorVendorOnboardingProfileRoute: typeof VendorVendorOnboardingProfileRoute
+  VendorVendorOnboardingServicesRoute: typeof VendorVendorOnboardingServicesRoute
+  VendorVendorProposalProposalIdRoute: typeof VendorVendorProposalProposalIdRoute
+  VendorVendorAccountIndexRoute: typeof VendorVendorAccountIndexRoute
+  VendorVendorEventIndexRoute: typeof VendorVendorEventIndexRoute
+  VendorVendorMessagesIndexRoute: typeof VendorVendorMessagesIndexRoute
+  VendorVendorProposalIndexRoute: typeof VendorVendorProposalIndexRoute
+  VendorVendorEventEventIdProposalRoute: typeof VendorVendorEventEventIdProposalRoute
+  VendorVendorOnboardingSubServicesFiveRoute: typeof VendorVendorOnboardingSubServicesFiveRoute
+  VendorVendorOnboardingSubServicesFourRoute: typeof VendorVendorOnboardingSubServicesFourRoute
+  VendorVendorOnboardingSubServicesOneRoute: typeof VendorVendorOnboardingSubServicesOneRoute
+  VendorVendorOnboardingSubServicesReviewRoute: typeof VendorVendorOnboardingSubServicesReviewRoute
+  VendorVendorOnboardingSubServicesThreeRoute: typeof VendorVendorOnboardingSubServicesThreeRoute
+  VendorVendorOnboardingSubServicesTwoRoute: typeof VendorVendorOnboardingSubServicesTwoRoute
+  VendorVendorOnboardingVendorSubServicesThreeRoute: typeof VendorVendorOnboardingVendorSubServicesThreeRoute
+  VendorVendorOnboardingVendorSubServicesTwoRoute: typeof VendorVendorOnboardingVendorSubServicesTwoRoute
+  VendorVendorEventEventIdIndexRoute: typeof VendorVendorEventEventIdIndexRoute
+}
+
+const VendorRouteChildren: VendorRouteChildren = {
+  VendorVendorIndexRoute: VendorVendorIndexRoute,
+  VendorVendorAccountAddPayoutAccountRoute:
+    VendorVendorAccountAddPayoutAccountRoute,
+  VendorVendorOnboardingProfileRoute: VendorVendorOnboardingProfileRoute,
+  VendorVendorOnboardingServicesRoute: VendorVendorOnboardingServicesRoute,
+  VendorVendorProposalProposalIdRoute: VendorVendorProposalProposalIdRoute,
+  VendorVendorAccountIndexRoute: VendorVendorAccountIndexRoute,
+  VendorVendorEventIndexRoute: VendorVendorEventIndexRoute,
+  VendorVendorMessagesIndexRoute: VendorVendorMessagesIndexRoute,
+  VendorVendorProposalIndexRoute: VendorVendorProposalIndexRoute,
+  VendorVendorEventEventIdProposalRoute: VendorVendorEventEventIdProposalRoute,
+  VendorVendorOnboardingSubServicesFiveRoute:
+    VendorVendorOnboardingSubServicesFiveRoute,
+  VendorVendorOnboardingSubServicesFourRoute:
+    VendorVendorOnboardingSubServicesFourRoute,
+  VendorVendorOnboardingSubServicesOneRoute:
+    VendorVendorOnboardingSubServicesOneRoute,
+  VendorVendorOnboardingSubServicesReviewRoute:
+    VendorVendorOnboardingSubServicesReviewRoute,
+  VendorVendorOnboardingSubServicesThreeRoute:
+    VendorVendorOnboardingSubServicesThreeRoute,
+  VendorVendorOnboardingSubServicesTwoRoute:
+    VendorVendorOnboardingSubServicesTwoRoute,
+  VendorVendorOnboardingVendorSubServicesThreeRoute:
+    VendorVendorOnboardingVendorSubServicesThreeRoute,
+  VendorVendorOnboardingVendorSubServicesTwoRoute:
+    VendorVendorOnboardingVendorSubServicesTwoRoute,
+  VendorVendorEventEventIdIndexRoute: VendorVendorEventEventIdIndexRoute,
+}
+
+const VendorRouteWithChildren =
+  VendorRoute._addFileChildren(VendorRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
-  AuthenticatedRoute: AuthenticatedRoute,
+  AuthenticatedRoute: AuthenticatedRouteWithChildren,
+  OrganizerRoute: OrganizerRouteWithChildren,
+  PublicRoute: PublicRouteWithChildren,
+  VendorRoute: VendorRouteWithChildren,
   AboutRoute: AboutRoute,
-  AccountAddPayoutAccountRoute: AccountAddPayoutAccountRoute,
-  AuthSignUpRoute: AuthSignUpRoute,
-  AuthSigninRoute: AuthSigninRoute,
-  OnboardingOnboardingRoute: OnboardingOnboardingRoute,
-  OnboardingServiceVendorRoute: OnboardingServiceVendorRoute,
-  OnboardingServicesRoute: OnboardingServicesRoute,
-  OrganizerAttendeeRoute: OrganizerAttendeeRoute,
-  OrganizerLayoutRoute: OrganizerLayoutRoute,
-  OrganizerRequestVendorsRoute: OrganizerRequestVendorsRoute,
-  OrganizerSalesRoute: OrganizerSalesRoute,
   StatusSuccessRoute: StatusSuccessRoute,
-  AccountIndexRoute: AccountIndexRoute,
-  MessagesIndexRoute: MessagesIndexRoute,
-  OrganizerIndexRoute: OrganizerIndexRoute,
-  VendorIndexRoute: VendorIndexRoute,
-  AuthOtpVerifyRoute: AuthOtpVerifyRoute,
-  AuthPasswordForgetRoute: AuthPasswordForgetRoute,
-  AuthPasswordOtpRoute: AuthPasswordOtpRoute,
-  OnboardingSubServicesFiveRoute: OnboardingSubServicesFiveRoute,
-  OnboardingSubServicesFourRoute: OnboardingSubServicesFourRoute,
-  OnboardingSubServicesOneRoute: OnboardingSubServicesOneRoute,
-  OnboardingSubServicesReviewRoute: OnboardingSubServicesReviewRoute,
-  OnboardingSubServicesThreeRoute: OnboardingSubServicesThreeRoute,
-  OnboardingSubServicesTwoRoute: OnboardingSubServicesTwoRoute,
-  OnboardingVendorSubServicesThreeRoute: OnboardingVendorSubServicesThreeRoute,
-  OnboardingVendorSubServicesTwoRoute: OnboardingVendorSubServicesTwoRoute,
-  VendorProposalProposalIdRoute: VendorProposalProposalIdRoute,
-  VendorEventIndexRoute: VendorEventIndexRoute,
-  VendorMessagesIndexRoute: VendorMessagesIndexRoute,
-  VendorProposalIndexRoute: VendorProposalIndexRoute,
-  VendorEventEventIdProposalRoute: VendorEventEventIdProposalRoute,
-  VendorEventEventIdIndexRoute: VendorEventEventIdIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

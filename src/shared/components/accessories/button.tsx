@@ -52,7 +52,6 @@ const CustomButton: React.FC<CustomButtonProps> = ({
         cursor-pointer
         relative
         `,
-        loading && "bg-gray-400",
         className
       )}
     >
