@@ -4,13 +4,12 @@ import {
   useRouter,
 } from "@tanstack/react-router";
 import { DashboardLayout } from "@components/layouts/dashboard-layout";
-import { User } from "../../../organizer";
+import { User } from "@routes/_organizer/organizer";
 import { CustomButton } from "@components/button/button";
 import EventList from "@components/pages/vendor/event-list";
-import { cn } from "../../../../shared/utils/classnames";
 import { BadgeCheck, MessageSquareTextIcon, SendIcon } from "lucide-react";
 import eventImage from "@assets/event/event-image.png";
-import { events } from "../../../../dummy-data/eventList";
+import { events } from "@/dummy-data/eventList";
 import InformationCard from "@components/accessories/information-card";
 
 export const Route = createFileRoute("/_vendor/vendor/event/$eventId/")({
