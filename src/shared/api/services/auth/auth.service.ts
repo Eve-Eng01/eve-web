@@ -22,6 +22,10 @@ import type {
   ResetPasswordResponse,
   SetRoleRequest,
   SetRoleResponse,
+  GoogleOAuthRequest,
+  GoogleOAuthResponse,
+  LinkAccountRequest,
+  LinkAccountResponse,
 } from "./types";
 
 /**
@@ -123,6 +127,34 @@ export const authService = {
   ): Promise<ApiResponse<SetRoleResponse>> => {
     const response = await apiClient.patch<ApiResponse<SetRoleResponse>>(
       "/user/role",
+      data
+    );
+    return response.data;
+  },
+
+  /**
+   * Authenticate with Google OAuth
+   * Handles both signup (new users) and login (existing users)
+   */
+  loginWithGoogle: async (
+    data: GoogleOAuthRequest
+  ): Promise<ApiResponse<GoogleOAuthResponse>> => {
+    const response = await apiClient.post<ApiResponse<GoogleOAuthResponse>>(
+      "/auth/google",
+      data
+    );
+    return response.data;
+  },
+
+  /**
+   * Link OAuth provider to authenticated user's account
+   * Requires user to be logged in with email/password first
+   */
+  linkAccount: async (
+    data: LinkAccountRequest
+  ): Promise<ApiResponse<LinkAccountResponse>> => {
+    const response = await apiClient.post<ApiResponse<LinkAccountResponse>>(
+      "/auth/link-account",
       data
     );
     return response.data;

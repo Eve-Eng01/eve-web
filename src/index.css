@@ -26,3 +26,51 @@
     transform: translateY(0);
   }
 }
+
+/* Google Login Button Styles */
+.google-login-button {
+  @apply w-full;
+  width: 100% !important;
+  display: block !important;
+  @apply mb-3;
+  /* Remove red background-color when done testing */
+}
+
+.google-login-button > div {
+  @apply w-full;
+ 
+  width: 100% !important;
+  display: block !important;
+  /* Remove blue background-color when done testing */
+}
+
+/* Target all nested divs to ensure full width */
+.google-login-button > div > div {
+  width: 100% !important;
+  
+  display: block !important;
+}
+
+.google-login-button button,
+.google-login-button [role="button"] {
+  @apply w-full flex items-center justify-center;
+  @apply px-4 py-7 ;
+  @apply border border-gray-300 rounded-[14px];
+  @apply bg-white text-gray-700;
+  @apply transition-colors duration-200;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  display: flex !important;
+  /* Remove flex:1 and the green background-color when done testing */
+}
+
+.google-login-button button:hover,
+.google-login-button [role="button"]:hover {
+  @apply bg-gray-50;
+}
+
+.google-login-button button:focus,
+.google-login-button [role="button"]:focus {
+  @apply outline-none;
+}

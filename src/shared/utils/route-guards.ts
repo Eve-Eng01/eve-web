@@ -20,7 +20,7 @@ export interface RouteGuardOptions {
 export function getCurrentUser(context?: { auth?: { user?: any } }) {
   const storeUser = useAuthStore.getState().user;
   const contextUser = context?.auth?.user;
-  return contextUser || storeUser;
+  return  storeUser || contextUser;
 }
 
 /**

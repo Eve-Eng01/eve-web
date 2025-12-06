@@ -66,6 +66,10 @@ export const signUpSchema = yup.object().shape({
   password: commonRules.password,
   first_name: commonRules.firstName,
   last_name: commonRules.lastName,
+  privacy_policy: yup
+    .boolean()
+    .required("You must agree to the Terms and Privacy Policy")
+    .oneOf([true], "You must agree to the Terms and Privacy Policy"),
 });
 
 export type SignUpFormData = yup.InferType<typeof signUpSchema>;

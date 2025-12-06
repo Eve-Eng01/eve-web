@@ -93,4 +93,36 @@ export interface SetRoleResponse {
   role: string;
 }
 
+export interface GoogleOAuthRequest {
+  id_token: string;
+}
+
+export interface GoogleOAuthResponse {
+  _id: string;
+  firstName?: string;
+  lastname?: string;
+  email: string;
+  tokens?: {
+    accessToken: string;
+    refreshToken: string;
+  };
+  isVerified: boolean;
+  role?: string;
+  isOnboarded?: boolean;
+}
+
+export interface LinkAccountRequest {
+  provider: "google" | "apple";
+  id_token: string;
+}
+
+export interface LinkAccountResponse {
+  message: string;
+  linkedProviders: {
+    email: boolean;
+    google: boolean;
+    apple: boolean;
+  };
+}
+
 
