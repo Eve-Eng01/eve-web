@@ -18,6 +18,8 @@ import type {
   RefreshTokenResponse,
   ForgotPasswordRequest,
   ForgotPasswordResponse,
+  VerifyPasswordResetOtpRequest,
+  VerifyPasswordResetOtpResponse,
   ResetPasswordRequest,
   ResetPasswordResponse,
   SetRoleRequest,
@@ -94,13 +96,26 @@ export const authService = {
   },
 
   /**
-   * Forgot password
+   * Forgot password - Request OTP
    */
   forgotPassword: async (
     data: ForgotPasswordRequest
   ): Promise<ApiResponse<ForgotPasswordResponse>> => {
     const response = await apiClient.post<ApiResponse<ForgotPasswordResponse>>(
-      "/auth/forgot-password",
+      "/password-reset/forgot",
+      data
+    );
+    return response.data;
+  },
+
+  /**
+   * Verify password reset OTP
+   */
+  verifyPasswordResetOtp: async (
+    data: VerifyPasswordResetOtpRequest
+  ): Promise<ApiResponse<VerifyPasswordResetOtpResponse>> => {
+    const response = await apiClient.post<ApiResponse<VerifyPasswordResetOtpResponse>>(
+      "/password-reset/verify-otp",
       data
     );
     return response.data;
@@ -113,7 +128,7 @@ export const authService = {
     data: ResetPasswordRequest
   ): Promise<ApiResponse<ResetPasswordResponse>> => {
     const response = await apiClient.post<ApiResponse<ResetPasswordResponse>>(
-      "/auth/reset-password",
+      "/password-reset/reset-forgot",
       data
     );
     return response.data;

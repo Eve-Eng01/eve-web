@@ -1,43 +1,71 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { Sms } from "iconsax-reactjs";
-import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 import logo from "@assets/evaLogo.png";
 import lock from "@assets/onBoarding/forgetpass/lock.png";
 import img from "@assets/onBoarding/forgetpass/pass.png";
+import { useForgotPassword } from "@/shared/api/services/auth";
+import { FormInput, useFormError } from "@/shared/forms";
+import { forgotPasswordSchema, type ForgotPasswordFormData } from "@/shared/forms/schemas";
+import { CustomButton } from "@components/button/button";
 
 export const Route = createFileRoute("/_public/auth/password/forget")({
   component: RouteComponent,
 });
 
 export function RouteComponent() {
-  const [email, setEmail] = useState("");
   const navigate = useNavigate();
+  const forgotPasswordMutation = useForgotPassword();
 
-  // Check if both fields are filled
-  const isFormValid = email.trim() !== "";
+  const form = useForm<ForgotPasswordFormData>({
+    resolver: yupResolver(forgotPasswordSchema),
+    mode: "onChange",
+    defaultValues: {
+      email: "",
+    },
+  });
 
-  const handleSignUp = () => {
-    /* eslint-disable */ console.log("Sign up clicked");
-    navigate({ to: "/auth/password/otp" });
-  };
+  const { register, handleSubmit, formState } = form;
+  const { errors, isSubmitting } = formState;
 
-  const handleGoogleSignup = () => {
-    /* eslint-disable */ console.log("Google signup clicked");
-  };
-
-  const handleFacebookSignUp = () => {
-    /* eslint-disable */ console.log("Facebook signUp clicked");
-  };
+  useFormError({
+    form,
+    apiError: forgotPasswordMutation.error
+      ? (forgotPasswordMutation.error as { response?: { data?: { message?: string } } })
+          ?.response?.data?.message || "Failed to send OTP. Please try again."
+      : null,
+  });
 
   const handleLogin = () => {
-    /* eslint-disable */ console.log("Login clicked");
     navigate({ to: "/auth/signin" });
   };
 
+  const onSubmit = async (data: ForgotPasswordFormData) => {
+    try {
+      const response = await forgotPasswordMutation.mutateAsync({
+        email: data.email.trim().toLowerCase(),
+      });
+
+      if (response.status) {
+        // Store email in sessionStorage for OTP verification page
+        sessionStorage.setItem(
+          "password_reset_email",
+          data.email.trim().toLowerCase()
+        );
+        // Navigate to OTP verification page
+        navigate({ to: "/auth/password/otp" });
+      }
+    } catch (err) {
+      // Error handled by useFormError hook
+      console.error("Forgot password error:", err);
+    }
+  };
+
   return (
-    <div className="min-h-screen flex">
-      {/* Left side - Image with overlay */}
-      <div className="flex-1 relative">
+    <div className="min-h-screen flex flex-col lg:flex-row">
+      {/* Left side - Image with overlay - Hidden on mobile and tablet */}
+      <div className="hidden lg:flex flex-1 relative">
         <img
           src={img}
           alt="Sign in background"
@@ -46,79 +74,83 @@ export function RouteComponent() {
       </div>
 
       {/* Right side - Sign up form */}
-      <div className="flex-1 bg-white flex items-center justify-center p-8">
+      <div className="flex-1 bg-white flex items-center justify-center p-4 sm:p-6 md:p-8">
         <div className="w-full max-w-md">
           {/* Logo */}
-          <div className="text-center mb-8">
-            <div className="mx-auto mb-4 flex items-center justify-center">
-              <img src={logo} alt="" className="w-[60px] h-[60px]" />
+          <div className="text-center mb-6 sm:mb-8">
+            <div className="mx-auto mb-3 sm:mb-4 flex items-center justify-center">
+              <img
+                src={logo}
+                alt=""
+                className="w-[50px] h-[50px] sm:w-[60px] sm:h-[60px]"
+              />
             </div>
-            <h1 className="text-[32px] font-bold text-gray-900 mb-2">
+            <h1 className="text-2xl sm:text-[28px] lg:text-[32px] font-bold text-gray-900 mb-2">
               Forgot Password
             </h1>
-            <p className="text-gray-600 text-[14px] leading-relaxed">
+            <p className="text-gray-600 text-[13px] sm:text-[14px] leading-relaxed px-2 sm:px-0">
               Log in to access your EVE account and continue creating or
+              <br className="hidden sm:block" />
+              <span className="sm:hidden"> </span>
               discovering amazing events.
             </p>
           </div>
 
           {/* Form */}
-          <div className="space-y-6">
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="space-y-4 sm:space-y-6"
+            noValidate
+          >
             {/* Email field */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Email
-              </label>
-              <div className="relative">
-                <div className="border-r-1 border-[#EAEAEA] pr-2 absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <Sms size="24" color="#BFBFBF" variant="Outline" />
-                </div>
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Enter your email"
-                  className="text-[#2D2D2D] w-full pl-13 pr-4 py-3 border border-gray-300 rounded-[14px] focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all"
-                />
-              </div>
-            </div>
+            <FormInput
+              name="email"
+              label="Email"
+              type="email"
+              placeholder="Enter your email"
+              register={register}
+              error={errors.email}
+              required
+              icon={<Sms size="24" color="#BFBFBF" variant="Outline" />}
+              iconPosition="left"
+              autoComplete="email"
+            />
 
-            {/* Sign Up button */}
-            <button
-              onClick={handleSignUp}
-              className={`w-full text-white font-medium py-3 px-4 rounded-[14px] transition-colors duration-200 ${
-                isFormValid
-                  ? "bg-[#7417C6] hover:bg-[#5f1399]"
-                  : "bg-gray-400 hover:bg-gray-500"
-              }`}
-            >
-              Continue
-            </button>
+            {/* Continue button */}
+            <CustomButton
+              type="submit"
+              title="Continue"
+              loading={isSubmitting}
+              disabled={!form.formState.isValid || isSubmitting}
+            />
+          </form>
 
-
-
-            {/* Login link */}
-            <div className="text-center">
-              <span className="text-sm text-gray-600">
-                Remember Password?{" "}
-                <button
-                  onClick={handleLogin}
-                  className="text-[#7417C6] hover:text-purple-700 font-medium"
-                >
-                  Log in
-                </button>
-              </span>
-            </div>
+          {/* Login link */}
+          <div className="text-center mt-4 sm:mt-6">
+            <span className="text-xs sm:text-sm text-gray-600">
+              Remember Password?{" "}
+              <button
+                type="button"
+                onClick={handleLogin}
+                className="text-[#7417C6] hover:text-purple-700 font-medium"
+              >
+                Log in
+              </button>
+            </span>
           </div>
         </div>
       </div>
 
       {/* <OtpVerification/> */}
 
-      {/* Decorative elements on the right side */}
-      <div className="absolute bottom-0 right-0 overflow-hidden pointer-events-none">
+      {/* Decorative elements on the right side - Hidden on mobile and tablet */}
+      <div className="fixed bottom-0 right-0 overflow-hidden pointer-events-none hidden lg:block">
         <div className="relative">
-          <img src={lock} alt="" className="w-[199px] h-[179px]" />
+          <img
+            src={lock}
+            alt=""
+            className="w-[180px] h-[160px] lg:w-[199px] lg:h-[179px]"
+          />
         </div>
       </div>
     </div>

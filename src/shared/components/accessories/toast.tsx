@@ -50,16 +50,14 @@ export const Toast: React.FC<ToastProps> = ({
           : "opacity-0 -translate-y-4"
       }`}
     >
-      <div className={`${bgColor} flex flex-col gap-2 items-center justify-center px-6 sm:px-10 py-4 sm:py-6 rounded-2xl shadow-lg min-w-[280px] sm:min-w-[400px]`}>
-        <div className="flex gap-4 items-center">
-          <p className="text-white text-xl sm:text-2xl md:text-[32px] font-bold leading-[38px] whitespace-nowrap">
-            {message}
-          </p>
-          <div className="bg-white border border-[#dfdfdf] rounded-3xl w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center flex-shrink-0">
-            <Icon className={`w-6 h-6 sm:w-8 sm:h-8 md:w-8 md:h-8 ${iconColor}`} />
-          </div>
+      <div className={`${bgColor} relative flex gap-3 sm:gap-4 items-center justify-center px-4 sm:px-5 md:px-6 py-3 sm:py-4 md:py-5 rounded-xl sm:rounded-2xl shadow-lg max-w-[90vw] sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-md`}>
+        <p className="text-white text-sm sm:text-base md:text-lg lg:text-base xl:text-sm font-semibold sm:font-bold leading-tight sm:leading-normal pr-1">
+          {message}
+        </p>
+        <div className="bg-white border border-[#dfdfdf] rounded-full w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 lg:w-9 lg:h-9 xl:w-8 xl:h-8 flex items-center justify-center flex-shrink-0">
+          <Icon className={`w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 lg:w-5 lg:h-5 xl:w-4 xl:h-4 ${iconColor}`} />
         </div>
-        <div className={`absolute inset-0 pointer-events-none rounded-2xl ${borderColor}`} />
+        <div className={`absolute inset-0 pointer-events-none rounded-xl sm:rounded-2xl ${borderColor}`} />
       </div>
     </div>
   );
@@ -75,9 +73,9 @@ export const ToastContainer: React.FC = () => {
   if (toasts.length === 0) return null;
 
   return (
-    <div className="fixed top-4 left-1/2 -translate-x-1/2 z-[100] flex flex-col gap-4 items-center pointer-events-none">
+    <div className="fixed top-3 sm:top-4 left-1/2 -translate-x-1/2 z-[100] flex flex-col gap-3 sm:gap-4 items-center pointer-events-none w-full max-w-[95vw] sm:max-w-none px-2 sm:px-0">
       {toasts.map((toast) => (
-        <div key={toast.id} className="pointer-events-auto">
+        <div key={toast.id} className="pointer-events-auto w-full flex justify-center">
           <Toast
             message={toast.message}
             type={toast.type}

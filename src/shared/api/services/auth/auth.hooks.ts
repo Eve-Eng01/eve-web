@@ -13,6 +13,7 @@ import type {
   ResendOtpRequest,
   RefreshTokenRequest,
   ForgotPasswordRequest,
+  VerifyPasswordResetOtpRequest,
   ResetPasswordRequest,
   SetRoleRequest,
   GoogleOAuthRequest,
@@ -371,10 +372,51 @@ export function useRefreshToken() {
  * Forgot Password Mutation
  */
 export function useForgotPassword() {
+  const showToast = useToastStore((state) => state.showToast);
+
   return useMutation({
     mutationFn: (data: ForgotPasswordRequest) => authService.forgotPassword(data),
+    onSuccess: (response) => {
+      if (response.status) {
+        showToast(
+          response.message || "OTP sent to your email",
+          "success"
+        );
+      }
+    },
     onError: (error) => {
       console.error("Forgot password error:", error);
+      const errorMessage = 
+        (error as { response?: { data?: { message?: string } } })
+          ?.response?.data?.message || "Failed to send OTP. Please try again.";
+      showToast(errorMessage, "error");
+    },
+  });
+}
+
+/**
+ * Verify Password Reset OTP Mutation
+ */
+export function useVerifyPasswordResetOtp() {
+  const showToast = useToastStore((state) => state.showToast);
+
+  return useMutation({
+    mutationFn: (data: VerifyPasswordResetOtpRequest) => 
+      authService.verifyPasswordResetOtp(data),
+    onSuccess: (response) => {
+      if (response.status && response.data) {
+        showToast(
+          response.message || "OTP verified successfully",
+          "success"
+        );
+      }
+    },
+    onError: (error) => {
+      console.error("Verify password reset OTP error:", error);
+      const errorMessage = 
+        (error as { response?: { data?: { message?: string } } })
+          ?.response?.data?.message || "Invalid or expired OTP. Please try again.";
+      showToast(errorMessage, "error");
     },
   });
 }
@@ -384,15 +426,26 @@ export function useForgotPassword() {
  */
 export function useResetPassword() {
   const navigate = useNavigate();
+  const showToast = useToastStore((state) => state.showToast);
 
   return useMutation({
     mutationFn: (data: ResetPasswordRequest) => authService.resetPassword(data),
-    onSuccess: () => {
-      // Navigate to login after successful password reset
-      navigate({ to: "/auth/signin", search: {} });
+    onSuccess: (response) => {
+      if (response.status) {
+        showToast(
+          response.message || "Password reset successful",
+          "success"
+        );
+        // Navigate to login after successful password reset
+        navigate({ to: "/auth/signin", search: {} });
+      }
     },
     onError: (error) => {
       console.error("Reset password error:", error);
+      const errorMessage = 
+        (error as { response?: { data?: { message?: string } } })
+          ?.response?.data?.message || "Failed to reset password. Please try again.";
+      showToast(errorMessage, "error");
     },
   });
 }

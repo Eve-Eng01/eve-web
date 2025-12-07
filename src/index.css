@@ -38,7 +38,6 @@
 
 .google-login-button > div {
   @apply w-full;
- 
   width: 100% !important;
   display: block !important;
   /* Remove blue background-color when done testing */
@@ -48,6 +47,7 @@
 .google-login-button > div > div {
   width: 100% !important;  
   display: block !important;
+  
 }
 
 .google-login-button button,
@@ -57,7 +57,6 @@
   @apply border border-gray-300 rounded-[14px];
   @apply bg-white text-gray-700;
   @apply transition-colors duration-200;
- 
   width: 100% !important;
   max-width: 100% !important;
   min-width: 0 !important;

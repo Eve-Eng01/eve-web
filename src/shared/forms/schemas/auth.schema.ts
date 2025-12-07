@@ -103,16 +103,29 @@ export const forgotPasswordSchema = yup.object().shape({
 export type ForgotPasswordFormData = yup.InferType<typeof forgotPasswordSchema>;
 
 /**
+ * Verify Password Reset OTP Schema
+ */
+export const verifyPasswordResetOtpSchema = yup.object().shape({
+  email: commonRules.email,
+  otp: commonRules.otp,
+});
+
+export type VerifyPasswordResetOtpFormData = yup.InferType<typeof verifyPasswordResetOtpSchema>;
+
+/**
  * Reset Password Schema
  */
 export const resetPasswordSchema = yup.object().shape({
-  id: commonRules.userId,
-  otp: commonRules.otp,
-  new_password: commonRules.password,
-  confirm_password: yup
+  email: commonRules.email,
+  token: yup
+    .string()
+    .required("Reset token is required")
+    .length(64, "Token must be exactly 64 characters"),
+  newPassword: commonRules.password,
+  confirmPassword: yup
     .string()
     .required("Please confirm your password")
-    .oneOf([yup.ref("new_password")], "Passwords must match"),
+    .oneOf([yup.ref("newPassword")], "Passwords must match"),
 });
 
 export type ResetPasswordFormData = yup.InferType<typeof resetPasswordSchema>;

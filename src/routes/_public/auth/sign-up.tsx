@@ -30,6 +30,7 @@ export function RouteComponent() {
   const form = useForm<SignUpFormData>({
     resolver: yupResolver(signUpSchema),
     mode: "onChange",
+
     defaultValues: {
       email: "",
       password: "",
@@ -324,7 +325,7 @@ export function RouteComponent() {
             </div>
 
             {/* Login link */}
-            <div className="text-center">
+            <div className="text-center pt-4 sm:pt-4">
               <span className="text-xs sm:text-sm text-gray-600">
                 Already have an account?{" "}
                 <button

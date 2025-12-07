@@ -69,10 +69,19 @@ export interface ForgotPasswordResponse {
   message: string;
 }
 
-export interface ResetPasswordRequest {
-  id: string;
+export interface VerifyPasswordResetOtpRequest {
+  email: string;
   otp: string;
-  new_password: string;
+}
+
+export interface VerifyPasswordResetOtpResponse {
+  token: string;
+}
+
+export interface ResetPasswordRequest {
+  email: string;
+  token: string;
+  newPassword: string;
 }
 
 export interface ResetPasswordResponse {
