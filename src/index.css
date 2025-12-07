@@ -32,7 +32,7 @@
   @apply w-full;
   width: 100% !important;
   display: block !important;
-  @apply mb-3;
+  
   /* Remove red background-color when done testing */
 }
 
@@ -46,18 +46,18 @@
 
 /* Target all nested divs to ensure full width */
 .google-login-button > div > div {
-  width: 100% !important;
-  
+  width: 100% !important;  
   display: block !important;
 }
 
 .google-login-button button,
-.google-login-button [role="button"] {
+.google-login-button [role="button"]:nth-child(1) {
   @apply w-full flex items-center justify-center;
   @apply px-4 py-7 ;
   @apply border border-gray-300 rounded-[14px];
   @apply bg-white text-gray-700;
   @apply transition-colors duration-200;
+ 
   width: 100% !important;
   max-width: 100% !important;
   min-width: 0 !important;
