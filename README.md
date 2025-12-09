@@ -31,6 +31,9 @@ Before running the application, you need to set up your environment variables:
 
    # Google OAuth Configuration
    VITE_GOOGLE_CLIENT_ID=your_google_client_id_here.apps.googleusercontent.com
+
+   # Google Places API Configuration
+   VITE_GOOGLE_PLACES_API_KEY=your_google_places_api_key_here
    ```
 
 3. **For Production**: Update `VITE_API_URL` to your production backend URL
@@ -43,6 +46,12 @@ Before running the application, you need to set up your environment variables:
    - Configure authorized redirect URIs:
      - Development: `http://localhost:3000/auth/google/callback`
      - Production: `https://yourdomain.com/auth/google/callback`
+
+5. **Google Places API Setup**:
+   - Get your API key from [Google Cloud Console](https://console.cloud.google.com/apis/credentials)
+   - Enable the "Places API" in your Google Cloud project
+   - Add the API key to your `.env` file as `VITE_GOOGLE_PLACES_API_KEY`
+   - For production, restrict the API key to your domain for security
 
 ### Commands
 ```sh

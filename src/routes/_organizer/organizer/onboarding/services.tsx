@@ -5,6 +5,7 @@ import bottom from "@assets/onBoarding/bottom.png";
 import { CustomButton } from "@components/accessories/button";
 import { DropdownInput } from "@components/accessories/dropdown-input";
 import { InputField } from "@components/accessories/input-field";
+import { GooglePlacesAutocomplete } from "@components/accessories/google-places-autocomplete";
 import "./onboard.css";
 import CountryList from "country-list-with-dial-code-and-flag";
 import { ServiceOne } from "./sub-services/one";
@@ -52,11 +53,21 @@ export const CustomPhoneInput: React.FC<CustomPhoneInputProps> = ({
   // Get all countries from the npm package
   const countries: Country[] = CountryList.getAll();
 
-  // Convert countries to dropdown options
-  const countryOptions: DropdownOption[] = countries.map((country) => ({
+  // Dedupe by ISO code and sort alphabetically to avoid repeats
+  const uniqueCountries = Array.from(
+    new Map(countries.map((country) => [country.code, country])).values()
+  ).sort((a, b) => a.name.localeCompare(b.name));
+
+  // Convert countries to dropdown options with richer search text
+  const countryOptions: DropdownOption[] = uniqueCountries.map((country) => ({
     value: country.code,
     label: `${country.flag} ${country.name} (${country.dial_code})`,
+    searchText: `${country.name} ${country.code} ${country.dial_code} ${country.dial_code.replace("+", "")}`,
   }));
+
+  // Prefer Nigeria dial code for placeholder; fall back to the first country
+  const defaultCountry =
+    countries.find((country) => country.code === "NG") || countries[0];
 
   const selectedCountryOption = value
     ? countryOptions.find((option) => option.value === value.country.code) ||
@@ -76,12 +87,11 @@ export const CustomPhoneInput: React.FC<CustomPhoneInputProps> = ({
   };
 
   const handlePhoneNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (value?.country) {
-      onChange({
-        country: value.country,
-        phoneNumber: e.target.value,
-      });
-    }
+    const country = value?.country || defaultCountry;
+    onChange({
+      country,
+      phoneNumber: e.target.value,
+    });
   };
 
   return (
@@ -92,38 +102,35 @@ export const CustomPhoneInput: React.FC<CustomPhoneInputProps> = ({
         </label>
       )}
 
-      <div className="flex gap-2">
+      <div className="flex flex-col sm:flex-row gap-3">
         {/* Country Dropdown */}
-        <div className="w-2/5">
+        <div className="sm:w-2/5">
           <DropdownInput
-            className="mb-[30px]"
+            className="mb-0"
             options={countryOptions}
             value={selectedCountryOption}
             onChange={handleCountryChange}
-            placeholder="Select country"
+            placeholder={`Select (${defaultCountry?.dial_code || "+000"})`}
             searchable={true}
           />
         </div>
 
         {/* Phone Number Input */}
-        <div className="w-3/5">
+        <div className="sm:w-3/5 w-full">
           <input
             type="tel"
-            placeholder="Phone number"
+            placeholder="Enter phone number"
             value={value?.phoneNumber || ""}
             onChange={handlePhoneNumberChange}
-            className="w-full px-4 py-3 bg-gray-100 border-0 rounded-lg text-gray-800 focus:bg-white focus:ring-2 focus:ring-purple-500 focus:outline-none transition-all"
+            className="w-full px-4 py-3 bg-gray-100 border border-gray-200 rounded-lg text-gray-800 focus:bg-white focus:ring-2 focus:ring-purple-500 focus:outline-none transition-all"
           />
         </div>
       </div>
 
-      {/* Display selected country dial code */}
-      {value?.country && (
-        <div className="mt-1 text-sm text-gray-500">
-          Selected: {value.country.flag} {value.country.name} (
-          {value.country.dial_code})
-        </div>
-      )}
+      {/* Helper text for dial code expectation */}
+      <p className="mt-2 text-xs text-gray-500">
+        Choose your country code, then enter the number without the leading zero.
+      </p>
     </div>
   );
 };
@@ -213,13 +220,13 @@ export function RouteComponent() {
               onChange={(data) => setFormData({ ...formData, phoneData: data })}
             />
 
-            <InputField
+            <GooglePlacesAutocomplete
               parentClassName="mb-[30px]"
               label="Location"
               placeholder="Ibeju Lekki Lagos, Nigeria."
               value={formData.location}
-              onChange={(e) =>
-                setFormData({ ...formData, location: e.target.value })
+              onChange={(value) =>
+                setFormData({ ...formData, location: value })
               }
             />
 

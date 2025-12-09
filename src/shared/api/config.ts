@@ -9,7 +9,7 @@ const getApiUrl = () => {
   if (import.meta.env.VITE_API_URL) {
     return import.meta.env.VITE_API_URL;
   }
-  
+  //TODO: Remove this after testing
   // Fallback to dev/prod based on mode
   const isDev = import.meta.env.DEV;
   return isDev

@@ -3,19 +3,19 @@
   font-family: "Poppins", sans-serif;
 }
 .header {
-  font-size: 32px;
-  padding-bottom: 12px;
+  font-size: 24px;
+  padding-bottom: 10px;
   font-weight: 500;
 }
 .para {
   font-weight: 300;
-  font-size: 16px;
-  padding-bottom: 52px;
+  font-size: 14px;
+  padding-bottom: 32px;
   color: #5a5a5a;
   text-align: center;
 }
 .bottom {
-  padding-top: 5%;
+  padding-top: 24px;
 }
 .goBack {
   color: black;
@@ -30,4 +30,18 @@
   align-items: center;
   justify-content: center;
   gap: 30px;
+}
+
+@media (min-width: 640px) {
+  .header {
+    font-size: 32px;
+    padding-bottom: 12px;
+  }
+  .para {
+    font-size: 16px;
+    padding-bottom: 52px;
+  }
+  .bottom {
+    padding-top: 5%;
+  }
 }

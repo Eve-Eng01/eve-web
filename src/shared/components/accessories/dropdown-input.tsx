@@ -7,6 +7,7 @@ export interface DropdownOption {
   value: string;
   label: string;
   flag?: string; // Add flag property
+  searchText?: string; // Optional extra text to include in search (e.g., dial code)
 }
 
 interface DropdownInputProps {
@@ -46,9 +47,10 @@ export const DropdownInput: React.FC<DropdownInputProps> = ({
   const [showAddInput, setShowAddInput] = useState<boolean>(false);
 
   const filteredOptions: DropdownOption[] = searchable
-    ? options.filter((option) =>
-        option.label.toLowerCase().includes(searchTerm.toLowerCase())
-      )
+    ? options.filter((option) => {
+        const haystack = `${option.label} ${option.searchText || ""}`.toLowerCase();
+        return haystack.includes(searchTerm.trim().toLowerCase());
+      })
     : options;
 
   const handleOptionSelect = (option: DropdownOption): void => {
@@ -119,7 +121,7 @@ export const DropdownInput: React.FC<DropdownInputProps> = ({
             )}
           >
             {searchable && (
-              <div className="p-3 border-b">
+              <div className="p-3">
                 <input
                   type="text"
                   placeholder="Search..."

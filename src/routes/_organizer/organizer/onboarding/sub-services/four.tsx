@@ -2,10 +2,16 @@ import { createFileRoute } from "@tanstack/react-router";
 import { ServiceOneProps } from "./one";
 import { CustomButton } from "@components/button/button";
 import logo from "@assets/evaLogo.png";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import Modal from "@components/accessories/main-modal";
+import {
+  DropdownInput,
+  DropdownOption,
+} from "@components/accessories/dropdown-input";
 
-export const Route = createFileRoute("/_organizer/organizer/onboarding/sub-services/four")({
+export const Route = createFileRoute(
+  "/_organizer/organizer/onboarding/sub-services/four"
+)({
   component: ServiceFour,
 });
 
@@ -75,29 +81,15 @@ export const SocialIcon = ({ platform }: { platform: string }) => {
     );
   }
 
-  if (platformLower.includes("behance")) {
+  if (platformLower.includes("tiktok")) {
     return (
-      <div className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center flex-shrink-0">
+      <div className="w-8 h-8 bg-black rounded-lg flex items-center justify-center flex-shrink-0">
         <svg
           className="w-5 h-5 text-white"
           fill="currentColor"
           viewBox="0 0 24 24"
         >
-          <path d="M0 7.5v9c0 .83.67 1.5 1.5 1.5h21c.83 0 1.5-.67 1.5-1.5v-9c0-.83-.67-1.5-1.5-1.5h-21c-.83 0-1.5.67-1.5 1.5zM9.99 13.5h-3.24c-.55 0-1-.45-1-1s.45-1 1-1h3.24c.55 0 1 .45 1 1s-.45 1-1 1zm7.26-4.5h-2.5c-.28 0-.5-.22-.5-.5s.22-.5.5-.5h2.5c.28 0 .5.22.5.5s-.22.5-.5.5z" />
-        </svg>
-      </div>
-    );
-  }
-
-  if (platformLower.includes("whatsapp")) {
-    return (
-      <div className="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center flex-shrink-0">
-        <svg
-          className="w-5 h-5 text-white"
-          fill="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.463 3.488" />
+          <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z" />
         </svg>
       </div>
     );
@@ -131,31 +123,69 @@ export const AddPortfolioModal = ({
   onAddLink: (platform: string, url: string) => void;
   onClose: () => void;
 }) => {
-  const [url, setUrl] = useState("");
-  const [platform, setPlatform] = useState("Instagram");
+  const [handle, setHandle] = useState("");
+  const [platform, setPlatform] = useState<DropdownOption | null>({
+    value: "Instagram",
+    label: "Instagram",
+  });
+
+  // Get base URL for each platform
+  const getBaseUrl = (platformName: string): string => {
+    const platformLower = platformName.toLowerCase();
+    if (platformLower.includes("instagram")) return "https://instagram.com/";
+    if (platformLower.includes("facebook")) return "https://facebook.com/";
+    if (platformLower.includes("twitter")) return "https://twitter.com/";
+    if (platformLower.includes("linkedin")) return "https://linkedin.com/in/";
+    if (platformLower.includes("tiktok")) return "https://tiktok.com/@";
+    if (platformLower.includes("website")) return "https://";
+    return "";
+  };
+
+  // Build full URL from handle and platform
+  const fullUrl = useMemo(() => {
+    if (!platform || !handle.trim()) return "";
+    const baseUrl = getBaseUrl(platform.value);
+    // For Website, use handle as full URL if it starts with http, otherwise prepend https://
+    if (platform.value === "Website") {
+      const trimmedHandle = handle.trim();
+      if (
+        trimmedHandle.startsWith("http://") ||
+        trimmedHandle.startsWith("https://")
+      ) {
+        return trimmedHandle;
+      }
+      return "https://" + trimmedHandle;
+    }
+    return baseUrl + handle.trim();
+  }, [handle, platform]);
 
   const handleDone = () => {
-    if (url.trim()) {
-      onAddLink(platform, url);
-      setUrl("");
-      setPlatform("Instagram");
+    if (handle.trim() && platform) {
+      onAddLink(platform.value, fullUrl);
+      setHandle("");
+      setPlatform({
+        value: "Instagram",
+        label: "Instagram",
+      });
     }
   };
 
   const handleCancel = () => {
-    setUrl("");
-    setPlatform("Instagram");
+    setHandle("");
+    setPlatform({
+      value: "Instagram",
+      label: "Instagram",
+    });
     onClose();
   };
 
-  const platforms = [
-    "Instagram",
-    "Facebook",
-    "Twitter",
-    "LinkedIn",
-    "Behance",
-    "WhatsApp",
-    "Website",
+  const platformOptions: DropdownOption[] = [
+    { value: "Instagram", label: "Instagram" },
+    { value: "Facebook", label: "Facebook" },
+    { value: "Twitter", label: "Twitter" },
+    { value: "LinkedIn", label: "LinkedIn" },
+    { value: "TikTok", label: "TikTok" },
+    { value: "Website", label: "Website" },
   ];
 
   return (
@@ -165,61 +195,64 @@ export const AddPortfolioModal = ({
           Add Portfolio Link
         </h2>
         <p className="text-gray-600">
-          Share a link to your work on platforms like Instagram, facebook,
-          whatsapp Behance, or your website. This helps clients view more of
-          what you offer.
+          Share a link to your work on platforms like Instagram, Facebook,
+          TikTok, or your website. This helps clients view more of what you
+          offer.
         </p>
       </div>
 
       <div className="space-y-6">
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-3">
-            Add portfolio or social media Link
+            Brand name
           </label>
-          <input
-            type="url"
-            value={url}
-            onChange={(e) => setUrl(e.target.value)}
-            placeholder="https://www.portfolioplace.com/vendor/jayevents_studio"
-            className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none text-purple-600"
-          />
+          <div className="relative">
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none z-10">
+              {platform && <SocialIcon platform={platform.value} />}
+            </div>
+            <div className="pl-12">
+              <DropdownInput
+                options={platformOptions}
+                value={platform}
+                onChange={(option) => setPlatform(option)}
+                placeholder="Select a platform"
+                buttonClassName="w-full text-[#000] border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none bg-white text-left"
+                dropDownClassName="z-50"
+              />
+            </div>
+          </div>
         </div>
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-3">
-            Brand name
+            {platform?.value === "Website" ? "Website URL" : "Handle"}
           </label>
           <div className="relative">
-            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <SocialIcon platform={platform} />
-            </div>
-            <select
-              value={platform}
-              onChange={(e) => setPlatform(e.target.value)}
-              className="w-full text-[#000] pl-12 pr-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none appearance-none bg-white"
-            >
-              {platforms.map((p) => (
-                <option key={p} value={p}>
-                  {p}
-                </option>
-              ))}
-            </select>
-            <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-              <svg
-                className="w-5 h-5 text-gray-400"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M19 9l-7 7-7-7"
-                />
-              </svg>
-            </div>
+            {/* {platform?.value !== "Website" && (
+              <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                <span className="text-gray-500 text-sm whitespace-nowrap">
+                  {platform ? getBaseUrl(platform.value) : ""}
+                </span>
+              </div>
+            )} */}
+            <input
+              type="text"
+              value={handle}
+              onChange={(e) => setHandle(e.target.value)}
+              placeholder={
+                platform?.value === "Website"
+                  ? "https://example.com or example.com"
+                  : "Enter your handle"
+              }
+              className={`w-full p-4  border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none text-purple-600`}
+            />
           </div>
+          {fullUrl && (
+            <p className="mt-2 text-sm text-gray-500">
+              Full URL:{" "}
+              <span className="text-purple-600 break-all">{fullUrl}</span>
+            </p>
+          )}
         </div>
       </div>
 
@@ -232,7 +265,7 @@ export const AddPortfolioModal = ({
         </button>
         <button
           onClick={handleDone}
-          disabled={!url.trim()}
+          disabled={!handle.trim() || !platform}
           className="flex-1 px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
         >
           Done
