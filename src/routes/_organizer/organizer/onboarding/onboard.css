@@ -10,7 +10,7 @@
 .para {
   font-weight: 300;
   font-size: 14px;
-  padding-bottom: 32px;
+
   color: #5a5a5a;
   text-align: center;
 }
@@ -39,7 +39,6 @@
   }
   .para {
     font-size: 16px;
-    padding-bottom: 52px;
   }
   .bottom {
     padding-top: 5%;

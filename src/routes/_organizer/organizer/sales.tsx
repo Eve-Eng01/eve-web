@@ -9,17 +9,18 @@ import SettingsModal from "@components/accessories/setting-modal";
 import DatePickerDropdown from "@components/accessories/date-picker-dropdown";
 import RequestPayoutModal from "@components/accessories/request-payout-modal";
 import PayoutSuccessModal from "@components/accessories/payout-success-modal";
-import type { PayoutAccountData } from "@routes/account/payout-setting";
+
+import { useAuthStore } from "@/shared/stores/auth-store";
+import { PayoutAccountData } from "./account/payout-setting";
 
 export const Route = createFileRoute("/_organizer/organizer/sales")({
   component: RouteComponent,
 });
 
-export const User = {
-  name: "Gabriel Emumwen",
-  email: "gabrielemumwen20@gmail.com",
-};
 export function RouteComponent() {
+  const user = useAuthStore((state) => state.user);
+  const userName = user ? `${user.firstName} ${user.lastname}`.trim() : "User";
+  
   const [selectedDate, setSelectedDate] = useState<Date | null>(
     new Date(2025, 7, 5) // August 5, 2025
   );
@@ -41,7 +42,7 @@ export function RouteComponent() {
       id: "1",
       accountNumber: "1234567890",
       bankName: "GTBank",
-      accountName: "Gabriel Emumwen",
+      accountName: userName,
       currency: "NGN",
       countryCode: "NG",
     },
@@ -49,7 +50,7 @@ export function RouteComponent() {
       id: "2",
       accountNumber: "2109444094",
       bankName: "Access Bank",
-      accountName: "Anthony Mary",
+      accountName: userName,
       currency: "NGN",
       countryCode: "NG",
     },
@@ -107,7 +108,7 @@ export function RouteComponent() {
   };
 
   return (
-    <DashboardLayout user={User}>
+    <DashboardLayout user={user}>
       <div className="bg-white ">
         <div className="flex items-center justify-between mb-8">
           <div className="flex space-x-1">

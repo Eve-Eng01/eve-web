@@ -8,16 +8,18 @@ import ScheduledEvent from "@components/pages/organizer/events/scheduled-event";
 import PassedEvent from "@components/pages/organizer/events/passed-event";
 import DraftedEvent from "@components/pages/organizer/events/drafter-event";
 import DatePickerDropdown from "@components/accessories/date-picker-dropdown";
+import { useAuthStore } from "@/shared/stores/auth-store";
+
 
 export const Route = createFileRoute("/_organizer/organizer/")({
   component: RouteComponent,
 });
 
-export const User = {
-  name: "Gabriel Emumwen",
-  email: "gabrielemumwen20@gmail.com",
-};
 export function RouteComponent() {
+  // Get user from auth store
+  const user = useAuthStore((state) => state.user);
+  const userName = user ? `${user.firstName} ${user.lastname}`.trim() : "User";
+  
   const [selectedDate, setSelectedDate] = useState<Date | null>(
     new Date(2025, 7, 5) // August 5, 2025
   );
@@ -52,11 +54,11 @@ export function RouteComponent() {
   };
 
   return (
-    <DashboardLayout user={User}>
+    <DashboardLayout user={user}>
       <div>
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            Hello, Anthony Mary 👋👋
+            Hello, {userName} 👋👋
           </h1>
         </div>
 

@@ -44,3 +44,26 @@ export interface CreateOnboardingResponse {
   profile: OnboardingProfile[];
 }
 
+export interface PricingInfo {
+  rate: "hourly" | "fixed" | "package";
+  currency: string;
+  amount: number;
+}
+
+export interface UpdateOnboardingRequest {
+  company_name?: string;
+  country?: string;
+  phone?: PhoneNumber;
+  location?: string;
+  business_type?: string;
+  availability?: string;
+  pricing?: PricingInfo;
+  links?: PortfolioLink[];
+  completed?: boolean;
+}
+
+export interface UpdateOnboardingResponse {
+  message: string;
+  profile: OnboardingProfile;
+}
+

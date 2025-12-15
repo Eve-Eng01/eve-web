@@ -3,11 +3,13 @@ import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import logo from "@assets/evaLogo.png";
-import { CustomPhoneInput, DropdownOption } from "./services.tsx";
+import { CustomPhoneInput, type PhoneData } from "@components/accessories/custom-phone-input";
+import { type DropdownOption } from "@components/accessories/dropdown-input";
 import { InputField } from "@components/accessories/input-field";
 import { DropdownInput } from "@components/accessories/dropdown-input";
 import { CustomButton } from "@components/accessories/button";
 import { GooglePlacesAutocomplete } from "@components/accessories/google-places-autocomplete";
+import { ProgressSteps } from "../../../../components/accessories/progress-steps";
 import countries from "world-countries";
 import { onboardingSchema } from "@/shared/forms/schemas/onboarding.schema";
 import { OrganizerSocialsStep } from "./organizer-steps/socials";
@@ -23,10 +25,7 @@ interface ExtendedFormData {
   companyName: string;
   businessType: DropdownOption | null;
   country: DropdownOption | null;
-  phoneData: {
-    country: { dial_code: string; code: string; name: string; flag: string };
-    phoneNumber: string;
-  } | undefined;
+  phoneData: PhoneData | undefined;
   location: string;
 }
 
@@ -271,27 +270,10 @@ export function RouteComponent() {
     }
   };
 
-  const renderProgressBar = () => {
-    return (
-      <div className="flex justify-center mb-8">
-        <div className="flex space-x-2">
-          {[1, 2, 3].map((tab) => (
-            <div
-              key={tab}
-              className={`w-16 h-2 rounded-full transition-colors ${
-                tab <= currentTab ? "bg-purple-600" : "bg-gray-300"
-              }`}
-            />
-          ))}
-        </div>
-      </div>
-    );
-  };
-
   return (
     <div className="min-h-screen border bg-white flex flex-col items-center pt-12 relative">
       <div className="w-full max-w-2xl">
-        {renderProgressBar()}
+        <ProgressSteps total={3} current={currentTab} />
         {renderTabContent()}
       </div>
       {/* <DecorativeBottomImage /> */}

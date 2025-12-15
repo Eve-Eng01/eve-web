@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { MessageCircle, X, Send, Phone, Video, MoreVertical, ChevronLeft, Search } from 'lucide-react';
+import { useAuthStore } from "@/shared/stores/auth-store";
 
 interface Message {
   id: number;
@@ -78,11 +79,14 @@ const ChatWidget = () => {
     scrollToBottom();
   }, [messages]);
 
+  const user = useAuthStore((state) => state.user);
+  const userName = user ? `${user.firstName} ${user.lastname}`.trim() : "User";
+
   const contacts: Contact[] = [
     {
       id: 1,
-      name: 'Emumwen Gabriel',
-      email: 'emumwen@gmail.com',
+      name: userName,
+      email: user?.email || '',
       avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop',
       lastMessage: 'come and open the gate for....',
       timestamp: '12:30 Pm',

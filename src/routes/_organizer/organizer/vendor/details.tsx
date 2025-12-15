@@ -3,7 +3,7 @@
 import Modal from "@components/accessories/main-modal";
 
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
-import { User } from '..';
+
 import { DashboardLayout } from '@components/layouts/dashboard-layout';
 import { CustomButton } from '@components/button/button';
 import { ArrowLeft, Heart, Star } from 'iconsax-reactjs';
@@ -60,7 +60,7 @@ function RouteComponent() {
   };
 
   return (
-    <DashboardLayout user={User}>
+    <DashboardLayout>
       {/* Go Back Button */}
       <CustomButton
         title="Go back"

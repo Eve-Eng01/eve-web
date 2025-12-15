@@ -6,7 +6,8 @@ import { PortfolioLink } from "../sub-services/four";
 import { useCreateOnboardingProfile } from "@/shared/api/services/onboarding";
 import type { CreateOnboardingRequest } from "@/shared/api/services/onboarding/types";
 import { useAuthStore } from "@/shared/stores/auth-store";
-import { CustomPhoneInput, DropdownOption } from "../services";
+import { CustomPhoneInput, type PhoneData } from "@components/accessories/custom-phone-input";
+import { type DropdownOption } from "@components/accessories/dropdown-input";
 import { DropdownInput } from "@components/accessories/dropdown-input";
 import { getCountriesOptions } from "../profile";
 
@@ -16,10 +17,7 @@ export interface OrganizerReviewStepProps {
   formData: {
     companyName: string;
     country: DropdownOption | null;
-    phoneData: {
-      country: { dial_code: string; code: string; name: string; flag: string };
-      phoneNumber: string;
-    } | undefined;
+    phoneData: PhoneData | undefined;
     location: string;
     businessType: string | null;
   };
@@ -143,7 +141,7 @@ export function OrganizerReviewStep({
           <img src={logo} alt="" className="w-[60px] h-[60px]" />
         </div>
         <h2 className="text-black header text-center">Review Your Information</h2>
-        <p className="text-black para text-center">
+        <p className="text-black para text-center mb-4">
           Here's a summary of everything you've added. Make sure your details
           are correct before submitting your profile.
         </p>

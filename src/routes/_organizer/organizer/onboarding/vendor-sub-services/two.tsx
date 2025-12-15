@@ -2,9 +2,9 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import {
   AddPortfolioModal,
-  PortfolioLink,
   SocialIcon,
-} from "../sub-services/four";
+} from "@/shared/components/portfolio-link-modal";
+import { PortfolioLink } from "@/shared/api/services/onboarding";
 import logo from "@assets/evaLogo.png";
 import { CustomButton } from "@components/accessories/button";
 import { ServiceOneProps } from "../sub-services/one";

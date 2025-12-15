@@ -2,61 +2,111 @@
 * {
   font-family: "Poppins", sans-serif;
 }
+/* Mobile First: Base styles for small screens (320px+) */
 .header {
-  font-size: 24px;
+  font-size: 20px;
   padding-bottom: 8px;
   font-weight: 500;
   line-height: 1.3;
 }
 
-@media (min-width: 640px) {
+/* Small phones (375px+) */
+@media (min-width: 375px) {
   .header {
-    font-size: 28px;
+    font-size: 22px;
+  }
+}
+
+/* Large phones (480px+) */
+@media (min-width: 480px) {
+  .header {
+    font-size: 24px;
     padding-bottom: 10px;
   }
 }
 
-@media (min-width: 768px) {
+/* Small tablets and landscape phones (640px+) */
+@media (min-width: 640px) {
   .header {
-    font-size: 32px;
+    font-size: 28px;
     padding-bottom: 12px;
   }
 }
 
-@media (min-width: 1024px) {
+/* Tablets (768px+) */
+@media (min-width: 768px) {
   .header {
-    font-size: 36px;
+    font-size: 32px;
     padding-bottom: 14px;
   }
 }
 
-.para {
-  font-weight: 300;
-  font-size: 14px;
-  padding-bottom: 32px;
-  color: #5a5a5a;
-  text-align: center;
-  line-height: 1.5;
+/* Desktop (1024px+) */
+@media (min-width: 1024px) {
+  .header {
+    font-size: 36px;
+    padding-bottom: 16px;
+  }
 }
 
+/* Large desktop (1280px+) */
+@media (min-width: 1280px) {
+  .header {
+    font-size: 40px;
+    padding-bottom: 18px;
+  }
+}
+
+/* Mobile First: Base styles for small screens (320px+) */
+.para {
+  font-weight: 300;
+  font-size: 13px;
+  color: #5a5a5a;
+  text-align: center;
+  line-height: 1.6;
+}
+
+/* Small phones (375px+) */
+@media (min-width: 375px) {
+  .para {
+    font-size: 14px;
+  }
+}
+
+/* Large phones (480px+) */
+@media (min-width: 480px) {
+  .para {
+    font-size: 14.5px;
+    line-height: 1.65;
+  }
+}
+
+/* Small tablets and landscape phones (640px+) */
 @media (min-width: 640px) {
   .para {
     font-size: 15px;
-    padding-bottom: 42px;
+    line-height: 1.7;
   }
 }
 
+/* Tablets (768px+) */
 @media (min-width: 768px) {
   .para {
     font-size: 16px;
-    padding-bottom: 52px;
   }
 }
 
+/* Desktop (1024px+) */
 @media (min-width: 1024px) {
   .para {
     font-size: 18px;
-    padding-bottom: 56px;
+  }
+}
+
+/* Large desktop (1280px+) */
+@media (min-width: 1280px) {
+  .para {
+    font-size: 19px;
   }
 }
 .bottom {
@@ -74,6 +124,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
+  gap: 30px;
 }
 

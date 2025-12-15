@@ -69,7 +69,7 @@ export function useLogin() {
 
   return useMutation({
     mutationFn: (data: LoginRequest) => authService.login(data),
-    onSuccess: (response) => {
+    onSuccess: async (response) => {
       if (response.status && response.data) {
         // Check if user is not verified (no tokens in response)
         const hasTokens = "tokens" in response.data && response.data.tokens;
@@ -107,7 +107,7 @@ export function useLogin() {
           return;
         }
         
-        // Update auth store
+        // Update auth store with login response data (like before)
         setUser({
           _id: userData._id,
           firstName: userData.firstName,
@@ -122,25 +122,57 @@ export function useLogin() {
         // Store tokens in localStorage (also handled by interceptor)
         setAuthTokens(tokens);
         
-        // Invalidate and refetch user queries
-        queryClient.invalidateQueries({ queryKey: authKeys.user() });
+        try {
+          // Fetch user profile to update state with full profile data
+          // This syncs through onboarding updates
+          const [userResponse] = await Promise.all([
+            authService.getUser(),
+          ]);
+          
+          if (userResponse.status && userResponse.data) {
+            const profile = userResponse.data.profile;
+            
+            // Update auth store with full profile data
+            setUser({
+              _id: profile._id,
+              firstName: profile.first_name,
+              lastname: profile.last_name,
+              email: profile.email,
+              isVerified: true,
+              role: profile.role as UserRole | undefined,
+              isOnboarded: profile.is_onboarded?.completed ?? false,
+            });
+            
+            // Invalidate and refetch user queries
+            queryClient.invalidateQueries({ queryKey: authKeys.user() });
+          }
+        } catch (error) {
+          console.error("Error fetching user profile:", error);
+          // Continue with login flow even if profile fetch fails
+          // The basic auth data is already set from login response
+        }
         
         // Show success toast
         showToast("Login successful!", "success");
         
+        // Navigation logic uses profile data if available, otherwise falls back to login response
+        const currentUser = useAuthStore.getState().user;
+        const userRole = currentUser?.role;
+        const isOnboarded = currentUser?.isOnboarded ?? false;
+        
         // Check for role FIRST - if no role, user must select one before anything else
-        if (!userData.role) {
+        if (!userRole) {
           // Navigate to role selection screen (accessible without role)
           navigate({ to: "/onboarding/user-type" });
           return;
         }
         
         // If user has a role, check onboarding status
-        if (userData.isOnboarded) {
+        if (isOnboarded) {
           // Navigate to correct dashboard based on role
-          if (userData.role === "vendor") {
+          if (userRole === "vendor") {
             navigate({ to: "/vendor" });
-          } else if (userData.role === "event-organizer") {
+          } else if (userRole === "event-organizer") {
             navigate({ to: "/organizer" });
           } else {
             // Default to organizer for other roles
@@ -148,9 +180,9 @@ export function useLogin() {
           }
         } else {
           // Navigate to role-specific onboarding
-          if (userData.role === "vendor") {
+          if (userRole === "vendor") {
             navigate({ to: "/vendor/onboarding/profile" });
-          } else if (userData.role === "event-organizer") {
+          } else if (userRole === "event-organizer") {
             navigate({ to: "/organizer/onboarding/profile" });
           } else {
             // Default to organizer onboarding
@@ -181,7 +213,7 @@ export function useGoogleLogin() {
 
   return useMutation({
     mutationFn: (data: GoogleOAuthRequest) => authService.loginWithGoogle(data),
-    onSuccess: (response) => {
+    onSuccess: async (response) => {
       if (response.status && response.data) {
         // Check if user is not verified (no tokens in response)
         const hasTokens = "tokens" in response.data && response.data.tokens;
@@ -214,7 +246,7 @@ export function useGoogleLogin() {
           return;
         }
         
-        // Update auth store
+        // Update auth store with login response data (like before)
         setUser({
           _id: userData._id,
           firstName: userData.firstName,
@@ -229,25 +261,57 @@ export function useGoogleLogin() {
         // Store tokens in localStorage (also handled by interceptor)
         setAuthTokens(tokens);
         
-        // Invalidate and refetch user queries
-        queryClient.invalidateQueries({ queryKey: authKeys.user() });
+        try {
+          // Fetch user profile to update state with full profile data
+          // This syncs through onboarding updates
+          const [userResponse] = await Promise.all([
+            authService.getUser(),
+          ]);
+          
+          if (userResponse.status && userResponse.data) {
+            const profile = userResponse.data.profile;
+            
+            // Update auth store with full profile data
+            setUser({
+              _id: profile._id,
+              firstName: profile.first_name,
+              lastname: profile.last_name,
+              email: profile.email,
+              isVerified: true,
+              role: profile.role as UserRole | undefined,
+              isOnboarded: profile.is_onboarded?.completed ?? false,
+            });
+            
+            // Invalidate and refetch user queries
+            queryClient.invalidateQueries({ queryKey: authKeys.user() });
+          }
+        } catch (error) {
+          console.error("Error fetching user profile:", error);
+          // Continue with login flow even if profile fetch fails
+          // The basic auth data is already set from login response
+        }
         
         // Show success toast
         showToast("Google sign in successful!", "success");
         
+        // Navigation logic uses profile data if available, otherwise falls back to login response
+        const currentUser = useAuthStore.getState().user;
+        const userRole = currentUser?.role;
+        const isOnboarded = currentUser?.isOnboarded ?? false;
+        
         // Check for role FIRST - if no role, user must select one before anything else
-        if (!userData.role) {
+        if (!userRole) {
           // Navigate to role selection screen (accessible without role)
           navigate({ to: "/onboarding/user-type" });
           return;
         }
         
         // If user has a role, check onboarding status
-        if (userData.isOnboarded) {
+        if (isOnboarded) {
           // Navigate to correct dashboard based on role
-          if (userData.role === "vendor") {
+          if (userRole === "vendor") {
             navigate({ to: "/vendor" });
-          } else if (userData.role === "event-organizer") {
+          } else if (userRole === "event-organizer") {
             navigate({ to: "/organizer" });
           } else {
             // Default to organizer for other roles
@@ -255,9 +319,9 @@ export function useGoogleLogin() {
           }
         } else {
           // Navigate to role-specific onboarding
-          if (userData.role === "vendor") {
+          if (userRole === "vendor") {
             navigate({ to: "/vendor/onboarding/profile" });
-          } else if (userData.role === "event-organizer") {
+          } else if (userRole === "event-organizer") {
             navigate({ to: "/organizer/onboarding/profile" });
           } else {
             // Default to organizer onboarding
@@ -475,9 +539,9 @@ export function useSetRole() {
 
         // Navigate to next step based on role
         if (response.data.role === "event-organizer") {
-          navigate({ to: "/organizer/onboarding/services" });
+          navigate({ to: "/organizer/onboarding/profile" });
         } else if (response.data.role === "vendor") {
-          navigate({ to: "/vendor/onboarding/services" });
+          navigate({ to: "/vendor/onboarding/profile" });
         }
          // Invalidate and refetch user queries
          queryClient.invalidateQueries({ queryKey: authKeys.user() });

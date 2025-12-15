@@ -12,28 +12,29 @@ import PayoutSetting, {
 } from "./payout-setting";
 import { ChangePayoutDetailsModal } from "./change-payout-details-modal";
 import { Toast } from "@components/accessories/toast";
+import { useAuthStore } from "@/shared/stores/auth-store";
 
 export const Route = createFileRoute("/_organizer/organizer/account/")({
   component: RouteComponent,
 });
 
-export const User = {
-  name: "Gabriel Emumwen",
-  email: "gabrielemumwen20@gmail.com",
-};
-
-function RouteComponent() {
+export function RouteComponent() {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("Profile Setting");
   const [isChangeDetailsModalOpen, setIsChangeDetailsModalOpen] = useState(false);
   const [showToast, setShowToast] = useState(false);
-  // Mock data for multiple payout accounts
+  // Get user from auth store
+  const user = useAuthStore((state) => state.user);
+  const userName = user ? `${user.firstName} ${user.lastname}`.trim() : "User";
+  // Update the payoutAccountData to use user's name
+  const userNameForPayout = user ? `${user.firstName} ${user.lastname}`.trim() : "";
+
   const [payoutAccountData, setPayoutAccountData] = useState<PayoutAccountData[]>([
     {
       id: "1",
       accountNumber: "2109019402",
       bankName: "United Bank for Africa",
-      accountName: "Emumwen Gabriel Osauonamen",
+      accountName: userNameForPayout || "User",
       currency: "NGN",
       countryCode: "NG",
     },
@@ -41,7 +42,7 @@ function RouteComponent() {
       id: "2",
       accountNumber: "1234567890",
       bankName: "Access Bank",
-      accountName: "Emumwen Gabriel Osauonamen",
+      accountName: userNameForPayout || "User",
       currency: "NGN",
       countryCode: "NG",
     },
@@ -49,7 +50,7 @@ function RouteComponent() {
       id: "3",
       accountNumber: "9876543210",
       bankName: "GTBank",
-      accountName: "Emumwen Gabriel Osauonamen",
+      accountName: userNameForPayout || "User",
       currency: "NGN",
       countryCode: "NG",
     },
@@ -57,7 +58,7 @@ function RouteComponent() {
       id: "4",
       accountNumber: "5555555555",
       bankName: "First Bank of Nigeria",
-      accountName: "Emumwen Gabriel Osauonamen",
+      accountName: userNameForPayout || "User",
       currency: "NGN",
       countryCode: "NG",
     },
@@ -124,7 +125,7 @@ function RouteComponent() {
   };
 
   return (
-    <DashboardLayout user={User}>
+    <DashboardLayout user={user}>
       <div className="bg-white">
         {/* Go Back Button and Add New Payout Account Button */}
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 sm:gap-0 mb-6 sm:mb-8">

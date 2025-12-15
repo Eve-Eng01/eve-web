@@ -75,13 +75,19 @@ export function ServiceOne({
 
   return (
     <>
-      <div className="mx-auto text-center">
-        <div className="text-center mb-8">
-          <div className="mx-auto mb-4 flex items-center justify-center">
-            <img src={logo} alt="" className="w-[60px] h-[60px]" />
+      <div className="w-full max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-4 sm:mb-6 md:mb-8">
+          <div className="mx-auto mb-2 sm:mb-3 md:mb-4 flex items-center justify-center">
+            <img 
+              src={logo} 
+              alt="" 
+              className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-[60px] lg:h-[60px]" 
+            />
           </div>
-          <h2 className="text-black header">Showcase Your Work</h2>
-          <p className="text-black para">
+          <h2 className="text-black header text-xl sm:text-2xl md:text-3xl lg:text-[32px] leading-tight px-2 sm:px-0">
+            Showcase Your Work
+          </h2>
+          <p className="text-black para text-sm sm:text-base mt-2 sm:mt-3 px-2 sm:px-0 max-w-xl mx-auto">
             Upload photos, videos, or documents of your past work, equipment, or
             venues. You can also include links to your portfolio or social pages
             to help clients learn more about what you offer.
@@ -89,15 +95,15 @@ export function ServiceOne({
         </div>
 
         {/* Upload Section */}
-        <div className="mb-8">
+        <div className="mb-4 sm:mb-6 md:mb-8">
           {/* File Type Categories */}
-          <div className="border-2 border-dashed border-purple-300 rounded-2xl bg-purple-50 p-8 mb-6">
-            <div className="flex justify-center items-center gap-8 mb-4">
+          <div className="border-2 border-dashed border-purple-300 rounded-xl sm:rounded-2xl bg-purple-50 p-4 sm:p-6 md:p-8 mb-4 sm:mb-6">
+            <div className="grid grid-cols-3 gap-3 sm:gap-4 md:gap-6 lg:gap-8 mb-4 sm:mb-6">
               {/* Images */}
               <div className="flex flex-col items-center">
-                <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center mb-2 shadow-sm">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 bg-white rounded-full flex items-center justify-center mb-2 shadow-sm">
                   <svg
-                    className="w-6 h-6 text-gray-600"
+                    className="w-5 h-5 sm:w-6 sm:h-6 text-gray-600"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -110,17 +116,17 @@ export function ServiceOne({
                     />
                   </svg>
                 </div>
-                <span className="font-medium text-gray-700 text-sm">
+                <span className="font-medium text-gray-700 text-xs sm:text-sm text-center">
                   Images
                 </span>
-                <span className="text-xs text-gray-500">JPG, PNG</span>
+                <span className="text-[10px] sm:text-xs text-gray-500 text-center">JPG, PNG</span>
               </div>
 
               {/* Documents */}
               <div className="flex flex-col items-center">
-                <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center mb-2 shadow-sm">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 bg-white rounded-full flex items-center justify-center mb-2 shadow-sm">
                   <svg
-                    className="w-6 h-6 text-gray-600"
+                    className="w-5 h-5 sm:w-6 sm:h-6 text-gray-600"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -133,17 +139,17 @@ export function ServiceOne({
                     />
                   </svg>
                 </div>
-                <span className="font-medium text-gray-700 text-sm">
+                <span className="font-medium text-gray-700 text-xs sm:text-sm text-center">
                   Documents
                 </span>
-                <span className="text-xs text-gray-500">PDF, DOCX</span>
+                <span className="text-[10px] sm:text-xs text-gray-500 text-center">PDF, DOCX</span>
               </div>
 
               {/* Videos */}
               <div className="flex flex-col items-center">
-                <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center mb-2 shadow-sm">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 bg-white rounded-full flex items-center justify-center mb-2 shadow-sm">
                   <svg
-                    className="w-6 h-6 text-gray-600"
+                    className="w-5 h-5 sm:w-6 sm:h-6 text-gray-600"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -156,17 +162,17 @@ export function ServiceOne({
                     />
                   </svg>
                 </div>
-                <span className="font-medium text-gray-700 text-sm">
+                <span className="font-medium text-gray-700 text-xs sm:text-sm text-center">
                   Videos
                 </span>
-                <span className="text-xs text-gray-500">MP4, MOV</span>
+                <span className="text-[10px] sm:text-xs text-gray-500 text-center">MP4, MOV</span>
               </div>
             </div>
             {/* File Input */}
             <div className="flex justify-center">
               <button
                 onClick={() => setIsModalOpen(true)}
-                className="px-6 py-3 bg-purple-600 text-white font-medium rounded-lg hover:bg-purple-700 transition-colors"
+                className="w-full sm:w-auto min-w-[120px] px-6 py-3 sm:py-3 md:py-3.5 bg-purple-600 text-white font-medium rounded-lg hover:bg-purple-700 active:bg-purple-800 transition-colors text-sm sm:text-base touch-manipulation"
               >
                 Upload
               </button>
@@ -175,15 +181,15 @@ export function ServiceOne({
 
           {/* Uploaded Files List */}
           {uploadedFiles.length > 0 && (
-            <div className="max-h-64 overflow-y-auto space-y-3 pr-2">
+            <div className="max-h-[280px] sm:max-h-64 md:max-h-80 overflow-y-auto space-y-3 pr-2 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
               {uploadedFiles.map((file: UploadedFile) => (
                 <div
                   key={file.id}
-                  className="flex items-center justify-between bg-gray-50 rounded-xl p-4"
+                  className="flex flex-col sm:flex-row items-start sm:items-center justify-between bg-gray-50 rounded-xl p-3 sm:p-4 md:p-5 gap-3 sm:gap-4"
                 >
-                  <div className="flex items-center gap-4">
+                  <div className="flex items-center gap-3 sm:gap-4 flex-1 min-w-0 w-full sm:w-auto">
                     {/* File Thumbnail (First Image) */}
-                    <div className="w-14 h-14 rounded-lg overflow-hidden bg-gray-200 flex-shrink-0">
+                    <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-lg overflow-hidden bg-gray-200 shrink-0 flex-shrink-0">
                       <img
                         src={file.thumbnail}
                         alt={file.title}
@@ -192,15 +198,15 @@ export function ServiceOne({
                     </div>
 
                     {/* File Info */}
-                    <div className="text-left">
-                      <h3 className="font-medium text-gray-900 text-sm">
+                    <div className="text-left flex-1 min-w-0">
+                      <h3 className="font-medium text-gray-900 text-sm sm:text-base truncate">
                         {file.title || "Untitled Product"}
                       </h3>
-                      <p className="text-xs text-gray-500">
+                      <p className="text-xs sm:text-sm text-gray-500 mt-0.5">
                         You've uploaded {file.count} {file.type} • {file.size}
                       </p>
                       {file.description && (
-                        <p className="text-xs text-gray-500 mt-1">
+                        <p className="text-xs text-gray-500 mt-1 line-clamp-2 break-words">
                           {file.description.slice(0, 100)}
                         </p>
                       )}
@@ -209,7 +215,7 @@ export function ServiceOne({
                           href={file.externalLink}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-xs text-purple-600 hover:underline"
+                          className="text-xs text-purple-600 hover:underline break-all mt-1 inline-block"
                         >
                           {file.externalLink}
                         </a>
@@ -218,13 +224,14 @@ export function ServiceOne({
                   </div>
 
                   {/* Action Buttons */}
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 self-end sm:self-auto w-full sm:w-auto justify-end sm:justify-start">
                     <button
                       onClick={() => handleDeleteFile(file.id)}
-                      className="w-10 h-10 rounded-lg border border-gray-300 bg-white flex items-center justify-center hover:bg-gray-50 transition-colors"
+                      className="w-10 h-10 sm:w-10 sm:h-10 md:w-11 md:h-11 rounded-lg border border-gray-300 bg-white flex items-center justify-center hover:bg-gray-50 active:bg-gray-100 transition-colors shrink-0 touch-manipulation"
+                      aria-label="Delete file"
                     >
                       <svg
-                        className="w-5 h-5 text-gray-500"
+                        className="w-4 h-4 sm:w-5 sm:h-5 text-gray-500"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -240,10 +247,11 @@ export function ServiceOne({
 
                     <button
                       onClick={() => handleViewFile(file.id)}
-                      className="w-10 h-10 rounded-lg border border-gray-300 bg-white flex items-center justify-center hover:bg-gray-50 transition-colors"
+                      className="w-10 h-10 sm:w-10 sm:h-10 md:w-11 md:h-11 rounded-lg border border-gray-300 bg-white flex items-center justify-center hover:bg-gray-50 active:bg-gray-100 transition-colors shrink-0 touch-manipulation"
+                      aria-label="View file"
                     >
                       <svg
-                        className="w-5 h-5 text-gray-500"
+                        className="w-4 h-4 sm:w-5 sm:h-5 text-gray-500"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -263,11 +271,17 @@ export function ServiceOne({
           )}
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-3 sm:space-y-4 w-full">
           <CustomButton title="Continue" onClick={handleContinue} />
-          <button onClick={handleGoBack} className="goBack">
-            Go back
+          <button
+            onClick={handleContinue}
+            className="w-full text-purple-600 hover:text-purple-700 active:text-purple-800 font-medium py-2.5 sm:py-3 text-sm sm:text-base touch-manipulation"
+          >
+            Skip for now
           </button>
+          {/* <button onClick={handleGoBack} className="goBack text-sm sm:text-base w-full sm:w-auto touch-manipulation">
+            Go back
+          </button> */}
         </div>
       </div>
 

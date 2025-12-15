@@ -5,7 +5,7 @@ import DashboardStatCard from "@components/pages/vendor/dashboard/dashboard-stat
 import { BadgeCheckIcon, Calendar, PlaneIcon } from "lucide-react";
 import { CustomButton } from "@components/button/button";
 import EventList from "@components/pages/vendor/event-list";
-import { User } from "@routes/_organizer/organizer";
+import { useAuthStore } from "@/shared/stores/auth-store";
 import { events } from "@/dummy-data/eventList";
 
 
@@ -17,13 +17,16 @@ const BUTTON_CLASSNAME = "text-sm w-auto px-4 py-2",
   STAT_ICON_CLASSNAME = "size-5";
 
 export function RouteComponent() {
+  const user = useAuthStore((state) => state.user);
+  const userName = user ? `${user.firstName} ${user.lastname}`.trim() : "User";
+  
   return (
-    <DashboardLayout isVendor user={User}>
+    <DashboardLayout isVendor user={user}>
       <div className="space-y-10 md:space-y-14 py-4">
         <div className="flex items-start min-[1300px]:items-end min-[1300px]:justify-between flex-col min-[1300px]:flex-row gap-4">
           <div className="space-y-2 flex-1 shrink-0">
             <h1 className="text-[clamp(1.3rem,2vw,2rem)] font-medium text-gray-900">
-              Good morning, Anthony Mary 👋👋
+              Good morning, {userName} 👋👋
             </h1>
             <p className="text-gray-500">
               Here’s what’s happening with your business today.

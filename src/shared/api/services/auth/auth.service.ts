@@ -28,6 +28,7 @@ import type {
   GoogleOAuthResponse,
   LinkAccountRequest,
   LinkAccountResponse,
+  GetUserResponse,
 } from "./types";
 
 /**
@@ -171,6 +172,16 @@ export const authService = {
     const response = await apiClient.post<ApiResponse<LinkAccountResponse>>(
       "/auth/link-account",
       data
+    );
+    return response.data;
+  },
+
+  /**
+   * Get current user profile
+   */
+  getUser: async (): Promise<ApiResponse<GetUserResponse>> => {
+    const response = await apiClient.get<ApiResponse<GetUserResponse>>(
+      "/user/"
     );
     return response.data;
   },

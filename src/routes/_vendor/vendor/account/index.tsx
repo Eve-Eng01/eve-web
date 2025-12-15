@@ -1,5 +1,5 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { ChangeEvent } from "react";
 import { ArrowLeft, Plus } from "lucide-react";
 import { DashboardLayout } from "@components/layouts/dashboard-layout";
@@ -12,21 +12,44 @@ import PayoutSetting, {
 } from "./payout-setting";
 import { ChangePayoutDetailsModal } from "./change-payout-details-modal";
 import { Toast } from "@components/accessories/toast";
+import { useAuthStore } from "@shared/stores/auth-store";
+import { useGetUser } from "@shared/api/services/auth/auth.hooks";
 
 export const Route = createFileRoute("/_vendor/vendor/account/")({
   component: RouteComponent,
 });
-
-export const User = {
-  name: "Gabriel Emumwen",
-  email: "gabrielemumwen20@gmail.com",
-};
 
 function RouteComponent() {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("Profile Setting");
   const [isChangeDetailsModalOpen, setIsChangeDetailsModalOpen] = useState(false);
   const [showToast, setShowToast] = useState(false);
+  
+  // Get user from auth store
+  const user = useAuthStore((state) => state.user);
+  
+  // Fetch user data
+  useGetUser();
+  
+  // Initialize form data with user data
+  const [formData, setFormData] = useState<ProfileFormData>({
+    fullName: user ? `${user.firstName} ${user.lastname}`.trim() : "",
+    email: user?.email || "",
+    companyName: "",
+    location: "",
+    organizerNumber: "",
+  });
+  
+  // Update form data when user data is loaded
+  useEffect(() => {
+    if (user) {
+      setFormData((prev) => ({
+        ...prev,
+        fullName: `${user.firstName} ${user.lastname}`.trim(),
+        email: user.email,
+      }));
+    }
+  }, [user]);
   // Mock data for multiple payout accounts
   const [payoutAccountData, setPayoutAccountData] = useState<PayoutAccountData[]>([
     {
@@ -63,13 +86,6 @@ function RouteComponent() {
     },
   ]);
 
-  const [formData, setFormData] = useState<ProfileFormData>({
-    fullName: "Emumwen Gabriel Osauonamen",
-    email: "gabrielemumwen20@gmail.com",
-    companyName: "Eve Even Platform",
-    location: "ibeju Lekki Lagos, Nigeria.",
-    organizerNumber: "+234-081- 5882-5489",
-  });
 
   const tabs = [
     { id: "Profile Setting", label: "Profile Setting" },

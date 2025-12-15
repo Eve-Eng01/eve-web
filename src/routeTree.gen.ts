@@ -48,7 +48,6 @@ import { Route as VendorVendorEventEventIdIndexRouteImport } from './routes/_ven
 import { Route as VendorVendorOnboardingVendorSubServicesTwoRouteImport } from './routes/_vendor/vendor/onboarding/vendor-sub-services/two'
 import { Route as VendorVendorOnboardingVendorSubServicesThreeRouteImport } from './routes/_vendor/vendor/onboarding/vendor-sub-services/three'
 import { Route as VendorVendorOnboardingSubServicesTwoRouteImport } from './routes/_vendor/vendor/onboarding/sub-services/two'
-import { Route as VendorVendorOnboardingSubServicesThreeRouteImport } from './routes/_vendor/vendor/onboarding/sub-services/three'
 import { Route as VendorVendorOnboardingSubServicesReviewRouteImport } from './routes/_vendor/vendor/onboarding/sub-services/review'
 import { Route as VendorVendorOnboardingSubServicesOneRouteImport } from './routes/_vendor/vendor/onboarding/sub-services/one'
 import { Route as VendorVendorOnboardingSubServicesFourRouteImport } from './routes/_vendor/vendor/onboarding/sub-services/four'
@@ -278,12 +277,6 @@ const VendorVendorOnboardingSubServicesTwoRoute =
     path: '/vendor/onboarding/sub-services/two',
     getParentRoute: () => VendorRoute,
   } as any)
-const VendorVendorOnboardingSubServicesThreeRoute =
-  VendorVendorOnboardingSubServicesThreeRouteImport.update({
-    id: '/vendor/onboarding/sub-services/three',
-    path: '/vendor/onboarding/sub-services/three',
-    getParentRoute: () => VendorRoute,
-  } as any)
 const VendorVendorOnboardingSubServicesReviewRoute =
   VendorVendorOnboardingSubServicesReviewRouteImport.update({
     id: '/vendor/onboarding/sub-services/review',
@@ -408,7 +401,6 @@ export interface FileRoutesByFullPath {
   '/vendor/onboarding/sub-services/four': typeof VendorVendorOnboardingSubServicesFourRoute
   '/vendor/onboarding/sub-services/one': typeof VendorVendorOnboardingSubServicesOneRoute
   '/vendor/onboarding/sub-services/review': typeof VendorVendorOnboardingSubServicesReviewRoute
-  '/vendor/onboarding/sub-services/three': typeof VendorVendorOnboardingSubServicesThreeRoute
   '/vendor/onboarding/sub-services/two': typeof VendorVendorOnboardingSubServicesTwoRoute
   '/vendor/onboarding/vendor-sub-services/three': typeof VendorVendorOnboardingVendorSubServicesThreeRoute
   '/vendor/onboarding/vendor-sub-services/two': typeof VendorVendorOnboardingVendorSubServicesTwoRoute
@@ -459,7 +451,6 @@ export interface FileRoutesByTo {
   '/vendor/onboarding/sub-services/four': typeof VendorVendorOnboardingSubServicesFourRoute
   '/vendor/onboarding/sub-services/one': typeof VendorVendorOnboardingSubServicesOneRoute
   '/vendor/onboarding/sub-services/review': typeof VendorVendorOnboardingSubServicesReviewRoute
-  '/vendor/onboarding/sub-services/three': typeof VendorVendorOnboardingSubServicesThreeRoute
   '/vendor/onboarding/sub-services/two': typeof VendorVendorOnboardingSubServicesTwoRoute
   '/vendor/onboarding/vendor-sub-services/three': typeof VendorVendorOnboardingVendorSubServicesThreeRoute
   '/vendor/onboarding/vendor-sub-services/two': typeof VendorVendorOnboardingVendorSubServicesTwoRoute
@@ -515,7 +506,6 @@ export interface FileRoutesById {
   '/_vendor/vendor/onboarding/sub-services/four': typeof VendorVendorOnboardingSubServicesFourRoute
   '/_vendor/vendor/onboarding/sub-services/one': typeof VendorVendorOnboardingSubServicesOneRoute
   '/_vendor/vendor/onboarding/sub-services/review': typeof VendorVendorOnboardingSubServicesReviewRoute
-  '/_vendor/vendor/onboarding/sub-services/three': typeof VendorVendorOnboardingSubServicesThreeRoute
   '/_vendor/vendor/onboarding/sub-services/two': typeof VendorVendorOnboardingSubServicesTwoRoute
   '/_vendor/vendor/onboarding/vendor-sub-services/three': typeof VendorVendorOnboardingVendorSubServicesThreeRoute
   '/_vendor/vendor/onboarding/vendor-sub-services/two': typeof VendorVendorOnboardingVendorSubServicesTwoRoute
@@ -568,7 +558,6 @@ export interface FileRouteTypes {
     | '/vendor/onboarding/sub-services/four'
     | '/vendor/onboarding/sub-services/one'
     | '/vendor/onboarding/sub-services/review'
-    | '/vendor/onboarding/sub-services/three'
     | '/vendor/onboarding/sub-services/two'
     | '/vendor/onboarding/vendor-sub-services/three'
     | '/vendor/onboarding/vendor-sub-services/two'
@@ -619,7 +608,6 @@ export interface FileRouteTypes {
     | '/vendor/onboarding/sub-services/four'
     | '/vendor/onboarding/sub-services/one'
     | '/vendor/onboarding/sub-services/review'
-    | '/vendor/onboarding/sub-services/three'
     | '/vendor/onboarding/sub-services/two'
     | '/vendor/onboarding/vendor-sub-services/three'
     | '/vendor/onboarding/vendor-sub-services/two'
@@ -674,7 +662,6 @@ export interface FileRouteTypes {
     | '/_vendor/vendor/onboarding/sub-services/four'
     | '/_vendor/vendor/onboarding/sub-services/one'
     | '/_vendor/vendor/onboarding/sub-services/review'
-    | '/_vendor/vendor/onboarding/sub-services/three'
     | '/_vendor/vendor/onboarding/sub-services/two'
     | '/_vendor/vendor/onboarding/vendor-sub-services/three'
     | '/_vendor/vendor/onboarding/vendor-sub-services/two'
@@ -965,13 +952,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof VendorVendorOnboardingSubServicesTwoRouteImport
       parentRoute: typeof VendorRoute
     }
-    '/_vendor/vendor/onboarding/sub-services/three': {
-      id: '/_vendor/vendor/onboarding/sub-services/three'
-      path: '/vendor/onboarding/sub-services/three'
-      fullPath: '/vendor/onboarding/sub-services/three'
-      preLoaderRoute: typeof VendorVendorOnboardingSubServicesThreeRouteImport
-      parentRoute: typeof VendorRoute
-    }
     '/_vendor/vendor/onboarding/sub-services/review': {
       id: '/_vendor/vendor/onboarding/sub-services/review'
       path: '/vendor/onboarding/sub-services/review'
@@ -1177,7 +1157,6 @@ interface VendorRouteChildren {
   VendorVendorOnboardingSubServicesFourRoute: typeof VendorVendorOnboardingSubServicesFourRoute
   VendorVendorOnboardingSubServicesOneRoute: typeof VendorVendorOnboardingSubServicesOneRoute
   VendorVendorOnboardingSubServicesReviewRoute: typeof VendorVendorOnboardingSubServicesReviewRoute
-  VendorVendorOnboardingSubServicesThreeRoute: typeof VendorVendorOnboardingSubServicesThreeRoute
   VendorVendorOnboardingSubServicesTwoRoute: typeof VendorVendorOnboardingSubServicesTwoRoute
   VendorVendorOnboardingVendorSubServicesThreeRoute: typeof VendorVendorOnboardingVendorSubServicesThreeRoute
   VendorVendorOnboardingVendorSubServicesTwoRoute: typeof VendorVendorOnboardingVendorSubServicesTwoRoute
@@ -1204,8 +1183,6 @@ const VendorRouteChildren: VendorRouteChildren = {
     VendorVendorOnboardingSubServicesOneRoute,
   VendorVendorOnboardingSubServicesReviewRoute:
     VendorVendorOnboardingSubServicesReviewRoute,
-  VendorVendorOnboardingSubServicesThreeRoute:
-    VendorVendorOnboardingSubServicesThreeRoute,
   VendorVendorOnboardingSubServicesTwoRoute:
     VendorVendorOnboardingSubServicesTwoRoute,
   VendorVendorOnboardingVendorSubServicesThreeRoute:

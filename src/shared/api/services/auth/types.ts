@@ -134,4 +134,29 @@ export interface LinkAccountResponse {
   };
 }
 
+export type UserRole = "attendee" | "vendor" | "small-creator" | "admin" | "event-organizer" | null;
+
+export interface OnboardedProfile {
+  portfolios?: unknown[]; // Portfolio array for vendors
+  [key: string]: unknown; // Allow other properties for Vendor or Event_Organizer
+}
+
+export interface IsOnboardedData {
+  id: OnboardedProfile | null;
+  completed: boolean;
+}
+
+export interface UserProfile {
+  _id: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+  role: UserRole;
+  is_onboarded: IsOnboardedData;
+  isOnboardedModel: "Vendor" | "Event_Organizer" | null;
+}
+
+export interface GetUserResponse {
+  profile: UserProfile;
+}
 

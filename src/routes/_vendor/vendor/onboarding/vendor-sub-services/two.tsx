@@ -2,13 +2,13 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import {
   AddPortfolioModal,
-  PortfolioLink,
   SocialIcon,
-} from "../sub-services/four";
+} from "@/shared/components/portfolio-link-modal";
 import logo from "@assets/evaLogo.png";
 import { CustomButton } from "@components/accessories/button";
 import { ServiceOneProps } from "../sub-services/one";
 import Modal from "@components/accessories/main-modal";
+import { PortfolioLink } from "@/shared/api/services/onboarding";
 
 export const Route = createFileRoute("/_vendor/vendor/onboarding/vendor-sub-services/two")({
   component: VendorTwo,

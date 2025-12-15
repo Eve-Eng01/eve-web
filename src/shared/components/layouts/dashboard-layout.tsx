@@ -24,6 +24,7 @@ import { useNavigate, useLocation } from "@tanstack/react-router";
 import { useSidebar } from "../../contexts/sidebar-context";
 import { useLogout } from "../../api/services/auth/auth.hooks";
 import ChatWidget from "@components/accessories/MessagePopup";
+import { useAuthStore } from "../../stores/auth-store";
 
 interface User {
   name: string;
@@ -133,6 +134,22 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
   
   // Get logout function
   const handleLogout = useLogout();
+  
+  // Get user from auth store
+  const user = useAuthStore((state) => state.user);
+  
+  // Prepare user data for navbar
+  const navbarUser = user
+    ? {
+        name: `${user.firstName} ${user.lastname}`.trim() || "User",
+        email: user.email,
+        avatar: undefined,
+      }
+    : {
+        name: "User",
+        email: "",
+        avatar: undefined,
+      };
   const generalNavItems: NavItem[] = useMemo(
     () =>
       isVendor
@@ -273,13 +290,7 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
   return (
     <>
       {/* Top Header - Fixed */}
-      <Navbar
-        user={{
-          name: "Gabriel Emumwen",
-          email: "gabrielemumwen20@gmail.com",
-          avatar: undefined,
-        }}
-      />
+      <Navbar user={navbarUser} />
 
       {/* Mobile Menu Button */}
       <button

@@ -4,6 +4,7 @@ import React from "react";
 import SearchBar from "../../../accessories/SearchBar";
 import DataTable from "../../../accessories/data-table";
 import SalesRevenueChart from "../../../accessories/search-bar";
+import { useAuthStore } from "@/shared/stores/auth-store";
 
 interface Payout {
   id: string;
@@ -57,7 +58,9 @@ const PayoutsTab: React.FC<PayoutsTabProps> = ({ onRequestPayout }) => {
   };
   // Generate mock data for multiple pages based on Figma design
   const generateMockPayouts = (): Payout[] => {
-    const accountNames = ["Anthony Mary", "Gabriel Emumwen"];
+    const user = useAuthStore.getState().user;
+    const userName = user ? `${user.firstName} ${user.lastname}`.trim() : "User";
+    const accountNames = [userName, "Anthony Mary"]; // Keep secondary account name
     const accountNumber = "2109444094";
     const statuses: ("Successful" | "Pending" | "Failed")[] = [
       "Successful",

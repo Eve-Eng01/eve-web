@@ -1,34 +1,20 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import React, { useState } from "react";
+import { useState } from "react";
 import logo from "@assets/evaLogo.png";
 import bottom from "@assets/onBoarding/bottom.png";
 import { CustomButton } from "@components/accessories/button";
-import { DropdownInput } from "@components/accessories/dropdown-input";
+import { DropdownInput, type DropdownOption } from "@components/accessories/dropdown-input";
 import { InputField } from "@components/accessories/input-field";
+import { CustomPhoneInput, type PhoneData } from "@components/accessories/custom-phone-input";
 import "./onboard.css";
-import CountryList from "country-list-with-dial-code-and-flag";
 import { ServiceOne } from "./sub-services/one";
 import { ServiceTwo } from "./sub-services/two";
 import { ServiceThree } from "./sub-services/three";
 import { ServiceFour } from "./sub-services/four";
 
-// Type definitions
-export interface DropdownOption {
-  value: string;
-  label: string;
-}
-
-export interface Country {
-  name: string;
-  code: string;
-  dial_code: string;
-  flag: string;
-}
-
-export interface PhoneData {
-  country: Country;
-  phoneNumber: string;
-}
+// Type definitions - re-export for backward compatibility
+export type { DropdownOption };
+export type { PhoneData };
 
 export interface FormData {
   companyName: string;
@@ -36,97 +22,6 @@ export interface FormData {
   phoneData: PhoneData | undefined;
   location: string;
 }
-
-// Custom Phone Input Component using DropdownInput
-export interface CustomPhoneInputProps {
-  label?: string;
-  value: PhoneData | undefined;
-  onChange: (data: PhoneData) => void;
-}
-
-export const CustomPhoneInput: React.FC<CustomPhoneInputProps> = ({
-  label,
-  value,
-  onChange,
-}) => {
-  // Get all countries from the npm package
-  const countries: Country[] = CountryList.getAll();
-
-  // Convert countries to dropdown options
-  const countryOptions: DropdownOption[] = countries.map((country) => ({
-    value: country.code,
-    label: `${country.flag} ${country.name} (${country.dial_code})`,
-  }));
-
-  const selectedCountryOption = value
-    ? countryOptions.find((option) => option.value === value.country.code) ||
-      null
-    : null;
-
-  const handleCountryChange = (option: DropdownOption) => {
-    const selectedCountry = countries.find(
-      (country) => country.code === option.value
-    );
-    if (selectedCountry) {
-      onChange({
-        country: selectedCountry,
-        phoneNumber: value?.phoneNumber || "",
-      });
-    }
-  };
-
-  const handlePhoneNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (value?.country) {
-      onChange({
-        country: value.country,
-        phoneNumber: e.target.value,
-      });
-    }
-  };
-
-  return (
-    <div className="w-full">
-      {label && (
-        <label className="block text-gray-600 text-sm mb-2 font-medium">
-          {label}
-        </label>
-      )}
-
-      <div className="flex gap-2">
-        {/* Country Dropdown */}
-        <div className="w-2/5">
-          <DropdownInput
-            className="mb-[30px]"
-            options={countryOptions}
-            value={selectedCountryOption}
-            onChange={handleCountryChange}
-            placeholder="Select country"
-            searchable={true}
-          />
-        </div>
-
-        {/* Phone Number Input */}
-        <div className="w-3/5">
-          <input
-            type="tel"
-            placeholder="Phone number"
-            value={value?.phoneNumber || ""}
-            onChange={handlePhoneNumberChange}
-            className="w-full px-4 py-3 bg-gray-100 border-0 rounded-lg text-gray-800 focus:bg-white focus:ring-2 focus:ring-purple-500 focus:outline-none transition-all"
-          />
-        </div>
-      </div>
-
-      {/* Display selected country dial code */}
-      {value?.country && (
-        <div className="mt-1 text-sm text-gray-500">
-          Selected: {value.country.flag} {value.country.name} (
-          {value.country.dial_code})
-        </div>
-      )}
-    </div>
-  );
-};
 
 // Main Onboarding Form Component
 export function RouteComponent() {

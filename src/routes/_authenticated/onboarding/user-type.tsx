@@ -10,11 +10,37 @@ import { useSetRole } from "@/shared/api/services/auth";
 import { UserRoleEnum } from "@/shared/api/services/auth/types";
 import { useAuthStore } from "@/shared/stores/auth-store";
 
+// Hook to get responsive icon size
+const useResponsiveIconSize = () => {
+  const [iconSize, setIconSize] = useState("24");
+
+  useEffect(() => {
+    const updateSize = () => {
+      const width = window.innerWidth;
+      if (width < 640) {
+        setIconSize("20");
+      } else if (width < 768) {
+        setIconSize("24");
+      } else {
+        setIconSize("28");
+      }
+    };
+
+    updateSize();
+    window.addEventListener("resize", updateSize);
+    return () => window.removeEventListener("resize", updateSize);
+  }, []);
+
+  return iconSize;
+};
+
 const UserTypeCard: React.FC<UserTypeCardProps> = ({
   userType,
   isSelected,
   onClick,
 }) => {
+  const iconSize = useResponsiveIconSize();
+  
   return (
     <div
       onClick={onClick}
@@ -66,11 +92,11 @@ const UserTypeCard: React.FC<UserTypeCardProps> = ({
       </div>
 
       {/* Check icon */}
-      <div className="flex-shrink-0">
+      <div className="shrink-0">
         <TickCircle
           color={isSelected ? "#7417C6" : "#D5D5D5"}
           variant="Outline"
-          size="24"
+          size={iconSize}
         />
       </div>
     </div>
@@ -136,10 +162,10 @@ export function RouteComponent() {
             className="w-[50px] h-[50px] sm:w-[60px] sm:h-[60px] md:w-[70px] md:h-[70px]"
           />
         </div>
-        <h2 className="text-black header text-center px-4">
+        <h2 className="text-black header text-center px-3 sm:px-4 md:px-6 lg:px-8">
           How are you going to use Eve?
         </h2>
-        <p className="text-black para text-center px-4">
+        <p className="text-black para text-center px-3 sm:px-4 md:px-6 lg:px-8 mb-4 sm:mb-5 md:mb-6">
           Tell Us Who You Are, Choose one to get the most relevant features and
           recommendations.
         </p>

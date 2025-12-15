@@ -1,23 +1,66 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 import logo from "@assets/evaLogo.png";
-import bottom from "@assets/onBoarding/bottom.png";
-import { CustomPhoneInput, DropdownOption } from "./services.tsx";
+import { CustomPhoneInput, type PhoneData } from "@components/accessories/custom-phone-input";
+import { type DropdownOption } from "@components/accessories/dropdown-input";
 import { InputField } from "@components/accessories/input-field";
 import { DropdownInput } from "@components/accessories/dropdown-input";
 import { CustomButton } from "@components/accessories/button";
+import { ProgressSteps } from "../../../../components/accessories/progress-steps";
 import countries from "world-countries";
-import { VendorTwo } from "./vendor-sub-services/two";
-import { VendorThree } from "./vendor-sub-services/three";
+import { ServiceOne } from "./sub-services/one.tsx";
+import { ServiceTwo } from "./sub-services/two.tsx";
+import { ServiceThree } from "./sub-services/three.tsx";
+import { ServiceFour } from "./sub-services/four.tsx";
+import { VendorReview } from "./sub-services/review";
+import { GooglePlacesAutocomplete } from "@components/accessories/google-places-autocomplete.tsx";
+import * as yup from "yup";
+import { useCreateOnboardingProfile } from "@/shared/api/services/onboarding";
+import type { CreateOnboardingRequest } from "@/shared/api/services/onboarding/types";
 
 export const Route = createFileRoute("/_vendor/vendor/onboarding/profile")({
   component: RouteComponent,
 });
+
+// Vendor-specific validation schema
+const vendorOnboardingSchema = yup.object({
+  companyName: yup
+    .string()
+    .required("Company name is required")
+    .min(1, "Company name must be at least 1 character")
+    .trim(),
+  businessType: yup
+    .string()
+    .required("Business type is required"),
+  country: yup
+    .string()
+    .required("Country is required")
+    .min(1, "Country must be at least 1 character"),
+  phone: yup.object().shape({
+    countryCode: yup
+      .string()
+      .required("Country code is required")
+      .matches(/^\+/, "Country code must start with +"),
+    number: yup
+      .string()
+      .required("Phone number is required")
+      .min(5, "Phone number must be at least 5 digits")
+      .matches(/^\d+$/, "Phone number must contain only digits"),
+  }),
+  location: yup
+    .string()
+    .required("Location is required")
+    .min(1, "Location must be at least 1 character")
+    .trim(),
+});
+
 interface FormData {
   companyName: string;
   businessType: DropdownOption | null;
-  country: DropdownOption | null; // Add this line
-  phoneData: any; // Replace with proper phone data type
+  country: DropdownOption | null;
+  phoneData: PhoneData | undefined;
   location: string;
 }
 
@@ -33,17 +76,14 @@ export const getCountriesOptions = (): DropdownOption[] => {
 
 export function RouteComponent() {
   const [currentTab, setCurrentTab] = useState(1);
-  const navigate = useNavigate();
   const [formData, setFormData] = useState<FormData>({
-    companyName: "Eve Even Platform",
+    companyName: "",
     businessType: null,
-    country: null, // Add country to form data
+    country: null,
     phoneData: undefined,
-    location: "Ibeju Lekki Lagos, Nigeria.",
+    location: "",
   });
 
-  // Replace businessTypes with countries
-  const [countries, setCountries] = useState<DropdownOption[]>([]);
   const [businessTypes, setBusinessTypes] = useState<DropdownOption[]>([
     { value: "catering", label: "Catering/Baking" },
     { value: "videography", label: "Videographers" },
@@ -51,32 +91,104 @@ export function RouteComponent() {
     { value: "music", label: "Musicians & DJs" },
     { value: "security", label: "Security Service" },
   ]);
+  const [countries, setCountries] = useState<DropdownOption[]>([]);
+
+  // API mutation hook - disable auto-navigation for vendors
+  const createProfileMutation = useCreateOnboardingProfile({
+    autoNavigate: false,
+  });
+
+  // Initialize React Hook Form
+  const form = useForm({
+    resolver: yupResolver(vendorOnboardingSchema) as any,
+    mode: "onChange",
+    defaultValues: {
+      companyName: "",
+      businessType: "",
+      country: "",
+      phone: {
+        countryCode: "",
+        number: "",
+      },
+      location: "",
+    },
+  });
+
+  const { handleSubmit, formState, setValue } = form;
+  const { errors, isValid } = formState;
 
   // Load countries on component mount
   useEffect(() => {
     const countriesOptions = getCountriesOptions();
     setCountries(countriesOptions);
-
-    // Optional: Set Nigeria as default since your form shows Nigerian location
-    const nigeria = countriesOptions.find((country) => country.value === "NG");
-    if (nigeria) {
-      setFormData((prev) => ({ ...prev, country: nigeria }));
-    }
   }, []);
 
-  const handleAddNewBusinessType = (newOption: DropdownOption) => {
-    setBusinessTypes([...businessTypes, newOption]);
-  };
+  // Update form values when formData changes
+  useEffect(() => {
+    if (formData.companyName) {
+      setValue("companyName", formData.companyName);
+    }
+    if (formData.country) {
+      setValue("country", formData.country.label);
+    }
+    if (formData.location) {
+      setValue("location", formData.location);
+    }
+    if (formData.phoneData) {
+      setValue("phone.countryCode", formData.phoneData.country.dial_code);
+      setValue("phone.number", formData.phoneData.phoneNumber);
+    }
+    if (formData.businessType) {
+      setValue("businessType", formData.businessType.value, { shouldValidate: false });
+    }
+  }, [formData, setValue]);
 
   const handleAddNewCountry = (newOption: DropdownOption) => {
     setCountries([...countries, newOption]);
   };
 
+  const handleAddNewBusinessType = (newOption: DropdownOption) => {
+    setBusinessTypes([...businessTypes, newOption]);
+  };
+
   const handleContinue = () => {
-    if (currentTab < 3) {
+    if (currentTab === 1) {
+      // Validate step 1 and make API call before continuing
+      handleSubmit(
+        async () => {
+          // Validation passed, now make API call
+          if (!formData.phoneData || !formData.country || !formData.businessType) {
+            return;
+          }
+
+          // Prepare request data
+          const requestData: CreateOnboardingRequest = {
+            role: "vendor",
+            companyName: formData.companyName,
+            country: formData.country.label,
+            phone: {
+              countryCode: formData.phoneData.country.dial_code,
+              number: formData.phoneData.phoneNumber,
+            },
+            location: formData.location,
+            businessType: formData.businessType.value,
+          };
+
+          try {
+            await createProfileMutation.mutateAsync(requestData);
+            // On success, proceed to next tab
+            setCurrentTab(2);
+          } catch (error) {
+            // Error is handled by the mutation hook (shows toast)
+            console.error("Failed to create vendor profile:", error);
+          }
+        },
+        (validationErrors) => {
+          console.error("Validation errors:", validationErrors);
+        }
+      )();
+    } else if (currentTab < 6) {
       setCurrentTab(currentTab + 1);
-    } else {
-      navigate({ to: "/status/success" });
     }
   };
 
@@ -90,115 +202,179 @@ export function RouteComponent() {
     switch (currentTab) {
       case 1:
         return (
-          <div className=" mx-auto">
-            <div className="text-center mb-8">
-              <div className="mx-auto mb-4 flex items-center justify-center">
+          <div className="mx-auto w-full max-w-2xl px-4 sm:px-6">
+            <div className="text-center  mb-6 sm:mb-8">
+              <div className="mx-auto mb-1 sm:mb-2 flex items-center justify-center">
                 <img src={logo} alt="" className="w-[60px] h-[60px]" />
               </div>
-              <h2 className="text-black header">
-                Let's Get Your Organization Set Up
+              <h2 className="text-black header text-2xl sm:text-[32px] leading-snug sm:leading-tight">
+                Showcase Your Services, Get Booked
               </h2>
-              <p className="text-black para">
-                Start by sharing a few details about your event planning
-                company.
+              <p className="text-black para text-sm sm:text-base mt-1">
+                Join a network of trusted vendors and grow your business by
+                connecting with event planners and attendees.
               </p>
             </div>
 
-            <InputField
-              parentClassName="mb-[30px]"
-              label="Enter Registered Company Name"
-              placeholder="Eve Even Platform"
-              value={formData.companyName}
-              onChange={(e) =>
-                setFormData({ ...formData, companyName: e.target.value })
-              }
-            />
+            <form onSubmit={handleSubmit(handleContinue)} className="space-y-4 sm:space-y-6">
+              <div>
+                <InputField
+                  parentClassName=""
+                  label="Enter Registered Company Name"
+                  placeholder="Eve Event Platform"
+                  value={formData.companyName}
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    setFormData({ ...formData, companyName: value });
+                    setValue("companyName", value, { shouldValidate: true });
+                  }}
+                />
+                {errors.companyName && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.companyName.message}
+                  </p>
+                )}
+              </div>
 
-            <DropdownInput
-              className="mb-[30px]"
-              label="Select your Country"
-              options={countries} // Use countries instead of businessTypes
-              value={formData.country} // Use country instead of businessType
-              onChange={(option) =>
-                setFormData({ ...formData, country: option })
-              }
-              placeholder="Select your Country"
-              searchable={true}
-              addNewOption={true}
-              onAddNew={handleAddNewCountry}
-            />
+              <div>
+                <DropdownInput
+                  className=""
+                  label="Business Type"
+                  options={businessTypes}
+                  value={formData.businessType}
+                  onChange={(option) => {
+                    setFormData({ ...formData, businessType: option });
+                    setValue("businessType", option?.value || "", {
+                      shouldValidate: true,
+                    });
+                  }}
+                  placeholder="Select business type"
+                  searchable={true}
+                  addNewOption={true}
+                  onAddNew={handleAddNewBusinessType}
+                />
+                {errors.businessType && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.businessType.message}
+                  </p>
+                )}
+              </div>
 
-            <CustomPhoneInput
-              label="Event Organizer Number"
-              value={formData.phoneData}
-              onChange={(data) => setFormData({ ...formData, phoneData: data })}
-            />
+             
+                <DropdownInput
+                  className=""
+                  label="Select your Country"
+                  options={countries}
+                  value={formData.country}
+                  onChange={(option) => {
+                    setFormData({ ...formData, country: option });
+                    setValue("country", option?.label || "", {
+                      shouldValidate: true,
+                    });
+                  }}
+                  placeholder="Select your Country"
+                  searchable={true}
+                  addNewOption={true}
+                  onAddNew={handleAddNewCountry}
+                />
+                {errors.country && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.country.message}
+                  </p>
+                )}
+ 
 
-            <InputField
-              parentClassName="mb-[30px]"
-              label="Location"
-              placeholder="Ibeju Lekki Lagos, Nigeria."
-              value={formData.location}
-              onChange={(e) =>
-                setFormData({ ...formData, location: e.target.value })
-              }
-            />
+              <div>
+                <CustomPhoneInput
+                  label="Vendor Number"
+                  value={formData.phoneData}
+                  onChange={(data) => {
+                    setFormData({ ...formData, phoneData: data });
+                    if (data) {
+                      setValue("phone.countryCode", data.country.dial_code, {
+                        shouldValidate: true,
+                      });
+                      setValue("phone.number", data.phoneNumber, {
+                        shouldValidate: true,
+                      });
+                    }
+                  }}
+                  phonePlaceholder="Phone number"
+                  countryPlaceholder="Select country"
+                />
+                <div className="mt-1">
+                  {errors.phone && (
+                    <p className="text-red-500 text-sm">
+                      {errors.phone.countryCode?.message ||
+                        errors.phone.number?.message ||
+                        "Phone number is required"}
+                    </p>
+                  )}
+                </div>
+              </div>
 
-            <div className="space-y-4 bottom">
-              <CustomButton
-                disabled={
-                  formData.companyName &&
-                  formData.country && // Update validation to use country
-                  formData.phoneData &&
-                  formData.location === ""
-                    ? true
-                    : false
-                }
-                title="Continue"
-                onClick={handleContinue}
-              />
-            </div>
+              <div>
+                <GooglePlacesAutocomplete
+                  parentClassName=""
+                  label="Location"
+                  placeholder="Ibeju Lekki Lagos, Nigeria."
+                  value={formData.location}
+                  onChange={(value) => {
+                    setFormData({ ...formData, location: value });
+                    setValue("location", value, { shouldValidate: true });
+                  }}
+                  error={errors.location?.message}
+                />
+              </div>
+
+              <div className="pt-2 mb-12 sm:pt-3">
+                <CustomButton
+                  type="submit"
+                  disabled={
+                    !isValid ||
+                    !formData.companyName ||
+                    !formData.businessType ||
+                    !formData.country ||
+                    !formData.phoneData ||
+                    !formData.location ||
+                    createProfileMutation.isPending
+                  }
+                  title={createProfileMutation.isPending ? "Saving..." : "Continue"}
+                  loading={createProfileMutation.isPending}
+                />
+              </div>
+            </form>
           </div>
         );
+  case 2 : return <ServiceOne continue={handleContinue} back={handleGoBack} />;
+  case 3 : return <ServiceTwo continue={handleContinue} back={handleGoBack} />;
+  case 4 : return <ServiceThree continue={handleContinue} back={handleGoBack} />;
+  case 5 : return <ServiceFour continue={handleContinue} back={handleGoBack} />;
 
-      case 2:
-        return <VendorTwo continue={handleContinue} back={handleGoBack} />;
-      case 3:
-        return <VendorThree continue={handleContinue} back={handleGoBack} />;
+      case 6:
+        return (
+          <VendorReview
+            continue={handleContinue}
+            back={handleGoBack}
+            formData={{
+              ...formData,
+              businessType: formData.businessType?.value || null,
+            }}
+          />
+        );
+      
       default:
         return null;
     }
   };
 
-  const renderProgressBar = () => {
-    return (
-      <div className="flex justify-center mb-8">
-        <div className="flex space-x-2">
-          {[1, 2, 3].map((tab) => (
-            <div
-              key={tab}
-              className={`w-12 h-1 rounded-full transition-colors ${
-                tab <= currentTab ? "bg-purple-600" : "bg-gray-300"
-              }`}
-            />
-          ))}
-        </div>
-      </div>
-    );
-  };
-
   return (
-    <div className="min-h-screen bg-white flex flex-col items-center justify-center pt-[40px]">
-      <div className="w-full max-w-2xl">
-        {renderProgressBar()}
-        {renderTabContent()}
-      </div>
-      {/* Decorative elements on the bottom side */}
-      <div className="overflow-hidden pointer-events-none">
-        <div className="">
-          <img src={bottom} alt="" className="w-full img" />
-        </div>
-      </div>
+    <div className="min-h-screen border bg-white flex flex-col items-center pt-12 relative">
+    <div className="w-full max-w-2xl">
+      <ProgressSteps total={6} current={currentTab} />
+      {renderTabContent()}
     </div>
+    {/* <DecorativeBottomImage /> */}
+  </div>
   );
 }

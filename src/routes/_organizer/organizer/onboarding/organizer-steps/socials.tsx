@@ -4,9 +4,9 @@ import { CustomButton } from "@components/accessories/button";
 import Modal from "@components/accessories/main-modal";
 import {
   AddPortfolioModal,
-  PortfolioLink,
   SocialIcon,
-} from "../sub-services/four";
+} from "@/shared/components/portfolio-link-modal";
+import { PortfolioLink } from "@/shared/api/services/onboarding";
 
 export interface OrganizerSocialsStepProps {
   continue: () => void;

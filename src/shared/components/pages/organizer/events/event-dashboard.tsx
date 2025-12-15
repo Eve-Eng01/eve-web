@@ -1,6 +1,7 @@
 import { Calendar } from 'iconsax-reactjs';
 import { ChevronDown, Users } from 'lucide-react';
 import React, { useState } from 'react';
+import { useAuthStore } from "@/shared/stores/auth-store";
 
 export const EventDashboard: React.FC = () => {
     const [selectedDate, setSelectedDate] = useState('August 5, 2025');
@@ -8,12 +9,15 @@ export const EventDashboard: React.FC = () => {
   
     const tabs = ['Current Event', 'Scheduled Event', 'Passed Event', 'Drafted Event'];
   
+    const user = useAuthStore((state) => state.user);
+    const userName = user ? `${user.firstName} ${user.lastname}`.trim() : "User";
+  
     return (
       <div>
         {/* Welcome Header */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            Hello, Anthony Mary 👋👋
+            Hello, {userName} ��👋
           </h1>
         </div>
   
