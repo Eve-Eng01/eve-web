@@ -12,8 +12,8 @@ import PayoutSetting, {
 } from "./payout-setting";
 import { ChangePayoutDetailsModal } from "./change-payout-details-modal";
 import { Toast } from "@components/accessories/toast";
-import { useAuthStore } from "@shared/stores/auth-store";
-import { useGetUser } from "@shared/api/services/auth/auth.hooks";
+import { useAuthStore } from "@/shared/stores/auth-store";
+
 
 export const Route = createFileRoute("/_vendor/vendor/account/")({
   component: RouteComponent,
@@ -29,7 +29,7 @@ function RouteComponent() {
   const user = useAuthStore((state) => state.user);
   
   // Fetch user data
-  useGetUser();
+  
   
   // Initialize form data with user data
   const [formData, setFormData] = useState<ProfileFormData>({
@@ -140,7 +140,7 @@ function RouteComponent() {
   };
 
   return (
-    <DashboardLayout isVendor user={User}>
+    <DashboardLayout isVendor>
       <div className="bg-white">
         {/* Go Back Button and Add New Payout Account Button */}
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 sm:gap-0 mb-6 sm:mb-8">

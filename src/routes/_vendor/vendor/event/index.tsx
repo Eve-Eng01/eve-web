@@ -4,7 +4,6 @@ import { DropdownInput } from "@components/accessories/dropdown-input";
 import { InputField } from "@components/accessories/input-field";
 import { DashboardLayout } from "@components/layouts/dashboard-layout";
 import EventList from "@components/pages/vendor/event-list";
-import { User } from "@routes/_organizer/organizer";
 import { createFileRoute } from "@tanstack/react-router";
 import { Search } from "lucide-react";
 
@@ -16,7 +15,7 @@ function RouteComponent() {
   const user = useAuthStore((state) => state.user);
   const userName = user ? `${user.firstName} ${user.lastname}`.trim() : "User";
   return (
-    <DashboardLayout user={User} isVendor>
+    <DashboardLayout isVendor>
       <div className="space-y-10 py-4">
         <div className="space-y-2 w-full">
           <h1 className="text-[clamp(1.3rem,2vw,2rem)] font-medium text-gray-900">

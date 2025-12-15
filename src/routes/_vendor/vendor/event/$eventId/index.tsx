@@ -4,7 +4,6 @@ import {
   useRouter,
 } from "@tanstack/react-router";
 import { DashboardLayout } from "@components/layouts/dashboard-layout";
-import { User } from "@routes/_organizer/organizer";
 import { CustomButton } from "@components/button/button";
 import EventList from "@components/pages/vendor/event-list";
 import { BadgeCheck, MessageSquareTextIcon, SendIcon } from "lucide-react";
@@ -24,7 +23,7 @@ function RouteComponent() {
   console.log(eventId);
   const router = useRouter();
   return (
-    <DashboardLayout isVendor user={User}>
+    <DashboardLayout isVendor>
       <div className="space-y-8">
         <CustomButton
           onClick={() => router.history.back()}

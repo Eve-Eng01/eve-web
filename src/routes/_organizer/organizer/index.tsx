@@ -54,7 +54,7 @@ export function RouteComponent() {
   };
 
   return (
-    <DashboardLayout user={user}>
+    <DashboardLayout>
       <div>
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">

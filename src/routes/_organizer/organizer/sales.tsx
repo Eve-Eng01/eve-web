@@ -108,7 +108,7 @@ export function RouteComponent() {
   };
 
   return (
-    <DashboardLayout user={user}>
+    <DashboardLayout>
       <div className="bg-white ">
         <div className="flex items-center justify-between mb-8">
           <div className="flex space-x-1">

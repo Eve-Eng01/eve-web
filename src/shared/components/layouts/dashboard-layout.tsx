@@ -26,15 +26,8 @@ import { useLogout } from "../../api/services/auth/auth.hooks";
 import ChatWidget from "@components/accessories/MessagePopup";
 import { useAuthStore } from "../../stores/auth-store";
 
-interface User {
-  name: string;
-  email: string;
-  avatar?: string;
-}
-
 interface DashboardLayoutProps {
   children: React.ReactNode;
-  user?: User;
   isVendor?: boolean;
 }
 

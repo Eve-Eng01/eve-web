@@ -2,7 +2,6 @@ import React, { useState, useMemo } from 'react';
 import { Check, X, Circle } from 'lucide-react';
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import { DashboardLayout } from '@components/layouts/dashboard-layout';
-import { User } from '.';
 import { Heart } from 'iconsax-reactjs';
 import ChatWidget from '@components/accessories/MessagePopup';
 
@@ -84,7 +83,7 @@ function RouteComponent() {
   };
 
   return (
-    <DashboardLayout user={User}>
+    <DashboardLayout>
       <div className="flex min-h-screen bg-gray-50">
       {/* Sidebar Filters */}
       <div className="w-[344px]  space-y-6">

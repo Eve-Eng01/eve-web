@@ -7,7 +7,6 @@ import { CategorySelectionTable } from "@components/accessories/category-selecti
 import { IndividualProposalLimits } from "@components/accessories/individual-proposal-limits";
 import { CustomButton } from "@components/accessories/button";
 import { ArrowLeft } from "lucide-react";
-import { User } from "./index";
 import type { CategoryOption } from "@components/accessories/multi-select-category-dropdown";
 import { getAllVendorCategories } from "@utils/vendor-categories";
 
@@ -155,7 +154,7 @@ function RouteComponent() {
   );
 
   return (
-    <DashboardLayout user={User}>
+    <DashboardLayout>
       <div className="bg-white">
         {/* Header */}
         <div className="flex items-center gap-2 sm:gap-4 mb-4 sm:mb-6 md:mb-8">

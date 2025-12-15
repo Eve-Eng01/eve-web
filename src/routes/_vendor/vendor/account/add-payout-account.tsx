@@ -12,7 +12,7 @@ import { SearchableDropdown } from "@components/accessories/searchable-dropdown"
 import { NIGERIAN_BANKS, CURRENCIES } from "@utils/banks";
 import Modal from "@components/accessories/main-modal";
 import { CustomButton } from "@components/accessories/button";
-import { User } from "./index";
+
 
 export const Route = createFileRoute("/_vendor/vendor/account/add-payout-account")({
   component: RouteComponent,
@@ -94,7 +94,7 @@ function RouteComponent() {
     formData.accountName.trim() !== "";
 
   return (
-    <DashboardLayout isVendor user={User}>
+    <DashboardLayout isVendor>
       <div className="bg-white">
         {/* Header */}
         <div className="flex items-center gap-4 mb-6 sm:mb-8">

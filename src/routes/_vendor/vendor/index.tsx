@@ -21,7 +21,7 @@ export function RouteComponent() {
   const userName = user ? `${user.firstName} ${user.lastname}`.trim() : "User";
   
   return (
-    <DashboardLayout isVendor user={user}>
+    <DashboardLayout isVendor>
       <div className="space-y-10 md:space-y-14 py-4">
         <div className="flex items-start min-[1300px]:items-end min-[1300px]:justify-between flex-col min-[1300px]:flex-row gap-4">
           <div className="space-y-2 flex-1 shrink-0">
