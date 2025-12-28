@@ -1,6 +1,7 @@
-import React, { useState, ChangeEvent, DragEvent } from "react";
+import React, { useState, ChangeEvent, DragEvent, useImperativeHandle, forwardRef } from "react";
 import { Image, Upload } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useSearch } from "@tanstack/react-router";
 import Modal from "../../../accessories/main-modal";
 import ImageEditor, { ImageEditData } from "../../../accessories/image-editor";
 import upload1 from "@assets/uploads/upload1.png";
@@ -11,6 +12,8 @@ import upload5 from "@assets/uploads/upload5.png";
 import upload6 from "@assets/uploads/upload6.png";
 import upload7 from "@assets/uploads/upload7.png";
 import upload8 from "@assets/uploads/upload8.png";
+import { useUploadMedia } from "@/shared/api/services/events/events.hooks";
+import { useToastStore } from "@/shared/stores/toast-store";
 
 interface Theme {
   id: number;
@@ -22,11 +25,31 @@ interface CroppedImage {
   edit: ImageEditData;
 }
 
-const MediaUpload: React.FC = () => {
+interface MediaUploadProps {
+  eventId?: string | null; // Event ID for API calls
+  onMediaUploaded?: (url: string) => void; // Callback when media is uploaded
+}
+
+export interface MediaUploadHandle {
+  uploadMedia: () => Promise<boolean>; // Returns true if upload succeeds, false otherwise
+  isUploading: boolean;
+  hasImage: boolean;
+}
+
+const MediaUpload = forwardRef<MediaUploadHandle, MediaUploadProps>(
+  ({ eventId: propEventId, onMediaUploaded }, ref) => {
+  const search = useSearch({ from: "/_organizer/organizer/events/create" });
+  // Use eventId from props, fallback to query params
+  const eventId = propEventId || (search as { eventId?: string })?.eventId || null;
+  
   const [selectedTheme, setSelectedTheme] = useState<number | null>(null);
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);
   const [cropped, setCropped] = useState<CroppedImage | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [isUploading, setIsUploading] = useState(false);
+  const uploadMediaMutation = useUploadMedia();
+  const showToast = useToastStore((state) => state.showToast);
 
   // Hidden file input ref
   const fileInputRef = React.useRef<HTMLInputElement>(null);
@@ -43,20 +66,63 @@ const MediaUpload: React.FC = () => {
     { id: 9, image: upload1 },
   ];
 
+  /**
+   * Convert image URL (from theme) to File object
+   */
+  const urlToFile = async (url: string, filename: string): Promise<File> => {
+    const response = await fetch(url);
+    const blob = await response.blob();
+    return new File([blob], filename, { type: blob.type || "image/png" });
+  };
+
   const handleDragOver = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
+  };
+
+  /**
+   * Validate file size (max 10MB)
+   */
+  const validateFileSize = (file: File): boolean => {
+    const maxSize = 10 * 1024 * 1024; // 10MB
+    if (file.size > maxSize) {
+      showToast("File size must be less than 10MB", "error");
+      return false;
+    }
+    return true;
+  };
+
+  /**
+   * Validate file type
+   */
+  const validateFileType = (file: File): boolean => {
+    const allowedTypes = ["image/jpeg", "image/jpg", "image/png", "image/gif", "image/webp"];
+    if (!allowedTypes.includes(file.type)) {
+      showToast("File must be an image (JPEG, PNG, GIF, or WebP)", "error");
+      return false;
+    }
+    return true;
   };
 
   const handleDrop = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     const file = e.dataTransfer.files[0];
     if (file && file.type.startsWith("image/")) {
+      // Validate file size
+      if (!validateFileSize(file)) {
+        return;
+      }
+      // Validate file type
+      if (!validateFileType(file)) {
+        return;
+      }
+      setSelectedFile(file);
       const reader = new FileReader();
       reader.onload = (ev) => {
         const url = ev.target?.result as string;
         setUploadedImage(url);
         setCropped(null);
         setSelectedTheme(null);
+        // Don't upload yet - wait for Next button
       };
       reader.readAsDataURL(file);
     }
@@ -65,21 +131,44 @@ const MediaUpload: React.FC = () => {
   const handleFileInput = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
+      // Validate file size
+      if (!validateFileSize(file)) {
+        return;
+      }
+      // Validate file type
+      if (!validateFileType(file)) {
+        return;
+      }
+      setSelectedFile(file);
       const reader = new FileReader();
       reader.onload = (ev) => {
         const url = ev.target?.result as string;
         setUploadedImage(url);
         setCropped(null);
         setSelectedTheme(null);
+        // Don't upload yet - wait for Next button
       };
       reader.readAsDataURL(file);
     }
   };
 
-  const handleThemeClick = (theme: Theme) => {
+  const handleThemeClick = async (theme: Theme) => {
     setSelectedTheme(theme.id);
     setUploadedImage(theme.image);
     setCropped(null);
+    // Convert theme image to File object
+    try {
+      const file = await urlToFile(theme.image, `theme-${theme.id}.png`);
+      // Validate file size (theme images should be small, but check anyway)
+      if (!validateFileSize(file)) {
+        return;
+      }
+      setSelectedFile(file);
+      // Don't upload yet - wait for Next button
+    } catch (error) {
+      console.error("Failed to convert theme image to file:", error);
+      showToast("Failed to process theme image", "error");
+    }
   };
 
   const handleChangeImage = () => {
@@ -88,9 +177,121 @@ const MediaUpload: React.FC = () => {
     }
   };
 
+  /**
+   * Upload media to the API
+   * Called when user clicks Next button
+   */
+  const uploadMedia = async (): Promise<boolean> => {
+    if (!eventId) {
+      showToast("Event ID is required to upload media", "error");
+      return false;
+    }
+
+    // Check if there's an image to upload
+    if (!selectedFile) {
+      // Allow proceeding without an image (optional)
+      return true;
+    }
+
+    // Validate file size again
+    if (!validateFileSize(selectedFile)) {
+      return false;
+    }
+
+    // Validate file type again
+    if (!validateFileType(selectedFile)) {
+      return false;
+    }
+
+    // Get the final file (either selected file or cropped image)
+    let fileToUpload = selectedFile;
+
+    // If there's a cropped image, convert it to a file
+    if (cropped?.url) {
+      try {
+        fileToUpload = await dataURLtoFile(cropped.url, "event-media.png");
+        // Validate cropped file size
+        if (!validateFileSize(fileToUpload)) {
+          return false;
+        }
+      } catch (error) {
+        console.error("Failed to process cropped image:", error);
+        showToast("Failed to process image", "error");
+        return false;
+      }
+    }
+
+    setIsUploading(true);
+    try {
+      const response = await uploadMediaMutation.mutateAsync({
+        eventId,
+        file: fileToUpload,
+      });
+
+      // Handle response structure: ApiResponse<UploadMediaResponse>
+      // UploadMediaResponse has: { status, message, data: { url, assetId, provider } }
+      // ApiResponse wraps it: { status, message, data: UploadMediaResponse }
+      // So the URL is at: response.data.data.url
+      let mediaUrl: string | undefined;
+      
+      if (response?.data?.data?.url) {
+        // Standard structure: ApiResponse<UploadMediaResponse>
+        mediaUrl = response.data.data.url;
+      } else if ((response?.data as any)?.url) {
+        // Fallback: if response.data is UploadMediaResponse directly
+        mediaUrl = (response.data as any).url;
+      }
+
+      if (response?.status && mediaUrl) {
+        onMediaUploaded?.(mediaUrl);
+        // Success toast is handled by the hook
+        return true;
+      }
+      
+      // Even if URL is not found but status is true, consider it successful
+      if (response?.status) {
+        return true;
+      }
+      
+      return false;
+    } catch (error) {
+      // Error toast is handled by the hook
+      console.error("Failed to upload media:", error);
+      return false;
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
+  // Expose methods to parent component via ref
+  useImperativeHandle(ref, () => ({
+    uploadMedia,
+    isUploading,
+    hasImage: !!uploadedImage || !!cropped?.url,
+  }));
+
+
+  /**
+   * Convert data URL to File
+   */
+  const dataURLtoFile = (dataurl: string, filename: string): Promise<File> => {
+    return new Promise((resolve) => {
+      const arr = dataurl.split(",");
+      const mime = arr[0].match(/:(.*?);/)?.[1] || "image/png";
+      const bstr = atob(arr[1]);
+      let n = bstr.length;
+      const u8arr = new Uint8Array(n);
+      while (n--) {
+        u8arr[n] = bstr.charCodeAt(n);
+      }
+      resolve(new File([u8arr], filename, { type: mime }));
+    });
+  };
+
   const handleSaveImage = (croppedUrl: string, editData: ImageEditData) => {
     setCropped({ url: croppedUrl, edit: editData });
     setIsModalOpen(false);
+    // Don't upload yet - wait for Next button
   };
 
   const triggerFileUpload = () => {
@@ -252,6 +453,8 @@ const MediaUpload: React.FC = () => {
       </Modal>
     </div>
   );
-};
+});
+
+MediaUpload.displayName = "MediaUpload";
 
 export default MediaUpload;

@@ -177,7 +177,7 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
             {
               icon: Plus,
               label: "Create New",
-              href: "/events/create",
+              href: "/organizer/events/create",
             },
             {
               icon: Users,

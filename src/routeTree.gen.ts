@@ -43,6 +43,7 @@ import { Route as PublicAuthOtpVerifyRouteImport } from './routes/_public/auth/o
 import { Route as OrganizerOrganizerVendorDetailsRouteImport } from './routes/_organizer/organizer/vendor/details'
 import { Route as OrganizerOrganizerOnboardingServicesRouteImport } from './routes/_organizer/organizer/onboarding/services'
 import { Route as OrganizerOrganizerOnboardingProfileRouteImport } from './routes/_organizer/organizer/onboarding/profile'
+import { Route as OrganizerOrganizerEventsCreateRouteImport } from './routes/_organizer/organizer/events/create'
 import { Route as OrganizerOrganizerAccountAddPayoutAccountRouteImport } from './routes/_organizer/organizer/account/add-payout-account'
 import { Route as VendorVendorEventEventIdIndexRouteImport } from './routes/_vendor/vendor/event/$eventId/index'
 import { Route as VendorVendorOnboardingVendorSubServicesTwoRouteImport } from './routes/_vendor/vendor/onboarding/vendor-sub-services/two'
@@ -61,6 +62,7 @@ import { Route as OrganizerOrganizerOnboardingSubServicesReviewRouteImport } fro
 import { Route as OrganizerOrganizerOnboardingSubServicesOneRouteImport } from './routes/_organizer/organizer/onboarding/sub-services/one'
 import { Route as OrganizerOrganizerOnboardingSubServicesFourRouteImport } from './routes/_organizer/organizer/onboarding/sub-services/four'
 import { Route as OrganizerOrganizerOnboardingSubServicesFiveRouteImport } from './routes/_organizer/organizer/onboarding/sub-services/five'
+import { Route as OrganizerOrganizerEventsEventIdTicketsTicketIdEditRouteImport } from './routes/_organizer/organizer/events/$eventId/tickets/$ticketId/edit'
 
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
@@ -247,6 +249,12 @@ const OrganizerOrganizerOnboardingProfileRoute =
     path: '/organizer/onboarding/profile',
     getParentRoute: () => OrganizerRoute,
   } as any)
+const OrganizerOrganizerEventsCreateRoute =
+  OrganizerOrganizerEventsCreateRouteImport.update({
+    id: '/organizer/events/create',
+    path: '/organizer/events/create',
+    getParentRoute: () => OrganizerRoute,
+  } as any)
 const OrganizerOrganizerAccountAddPayoutAccountRoute =
   OrganizerOrganizerAccountAddPayoutAccountRouteImport.update({
     id: '/organizer/account/add-payout-account',
@@ -355,6 +363,12 @@ const OrganizerOrganizerOnboardingSubServicesFiveRoute =
     path: '/organizer/onboarding/sub-services/five',
     getParentRoute: () => OrganizerRoute,
   } as any)
+const OrganizerOrganizerEventsEventIdTicketsTicketIdEditRoute =
+  OrganizerOrganizerEventsEventIdTicketsTicketIdEditRouteImport.update({
+    id: '/organizer/events/$eventId/tickets/$ticketId/edit',
+    path: '/organizer/events/$eventId/tickets/$ticketId/edit',
+    getParentRoute: () => OrganizerRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
@@ -372,6 +386,7 @@ export interface FileRoutesByFullPath {
   '/organizer': typeof OrganizerOrganizerIndexRoute
   '/vendor': typeof VendorVendorIndexRoute
   '/organizer/account/add-payout-account': typeof OrganizerOrganizerAccountAddPayoutAccountRoute
+  '/organizer/events/create': typeof OrganizerOrganizerEventsCreateRoute
   '/organizer/onboarding/profile': typeof OrganizerOrganizerOnboardingProfileRoute
   '/organizer/onboarding/services': typeof OrganizerOrganizerOnboardingServicesRoute
   '/organizer/vendor/details': typeof OrganizerOrganizerVendorDetailsRoute
@@ -405,6 +420,7 @@ export interface FileRoutesByFullPath {
   '/vendor/onboarding/vendor-sub-services/three': typeof VendorVendorOnboardingVendorSubServicesThreeRoute
   '/vendor/onboarding/vendor-sub-services/two': typeof VendorVendorOnboardingVendorSubServicesTwoRoute
   '/vendor/event/$eventId': typeof VendorVendorEventEventIdIndexRoute
+  '/organizer/events/$eventId/tickets/$ticketId/edit': typeof OrganizerOrganizerEventsEventIdTicketsTicketIdEditRoute
 }
 export interface FileRoutesByTo {
   '/about': typeof AboutRoute
@@ -422,6 +438,7 @@ export interface FileRoutesByTo {
   '/organizer': typeof OrganizerOrganizerIndexRoute
   '/vendor': typeof VendorVendorIndexRoute
   '/organizer/account/add-payout-account': typeof OrganizerOrganizerAccountAddPayoutAccountRoute
+  '/organizer/events/create': typeof OrganizerOrganizerEventsCreateRoute
   '/organizer/onboarding/profile': typeof OrganizerOrganizerOnboardingProfileRoute
   '/organizer/onboarding/services': typeof OrganizerOrganizerOnboardingServicesRoute
   '/organizer/vendor/details': typeof OrganizerOrganizerVendorDetailsRoute
@@ -455,6 +472,7 @@ export interface FileRoutesByTo {
   '/vendor/onboarding/vendor-sub-services/three': typeof VendorVendorOnboardingVendorSubServicesThreeRoute
   '/vendor/onboarding/vendor-sub-services/two': typeof VendorVendorOnboardingVendorSubServicesTwoRoute
   '/vendor/event/$eventId': typeof VendorVendorEventEventIdIndexRoute
+  '/organizer/events/$eventId/tickets/$ticketId/edit': typeof OrganizerOrganizerEventsEventIdTicketsTicketIdEditRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -477,6 +495,7 @@ export interface FileRoutesById {
   '/_organizer/organizer/': typeof OrganizerOrganizerIndexRoute
   '/_vendor/vendor/': typeof VendorVendorIndexRoute
   '/_organizer/organizer/account/add-payout-account': typeof OrganizerOrganizerAccountAddPayoutAccountRoute
+  '/_organizer/organizer/events/create': typeof OrganizerOrganizerEventsCreateRoute
   '/_organizer/organizer/onboarding/profile': typeof OrganizerOrganizerOnboardingProfileRoute
   '/_organizer/organizer/onboarding/services': typeof OrganizerOrganizerOnboardingServicesRoute
   '/_organizer/organizer/vendor/details': typeof OrganizerOrganizerVendorDetailsRoute
@@ -510,6 +529,7 @@ export interface FileRoutesById {
   '/_vendor/vendor/onboarding/vendor-sub-services/three': typeof VendorVendorOnboardingVendorSubServicesThreeRoute
   '/_vendor/vendor/onboarding/vendor-sub-services/two': typeof VendorVendorOnboardingVendorSubServicesTwoRoute
   '/_vendor/vendor/event/$eventId/': typeof VendorVendorEventEventIdIndexRoute
+  '/_organizer/organizer/events/$eventId/tickets/$ticketId/edit': typeof OrganizerOrganizerEventsEventIdTicketsTicketIdEditRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -529,6 +549,7 @@ export interface FileRouteTypes {
     | '/organizer'
     | '/vendor'
     | '/organizer/account/add-payout-account'
+    | '/organizer/events/create'
     | '/organizer/onboarding/profile'
     | '/organizer/onboarding/services'
     | '/organizer/vendor/details'
@@ -562,6 +583,7 @@ export interface FileRouteTypes {
     | '/vendor/onboarding/vendor-sub-services/three'
     | '/vendor/onboarding/vendor-sub-services/two'
     | '/vendor/event/$eventId'
+    | '/organizer/events/$eventId/tickets/$ticketId/edit'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/about'
@@ -579,6 +601,7 @@ export interface FileRouteTypes {
     | '/organizer'
     | '/vendor'
     | '/organizer/account/add-payout-account'
+    | '/organizer/events/create'
     | '/organizer/onboarding/profile'
     | '/organizer/onboarding/services'
     | '/organizer/vendor/details'
@@ -612,6 +635,7 @@ export interface FileRouteTypes {
     | '/vendor/onboarding/vendor-sub-services/three'
     | '/vendor/onboarding/vendor-sub-services/two'
     | '/vendor/event/$eventId'
+    | '/organizer/events/$eventId/tickets/$ticketId/edit'
   id:
     | '__root__'
     | '/_authenticated'
@@ -633,6 +657,7 @@ export interface FileRouteTypes {
     | '/_organizer/organizer/'
     | '/_vendor/vendor/'
     | '/_organizer/organizer/account/add-payout-account'
+    | '/_organizer/organizer/events/create'
     | '/_organizer/organizer/onboarding/profile'
     | '/_organizer/organizer/onboarding/services'
     | '/_organizer/organizer/vendor/details'
@@ -666,6 +691,7 @@ export interface FileRouteTypes {
     | '/_vendor/vendor/onboarding/vendor-sub-services/three'
     | '/_vendor/vendor/onboarding/vendor-sub-services/two'
     | '/_vendor/vendor/event/$eventId/'
+    | '/_organizer/organizer/events/$eventId/tickets/$ticketId/edit'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -917,6 +943,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OrganizerOrganizerOnboardingProfileRouteImport
       parentRoute: typeof OrganizerRoute
     }
+    '/_organizer/organizer/events/create': {
+      id: '/_organizer/organizer/events/create'
+      path: '/organizer/events/create'
+      fullPath: '/organizer/events/create'
+      preLoaderRoute: typeof OrganizerOrganizerEventsCreateRouteImport
+      parentRoute: typeof OrganizerRoute
+    }
     '/_organizer/organizer/account/add-payout-account': {
       id: '/_organizer/organizer/account/add-payout-account'
       path: '/organizer/account/add-payout-account'
@@ -1043,6 +1076,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OrganizerOrganizerOnboardingSubServicesFiveRouteImport
       parentRoute: typeof OrganizerRoute
     }
+    '/_organizer/organizer/events/$eventId/tickets/$ticketId/edit': {
+      id: '/_organizer/organizer/events/$eventId/tickets/$ticketId/edit'
+      path: '/organizer/events/$eventId/tickets/$ticketId/edit'
+      fullPath: '/organizer/events/$eventId/tickets/$ticketId/edit'
+      preLoaderRoute: typeof OrganizerOrganizerEventsEventIdTicketsTicketIdEditRouteImport
+      parentRoute: typeof OrganizerRoute
+    }
   }
 }
 
@@ -1067,6 +1107,7 @@ interface OrganizerRouteChildren {
   OrganizerOrganizerVendorsRoute: typeof OrganizerOrganizerVendorsRoute
   OrganizerOrganizerIndexRoute: typeof OrganizerOrganizerIndexRoute
   OrganizerOrganizerAccountAddPayoutAccountRoute: typeof OrganizerOrganizerAccountAddPayoutAccountRoute
+  OrganizerOrganizerEventsCreateRoute: typeof OrganizerOrganizerEventsCreateRoute
   OrganizerOrganizerOnboardingProfileRoute: typeof OrganizerOrganizerOnboardingProfileRoute
   OrganizerOrganizerOnboardingServicesRoute: typeof OrganizerOrganizerOnboardingServicesRoute
   OrganizerOrganizerVendorDetailsRoute: typeof OrganizerOrganizerVendorDetailsRoute
@@ -1080,6 +1121,7 @@ interface OrganizerRouteChildren {
   OrganizerOrganizerOnboardingSubServicesTwoRoute: typeof OrganizerOrganizerOnboardingSubServicesTwoRoute
   OrganizerOrganizerOnboardingVendorSubServicesThreeRoute: typeof OrganizerOrganizerOnboardingVendorSubServicesThreeRoute
   OrganizerOrganizerOnboardingVendorSubServicesTwoRoute: typeof OrganizerOrganizerOnboardingVendorSubServicesTwoRoute
+  OrganizerOrganizerEventsEventIdTicketsTicketIdEditRoute: typeof OrganizerOrganizerEventsEventIdTicketsTicketIdEditRoute
 }
 
 const OrganizerRouteChildren: OrganizerRouteChildren = {
@@ -1092,6 +1134,7 @@ const OrganizerRouteChildren: OrganizerRouteChildren = {
   OrganizerOrganizerIndexRoute: OrganizerOrganizerIndexRoute,
   OrganizerOrganizerAccountAddPayoutAccountRoute:
     OrganizerOrganizerAccountAddPayoutAccountRoute,
+  OrganizerOrganizerEventsCreateRoute: OrganizerOrganizerEventsCreateRoute,
   OrganizerOrganizerOnboardingProfileRoute:
     OrganizerOrganizerOnboardingProfileRoute,
   OrganizerOrganizerOnboardingServicesRoute:
@@ -1115,6 +1158,8 @@ const OrganizerRouteChildren: OrganizerRouteChildren = {
     OrganizerOrganizerOnboardingVendorSubServicesThreeRoute,
   OrganizerOrganizerOnboardingVendorSubServicesTwoRoute:
     OrganizerOrganizerOnboardingVendorSubServicesTwoRoute,
+  OrganizerOrganizerEventsEventIdTicketsTicketIdEditRoute:
+    OrganizerOrganizerEventsEventIdTicketsTicketIdEditRoute,
 }
 
 const OrganizerRouteWithChildren = OrganizerRoute._addFileChildren(

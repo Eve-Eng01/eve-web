@@ -7,6 +7,7 @@ export interface DropdownOption {
   value: string;
   label: string;
   flag?: string; // Add flag property
+  icon?: React.ReactNode; // Icon component (e.g., from react-icons)
   searchText?: string; // Optional extra text to include in search (e.g., dial code)
 }
 
@@ -99,6 +100,7 @@ export const DropdownInput: React.FC<DropdownInputProps> = ({
           <span className="flex items-center gap-2">
             {value ? (
               <>
+                {value.icon && <span className="flex-shrink-0">{value.icon}</span>}
                 {value.flag && <span>{value.flag}</span>}
                 <span className="text-gray-800">{value.label}</span>
               </>
@@ -144,7 +146,9 @@ export const DropdownInput: React.FC<DropdownInputProps> = ({
                   )}
                 >
                   <span className="flex items-center gap-2">
-                    <span>{option.flag || " "}</span> {/* Fallback flag */}
+                    {option.icon && <span className="flex-shrink-0">{option.icon}</span>}
+                    {option.flag && <span>{option.flag}</span>}
+                    {!option.icon && !option.flag && <span> </span>}
                     <span className="text-gray-800">{option.label}</span>
                   </span>
                   {value?.value === option.value && (

@@ -37,16 +37,21 @@ export function RouteComponent() {
   const renderTabContent = () => {
     switch (activeTab) {
       case "Current Event":
-        return <CreateEvent onNavigateToTab={setActiveTab} />;
+        return (
+          <CreateEvent
+            onNavigateToTab={setActiveTab}
+            isActive={activeTab === "Current Event"}
+          />
+        );
 
       case "Scheduled Event":
-        return <ScheduledEvent />;
+        return <ScheduledEvent isActive={activeTab === "Scheduled Event"} />;
 
       case "Passed Event":
-        return <PassedEvent />;
+        return <PassedEvent isActive={activeTab === "Passed Event"} />;
 
       case "Drafted Event":
-        return <DraftedEvent />;
+        return <DraftedEvent isActive={activeTab === "Drafted Event"} />;
 
       default:
         return null;
@@ -68,7 +73,9 @@ export function RouteComponent() {
             {tabs.map((tab) => (
               <button
                 key={tab}
-                onClick={() => setActiveTab(tab)}
+                onClick={() => {
+                  setActiveTab(tab);
+                }}
                 className={`px-4 py-2 text-sm font-medium rounded-lg transition-colors duration-150 ${
                   activeTab === tab
                     ? "bg-purple-100 text-purple-700 border border-purple-200"

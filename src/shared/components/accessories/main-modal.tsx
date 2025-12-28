@@ -73,25 +73,34 @@ const Modal: React.FC<ModalProps> = ({
     }
   };
 
-  // Size classes
+  // Size classes - mobile-first approach
   const sizeClasses = {
-    sm: 'max-w-md',
-    md: 'max-w-lg',
-    lg: 'max-w-2xl',
-    xl: 'max-w-4xl ',
+    sm: 'max-w-[95vw] sm:max-w-md',
+    md: 'max-w-[95vw] sm:max-w-lg',
+    lg: 'max-w-[95vw] sm:max-w-2xl',
+    xl: 'max-w-[95vw] sm:max-w-4xl',
     full: 'max-w-[95vw] max-h-[95vh]'
   };
 
-  // Animation classes
+  // Animation classes - use inline styles for dynamic duration
+  const overlayStyle = {
+    transitionDuration: `${animationDuration}ms`,
+    opacity: isAnimating ? 0.5 : 0,
+  };
+
+  const modalStyle = {
+    transitionDuration: `${animationDuration}ms`,
+  };
+
   const overlayClasses = `
-    fixed inset-0 bg-black transition-opacity duration-${animationDuration} ease-out
+    fixed inset-0 bg-black transition-opacity ease-out
     ${isAnimating ? 'opacity-50' : 'opacity-0'}
   `;
 
   const modalClasses = `
     relative bg-white rounded-lg shadow-xl w-full mx-2 sm:mx-4 my-2 sm:my-8 
     ${sizeClasses[size]} max-h-[98vh] sm:max-h-[90vh] overflow-hidden
-    transition-all duration-${animationDuration} ease-out transform
+    transition-all ease-out transform
     ${isAnimating 
       ? 'opacity-100 scale-100 translate-y-0' 
       : 'opacity-0 scale-95 translate-y-4'
@@ -108,6 +117,7 @@ const Modal: React.FC<ModalProps> = ({
         className={overlayClasses}
         onClick={handleOverlayClick}
         aria-hidden="true"
+        style={overlayStyle}
       />
       
       {/* Animated Modal Content */}
@@ -116,22 +126,20 @@ const Modal: React.FC<ModalProps> = ({
         role="dialog"
         aria-modal="true"
         aria-labelledby={title ? 'modal-title' : undefined}
-        style={{
-          transitionDuration: `${animationDuration}ms`,
-        }}
+        style={modalStyle}
       >
         {/* Header */}
         {(title || showCloseButton) && (
-          <div className="flex items-center justify-between p-4 sm:p-6 border-b border-gray-200">
+          <div className="flex items-center justify-between p-3 sm:p-4 md:p-6 border-b border-gray-200">
             {title && (
-              <h2 id="modal-title" className="text-lg sm:text-xl font-semibold text-gray-900">
+              <h2 id="modal-title" className="text-base sm:text-lg md:text-xl font-semibold text-gray-900 pr-2">
                 {title}
               </h2>
             )}
             {showCloseButton && (
               <button
                 onClick={onClose}
-                className="p-1 ml-auto bg-transparent border-0 text-gray-400 hover:text-gray-600 transition-colors duration-200 hover:bg-gray-100 rounded-full"
+                className="flex-shrink-0 p-1 ml-auto bg-transparent border-0 text-gray-400 hover:text-gray-600 transition-colors duration-200 hover:bg-gray-100 rounded-full"
                 aria-label="Close modal"
               >
                 <Xrp size="20" color="#000"/>
@@ -141,7 +149,7 @@ const Modal: React.FC<ModalProps> = ({
         )}
 
         {/* Body */}
-        <div className="p-4 sm:p-6 overflow-y-auto max-h-[calc(98vh-4rem)] sm:max-h-[calc(90vh-8rem)]">
+        <div className="p-3 sm:p-4 md:p-6 overflow-y-auto max-h-[calc(98vh-3rem)] sm:max-h-[calc(98vh-4rem)] md:max-h-[calc(90vh-8rem)]">
           {children}
         </div>
       </div>

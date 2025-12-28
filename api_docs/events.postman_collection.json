@@ -1,0 +1,2218 @@
+{
+	"info": {
+		"_postman_id": "be9571fa-fe0b-45be-9fed-c9c9d9af6637",
+		"name": "Test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "48426269",
+		"_collection_link": "https://founderseve-3323036.postman.co/workspace/eve's-Workspace~e46961ea-aa94-433e-82c2-1872f82474a9/collection/48426269-be9571fa-fe0b-45be-9fed-c9c9d9af6637?action=share&source=collection_link&creator=48426269"
+	},
+	"item": [
+		{
+			"name": "Events Copy",
+			"item": [
+				{
+					"name": "create draft",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\n {\n      \"name\": \"Tech Conference 2026\",\n      \"description\": \"A conference for tech enthusiasts to discuss the latest trends in technology.\",\n      \"customUrl\": \"https://tech-conference2025.com\",\n      \"category\": \"Technology\",\n      \"format\": \"in_person\",\n      \"recurrence\": \"recurring\",\n      \"timezone\": \"UTC\",\n      \"location\": {\n        \"address\": \"123 Tech Street, Silicon Valley\",\n        \"venue\": \"Tech Convention Center\"\n      },\n      \"occurrences\": [\n        {\n          \"date\": \"2025-06-01\",\n          \"timeSlots\": [\n            {\n              \"startAt\": \"2025-06-01T09:00:00Z\",\n              \"endAt\": \"2025-06-01T12:00:00Z\"\n            },\n            {\n              \"startAt\": \"2025-06-01T13:00:00Z\",\n              \"endAt\": \"2025-06-01T16:00:00Z\"\n            }\n          ]\n        },\n        {\n          \"date\": \"2025-06-02\",\n          \"timeSlots\": [\n            {\n              \"startAt\": \"2025-06-02T09:00:00Z\",\n              \"endAt\": \"2025-06-02T12:00:00Z\"\n            }\n          ]\n        }\n      ]\n    }\n  ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/event/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"event",
+								""
+							]
+						},
+						"description": "**Purpose:**\nThis POST request creates a new event draft in the system. Use this endpoint to define the details of an event before it is published or made public.\n\n**Main Fields in the Request Body:**\n- `name` (string): The title of the event.\n- `description` (string): A brief summary or overview of the event.\n- `customUrl` (string): A custom URL for the event's landing page.\n- `category` (string): The category or type of event (e.g., Technology).\n- `format` (string): The format of the event, such as 'in_person', 'virtual', or 'hybrid'.\n- `recurrence` (string): Indicates if the event is 'one_time' or 'recurring'.\n- `timezone` (string): The timezone in which the event will take place.\n- `location` (object): Contains `address` and `venue` for in-person events.\n- `occurrences` (array): Lists event dates and their respective time slots. Each occurrence includes:\n  - `date` (string): The date of the event occurrence (YYYY-MM-DD).\n  - `timeSlots` (array): Start and end times for sessions on that date (ISO 8601 format).\n\n**Important Details:**\n- All required fields must be provided for successful event creation.\n- For recurring events, multiple occurrences and time slots can be specified.\n- The request returns details of the created event draft, which can be further updated or published.\n\nUse this endpoint to set up all necessary event information before making it available to attendees."
+					},
+					"response": [
+						{
+							"name": "create draft",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "\n {\n      \"name\": \"Tech Conference 2025\",\n      \"description\": \"A conference for tech enthusiasts to discuss the latest trends in technology.\",\n      \"customUrl\": \"https://tech-conference2025.com\",\n      \"category\": \"Technology\",\n      \"format\": \"in_person\",\n      \"recurrence\": \"recurring\",\n      \"timezone\": \"UTC\",\n      \"location\": {\n        \"address\": \"123 Tech Street, Silicon Valley\",\n        \"venue\": \"Tech Convention Center\"\n      },\n      \"occurrences\": [\n        {\n          \"date\": \"2025-06-01\",\n          \"timeSlots\": [\n            {\n              \"startAt\": \"2025-06-01T09:00:00Z\",\n              \"endAt\": \"2025-06-01T12:00:00Z\"\n            },\n            {\n              \"startAt\": \"2025-06-01T13:00:00Z\",\n              \"endAt\": \"2025-06-01T16:00:00Z\"\n            }\n          ]\n        },\n        {\n          \"date\": \"2025-06-02\",\n          \"timeSlots\": [\n            {\n              \"startAt\": \"2025-06-02T09:00:00Z\",\n              \"endAt\": \"2025-06-02T12:00:00Z\"\n            }\n          ]\n        }\n      ]\n    }\n  ",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/event/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"event",
+										""
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Resource-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Origin-Agent-Cluster",
+									"value": "?1"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Permitted-Cross-Domain-Policies",
+									"value": "none"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "RateLimit-Policy",
+									"value": "100;w=900"
+								},
+								{
+									"key": "RateLimit-Limit",
+									"value": "100"
+								},
+								{
+									"key": "RateLimit-Remaining",
+									"value": "99"
+								},
+								{
+									"key": "RateLimit-Reset",
+									"value": "900"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "47"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"2f-tnhdIhsTiCZY6CePcbKecdvJfag\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 01 Oct 2025 08:02:17 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"Draft event created\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Upload media",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "media",
+									"type": "file",
+									"src": "/private/var/folders/s7/q6fvgcw5075gb3pl7dtqmw580000gn/T/com.apple.Photos.NSItemProvider/uuid=E61A879B-E088-4192-8882-27FB2DB2E8C2&code=001&library=1&type=1&mode=1&loc=true&cap=true.jpeg/Image 9-25-25 at 8.47 AM.jpeg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/event/68dce0083e23411126b1b6d6/media",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"event",
+								"68dce0083e23411126b1b6d6",
+								"media"
+							]
+						},
+						"description": "Uploads media files to a specific event.\n\n**Purpose:**\nThis POST request allows you to upload one or more media files (such as images or videos) to the event identified by the provided event ID in the URL path. It is typically used to associate media content with an event in the system.\n\n**Request Body:**\n- The request body must use `multipart/form-data` encoding.\n- Each part of the form should represent a file or additional metadata as required by the API.\n\n**Variables:**\n- `url`: The base URL for the API. This variable is used to construct the full endpoint path.\n- `accessToken`: The authentication token required to authorize the request. Ensure this variable is set in your environment or passed as a header (commonly as a Bearer token).\n\n**Note:**\nMake sure to include all required form fields and set the appropriate headers for authentication when sending this request.\n\n**Sample Response:**\n```\n{\n  \"success\": true,\n  \"message\": \"Media uploaded successfully\",\n  \"mediaUrls\": [\n    \"https://example.com/media/abc123.jpg\",\n    \"https://example.com/media/xyz456.mp4\"\n  ]\n}\n```"
+					},
+					"response": [
+						{
+							"name": "New Request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "media",
+											"type": "file",
+											"src": "/private/var/folders/s7/q6fvgcw5075gb3pl7dtqmw580000gn/T/com.apple.Photos.NSItemProvider/uuid=1A031987-82BF-460C-9E26-CADE7C284E90&code=001&library=1&type=1&mode=1&loc=true&cap=true.jpeg/Image 9-26-25 at 2.11 AM.jpeg"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/event/68dbb8b77c87ad2b430e0e82/media",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"event",
+										"68dbb8b77c87ad2b430e0e82",
+										"media"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Resource-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Origin-Agent-Cluster",
+									"value": "?1"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Permitted-Cross-Domain-Policies",
+									"value": "none"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "RateLimit-Policy",
+									"value": "100;w=900"
+								},
+								{
+									"key": "RateLimit-Limit",
+									"value": "100"
+								},
+								{
+									"key": "RateLimit-Remaining",
+									"value": "98"
+								},
+								{
+									"key": "RateLimit-Reset",
+									"value": "774"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "224"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"e0-O9XzvP25ITGpj6LEXEe5BFGwkVQ\""
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 30 Sep 2025 14:44:45 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"Image uploaded successfully\",\n    \"data\": {\n        \"assetId\": \"eve/e1jnbc8cb71aumfvabsg\",\n        \"provider\": \"cloudinary\",\n        \"url\": \"https://res.cloudinary.com/dizqvksht/image/upload/v1759243485/eve/e1jnbc8cb71aumfvabsg.jpg\"\n    }\n}"
+						},
+						{
+							"name": "Successful Media Upload",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{accessToken}}"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "file",
+											"value": "event_photo1.jpg"
+										},
+										{
+											"key": "file",
+											"value": "event_video1.mp4"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/event/68dce0083e23411126b1b6d6/media",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"event",
+										"68dce0083e23411126b1b6d6",
+										"media"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Authorization",
+									"value": "Bearer {{accessToken}}",
+									"description": ""
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"status\": \"success\",\n  \"message\": \"Media files uploaded successfully.\",\n  \"uploadedFiles\": [\n    {\n      \"id\": \"a1b2c3d4\",\n      \"fileName\": \"event_photo1.jpg\",\n      \"url\": \"https://api.example.com/media/a1b2c3d4\"\n    },\n    {\n      \"id\": \"e5f6g7h8\",\n      \"fileName\": \"event_video1.mp4\",\n      \"url\": \"https://api.example.com/media/e5f6g7h8\"\n    }\n  ]\n}"
+						}
+					]
+				},
+				{
+					"name": "create Ticket",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"kind\": \"paid\",\n  \"name\": \"VIP Ticket\",\n  \"price\": 50,\n  \"currency\": \"USD\",\n  \"quantityMode\": \"limited\",\n  \"quantity\": 100,\n  \"purchaseLimitPerUser\": 2,\n  \"description\": \"Exclusive VIP access\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/event/68dce0083e23411126b1b6d6/tickets",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"event",
+								"68dce0083e23411126b1b6d6",
+								"tickets"
+							]
+						},
+						"description": "**Purpose:**\nThis endpoint creates a new ticket for a specific event. Use it to add ticket types (such as paid, donation, or VIP) to an event, specifying details like price, currency, and availability.\n\n**Request Body:**\nSend a JSON object with the following fields:\n- `kind` (string): Type of ticket (e.g., \"paid\", \"donation\").\n- `name` (string): Name of the ticket (e.g., \"VIP Ticket\", \"Support the Event\").\n- `price` (integer): Price of the ticket in the specified currency (e.g., 10, 50).\n- `currency` (string): Currency code (e.g., \"USD\").\n- `quantityMode` (string): Ticket quantity mode (e.g., \"unlimited\").\n- `description` (string): Description of the ticket or donation purpose.\n\n**Variables Used:**\n- `{{url}}`: The base URL for the API.\n- `{{accessToken}}`: The access token for authentication (typically sent in the Authorization header).\n\n**Sample Response:**\n```\n{\n  \"name\": \"New Request\",\n  \"id\": \"48426269-1c491929-fcf2-49c3-84e7-520d950...\",\n  \"status\": null\n}\n```\n\nFor more details, see the [create Ticket](request/48426269-69edc6a2-af45-4773-93d8-0a2c96f2445f) request."
+					},
+					"response": [
+						{
+							"name": "New Request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"kind\": \"paid\",\n  \"name\": \"VIP Ticket\",\n  \"price\": 50,\n  \"currency\": \"USD\",\n  \"quantityMode\": \"limited\",\n  \"quantity\": 100,\n  \"purchaseLimitPerUser\": 2,\n  \"description\": \"Exclusive VIP access\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/event/68dce0083e23411126b1b6d6/tickets",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"event",
+										"68dce0083e23411126b1b6d6",
+										"tickets"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Resource-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Origin-Agent-Cluster",
+									"value": "?1"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Permitted-Cross-Domain-Policies",
+									"value": "none"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "RateLimit-Policy",
+									"value": "100;w=900"
+								},
+								{
+									"key": "RateLimit-Limit",
+									"value": "100"
+								},
+								{
+									"key": "RateLimit-Remaining",
+									"value": "99"
+								},
+								{
+									"key": "RateLimit-Reset",
+									"value": "900"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "55"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"37-kPPlNeyvWaRJP8pWRck6H3KKZfo\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 01 Oct 2025 08:23:35 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"Ticket created successfully\"\n}"
+						}
+					]
+				},
+				{
+					"name": "update ticket",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"kind\": \"paid\",\n  \"price\": 500,\n  \"description\": \"Exclusive VIP access\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/event/68dce0083e23411126b1b6d6/tickets/68dce507a72c818c404a6f1a",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"event",
+								"68dce0083e23411126b1b6d6",
+								"tickets",
+								"68dce507a72c818c404a6f1a"
+							]
+						},
+						"description": "**Purpose:**\nThis endpoint updates the details of a specific ticket for an event. Use this PATCH request to modify ticket attributes such as type, price, or description for an existing event ticket.\n\n**Endpoint:**\n`PATCH {{url}}/event/68dce0083e23411126b1b6d6/tickets/68dce507a72c818c404a6f1a`\n\n**Request Body:**\nSend a JSON object with the following fields:\n- `kind` (string): The type of ticket. Example: `\"paid\"`\n- `price` (integer): The price of the ticket in your currency's smallest unit. Example: `500`\n- `description` (string): A description of the ticket. Example: `\"Exclusive VIP access\"`\n\n**Example Request Body:**\n```json\n{\n  \"kind\": \"paid\",\n  \"price\": 500,\n  \"description\": \"Exclusive VIP access\"\n}\n```\n\n**Variables Used:**\n- `{{url}}`: Base URL for the API (set in your environment)\n- `{{accessToken}}`: Bearer token for authentication (set in your environment)\n\n**Sample Response:**\n```json\n{\n    \"status\": true,\n    \"message\": \"Ticket updated successfully\"\n}\n```\n\nFor more details, see the [update ticket](request/48426269-4003cd58-47e6-4e9d-ae31-0d9867626d22) request in your collection."
+					},
+					"response": [
+						{
+							"name": "New Request",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"kind\": \"paid\",\n  \"price\": 500,\n  \"description\": \"Exclusive VIP access\"\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/event/68dce0083e23411126b1b6d6/tickets/68dce507a72c818c404a6f1a",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"event",
+										"68dce0083e23411126b1b6d6",
+										"tickets",
+										"68dce507a72c818c404a6f1a"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Resource-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Origin-Agent-Cluster",
+									"value": "?1"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Permitted-Cross-Domain-Policies",
+									"value": "none"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "RateLimit-Policy",
+									"value": "100;w=900"
+								},
+								{
+									"key": "RateLimit-Limit",
+									"value": "100"
+								},
+								{
+									"key": "RateLimit-Remaining",
+									"value": "96"
+								},
+								{
+									"key": "RateLimit-Reset",
+									"value": "878"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "55"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"37-XY13nbvhTImYjw7NQ/jZHyJyf9I\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 01 Oct 2025 08:32:47 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"Ticket updated successfully\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete Ticket",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"ticketIds\": [\n    \"66fc89a3c5d2f9a1a3b45678\",\n    \"66fc89b4c5d2f9a1a3b45679\",\n    \"68dce5b7a72c818c404a6f2c\"\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/event/68dce0083e23411126b1b6d6/tickets",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"event",
+								"68dce0083e23411126b1b6d6",
+								"tickets"
+							]
+						},
+						"description": "**Purpose:**  \nThis endpoint deletes one or more tickets for a specific event. Use this to remove tickets by providing their IDs in the request body.\n\n**Request Body:**  \nSend a JSON object with a `ticketIds` property, which is an array of strings representing the IDs of the tickets to delete.\n\nExample:\n\n``` json\n{\n  \"ticketIds\": [\n    \"66fc89a3c5d2f9a1a3b45678\",\n    \"66fc89b4c5d2f9a1a3b45679\",\n    \"68dce5b7a72c818c404a6f2c\"\n  ]\n}\n\n ```\n\n**Variables Used:**\n\n- `url`: The base URL for the API (set in your environment)\n    \n- `accessToken`: Bearer token for authentication (set in your environment)\n    \n\n**Sample Response:**\n\n``` json\n{\n    \"status\": true,\n    \"message\": \"1 ticket(s) deleted successfully\"\n}\n\n ```\n\nFor more details, see the [Delete Ticket](https://request/48426269-800aabff-8d4a-4132-868d-38d888aa4adf) request in your collection."
+					},
+					"response": [
+						{
+							"name": "New Request",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"ticketIds\": [\n    \"66fc89a3c5d2f9a1a3b45678\",\n    \"66fc89b4c5d2f9a1a3b45679\",\n    \"68dce5b7a72c818c404a6f2c\"\n  ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/event/68dce0083e23411126b1b6d6/tickets",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"event",
+										"68dce0083e23411126b1b6d6",
+										"tickets"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Resource-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Origin-Agent-Cluster",
+									"value": "?1"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Permitted-Cross-Domain-Policies",
+									"value": "none"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "RateLimit-Policy",
+									"value": "100;w=900"
+								},
+								{
+									"key": "RateLimit-Limit",
+									"value": "100"
+								},
+								{
+									"key": "RateLimit-Remaining",
+									"value": "91"
+								},
+								{
+									"key": "RateLimit-Reset",
+									"value": "486"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "58"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"3a-faEVDhYBSi4I0XCQatOoYsm4Mq8\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 01 Oct 2025 08:48:16 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"1 tickets deleted successfully\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Tickets",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/event/68dce0083e23411126b1b6d6/tickets",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"event",
+								"68dce0083e23411126b1b6d6",
+								"tickets"
+							]
+						},
+						"description": "### Get Tickets for an Event\n\n**Purpose:**\nRetrieves all tickets associated with a specific event. This endpoint is typically used to display available ticket types (e.g., VIP, General Admission) for an event, including their details such as price, quantity, and purchase limits.\n\n**Endpoint:**\n`GET {{url}}/event/:eventId/tickets`\n\n**Query Parameters:**\nNone by default. All tickets for the specified event are returned. (If your API supports filtering or pagination, document those parameters here.)\n\n**Request Body:**\nNot applicable. This is a GET request and does not require a request body.\n\n**Variables Used:**\n- `url`: The base URL for the API, set in your environment (e.g., `https://api.example.com`).\n- `accessToken`: Used for authentication. Injected as a Bearer token in the `Authorization` header from your environment variables.\n\n**Sample Response:**\n```json\n{\n    \"status\": true,\n    \"message\": \"Successful\",\n    \"data\": [\n        {\n            \"_id\": \"68dce507a72c818c404a6f1a\",\n            \"eventId\": \"68dce0083e23411126b1b6d6\",\n            \"kind\": \"paid\",\n            \"name\": \"VIP Ticket\",\n            \"price\": 500,\n            \"currency\": \"USD\",\n            \"quantityMode\": \"limited\",\n            \"quantity\": 100,\n            \"sold\": 0,\n            \"purchaseLimitPerUser\": 2,\n            \"description\": \"Exclusive VIP access\",\n            \"createdAt\": \"2025-10-01T08:23:35.408Z\",\n            \"updatedAt\": \"2025-10-01T08:32:38.765Z\",\n            \"__v\": 0\n        },\n        {\n            \"_id\": \"68dce598a72c818c404a6f23\",\n            \"eventId\": \"68dce0083e23411126b1b6d6\",\n            \"kind\": \"free\",\n            \"name\": \"General Admission\",\n            \"price\": 0,\n            \"currency\": \"USD\",\n            \"quantityMode\": \"unlimited\",\n            \"sold\": 0,\n            \"purchaseLimitPerUser\": 1,\n            \"description\": \"Free entry ticket for all attendees.\",\n            \"createdAt\": \"2025-10-01T08:26:00.260Z\",\n            \"updatedAt\": \"2025-10-01T08:26:00.260Z\",\n            \"__v\": 0\n        }\n    ]\n}\n```\n\n**Authentication:**\nRequires a valid `accessToken` in the environment. The token is automatically added to the `Authorization` header as a Bearer token."
+					},
+					"response": [
+						{
+							"name": "New Request",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{url}}/event/68dce0083e23411126b1b6d6/tickets",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"event",
+										"68dce0083e23411126b1b6d6",
+										"tickets"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Resource-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Origin-Agent-Cluster",
+									"value": "?1"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Permitted-Cross-Domain-Policies",
+									"value": "none"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "RateLimit-Policy",
+									"value": "100;w=900"
+								},
+								{
+									"key": "RateLimit-Limit",
+									"value": "100"
+								},
+								{
+									"key": "RateLimit-Remaining",
+									"value": "97"
+								},
+								{
+									"key": "RateLimit-Reset",
+									"value": "890"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "719"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"2cf-khbLBrA/IY6rGxH+jHUhixSxNGY\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 01 Oct 2025 09:08:34 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"Successful\",\n    \"data\": [\n        {\n            \"_id\": \"68dce507a72c818c404a6f1a\",\n            \"eventId\": \"68dce0083e23411126b1b6d6\",\n            \"kind\": \"paid\",\n            \"name\": \"VIP Ticket\",\n            \"price\": 500,\n            \"currency\": \"USD\",\n            \"quantityMode\": \"limited\",\n            \"quantity\": 100,\n            \"sold\": 0,\n            \"purchaseLimitPerUser\": 2,\n            \"description\": \"Exclusive VIP access\",\n            \"createdAt\": \"2025-10-01T08:23:35.408Z\",\n            \"updatedAt\": \"2025-10-01T08:32:38.765Z\",\n            \"__v\": 0\n        },\n        {\n            \"_id\": \"68dce598a72c818c404a6f23\",\n            \"eventId\": \"68dce0083e23411126b1b6d6\",\n            \"kind\": \"free\",\n            \"name\": \"General Admission\",\n            \"price\": 0,\n            \"currency\": \"USD\",\n            \"quantityMode\": \"unlimited\",\n            \"sold\": 0,\n            \"purchaseLimitPerUser\": 1,\n            \"description\": \"Free entry ticket for all attendees.\",\n            \"createdAt\": \"2025-10-01T08:26:00.260Z\",\n            \"updatedAt\": \"2025-10-01T08:26:00.260Z\",\n            \"__v\": 0\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Tickets user",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/event/691a4f333fd989dc1f019d5e/tickets/user",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"event",
+								"691a4f333fd989dc1f019d5e",
+								"tickets",
+								"user"
+							]
+						},
+						"description": "### Get Tickets for an Event\n\n**Purpose:**\nRetrieves all tickets associated with a specific event. This endpoint is typically used to display available ticket types (e.g., VIP, General Admission) for an event, including their details such as price, quantity, and purchase limits.\n\n**Endpoint:**\n`GET {{url}}/event/:eventId/tickets`\n\n**Query Parameters:**\nNone by default. All tickets for the specified event are returned. (If your API supports filtering or pagination, document those parameters here.)\n\n**Request Body:**\nNot applicable. This is a GET request and does not require a request body.\n\n**Variables Used:**\n- `url`: The base URL for the API, set in your environment (e.g., `https://api.example.com`).\n- `accessToken`: Used for authentication. Injected as a Bearer token in the `Authorization` header from your environment variables.\n\n**Sample Response:**\n```json\n{\n    \"status\": true,\n    \"message\": \"Successful\",\n    \"data\": [\n        {\n            \"_id\": \"68dce507a72c818c404a6f1a\",\n            \"eventId\": \"68dce0083e23411126b1b6d6\",\n            \"kind\": \"paid\",\n            \"name\": \"VIP Ticket\",\n            \"price\": 500,\n            \"currency\": \"USD\",\n            \"quantityMode\": \"limited\",\n            \"quantity\": 100,\n            \"sold\": 0,\n            \"purchaseLimitPerUser\": 2,\n            \"description\": \"Exclusive VIP access\",\n            \"createdAt\": \"2025-10-01T08:23:35.408Z\",\n            \"updatedAt\": \"2025-10-01T08:32:38.765Z\",\n            \"__v\": 0\n        },\n        {\n            \"_id\": \"68dce598a72c818c404a6f23\",\n            \"eventId\": \"68dce0083e23411126b1b6d6\",\n            \"kind\": \"free\",\n            \"name\": \"General Admission\",\n            \"price\": 0,\n            \"currency\": \"USD\",\n            \"quantityMode\": \"unlimited\",\n            \"sold\": 0,\n            \"purchaseLimitPerUser\": 1,\n            \"description\": \"Free entry ticket for all attendees.\",\n            \"createdAt\": \"2025-10-01T08:26:00.260Z\",\n            \"updatedAt\": \"2025-10-01T08:26:00.260Z\",\n            \"__v\": 0\n        }\n    ]\n}\n```\n\n**Authentication:**\nRequires a valid `accessToken` in the environment. The token is automatically added to the `Authorization` header as a Bearer token."
+					},
+					"response": [
+						{
+							"name": "New Request",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{url}}/event/68dce0083e23411126b1b6d6/tickets",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"event",
+										"68dce0083e23411126b1b6d6",
+										"tickets"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Resource-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Origin-Agent-Cluster",
+									"value": "?1"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Permitted-Cross-Domain-Policies",
+									"value": "none"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "RateLimit-Policy",
+									"value": "100;w=900"
+								},
+								{
+									"key": "RateLimit-Limit",
+									"value": "100"
+								},
+								{
+									"key": "RateLimit-Remaining",
+									"value": "97"
+								},
+								{
+									"key": "RateLimit-Reset",
+									"value": "890"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "719"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"2cf-khbLBrA/IY6rGxH+jHUhixSxNGY\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 01 Oct 2025 09:08:34 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"Successful\",\n    \"data\": [\n        {\n            \"_id\": \"68dce507a72c818c404a6f1a\",\n            \"eventId\": \"68dce0083e23411126b1b6d6\",\n            \"kind\": \"paid\",\n            \"name\": \"VIP Ticket\",\n            \"price\": 500,\n            \"currency\": \"USD\",\n            \"quantityMode\": \"limited\",\n            \"quantity\": 100,\n            \"sold\": 0,\n            \"purchaseLimitPerUser\": 2,\n            \"description\": \"Exclusive VIP access\",\n            \"createdAt\": \"2025-10-01T08:23:35.408Z\",\n            \"updatedAt\": \"2025-10-01T08:32:38.765Z\",\n            \"__v\": 0\n        },\n        {\n            \"_id\": \"68dce598a72c818c404a6f23\",\n            \"eventId\": \"68dce0083e23411126b1b6d6\",\n            \"kind\": \"free\",\n            \"name\": \"General Admission\",\n            \"price\": 0,\n            \"currency\": \"USD\",\n            \"quantityMode\": \"unlimited\",\n            \"sold\": 0,\n            \"purchaseLimitPerUser\": 1,\n            \"description\": \"Free entry ticket for all attendees.\",\n            \"createdAt\": \"2025-10-01T08:26:00.260Z\",\n            \"updatedAt\": \"2025-10-01T08:26:00.260Z\",\n            \"__v\": 0\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "update event",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"visibility\": \"private\",\n  \"refundPolicy\": {\n    \"type\": \"time_bound\",\n    \"cutoffDays\": 7\n  },\n  \n  \"PublishDate\": \"2025-10-20T10:00:00Z\"\n  \n\n\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/event/68ed675499b2609de1d3e671",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"event",
+								"68ed675499b2609de1d3e671"
+							]
+						},
+						"description": "**Purpose:**\nThis endpoint updates the details of an existing event. Use this PATCH request to modify properties such as visibility, refund policy, and publish date for a specific event identified by its ID in the URL.\n\n**Request Body:**\nSend a JSON object with the following fields:\n- `visibility` (string): Set the event's visibility. Example values: `\"private\"`, `\"public\"`.\n- `refundPolicy` (object): Defines the refund policy for the event. Example:\n  - `type` (string): Type of refund policy (e.g., `\"time_bound\"`).\n  - `cutoffDays` (integer): Number of days before the event when refunds are allowed.\n- `PublishDate` (string, ISO 8601): The date and time when the event should be published. Example: `\"2025-10-20T10:00:00Z\"`.\n\n**Variables Used:**\n- `{{url}}`: The base URL for the API, defined in your environment variables.\n- `{{accessToken}}`: The access token for authentication, typically included in the request headers as a Bearer token.\n\n**Sample Response:**\n```\n{\"name\":\"New Request\",\"id\":\"48426269-245c6627-0e0e-4e0b-b877-d631eac...<truncated>\",\"status\":null}\n```\n\nReplace the sample values with your actual data as needed. Ensure you have the correct permissions and a valid access token before making this request."
+					},
+					"response": [
+						{
+							"name": "New Request",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"format\": \"virtual\",\n  \"virtual\": {\n    \"platform\": \"zoom\",\n    \"meetingUrl\": \"https://zoom.us/j/123456789\",\n    \"password\": \"securepass\",\n    \"note\": \"Join 10 minutes before the session starts\"\n  }\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/event/68dce0083e23411126b1b6d6",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"event",
+										"68dce0083e23411126b1b6d6"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Resource-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Origin-Agent-Cluster",
+									"value": "?1"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Permitted-Cross-Domain-Policies",
+									"value": "none"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "RateLimit-Policy",
+									"value": "100;w=900"
+								},
+								{
+									"key": "RateLimit-Limit",
+									"value": "100"
+								},
+								{
+									"key": "RateLimit-Remaining",
+									"value": "99"
+								},
+								{
+									"key": "RateLimit-Reset",
+									"value": "900"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "41"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"29-ERrAP4EwAKmlWuWPMRsyvRaIeqk\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 01 Oct 2025 09:16:19 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"Event updated\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get event by ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/event/68dce0083e23411126b1b6d6",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"event",
+								"68dce0083e23411126b1b6d6"
+							]
+						},
+						"description": "## Get event by ID\n\n**Purpose:**\nRetrieve the details of a specific event using its unique event ID. This endpoint is useful for obtaining all information about an event, including its name, description, schedule, tickets, and related metadata.\n\n**Request Details:**\n- **Method:** GET\n- **Endpoint:** `{{url}}/event/:eventId`\n- **Path Parameter:**\n  - `eventId` (string): The unique identifier of the event to retrieve.\n\n**Variables Used:**\n- `{{url}}`: The base URL for the API, set in your environment variables.\n- `{{accessToken}}`: Bearer token for authentication, set in your environment variables. This is required to authorize the request.\n\n**Sample Response:**\n```json\n{\n    \"status\": true,\n    \"message\": \"Event found\",\n    \"event\": {\n        \"_id\": \"68dce0083e23411126b1b6d6\",\n        \"organizerId\": \"68cc886c6a1b5211556701f3\",\n        \"organizerName\": \"Eve Event Platform\",\n        \"name\": \"Tech Conference 2025 - Updated\",\n        \"description\": \"Updated description with more details about the event agenda.\",\n        \"slug\": \"tech-conference-2025-68cc886c6a1b5211556701f3-1759305736328\",\n        \"customUrl\": \"https://tech-conference2025.com\",\n        \"category\": \"Technology\",\n        \"format\": \"virtual\",\n        \"recurrence\": \"recurring\",\n        \"occurrences\": [\n            {\n                \"date\": \"2025-06-01T00:00:00.000Z\",\n                \"timeSlots\": [\n                    {\n                        \"startAt\": \"2025-06-01T09:00:00.000Z\",\n                        \"endAt\": \"2025-06-01T12:00:00.000Z\",\n                        \"_id\": \"68dce0083e23411126b1b6d8\"\n                    },\n                    {\n                        \"startAt\": \"2025-06-01T13:00:00.000Z\",\n                        \"endAt\": \"2025-06-01T16:00:00.000Z\",\n                        \"_id\": \"68dce0083e23411126b1b6d9\"\n                    }\n                ],\n                \"_id\": \"68dce0083e23411126b1b6d7\",\n                \"createdAt\": \"2025-10-01T08:02:16.925Z\",\n                \"updatedAt\": \"2025-10-01T08:02:16.925Z\"\n            },\n            {\n                \"date\": \"2025-06-02T00:00:00.000Z\",\n                \"timeSlots\": [\n                    {\n                        \"startAt\": \"2025-06-02T09:00:00.000Z\",\n                        \"endAt\": \"2025-06-02T12:00:00.000Z\",\n                        \"_id\": \"68dce0083e23411126b1b6db\"\n                    }\n                ],\n                \"_id\": \"68dce0083e23411126b1b6da\",\n                \"createdAt\": \"2025-10-01T08:02:16.925Z\",\n                \"updatedAt\": \"2025-10-01T08:02:16.925Z\"\n            }\n        ],\n        \"timezone\": \"UTC\",\n        \"location\": null,\n        \"tickets\": [\n            {\n                \"_id\": \"68dce507a72c818c404a6f1a\",\n                \"eventId\": \"68dce0083e23411126b1b6d6\",\n                \"kind\": \"paid\",\n                \"name\": \"VIP Ticket\",\n                \"price\": 500,\n                \"currency\": \"USD\",\n                \"quantityMode\": \"limited\",\n                \"quantity\": 100,\n                \"sold\": 0,\n                \"purchaseLimitPerUser\": 2,\n                \"description\": \"Exclusive VIP access\",\n                \"createdAt\": \"2025-10-01T08:23:35.408Z\",\n                \"updatedAt\": \"2025-10-01T08:32:38.765Z\",\n                \"__v\": 0\n            },\n            {\n                \"_id\": \"68dce598a72c818c404a6f23\",\n                \"eventId\": \"68dce0083e23411126b1b6d6\",\n                \"kind\": \"free\",\n                \"name\": \"General Admission\",\n                \"price\": 0,\n                \"currency\": \"USD\",\n                \"quantityMode\": \"unlimited\",\n                \"sold\": 0,\n                \"purchaseLimitPerUser\": 1,\n                \"description\": \"Free entry ticket for all attendees.\",\n                \"createdAt\": \"2025-10-01T08:26:00.260Z\",\n                \"updatedAt\": \"2025-10-01T08:26:00.260Z\",\n                \"__v\": 0\n            }\n        ],\n        \"visibility\": \"private\",\n        \"privateToken\": null,\n        \"privateLink\": null,\n        \"refundPolicy\": {\n            \"type\": \"time_bound\",\n            \"cutoffDays\": 7\n        },\n        \"status\": \"scheduled\",\n        \"createdAt\": \"2025-10-01T08:02:16.925Z\",\n        \"updatedAt\": \"2025-10-01T10:30:02.403Z\",\n        \"__v\": 3,\n        \"media\": {\n            \"assetId\": \"eve/eob4zwwdfifamrvasiuj\",\n            \"provider\": \"cloudinary\",\n            \"url\": \"https://res.cloudinary.com/dizqvksht/image/upload/v1759305913/eve/eob4zwwdfifamrvasiuj.jpg\"\n        },\n        \"virtual\": {\n            \"platform\": \"zoom\",\n            \"meetingUrl\": \"https://zoom.us/j/123456789\",\n            \"note\": \"Join 10 minutes before the session starts\"\n        },\n        \"PublishDate\": \"2025-10-20T10:00:00.000Z\",\n        \"publishedAt\": null\n    }\n}\n```"
+					},
+					"response": [
+						{
+							"name": "Get event by ID",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{url}}/event/68dce0083e23411126b1b6d6",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"event",
+										"68dce0083e23411126b1b6d6"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Resource-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Origin-Agent-Cluster",
+									"value": "?1"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Permitted-Cross-Domain-Policies",
+									"value": "none"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "RateLimit-Policy",
+									"value": "100;w=900"
+								},
+								{
+									"key": "RateLimit-Limit",
+									"value": "100"
+								},
+								{
+									"key": "RateLimit-Remaining",
+									"value": "99"
+								},
+								{
+									"key": "RateLimit-Reset",
+									"value": "900"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "2412"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"96c-ltB9cOLtcdVSpYz/RuGc/CIqzYw\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 01 Oct 2025 11:47:16 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"Event found\",\n    \"event\": {\n        \"_id\": \"68dce0083e23411126b1b6d6\",\n        \"organizerId\": \"68cc886c6a1b5211556701f3\",\n        \"organizerName\": \"Eve Event Platform\",\n        \"name\": \"Tech Conference 2025 - Updated\",\n        \"description\": \"Updated description with more details about the event agenda.\",\n        \"slug\": \"tech-conference-2025-68cc886c6a1b5211556701f3-1759305736328\",\n        \"customUrl\": \"https://tech-conference2025.com\",\n        \"category\": \"Technology\",\n        \"format\": \"virtual\",\n        \"recurrence\": \"recurring\",\n        \"occurrences\": [\n            {\n                \"date\": \"2025-06-01T00:00:00.000Z\",\n                \"timeSlots\": [\n                    {\n                        \"startAt\": \"2025-06-01T09:00:00.000Z\",\n                        \"endAt\": \"2025-06-01T12:00:00.000Z\",\n                        \"_id\": \"68dce0083e23411126b1b6d8\"\n                    },\n                    {\n                        \"startAt\": \"2025-06-01T13:00:00.000Z\",\n                        \"endAt\": \"2025-06-01T16:00:00.000Z\",\n                        \"_id\": \"68dce0083e23411126b1b6d9\"\n                    }\n                ],\n                \"_id\": \"68dce0083e23411126b1b6d7\",\n                \"createdAt\": \"2025-10-01T08:02:16.925Z\",\n                \"updatedAt\": \"2025-10-01T08:02:16.925Z\"\n            },\n            {\n                \"date\": \"2025-06-02T00:00:00.000Z\",\n                \"timeSlots\": [\n                    {\n                        \"startAt\": \"2025-06-02T09:00:00.000Z\",\n                        \"endAt\": \"2025-06-02T12:00:00.000Z\",\n                        \"_id\": \"68dce0083e23411126b1b6db\"\n                    }\n                ],\n                \"_id\": \"68dce0083e23411126b1b6da\",\n                \"createdAt\": \"2025-10-01T08:02:16.925Z\",\n                \"updatedAt\": \"2025-10-01T08:02:16.925Z\"\n            }\n        ],\n        \"timezone\": \"UTC\",\n        \"location\": null,\n        \"tickets\": [\n            {\n                \"_id\": \"68dce507a72c818c404a6f1a\",\n                \"eventId\": \"68dce0083e23411126b1b6d6\",\n                \"kind\": \"paid\",\n                \"name\": \"VIP Ticket\",\n                \"price\": 500,\n                \"currency\": \"USD\",\n                \"quantityMode\": \"limited\",\n                \"quantity\": 100,\n                \"sold\": 0,\n                \"purchaseLimitPerUser\": 2,\n                \"description\": \"Exclusive VIP access\",\n                \"createdAt\": \"2025-10-01T08:23:35.408Z\",\n                \"updatedAt\": \"2025-10-01T08:32:38.765Z\",\n                \"__v\": 0\n            },\n            {\n                \"_id\": \"68dce598a72c818c404a6f23\",\n                \"eventId\": \"68dce0083e23411126b1b6d6\",\n                \"kind\": \"free\",\n                \"name\": \"General Admission\",\n                \"price\": 0,\n                \"currency\": \"USD\",\n                \"quantityMode\": \"unlimited\",\n                \"sold\": 0,\n                \"purchaseLimitPerUser\": 1,\n                \"description\": \"Free entry ticket for all attendees.\",\n                \"createdAt\": \"2025-10-01T08:26:00.260Z\",\n                \"updatedAt\": \"2025-10-01T08:26:00.260Z\",\n                \"__v\": 0\n            }\n        ],\n        \"visibility\": \"private\",\n        \"privateToken\": null,\n        \"privateLink\": null,\n        \"refundPolicy\": {\n            \"type\": \"time_bound\",\n            \"cutoffDays\": 7\n        },\n        \"status\": \"scheduled\",\n        \"createdAt\": \"2025-10-01T08:02:16.925Z\",\n        \"updatedAt\": \"2025-10-01T10:30:02.403Z\",\n        \"__v\": 3,\n        \"media\": {\n            \"assetId\": \"eve/eob4zwwdfifamrvasiuj\",\n            \"provider\": \"cloudinary\",\n            \"url\": \"https://res.cloudinary.com/dizqvksht/image/upload/v1759305913/eve/eob4zwwdfifamrvasiuj.jpg\"\n        },\n        \"virtual\": {\n            \"platform\": \"zoom\",\n            \"meetingUrl\": \"https://zoom.us/j/123456789\",\n            \"note\": \"Join 10 minutes before the session starts\"\n        },\n        \"PublishDate\": \"2025-10-20T10:00:00.000Z\",\n        \"publishedAt\": null\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Get User Events",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"description": "**Purpose:**\nRetrieve all events associated with the currently authenticated user. This endpoint returns a list of events the user has created, organized, or is otherwise associated with.\n\n**Request Details:**\n- **Method:** GET\n- **Endpoint:** `/event/`\n- **Variables Used:**\n  - `url`: Base URL for the API (set in your environment)\n  - `accessToken`: Bearer token for authentication (set in your environment)\n\n**Authentication:**\nRequires a valid `accessToken` to be set in the environment. The token is sent as a Bearer token in the `Authorization` header.\n\n**Sample Response:**\n```json\n{\n    \"status\": true,\n    \"message\": \"Events query successful\",\n    \"data\": {\n        \"events\": [\n            {\n                \"_id\": \"68dce0083e23411126b1b6d6\",\n                \"organizerId\": \"68cc886c6a1b5211556701f3\",\n                \"organizerName\": \"Eve Event Platform\",\n                \"name\": \"Tech Conference 2025 - Updated\",\n                \"description\": \"Updated description with more details about the event agenda.\",\n                \"slug\": \"tech-conference-2025-68cc886c6a1b5211556701f3-1759305736328\",\n                \"customUrl\": \"https://tech-conference2025.com\",\n                \"category\": \"Technology\",\n                \"format\": \"virtual\",\n                \"recurrence\": \"recurring\",\n                \"occurrences\": [\n                    {\n                        \"date\": \"2025-06-01T00:00:00.000Z\",\n                        \"timeSlots\": [\n                            {\n                                \"startAt\": \"2025-06-01T09:00:00.000Z\",\n                                \"endAt\": \"2025-06-01T12:00:00.000Z\",\n                                \"_id\": \"68dce0083e23411126b1b6d8\"\n                            },\n                            {\n                                \"startAt\": \"2025-06-01T13:00:00.000Z\",\n                                \"endAt\": \"2025-06-01T16:00:00.000Z\",\n                                \"_id\": \"68dce0083e23411126b1b6d9\"\n                            }\n                        ],\n                        \"_id\": \"68dce0083e23411126b1b6d7\",\n                        \"createdAt\": \"2025-10-01T08:02:16.925Z\",\n                        \"updatedAt\": \"2025-10-01T08:02:16.925Z\"\n                    },\n                    {\n                        \"date\": \"2025-06-02T00:00:00.000Z\",\n                        \"timeSlots\": [\n                            {\n                                \"startAt\": \"2025-06-02T09:00:00.000Z\",\n                                \"endAt\": \"2025-06-02T12:00:00.000Z\",\n                                \"_id\": \"68dce0083e23411126b1b6db\"\n                            }\n                        ],\n                        \"_id\": \"68dce0083e23411126b1b6da\",\n                        \"createdAt\": \"2025-10-01T08:02:16.925Z\",\n                        \"updatedAt\": \"2025-10-01T08:02:16.925Z\"\n                    }\n                ],\n                \"timezone\": \"UTC\",\n                \"location\": null,\n                \"tickets\": [\n                    {\n                        \"_id\": \"68dce507a72c818c404a6f1a\",\n                        \"eventId\": \"68dce0083e23411126b1b6d6\",\n                        \"kind\": \"paid\",\n                        \"name\": \"VIP Ticket\",\n                        \"price\": 500,\n                        \"currency\": \"USD\",\n                        \"quantityMode\": \"limited\",\n                        \"quantity\": 100,\n                        \"sold\": 0,\n                        \"purchaseLimitPerUser\": 2,\n                        \"description\": \"Exclusive VIP access\",\n                        \"createdAt\": \"2025-10-01T08:23:35.408Z\",\n                        \"updatedAt\": \"2025-10-01T08:32:38.765Z\",\n                        \"__v\": 0\n                    },\n                    {\n                        \"_id\": \"68dce598a72c818c404a6f23\",\n                        \"eventId\": \"68dce0083e23411126b1b6d6\",\n                        \"kind\": \"free\",\n                        \"name\": \"General Admission\",\n                        \"price\": 0,\n                        \"currency\": \"USD\",\n                        \"quantityMode\": \"unlimited\",\n                        \"sold\": 0,\n                        \"purchaseLimitPerUser\": 1,\n                        \"description\": \"Free entry ticket for all attendees.\",\n                        \"createdAt\": \"2025-10-01T08:26:00.260Z\",\n                        \"updatedAt\": \"2025-10-01T08:26:00.260Z\",\n                        \"__v\": 0\n                    }\n                ],\n                \"visibility\": \"private\",\n                \"privateToken\": null,\n                \"privateLink\": null,\n                \"refundPolicy\": {\n                    \"type\": \"time_bound\",\n                    \"cutoffDays\": 7\n                },\n                \"status\": \"scheduled\",\n                \"createdAt\": \"2025-10-01T08:02:16.925Z\",\n                \"updatedAt\": \"2025-10-01T10:30:02.403Z\",\n                \"__v\": 3,\n                \"media\": {\n                    \"assetId\": \"eve/eob4zwwdfifamrvasiuj\",\n                    \"provider\": \"cloudinary\",\n                    \"url\": \"https://res.cloudinary.com/dizqvksht/image/upload/v1759305913/eve/eob4zwwdfifamrvasiuj.jpg\"\n                },\n                \"virtual\": {\n                    \"platform\": \"zoom\",\n                    \"meetingUrl\": \"https://zoom.us/j/123456789\",\n                    \"note\": \"Join 10 minutes before the session starts\"\n                },\n                \"PublishDate\": \"2025-10-20T10:00:00.000Z\",\n                \"publishedAt\": null\n            }\n        ]\n    }\n}\n```"
+					},
+					"response": [
+						{
+							"name": "New Request",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{url}}/event/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"event",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Resource-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Origin-Agent-Cluster",
+									"value": "?1"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Permitted-Cross-Domain-Policies",
+									"value": "none"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "RateLimit-Policy",
+									"value": "100;w=900"
+								},
+								{
+									"key": "RateLimit-Limit",
+									"value": "100"
+								},
+								{
+									"key": "RateLimit-Remaining",
+									"value": "99"
+								},
+								{
+									"key": "RateLimit-Reset",
+									"value": "900"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "2436"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"984-LgwyIL+RZMHTdwo2mNliP2A1V7k\""
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 01 Oct 2025 11:50:27 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"Events query successful\",\n    \"data\": {\n        \"events\": [\n            {\n                \"_id\": \"68dce0083e23411126b1b6d6\",\n                \"organizerId\": \"68cc886c6a1b5211556701f3\",\n                \"organizerName\": \"Eve Event Platform\",\n                \"name\": \"Tech Conference 2025 - Updated\",\n                \"description\": \"Updated description with more details about the event agenda.\",\n                \"slug\": \"tech-conference-2025-68cc886c6a1b5211556701f3-1759305736328\",\n                \"customUrl\": \"https://tech-conference2025.com\",\n                \"category\": \"Technology\",\n                \"format\": \"virtual\",\n                \"recurrence\": \"recurring\",\n                \"occurrences\": [\n                    {\n                        \"date\": \"2025-06-01T00:00:00.000Z\",\n                        \"timeSlots\": [\n                            {\n                                \"startAt\": \"2025-06-01T09:00:00.000Z\",\n                                \"endAt\": \"2025-06-01T12:00:00.000Z\",\n                                \"_id\": \"68dce0083e23411126b1b6d8\"\n                            },\n                            {\n                                \"startAt\": \"2025-06-01T13:00:00.000Z\",\n                                \"endAt\": \"2025-06-01T16:00:00.000Z\",\n                                \"_id\": \"68dce0083e23411126b1b6d9\"\n                            }\n                        ],\n                        \"_id\": \"68dce0083e23411126b1b6d7\",\n                        \"createdAt\": \"2025-10-01T08:02:16.925Z\",\n                        \"updatedAt\": \"2025-10-01T08:02:16.925Z\"\n                    },\n                    {\n                        \"date\": \"2025-06-02T00:00:00.000Z\",\n                        \"timeSlots\": [\n                            {\n                                \"startAt\": \"2025-06-02T09:00:00.000Z\",\n                                \"endAt\": \"2025-06-02T12:00:00.000Z\",\n                                \"_id\": \"68dce0083e23411126b1b6db\"\n                            }\n                        ],\n                        \"_id\": \"68dce0083e23411126b1b6da\",\n                        \"createdAt\": \"2025-10-01T08:02:16.925Z\",\n                        \"updatedAt\": \"2025-10-01T08:02:16.925Z\"\n                    }\n                ],\n                \"timezone\": \"UTC\",\n                \"location\": null,\n                \"tickets\": [\n                    {\n                        \"_id\": \"68dce507a72c818c404a6f1a\",\n                        \"eventId\": \"68dce0083e23411126b1b6d6\",\n                        \"kind\": \"paid\",\n                        \"name\": \"VIP Ticket\",\n                        \"price\": 500,\n                        \"currency\": \"USD\",\n                        \"quantityMode\": \"limited\",\n                        \"quantity\": 100,\n                        \"sold\": 0,\n                        \"purchaseLimitPerUser\": 2,\n                        \"description\": \"Exclusive VIP access\",\n                        \"createdAt\": \"2025-10-01T08:23:35.408Z\",\n                        \"updatedAt\": \"2025-10-01T08:32:38.765Z\",\n                        \"__v\": 0\n                    },\n                    {\n                        \"_id\": \"68dce598a72c818c404a6f23\",\n                        \"eventId\": \"68dce0083e23411126b1b6d6\",\n                        \"kind\": \"free\",\n                        \"name\": \"General Admission\",\n                        \"price\": 0,\n                        \"currency\": \"USD\",\n                        \"quantityMode\": \"unlimited\",\n                        \"sold\": 0,\n                        \"purchaseLimitPerUser\": 1,\n                        \"description\": \"Free entry ticket for all attendees.\",\n                        \"createdAt\": \"2025-10-01T08:26:00.260Z\",\n                        \"updatedAt\": \"2025-10-01T08:26:00.260Z\",\n                        \"__v\": 0\n                    }\n                ],\n                \"visibility\": \"private\",\n                \"privateToken\": null,\n                \"privateLink\": null,\n                \"refundPolicy\": {\n                    \"type\": \"time_bound\",\n                    \"cutoffDays\": 7\n                },\n                \"status\": \"scheduled\",\n                \"createdAt\": \"2025-10-01T08:02:16.925Z\",\n                \"updatedAt\": \"2025-10-01T10:30:02.403Z\",\n                \"__v\": 3,\n                \"media\": {\n                    \"assetId\": \"eve/eob4zwwdfifamrvasiuj\",\n                    \"provider\": \"cloudinary\",\n                    \"url\": \"https://res.cloudinary.com/dizqvksht/image/upload/v1759305913/eve/eob4zwwdfifamrvasiuj.jpg\"\n                },\n                \"virtual\": {\n                    \"platform\": \"zoom\",\n                    \"meetingUrl\": \"https://zoom.us/j/123456789\",\n                    \"note\": \"Join 10 minutes before the session starts\"\n                },\n                \"PublishDate\": \"2025-10-20T10:00:00.000Z\",\n                \"publishedAt\": null\n            }\n        ]\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "update to completed Event",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/event/68dce0083e23411126b1b6d6",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"event",
+								"68dce0083e23411126b1b6d6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete event",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/event/68ece491c658f521872db5c1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"event",
+								"68ece491c658f521872db5c1"
+							]
+						},
+						"description": "**Purpose:**  \nDeletes an event by its unique ID.\n\n**Request Details:**\n\n- Method: DELETE\n    \n- Endpoint: `{{url}}/event/:id` (replace `:id` with the event ID)\n    \n- Variables used:\n    - `url`: Base API URL\n        \n    - `accessToken`: Bearer token for authentication\n        \n\n**Required Headers / Authentication:**\n\n- `Authorization: Bearer {{accessToken}}`\n    \n\n**Sample Response:**\n\n```\n{\n  \"status\": true,\n  \"message\": \"Event deleted successfully\"\n}\n\n ```"
+					},
+					"response": [
+						{
+							"name": "New Request",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{url}}/event/68ece491c658f521872db5c1",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"event",
+										"68ece491c658f521872db5c1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Resource-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Origin-Agent-Cluster",
+									"value": "?1"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Permitted-Cross-Domain-Policies",
+									"value": "none"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "RateLimit-Policy",
+									"value": "100;w=900"
+								},
+								{
+									"key": "RateLimit-Limit",
+									"value": "100"
+								},
+								{
+									"key": "RateLimit-Remaining",
+									"value": "99"
+								},
+								{
+									"key": "RateLimit-Reset",
+									"value": "900"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "Content-Length",
+									"value": "67"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"43-58BjBGo+XdLI7eQoap+9CdNqn6Q\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 13 Oct 2025 11:43:02 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"Draft event and associated data deleted\"\n}"
+						}
+					]
+				},
+				{
+					"name": "get event by id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/event/68ece65ad4916183bdaea53e",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"event",
+								"68ece65ad4916183bdaea53e"
+							]
+						},
+						"description": "**Purpose:**\nRetrieve the details of a specific event by its unique ID.\n\n**Request Details:**\n- Method: GET\n- Endpoint: `/event/:id`\n- Path Variable: `id` (the event's unique identifier)\n- Variables used: `url`, `accessToken`\n\n**Required Headers / Authentication:**\n- Authorization: Bearer token (use `accessToken` variable)\n\n**Sample Response:**\n```\n{\n  \"name\": \"New Request\",\n  \"id\": \"48426269-b431ba06-149b-4a7b-aa66-27c9cf0...<truncated>\",\n  \"status\": null\n}\n```\n"
+					},
+					"response": [
+						{
+							"name": "New Request",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{url}}/event/68ece65ad4916183bdaea53e",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"event",
+										"68ece65ad4916183bdaea53e"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Resource-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Origin-Agent-Cluster",
+									"value": "?1"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Permitted-Cross-Domain-Policies",
+									"value": "none"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "RateLimit-Policy",
+									"value": "100;w=900"
+								},
+								{
+									"key": "RateLimit-Limit",
+									"value": "100"
+								},
+								{
+									"key": "RateLimit-Remaining",
+									"value": "93"
+								},
+								{
+									"key": "RateLimit-Reset",
+									"value": "735"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1497"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"5d9-rF3BalTHySyW7dPk6VtbQvZkrRs\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 13 Oct 2025 11:45:47 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"Event found\",\n    \"data\": {\n        \"event\": {\n            \"_id\": \"68ece65ad4916183bdaea53e\",\n            \"organizerId\": \"68e7c347db789dd0bf76a107\",\n            \"organizerName\": \"Tmony Event Management\",\n            \"name\": \"Tech Conference 2026\",\n            \"description\": \"A conference for tech enthusiasts to discuss the latest trends in technology.\",\n            \"slug\": \"tech-conference-2026-68e7c347db789dd0bf76a107-1760355929746\",\n            \"customUrl\": \"https://tech-conference2025.com\",\n            \"category\": \"Technology\",\n            \"format\": \"in_person\",\n            \"recurrence\": \"recurring\",\n            \"occurrences\": [\n                {\n                    \"date\": \"2025-06-01T00:00:00.000Z\",\n                    \"timeSlots\": [\n                        {\n                            \"startAt\": \"2025-06-01T09:00:00.000Z\",\n                            \"endAt\": \"2025-06-01T12:00:00.000Z\",\n                            \"_id\": \"68ece65ad4916183bdaea540\"\n                        },\n                        {\n                            \"startAt\": \"2025-06-01T13:00:00.000Z\",\n                            \"endAt\": \"2025-06-01T16:00:00.000Z\",\n                            \"_id\": \"68ece65ad4916183bdaea541\"\n                        }\n                    ],\n                    \"_id\": \"68ece65ad4916183bdaea53f\",\n                    \"createdAt\": \"2025-10-13T11:45:30.263Z\",\n                    \"updatedAt\": \"2025-10-13T11:45:30.263Z\"\n                },\n                {\n                    \"date\": \"2025-06-02T00:00:00.000Z\",\n                    \"timeSlots\": [\n                        {\n                            \"startAt\": \"2025-06-02T09:00:00.000Z\",\n                            \"endAt\": \"2025-06-02T12:00:00.000Z\",\n                            \"_id\": \"68ece65ad4916183bdaea543\"\n                        }\n                    ],\n                    \"_id\": \"68ece65ad4916183bdaea542\",\n                    \"createdAt\": \"2025-10-13T11:45:30.263Z\",\n                    \"updatedAt\": \"2025-10-13T11:45:30.263Z\"\n                }\n            ],\n            \"timezone\": \"UTC\",\n            \"location\": {\n                \"address\": \"123 Tech Street, Silicon Valley\",\n                \"venue\": \"Tech Convention Center\"\n            },\n            \"tickets\": [],\n            \"visibility\": null,\n            \"privateToken\": null,\n            \"privateLink\": null,\n            \"refundPolicy\": {\n                \"type\": null\n            },\n            \"reviews\": [],\n            \"averageRating\": 0,\n            \"reviewCount\": 0,\n            \"status\": \"draft\",\n            \"createdAt\": \"2025-10-13T11:45:30.263Z\",\n            \"updatedAt\": \"2025-10-13T11:45:30.263Z\",\n            \"__v\": 0\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Add services to Event",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"vendorServices\":\n        [\n            {\n                \"name\": \"Graphics Design\",\n                \"proposalLimit\":20\n\n            }\n        ]\n    \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/event/691a4f333fd989dc1f019d5e/vendor-services",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"event",
+								"691a4f333fd989dc1f019d5e",
+								"vendor-services"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "New Request",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"vendorServices\":\n        [\n            {\n                \"name\": \"Graphics Design\",\n                \"proposalLimit\":20\n\n            }\n        ]\n    \n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/event/691a4f333fd989dc1f019d5e/vendor-services",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"event",
+										"691a4f333fd989dc1f019d5e",
+										"vendor-services"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Resource-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Origin-Agent-Cluster",
+									"value": "?1"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Permitted-Cross-Domain-Policies",
+									"value": "none"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "RateLimit-Policy",
+									"value": "100;w=900"
+								},
+								{
+									"key": "RateLimit-Limit",
+									"value": "100"
+								},
+								{
+									"key": "RateLimit-Remaining",
+									"value": "99"
+								},
+								{
+									"key": "RateLimit-Reset",
+									"value": "900"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1888"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"760-4lufLjbzYXS81XMxHnMbJhH4PTo\""
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 17 Nov 2025 00:14:23 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"Event vendor services updated successfully\",\n    \"data\": {\n        \"event\": {\n            \"location\": {\n                \"address\": \"123 Tech Street, Silicon Valley\",\n                \"venue\": \"Tech Convention Center\"\n            },\n            \"refundPolicy\": {\n                \"type\": \"time_bound\",\n                \"cutoffDays\": 7\n            },\n            \"_id\": \"691a4f333fd989dc1f019d5e\",\n            \"organizerId\": \"6917b907e488e19dfc84de95\",\n            \"organizerName\": \"Tmony Event Management\",\n            \"name\": \"Tech Conference 2026\",\n            \"description\": \"A conference for tech enthusiasts to discuss the latest trends in technology.\",\n            \"slug\": \"tech-conference-2026-6917b907e488e19dfc84de95-1763331883227\",\n            \"customUrl\": \"https://tech-conference2025.com\",\n            \"category\": \"Technology\",\n            \"format\": \"in_person\",\n            \"recurrence\": \"recurring\",\n            \"occurrences\": [\n                {\n                    \"date\": \"2025-06-01T00:00:00.000Z\",\n                    \"timeSlots\": [\n                        {\n                            \"startAt\": \"2025-06-01T09:00:00.000Z\",\n                            \"endAt\": \"2025-06-01T12:00:00.000Z\",\n                            \"_id\": \"691a4f333fd989dc1f019d60\"\n                        },\n                        {\n                            \"startAt\": \"2025-06-01T13:00:00.000Z\",\n                            \"endAt\": \"2025-06-01T16:00:00.000Z\",\n                            \"_id\": \"691a4f333fd989dc1f019d61\"\n                        }\n                    ],\n                    \"_id\": \"691a4f333fd989dc1f019d5f\",\n                    \"createdAt\": \"2025-11-16T22:24:51.287Z\",\n                    \"updatedAt\": \"2025-11-16T22:24:51.287Z\"\n                },\n                {\n                    \"date\": \"2025-06-02T00:00:00.000Z\",\n                    \"timeSlots\": [\n                        {\n                            \"startAt\": \"2025-06-02T09:00:00.000Z\",\n                            \"endAt\": \"2025-06-02T12:00:00.000Z\",\n                            \"_id\": \"691a4f333fd989dc1f019d63\"\n                        }\n                    ],\n                    \"_id\": \"691a4f333fd989dc1f019d62\",\n                    \"createdAt\": \"2025-11-16T22:24:51.287Z\",\n                    \"updatedAt\": \"2025-11-16T22:24:51.287Z\"\n                }\n            ],\n            \"timezone\": \"UTC\",\n            \"tickets\": [],\n            \"visibility\": \"private\",\n            \"privateToken\": null,\n            \"privateLink\": null,\n            \"reviews\": [],\n            \"averageRating\": 0,\n            \"reviewCount\": 0,\n            \"status\": \"scheduled\",\n            \"vendorServices\": [\n                {\n                    \"name\": \"Graphics Design\",\n                    \"proposalLimit\": 20,\n                    \"_id\": \"691a68df31c9087ac8874648\"\n                }\n            ],\n            \"createdAt\": \"2025-11-16T22:24:51.287Z\",\n            \"updatedAt\": \"2025-11-17T00:14:23.132Z\",\n            \"__v\": 2,\n            \"media\": {\n                \"assetId\": \"eve/elzxt7bl1d1u3fublrzb\",\n                \"provider\": \"cloudinary\",\n                \"url\": \"https://res.cloudinary.com/dizqvksht/image/upload/v1763332196/eve/elzxt7bl1d1u3fublrzb.jpg\"\n            },\n            \"PublishDate\": \"2025-11-20T10:00:00.000Z\",\n            \"publishedAt\": null\n        }\n    }\n}"
+						}
+					]
+				}
+			]
+		}
+	]
+}

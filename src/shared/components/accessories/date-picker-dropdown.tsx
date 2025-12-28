@@ -17,7 +17,6 @@ const DatePickerDropdown: React.FC<DatePickerDropdownProps> = ({
   onDateSelect,
 }) => {
   const [modalPosition, setModalPosition] = useState({ top: 0, right: 0 });
-  const [isVisible, setIsVisible] = useState(false);
   const [selectedMonth, setSelectedMonth] = useState<number>(
     selectedDate ? selectedDate.getMonth() : new Date().getMonth()
   );
@@ -42,11 +41,6 @@ const DatePickerDropdown: React.FC<DatePickerDropdownProps> = ({
 
   useEffect(() => {
     if (isOpen) {
-      // Small delay to trigger animation
-      requestAnimationFrame(() => {
-        setIsVisible(true);
-      });
-
       if (triggerRef?.current) {
         const triggerRect = triggerRef.current.getBoundingClientRect();
         setModalPosition({
@@ -58,8 +52,7 @@ const DatePickerDropdown: React.FC<DatePickerDropdownProps> = ({
       // Close on ESC key
       const handleEscape = (e: KeyboardEvent) => {
         if (e.key === "Escape") {
-          setIsVisible(false);
-          setTimeout(onClose, 300); // Wait for animation
+          onClose();
         }
       };
 
@@ -67,8 +60,6 @@ const DatePickerDropdown: React.FC<DatePickerDropdownProps> = ({
       return () => {
         document.removeEventListener("keydown", handleEscape);
       };
-    } else {
-      setIsVisible(false);
     }
   }, [isOpen, triggerRef, onClose]);
 
@@ -82,8 +73,7 @@ const DatePickerDropdown: React.FC<DatePickerDropdownProps> = ({
         ) {
           const target = e.target as HTMLElement;
           if (!target.closest("[data-date-picker-dropdown]")) {
-            setIsVisible(false);
-            setTimeout(onClose, 300);
+            onClose();
           }
         }
       };
@@ -129,8 +119,7 @@ const DatePickerDropdown: React.FC<DatePickerDropdownProps> = ({
           onClick={() => {
             const newDate = new Date(selectedYear, selectedMonth, day);
             onDateSelect(newDate);
-            setIsVisible(false);
-            setTimeout(onClose, 150);
+            onClose();
           }}
           className={`aspect-square flex items-center justify-center text-sm rounded-full transition-colors ${
             isSelected
@@ -163,25 +152,16 @@ const DatePickerDropdown: React.FC<DatePickerDropdownProps> = ({
 
   return (
     <>
-      {/* Overlay with smooth animation */}
+      {/* Overlay */}
       <div
-        className={`fixed inset-0 bg-black/20 z-40 transition-opacity duration-300 ease-in-out ${
-          isVisible ? "opacity-100" : "opacity-0"
-        }`}
-        onClick={() => {
-          setIsVisible(false);
-          setTimeout(onClose, 300);
-        }}
+        className="fixed inset-0 bg-black/20 z-40"
+        onClick={onClose}
       />
 
       {/* Calendar Dropdown */}
       <div
         data-date-picker-dropdown
-        className={`fixed z-50 bg-white rounded-[14px] shadow-lg p-4 min-w-[320px] transition-all duration-300 ease-out ${
-          isVisible
-            ? "opacity-100 translate-y-0"
-            : "opacity-0 -translate-y-2 pointer-events-none"
-        }`}
+        className="fixed z-50 bg-white rounded-[14px] shadow-lg p-4 min-w-[320px]"
         style={{
           top: `${modalPosition.top}px`,
           right: `${modalPosition.right}px`,
