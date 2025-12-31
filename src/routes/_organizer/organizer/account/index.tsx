@@ -1,6 +1,5 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useState } from "react";
-import type { ChangeEvent } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import { ArrowLeft, Plus } from "lucide-react";
 import { DashboardLayout } from "@components/layouts/dashboard-layout";
 import TabSwitch from "@components/accessories/tab-switch";
@@ -11,8 +10,12 @@ import PayoutSetting, {
   type PayoutAccountData,
 } from "./payout-setting";
 import { ChangePayoutDetailsModal } from "./change-payout-details-modal";
-import { Toast } from "@components/accessories/toast";
 import { useAuthStore } from "@/shared/stores/auth-store";
+import { useToastStore } from "@/shared/stores/toast-store";
+import { type DropdownOption } from "@components/accessories/dropdown-input";
+import countries from "world-countries";
+import { useGetUser } from "@/shared/api/services/auth/auth.hooks";
+import { useUpdateOnboardingProfile } from "@/shared/api/services/onboarding";
 
 export const Route = createFileRoute("/_organizer/organizer/account/")({
   component: RouteComponent,
@@ -22,12 +25,26 @@ export function RouteComponent() {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("Profile Setting");
   const [isChangeDetailsModalOpen, setIsChangeDetailsModalOpen] = useState(false);
-  const [showToast, setShowToast] = useState(false);
+  const showToast = useToastStore((state) => state.showToast);
+  
   // Get user from auth store
   const user = useAuthStore((state) => state.user);
   const userName = user ? `${user.firstName} ${user.lastname}`.trim() : "User";
-  // Update the payoutAccountData to use user's name
   const userNameForPayout = user ? `${user.firstName} ${user.lastname}`.trim() : "";
+
+  // API hooks
+  const updateProfileMutation = useUpdateOnboardingProfile({
+    autoNavigate: false, // Don't navigate away from the page
+  });
+  const { data: userProfileData, refetch: refetchUser } = useGetUser();
+
+  // Memoize country options (only compute once)
+  const countryOptions = useMemo(() => {
+    return countries.map((country) => ({
+      value: country.cca2,
+      label: country.name.common,
+    }));
+  }, []);
 
   const [payoutAccountData, setPayoutAccountData] = useState<PayoutAccountData[]>([
     {
@@ -64,49 +81,98 @@ export function RouteComponent() {
     },
   ]);
 
+  // Initialize form data from API response
   const [formData, setFormData] = useState<ProfileFormData>({
-    fullName: "Emumwen Gabriel Osauonamen",
-    email: "gabrielemumwen20@gmail.com",
-    companyName: "Eve Even Platform",
-    location: "ibeju Lekki Lagos, Nigeria.",
-    organizerNumber: "+234-081- 5882-5489",
+    fullName: userName,
+    email: user?.email || "",
+    companyName: "",
+    country: "",
+    phone: undefined,
+    location: "",
+    links: [],
+    profilePictureUrl: undefined,
+    isVerified: false,
   });
+
+  // Update form data when user profile is fetched
+  useEffect(() => {
+    if (userProfileData?.status && userProfileData?.data?.profile) {
+      const profile = userProfileData.data.profile;
+      const organizerData = profile.is_onboarded?.id as any; // Type assertion for organizer profile
+
+      setFormData({
+        fullName: `${profile.first_name} ${profile.last_name}`.trim(),
+        email: profile.email,
+        companyName: organizerData?.organization_name || "",
+        country: organizerData?.country || "",
+        phone: organizerData?.phone ? {
+          countryCode: organizerData.phone.countryCode,
+          number: organizerData.phone.number,
+        } : undefined,
+        location: organizerData?.location || "",
+        links: organizerData?.links?.map((link: any, index: number) => ({
+          id: index.toString(),
+          brand: link.brand || link.platform,
+          url: link.url,
+        })) || [],
+        profilePictureUrl: profile.avatar || undefined,
+        isVerified: organizerData?.is_verified || false,
+      });
+    }
+  }, [userProfileData]);
 
   const tabs = [
     { id: "Profile Setting", label: "Profile Setting" },
     { id: "Payout Setting", label: "Payout Setting" },
   ];
 
-  const handleInputChange = (field: keyof ProfileFormData) => (
-    e: ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleFormDataChange = useCallback((field: keyof ProfileFormData, value: any) => {
     setFormData((prev) => ({
       ...prev,
-      [field]: e.target.value,
+      [field]: value,
     }));
-  };
+  }, []);
 
-  const handleGoBack = () => {
+  const handleGoBack = useCallback(() => {
     navigate({ to: "/organizer" });
-  };
+  }, [navigate]);
 
-  const handleSaveChanges = () => {
-    // TODO: Implement save functionality
-    console.log("Saving changes:", formData);
-  };
+  const handleSaveChanges = useCallback(async () => {
+    try {
+      // Prepare data for API using correct field names for PATCH /onboarding
+      const updateData = {
+        company_name: formData.companyName,
+        country: formData.country,
+        phone: formData.phone,
+        location: formData.location,
+        links: formData.links?.map(link => ({
+          brand: link.brand,
+          url: link.url,
+        })),
+        completed: false, // Don't navigate away, just update
+      };
 
-  const handleAddNewPayoutAccount = () => {
+      await updateProfileMutation.mutateAsync(updateData);
+      
+      // Refetch user profile after successful update
+      await refetchUser();
+    } catch (error) {
+      console.error("Failed to update profile:", error);
+    }
+  }, [formData, updateProfileMutation, refetchUser]);
+
+  const handleAddNewPayoutAccount = useCallback(() => {
     navigate({ to: "/organizer/account/add-payout-account" });
-  };
+  }, [navigate]);
 
   const [selectedAccount, setSelectedAccount] = useState<PayoutAccountData | null>(null);
 
-  const handleChangeDetails = (account: PayoutAccountData) => {
+  const handleChangeDetails = useCallback((account: PayoutAccountData) => {
     setSelectedAccount(account);
     setIsChangeDetailsModalOpen(true);
-  };
+  }, []);
 
-  const handleSavePayoutDetails = async (data: PayoutAccountData): Promise<void> => {
+  const handleSavePayoutDetails = useCallback(async (data: PayoutAccountData): Promise<void> => {
     // Simulate API call with delay
     await new Promise((resolve) => setTimeout(resolve, 2000));
     
@@ -121,11 +187,11 @@ export function RouteComponent() {
     
     setIsChangeDetailsModalOpen(false);
     setSelectedAccount(null);
-    setShowToast(true);
-  };
+    showToast("Payout details updated successfully", "success");
+  }, [selectedAccount, showToast]);
 
   return (
-    <DashboardLayout user={user}>
+    <DashboardLayout>
       <div className="bg-white">
         {/* Go Back Button and Add New Payout Account Button */}
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 sm:gap-0 mb-6 sm:mb-8">
@@ -166,8 +232,10 @@ export function RouteComponent() {
         {activeTab === "Profile Setting" ? (
           <ProfileSetting
             formData={formData}
-            onFormDataChange={handleInputChange}
+            onFormDataChange={handleFormDataChange}
             onSaveChanges={handleSaveChanges}
+            countryOptions={countryOptions}
+            onProfileUpdate={refetchUser}
           />
         ) : (
           <PayoutSetting
@@ -190,13 +258,6 @@ export function RouteComponent() {
         />
       )}
 
-      {/* Toast Notification */}
-      <Toast
-        message="Changed Saved"
-        isVisible={showToast}
-        onClose={() => setShowToast(false)}
-        duration={3000}
-      />
     </DashboardLayout>
   );
 }

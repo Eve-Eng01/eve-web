@@ -136,13 +136,36 @@ export interface LinkAccountResponse {
 
 export type UserRole = "attendee" | "vendor" | "small-creator" | "admin" | "event-organizer" | null;
 
-export interface OnboardedProfile {
-  portfolios?: unknown[]; // Portfolio array for vendors
-  [key: string]: unknown; // Allow other properties for Vendor or Event_Organizer
+export interface OrganizerProfile {
+  _id: string;
+  organizer_id: string;
+  organization_name: string;
+  country: string;
+  phone: {
+    countryCode: string;
+    number: string;
+    e164?: string;
+  };
+  location: string;
+  is_verified: boolean;
+  links: Array<{
+    brand: string;
+    url: string;
+  }>;
+  createdAt: string;
+  updatedAt: string;
+  __v?: number;
 }
 
+export interface VendorProfile {
+  portfolios?: unknown[];
+  [key: string]: unknown;
+}
+
+export type OnboardedProfile = OrganizerProfile | VendorProfile | null;
+
 export interface IsOnboardedData {
-  id: OnboardedProfile | null;
+  id: OnboardedProfile;
   completed: boolean;
 }
 
@@ -154,6 +177,7 @@ export interface UserProfile {
   role: UserRole;
   is_onboarded: IsOnboardedData;
   isOnboardedModel: "Vendor" | "Event_Organizer" | null;
+  avatar?: string;
 }
 
 export interface GetUserResponse {

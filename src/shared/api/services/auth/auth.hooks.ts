@@ -3,7 +3,7 @@
  * React Query hooks for authentication operations
  */
 
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 import { authService } from "./auth.service";
 import type {
@@ -31,6 +31,18 @@ export const authKeys = {
   user: () => [...authKeys.all, "user"] as const,
   tokens: () => [...authKeys.all, "tokens"] as const,
 };
+
+/**
+ * Get User Profile Query
+ */
+export function useGetUser(enabled = true) {
+  return useQuery({
+    queryKey: authKeys.user(),
+    queryFn: () => authService.getUser(),
+    enabled,
+    staleTime: 30000, // 30 seconds
+  });
+}
 
 /**
  * Sign Up Mutation
