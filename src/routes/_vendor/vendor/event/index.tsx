@@ -15,6 +15,8 @@ import {
 } from "@/shared/api/services/events";
 import { useMemo, useState } from "react";
 import { useDebouncedCallback } from "use-debounce";
+import countries from "world-countries";
+
 export const Route = createFileRoute("/_vendor/vendor/event/")({
   component: RouteComponent,
 });
@@ -38,6 +40,14 @@ function RouteComponent() {
     return !eventsData && !eventsError;
   }, [eventsData, eventsError]);
 
+  const countriesOptions: DropdownOption[] = useMemo(() => {
+    return countries.map((country) => ({
+      value: country.cca2,
+      label: country.name.common,
+      flag: country.flag,
+    }));
+  }, []);
+
   return (
     <DashboardLayout isVendor>
       <div className="space-y-10 py-4">
@@ -51,9 +61,12 @@ function RouteComponent() {
             <div className="flex-1 flex flex-row items-center gap-4 min-[1000px]:max-w-[400px]">
               <DropdownInput
                 className="flex-1"
-                options={[]}
+                options={countriesOptions}
                 value={null}
-                onChange={() => {}}
+                onChange={(countryDetails) => {
+                  setCountry(countryDetails);
+                }}
+                searchable
                 placeholder="Nigeria"
               />
               <DropdownInput
