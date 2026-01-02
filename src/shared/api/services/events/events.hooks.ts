@@ -3,16 +3,16 @@
  * React Query hooks for event operations
  */
 
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { eventsService } from "./events.service";
 import type {
   CreateDraftEventRequest,
-  UploadMediaRequest,
   CreateTicketRequest,
   UpdateTicketRequest,
   DeleteTicketsRequest,
   UpdateEventRequest,
   AddVendorServicesRequest,
+  DiscoverEventsForVendorParams,
 } from "./types";
 import { useToastStore } from "../../../stores/toast-store";
 import { extractErrorMessage } from "./events-error-handler";
@@ -31,6 +31,10 @@ export const eventsKeys = {
     [...eventsKeys.detail(eventId), "tickets"] as const,
   userTickets: (eventId: string) =>
     [...eventsKeys.detail(eventId), "tickets", "user"] as const,
+  discoverEventsForVendor: (params: Partial<DiscoverEventsForVendorParams>) => {
+    const values = Object.values(params).filter(Boolean);
+    return[...eventsKeys.lists(), "vendor", ...values.map(value => value.toString())] as const
+  },
 };
 
 /**
@@ -310,10 +314,10 @@ export function useUpdateEvent() {
 /**
  * Get Event By ID Query
  */
-export function useGetEventById(eventId: string, enabled = true) {
+export function useGetEventById(eventId: string, enabled = true, isVendor = false) {
   return useQuery({
     queryKey: eventsKeys.detail(eventId),
-    queryFn: () => eventsService.getEventById(eventId),
+    queryFn: () => eventsService.getEventById(eventId, isVendor),
     enabled: enabled && !!eventId,
     staleTime: 30000, // 30 seconds
   });
@@ -441,3 +445,11 @@ export function useAddVendorServices() {
   });
 }
 
+export const useDiscoverEventsForVendor = (params?: Partial<DiscoverEventsForVendorParams>) => {
+  return useInfiniteQuery({
+    queryKey: eventsKeys.discoverEventsForVendor(params || {}),
+    queryFn: ({ pageParam = 1 }) => eventsService.discoverEventsForVendor({ ...(params || {}), page: pageParam }),
+    getNextPageParam: (lastPage) => Number(lastPage?.data?.result?.pagination?.page) < Number(lastPage?.data?.result?.pagination?.totalPages) ? Number(lastPage?.data?.result?.pagination?.page) + 1 : undefined,
+    initialPageParam: 1,
+  });
+};

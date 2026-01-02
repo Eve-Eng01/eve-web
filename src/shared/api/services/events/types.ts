@@ -367,6 +367,25 @@ export interface AddVendorServicesResponse {
   };
 }
 
+export interface DiscoverEventsForVendorResponse {
+  result: {
+    events: Event[];
+    pagination: {
+      page: number;
+      limit: number;
+      total: number;
+      totalPages: number;
+    };
+  }
+}
+
+export interface DiscoverEventsForVendorParams {
+  service: string;
+  search: string;
+  page: number;
+  limit: number;
+}
+
 /**
  * API Response Types
  * Note: The API returns responses directly, not wrapped in ApiResponse
@@ -383,4 +402,5 @@ export type GetUserEventsApiResponse = GetUserEventsResponse;
 export type MarkEventCompletedApiResponse = ApiResponse<MarkEventCompletedResponse>;
 export type DeleteEventApiResponse = ApiResponse<DeleteEventResponse>;
 export type AddVendorServicesApiResponse = ApiResponse<AddVendorServicesResponse>;
+export type DiscoverEventsForVendorApiResponse = ApiResponse<DiscoverEventsForVendorResponse>;
 

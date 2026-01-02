@@ -17,6 +17,7 @@ const getApiUrl = () => {
     : "https://eve-backend-bi8l.onrender.com/api/v1";
 };
 
+console.log("API_URL", getApiUrl());
 export const API_CONFIG = {
   BASE_URL: getApiUrl(),
   TIMEOUT: 30000, // 30 seconds

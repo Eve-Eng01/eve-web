@@ -1,4 +1,5 @@
-import { InfoIcon } from "lucide-react";
+import Spinner from "@components/accessories/spinner";
+import { InfoIcon, TriangleAlert } from "lucide-react";
 import React, { memo } from "react";
 
 type DashboardStatCardProps = {
@@ -6,6 +7,8 @@ type DashboardStatCardProps = {
   value: string;
   icon: React.ReactNode;
   description?: string;
+  loading?: boolean;
+  error?: string | null;
 };
 
 function DashboardStatCard({
@@ -13,6 +16,8 @@ function DashboardStatCard({
   value,
   icon,
   description,
+  loading = false,
+  error,
 }: DashboardStatCardProps) {
   return (
     <div className="space-y-3 p-3 rounded-lg border border-black/10 bg-[#F4F4F4]">
@@ -24,7 +29,19 @@ function DashboardStatCard({
           {icon}
         </span>
       </div>
-      <p className="font-semibold text-[#7417C6] text-2xl">{value || 0}</p>
+      {!error && (
+        <p className="font-semibold text-[#7417C6] text-2xl">
+          {loading ? <Spinner className="size-6" /> : value || 0}
+        </p>
+      )}
+      {error && (
+        <p className="text-red-500 text-xs opacity-60">
+          <span>
+            <TriangleAlert className="size-4 inline-block mr-1" />
+          </span>
+          <span>{error}</span>
+        </p>
+      )}
 
       <div className="text-black/20 flex items-center gap-1 justify-end">
         <InfoIcon className="size-4" />
