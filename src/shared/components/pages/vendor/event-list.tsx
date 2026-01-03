@@ -1,9 +1,11 @@
 import React, { memo } from "react";
 import EmptyContent from "../../accessories/empty-content";
 import { ArrowRight } from "iconsax-reactjs";
-import EventCard, { EventCardProps } from "./event-card";
+import EventCard from "./event-card";
 import { cn } from "../../../utils/classnames";
 import CalendarImage from "@assets/calender.png";
+import { Event as EventCardProps } from "@/shared/api/services/events";
+import ErrorContainer from "@components/accessories/error-container";
 
 type EventListProps = {
   events: EventCardProps[];
@@ -11,14 +13,20 @@ type EventListProps = {
   className?: string;
   hideSeeMore?: boolean;
   hideHeader?: boolean;
+  error?: string | null;
+  loading?: boolean;
+  refetch?: () => void;
 };
 
 const EventList: React.FC<EventListProps> = ({
   events = [],
   title = " Event Opportunities for you",
+  error,
+  loading,
   className,
   hideSeeMore = false,
   hideHeader = false,
+  refetch,
 }) => {
   return (
     <div className={cn("space-y-4", className)}>
@@ -42,20 +50,26 @@ const EventList: React.FC<EventListProps> = ({
         )}
       </div>
 
-      {events?.length < 1 && (
+      {!loading && !error && !!events && events?.length < 1 && (
         <EmptyContent
           title="🕓 No Event Opportunities Yet"
           description="There are no event opportunities available at the moment. Once new events matching your service category are posted, you’ll see them here."
           image={CalendarImage}
         />
       )}
-      {events && events?.length > 0 && (
+      {!loading && !error && !!events && events?.length > 0 && (
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
           {events?.map((event) => (
-            <EventCard key={event?.id} {...event} />
+            <EventCard key={event?._id} {...event} />
           ))}
         </div>
       )}
+      {loading && (
+        <div className="flex items-center justify-center py-12 min-h-[400px]">
+          <span className="loading loading-spinner text-primary w-12 h-12"></span>
+        </div>
+      )}
+      {!!error && <ErrorContainer error={error} refetchFunction={refetch} />}
     </div>
   );
 };

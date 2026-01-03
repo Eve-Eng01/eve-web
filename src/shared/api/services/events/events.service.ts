@@ -1,3 +1,4 @@
+import { DiscoverEventsForVendorParams } from './types';
 /**
  * Events Service
  * API service functions for event endpoints
@@ -23,6 +24,7 @@ import type {
   DeleteEventApiResponse,
   AddVendorServicesRequest,
   AddVendorServicesApiResponse,
+  DiscoverEventsForVendorApiResponse,
 } from "./types";
 
 /**
@@ -279,13 +281,14 @@ export const eventsService = {
    * Get event by ID
    * GET /event/:eventId
    */
-  getEventById: async (eventId: string): Promise<GetEventByIdApiResponse> => {
+  getEventById: async (eventId: string, isVendor =false): Promise<GetEventByIdApiResponse> => {
     try {
       if (!eventId) {
         throw new Error("Event ID is required");
       }
+      const url = isVendor ? `/vendor/events/${eventId}` :  `/event/${eventId}`;
       const response = await apiClient.get<GetEventByIdApiResponse>(
-        `/event/${eventId}`
+        url
       );
       return response.data;
     } catch (error: unknown) {
@@ -382,6 +385,33 @@ export const eventsService = {
       const response = await apiClient.patch<AddVendorServicesApiResponse>(
         `/event/${eventId}/vendor-services`,
         data
+      );
+      return response.data;
+    } catch (error: unknown) {
+      if (error && typeof error === "object" && "response" in error) {
+        const axiosError = error as { response?: { data?: unknown } };
+        throw axiosError.response?.data || error;
+      }
+      throw error;
+    }
+  },
+  discoverEventsForVendor: async (params: Partial<DiscoverEventsForVendorParams>): Promise<DiscoverEventsForVendorApiResponse> => {
+    const queryParams = new URLSearchParams();
+    if (params.service) {
+      queryParams.append("service", params.service);
+    }
+    if (params.search) {
+      queryParams.append("search", params.search);
+    }
+    if (params.page) {
+      queryParams.append("page", params.page.toString());
+    }
+    if (params.limit) {
+      queryParams.append("limit", params.limit.toString());
+    }
+    try {
+      const response = await apiClient.get<DiscoverEventsForVendorApiResponse>(
+        "/vendor/events/discover"
       );
       return response.data;
     } catch (error: unknown) {
