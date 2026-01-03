@@ -11,7 +11,6 @@ import PayoutSetting, {
 } from "./payout-setting";
 import { ChangePayoutDetailsModal } from "./change-payout-details-modal";
 import { useAuthStore } from "@/shared/stores/auth-store";
-import { useToastStore } from "@/shared/stores/toast-store";
 import { type DropdownOption } from "@components/accessories/dropdown-input";
 import countries from "world-countries";
 import { useGetUser } from "@/shared/api/services/auth/auth.hooks";
@@ -25,12 +24,10 @@ export function RouteComponent() {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("Profile Setting");
   const [isChangeDetailsModalOpen, setIsChangeDetailsModalOpen] = useState(false);
-  const showToast = useToastStore((state) => state.showToast);
   
   // Get user from auth store
   const user = useAuthStore((state) => state.user);
   const userName = user ? `${user.firstName} ${user.lastname}`.trim() : "User";
-  const userNameForPayout = user ? `${user.firstName} ${user.lastname}`.trim() : "";
 
   // API hooks
   const updateProfileMutation = useUpdateOnboardingProfile({
@@ -45,41 +42,6 @@ export function RouteComponent() {
       label: country.name.common,
     }));
   }, []);
-
-  const [payoutAccountData, setPayoutAccountData] = useState<PayoutAccountData[]>([
-    {
-      id: "1",
-      accountNumber: "2109019402",
-      bankName: "United Bank for Africa",
-      accountName: userNameForPayout || "User",
-      currency: "NGN",
-      countryCode: "NG",
-    },
-    {
-      id: "2",
-      accountNumber: "1234567890",
-      bankName: "Access Bank",
-      accountName: userNameForPayout || "User",
-      currency: "NGN",
-      countryCode: "NG",
-    },
-    {
-      id: "3",
-      accountNumber: "9876543210",
-      bankName: "GTBank",
-      accountName: userNameForPayout || "User",
-      currency: "NGN",
-      countryCode: "NG",
-    },
-    {
-      id: "4",
-      accountNumber: "5555555555",
-      bankName: "First Bank of Nigeria",
-      accountName: userNameForPayout || "User",
-      currency: "NGN",
-      countryCode: "NG",
-    },
-  ]);
 
   // Initialize form data from API response
   const [formData, setFormData] = useState<ProfileFormData>({
@@ -168,27 +130,19 @@ export function RouteComponent() {
   const [selectedAccount, setSelectedAccount] = useState<PayoutAccountData | null>(null);
 
   const handleChangeDetails = useCallback((account: PayoutAccountData) => {
+    // Validate account has required fields
+    if (!account.id) {
+      console.error("Cannot edit account without id:", account);
+      return;
+    }
     setSelectedAccount(account);
     setIsChangeDetailsModalOpen(true);
   }, []);
 
-  const handleSavePayoutDetails = useCallback(async (data: PayoutAccountData): Promise<void> => {
-    // Simulate API call with delay
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    
-    // Update the specific account in the array
-    setPayoutAccountData((prev) =>
-      prev.map((account) =>
-        account.id === data.id || account.id === selectedAccount?.id
-          ? { ...data, id: account.id }
-          : account
-      )
-    );
-    
+  const handleCloseModal = useCallback(() => {
     setIsChangeDetailsModalOpen(false);
     setSelectedAccount(null);
-    showToast("Payout details updated successfully", "success");
-  }, [selectedAccount, showToast]);
+  }, []);
 
   return (
     <DashboardLayout>
@@ -239,7 +193,6 @@ export function RouteComponent() {
           />
         ) : (
           <PayoutSetting
-            payoutAccountData={payoutAccountData}
             onChangeDetails={handleChangeDetails}
           />
         )}
@@ -249,11 +202,7 @@ export function RouteComponent() {
       {selectedAccount && (
         <ChangePayoutDetailsModal
           isOpen={isChangeDetailsModalOpen}
-          onClose={() => {
-            setIsChangeDetailsModalOpen(false);
-            setSelectedAccount(null);
-          }}
-          onSave={handleSavePayoutDetails}
+          onClose={handleCloseModal}
           initialData={selectedAccount}
         />
       )}

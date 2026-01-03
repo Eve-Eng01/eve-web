@@ -4,5 +4,6 @@
  */
 
 export * from "./auth.schema";
+export * from "./payout.schema";
 
 

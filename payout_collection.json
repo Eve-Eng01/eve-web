@@ -1,0 +1,1323 @@
+{
+	"info": {
+		"_postman_id": "be9571fa-fe0b-45be-9fed-c9c9d9af6637",
+		"name": "Test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "48426269",
+		"_collection_link": "https://founderseve-3323036.postman.co/workspace/eve's-Workspace~e46961ea-aa94-433e-82c2-1872f82474a9/collection/48426269-be9571fa-fe0b-45be-9fed-c9c9d9af6637?action=share&source=collection_link&creator=48426269"
+	},
+	"item": [
+		{
+			"name": "Payout Copy",
+			"item": [
+				{
+					"name": "Add payout account",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"bankName\": \"GTBank\",\n  \"accountNumber\": \"0123456789\",\n  \"accountHolderName\": \"Jane Doe\",\n  \"currency\": \"NGN\",\n  \"country\": \"Nigeria\",\n  \"isDefault\": true\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/payouts/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"payouts",
+								""
+							]
+						},
+						"description": "# Create Payout Account\n\nRegisters a payout destination for the authenticated user or merchant. Use this endpoint to add a bank account that can receive payouts.\n\n---\n\n## Endpoint\n\n**Method:** POST  \n**URL:** `{{url}}/payouts/`  \n**Auth:** Bearer token via `{{accessToken}}`\n\n**Headers:**\n\n- Content-Type: application/json\n    \n- Authorization: Bearer `{{accessToken}}`\n    \n\n---\n\n## Request Body\n\n**Schema:**\n\n``` json\n{\n  \"bankName\": \"string (required)\",\n  \"accountNumber\": \"string (required)\",\n  \"accountHolderName\": \"string (required)\",\n  \"currency\": \"string (required, ISO code)\",\n  \"country\": \"string (required)\",\n  \"isDefault\": \"boolean (optional)\"\n}\n\n ```\n\n**Example:**\n\n``` json\n{\n  \"bankName\": \"GTBank\",\n  \"accountNumber\": \"0123456655\",\n  \"accountHolderName\": \"Jane Doe\",\n  \"currency\": \"NGN\",\n  \"country\": \"Nigeria\",\n  \"isDefault\": true\n}\n\n ```\n\n---\n\n## Responses\n\n### 201 Created\n\nPayout destination successfully created. Returns details of the stored payout account.\n\n**Example Response:**\n\n``` json\n{\n  \"status\": true,\n  \"message\": \"Payout account created\",\n  \"data\": {\n    \"payoutAccount\": {\n      \"userId\": \"68e7c347db789dd0bf76a107\",\n      \"bankName\": \"GTBank\",\n      \"accountNumber\": \"0123456789\",\n      \"accountHolderName\": \"Jane Doe\",\n      \"currency\": \"NGN\",\n      \"country\": \"Nigeria\",\n      \"isDefault\": true,\n      \"verified\": false,\n      \"_id\": \"6903897784ff5c4c218e8fae\",\n      \"createdAt\": \"2025-10-30T15:51:19.986Z\",\n      \"updatedAt\": \"2025-10-30T15:51:19.986Z\",\n      \"__v\": 0\n    }\n  }\n}\n\n ```\n\n---\n\n### 400 Bad Request\n\nPayload validation failed. Missing or invalid fields.\n\n### 401 Unauthorized\n\nToken missing or invalid.\n\n### 409 Conflict\n\nDuplicate payout account detected or payout destination already exists.\n\n---\n\n## Notes\n\n- Ensure the selected bank supports the specified currency and country.\n    \n- If multiple payout accounts exist, setting `isDefault` to true will route all payouts to this account.\n    \n- Confirm that `{{url}}` points to the correct environment before sending requests."
+					},
+					"response": [
+						{
+							"name": "New Request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"bankName\": \"GTBank\",\n  \"accountNumber\": \"0123456789\",\n  \"accountHolderName\": \"Jane Doe\",\n  \"currency\": \"NGN\",\n  \"country\": \"Nigeria\",\n  \"isDefault\": true\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/payouts/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"payouts",
+										""
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Resource-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Origin-Agent-Cluster",
+									"value": "?1"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Permitted-Cross-Domain-Policies",
+									"value": "none"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "RateLimit-Policy",
+									"value": "100;w=900"
+								},
+								{
+									"key": "RateLimit-Limit",
+									"value": "100"
+								},
+								{
+									"key": "RateLimit-Remaining",
+									"value": "97"
+								},
+								{
+									"key": "RateLimit-Reset",
+									"value": "890"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "383"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"17f-VLS2nsJ1EvOQGbY5teOCfxODSX4\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 30 Oct 2025 15:51:20 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"Payout account created\",\n    \"data\": {\n        \"payoutAccount\": {\n            \"userId\": \"68e7c347db789dd0bf76a107\",\n            \"bankName\": \"GTBank\",\n            \"accountNumber\": \"0123456789\",\n            \"accountHolderName\": \"Jane Doe\",\n            \"currency\": \"NGN\",\n            \"country\": \"Nigeria\",\n            \"isDefault\": true,\n            \"verified\": false,\n            \"_id\": \"6903897784ff5c4c218e8fae\",\n            \"createdAt\": \"2025-10-30T15:51:19.986Z\",\n            \"updatedAt\": \"2025-10-30T15:51:19.986Z\",\n            \"__v\": 0\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Update Payout account",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"bankName\": \"GTBank\",\n  \"accountNumber\": \"0123456789\",\n  \"accountHolderName\": \"Jane Doe\",\n  \"isDefault\": true,\n  \"verified\": true\n\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/payouts/6903897784ff5c4c218e8fae",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"payouts",
+								"6903897784ff5c4c218e8fae"
+							]
+						},
+						"description": "# Update Payout Account\n\nUpdates an existing payout account for the authenticated user or merchant. Use this endpoint to modify bank information, default status, or verification status.\n\n---\n\n## Endpoint\n\n**Method:** PATCH  \n**URL:** `{{url}}/payouts/:payoutId`  \n**Auth:** Bearer token via `{{accessToken}}`\n\n**Headers:**\n\n- Content-Type: application/json\n    \n- Authorization: Bearer `{{accessToken}}`\n    \n\n---\n\n## Path Parameters\n\n| Name | Type | Description |\n| --- | --- | --- |\n| `payoutId` | string (required) | Unique identifier of the payout account to update. Example: `6903ca37cf0981b819160f20` |\n\n---\n\n## Request Body\n\nOnly include fields that you intend to update. All unspecified fields remain unchanged.\n\n**Schema:**\n\n``` json\n{\n  \"bankName\": \"string\",\n  \"accountNumber\": \"string\",\n  \"accountHolderName\": \"string\",\n  \"isDefault\": \"boolean\",\n  \"verified\": \"boolean\"\n}\n\n ```\n\n---\n\n## Example Request\n\n**PATCH** `{{url}}/payouts/6903ca37cf0981b819160f20`\n\nAuthorization: Bearer `{{accessToken}}`\n\nContent-Type: application/json\n\n``` json\n{\n  \"bankName\": \"GTBank\",\n  \"accountNumber\": \"0123456789\",\n  \"accountHolderName\": \"Jane Doe\",\n  \"isDefault\": true,\n  \"verified\": true\n}\n\n ```\n\n---\n\n## Responses\n\n### 200 OK\n\nPayout account updated successfully.\n\n**Example Response:**\n\n``` json\n{\n  \"id\": \"6903ca37cf0981b819160f20\",\n  \"bankName\": \"GTBank\",\n  \"accountNumber\": \"0123456789\",\n  \"accountHolderName\": \"Jane Doe\",\n  \"isDefault\": true,\n  \"verified\": true,\n  \"updatedAt\": \"2025-01-01T12:34:56.000Z\"\n}\n\n ```\n\n---\n\n### 400 Bad Request\n\nInvalid payload or malformed JSON.\n\n### 401 Unauthorized\n\nInvalid or missing Bearer token.\n\n### 403 Forbidden\n\nUser is authenticated but not permitted to update this payout account.\n\n### 404 Not Found\n\nThe specified `payoutId` does not exist.\n\n### 409 Conflict\n\nUniqueness constraint violation, for example when marking more than one payout account as default.\n\n### 422 Unprocessable Entity\n\nField-level validation error.\n\n### 500 Internal Server Error\n\nUnexpected server failure.\n\n---\n\n## Notes\n\n- This endpoint uses partial update semantics. Only send properties you want to modify.\n    \n- Keep `accountNumber` as a string to avoid losing leading zeros.\n    \n- Ensure `{{url}}` and `{{accessToken}}` resolve to the correct environment variables.\n    \n- If auth is inherited, confirm the parent folder provides the token.\n    \n\n---"
+					},
+					"response": [
+						{
+							"name": "Add payout account Copy",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"bankName\": \"GTBank\",\n  \"accountNumber\": \"0123456789\",\n  \"accountHolderName\": \"Jane Doe\",\n  \"isDefault\": true,\n  \"verified\": true\n\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/payouts/6903897784ff5c4c218e8fae",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"payouts",
+										"6903897784ff5c4c218e8fae"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Resource-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Origin-Agent-Cluster",
+									"value": "?1"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Permitted-Cross-Domain-Policies",
+									"value": "none"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "RateLimit-Policy",
+									"value": "100;w=900"
+								},
+								{
+									"key": "RateLimit-Limit",
+									"value": "100"
+								},
+								{
+									"key": "RateLimit-Remaining",
+									"value": "98"
+								},
+								{
+									"key": "RateLimit-Reset",
+									"value": "865"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "376"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"178-SAUqRZTEHXG7LeDbH1f7Llkvdu0\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 30 Oct 2025 16:22:37 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"Payout account updated\",\n    \"data\": {\n        \"account\": {\n            \"_id\": \"6903897784ff5c4c218e8fae\",\n            \"userId\": \"68e7c347db789dd0bf76a107\",\n            \"bankName\": \"GTBank\",\n            \"accountNumber\": \"0123456789\",\n            \"accountHolderName\": \"Jane Doe\",\n            \"currency\": \"NGN\",\n            \"country\": \"Nigeria\",\n            \"isDefault\": true,\n            \"verified\": true,\n            \"createdAt\": \"2025-10-30T15:51:19.986Z\",\n            \"updatedAt\": \"2025-10-30T16:22:37.692Z\",\n            \"__v\": 0\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Payout accounts",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/payouts/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"payouts",
+								""
+							]
+						},
+						"description": "# List Payouts\n\nRetrieves a paginated list of payouts for the authenticated user or merchant. Supports filtering by status and date range.\n\n---\n\n## Endpoint\n\n**Method:** GET  \n**URL:** `{{url}}/payouts/`  \n**Auth:** Bearer token via `{{accessToken}}`\n\n**Headers:**\n\n- Accept: application/json\n    \n- Content-Type: application/json\n    \n- Authorization: Bearer `{{accessToken}}`\n    \n\n---\n\n## Query Parameters\n\n| Name | Type | Default | Description |\n| --- | --- | --- | --- |\n| `page` | integer | 1 | Page number to fetch. |\n| `page_size` | integer | 20 | Number of results per page. Max value is 100. |\n| `status` | string | none | Filter payouts by status. Values: pending, processing, paid, failed. |\n| `from` | string | none | Return payouts created at or after this ISO 8601 timestamp. |\n| `to` | string | none | Return payouts created before this ISO 8601 timestamp. |\n\n---\n\n## Responses\n\n### 200 OK\n\nReturns paginated payout data.\n\n**Example Response:**\n\n```\n{\n  \"status\": true,\n  \"message\": \"User accounts fetched successfully\",\n  \"data\": {\n    \"accounts\": [\n      {\n        \"_id\": \"6903897784ff5c4c218e8fae\",\n        \"userId\": \"68e7c347db789dd0bf76a107\",\n        \"bankName\": \"GTBank\",\n        \"accountNumber\": \"0123456789\",\n        \"accountHolderName\": \"Jane Doe\",\n        \"currency\": \"NGN\",\n        \"country\": \"Nigeria\",\n        \"isDefault\": false,\n        \"verified\": true,\n        \"createdAt\": \"2025-10-30T15:51:19.986Z\",\n        \"updatedAt\": \"2025-10-30T16:22:37.692Z\",\n        \"__v\": 0\n      }\n    ]\n  }\n}\n\n ```\n\n---\n\n### 401 Unauthorized\n\nMissing or invalid Bearer token.\n\n### 403 Forbidden\n\nAuthenticated but not permitted to access payouts.\n\n### 422 Unprocessable Entity\n\nOne or more query parameters are invalid.\n\n### 500 Internal Server Error\n\nUnexpected server failure.\n\n---\n\n## Notes\n\n- Use `{{url}}` to switch between development, staging, and production environments.\n    \n- Use `page` and `page_size` to paginate large result sets efficiently.\n    \n- For date-based filtering, ensure timestamps follow the ISO 8601 format.\n    \n\n---\n\n## Example Usage\n\n**GET**  \n`{{url}}/payouts/?status=paid&page=1&page_size=20`\n\nAuthorization: Bearer `{{accessToken}}`"
+					},
+					"response": [
+						{
+							"name": "New Request",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{url}}/payouts/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"payouts",
+										""
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Resource-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Origin-Agent-Cluster",
+									"value": "?1"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Permitted-Cross-Domain-Policies",
+									"value": "none"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "RateLimit-Policy",
+									"value": "100;w=900"
+								},
+								{
+									"key": "RateLimit-Limit",
+									"value": "100"
+								},
+								{
+									"key": "RateLimit-Remaining",
+									"value": "96"
+								},
+								{
+									"key": "RateLimit-Reset",
+									"value": "732"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "392"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"188-I/OPhYKxCiKTZzGdzp1V5qr+Z2c\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 30 Oct 2025 16:24:49 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"User accounts fetched successfully\",\n    \"data\": {\n        \"accounts\": [\n            {\n                \"_id\": \"6903897784ff5c4c218e8fae\",\n                \"userId\": \"68e7c347db789dd0bf76a107\",\n                \"bankName\": \"GTBank\",\n                \"accountNumber\": \"0123456789\",\n                \"accountHolderName\": \"Jane Doe\",\n                \"currency\": \"NGN\",\n                \"country\": \"Nigeria\",\n                \"isDefault\": false,\n                \"verified\": true,\n                \"createdAt\": \"2025-10-30T15:51:19.986Z\",\n                \"updatedAt\": \"2025-10-30T16:22:37.692Z\",\n                \"__v\": 0\n            }\n        ]\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Get account by ID",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/payouts/6903897784ff5c4c218e8fae",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"payouts",
+								"6903897784ff5c4c218e8fae"
+							]
+						},
+						"description": "# Get Payout by ID\n\nRetrieves a single payout resource using its unique identifier.\n\n---\n\n## Endpoint\n\n**Method:** GET  \n**URL:** `{{url}}/payouts/:payoutId`\n\nExample configuration:  \n`{{url}}/payouts/6903897784ff5c4c218e8fae`\n\n---\n\n## Path Parameters\n\n| Name | Type | Description |\n| --- | --- | --- |\n| `payoutId` | string (required) | Unique identifier of the payout to retrieve. |\n\n---\n\n## Authentication\n\nRequires a Bearer token via `{{accessToken}}`.\n\n**Header:**  \n`Authorization: Bearer {{accessToken}}`\n\n---\n\n## Query Parameters\n\nNone.\n\n---\n\n## Request Body\n\nNot applicable for GET requests.\n\n---\n\n## Responses\n\n### 200 OK\n\nPayout resource successfully retrieved.\n\n**Example Response:**\n\n``` json\n{\n  \"status\": true,\n  \"message\": \"account fetched successfully\",\n  \"data\": {\n    \"account\": {\n      \"_id\": \"6903897784ff5c4c218e8fae\",\n      \"userId\": \"68e7c347db789dd0bf76a107\",\n      \"bankName\": \"GTBank\",\n      \"accountNumber\": \"0123456789\",\n      \"accountHolderName\": \"Jane Doe\",\n      \"currency\": \"NGN\",\n      \"country\": \"Nigeria\",\n      \"isDefault\": false,\n      \"verified\": true,\n      \"createdAt\": \"2025-10-30T15:51:19.986Z\",\n      \"updatedAt\": \"2025-10-30T16:22:37.692Z\",\n      \"__v\": 0\n    }\n  }\n}\n\n ```\n\n---\n\n### 401 Unauthorized\n\nMissing or invalid token.\n\n### 403 Forbidden\n\nAuthenticated but not permitted to access this payout.\n\n### 404 Not Found\n\nNo payout exists for the specified `payoutId`.\n\n### 5xx Server Error\n\nUnexpected server failure.\n\n---\n\n## Variables\n\n- `{{url}}`: Base API URL for the selected environment.\n    \n- `{{accessToken}}`: Bearer token used for authentication.\n    \n\n---\n\n## Usage Notes\n\n- Replace the sample `payoutId` with any valid payout resource ID to fetch a different record.\n    \n- Use environment variables to switch between staging and production without modifying the request path.\n    \n- Saved examples associated with this request show typical response structures."
+					},
+					"response": [
+						{
+							"name": "New Request Copy",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{url}}/payouts/6903897784ff5c4c218e8fae",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"payouts",
+										"6903897784ff5c4c218e8fae"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Resource-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Origin-Agent-Cluster",
+									"value": "?1"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Permitted-Cross-Domain-Policies",
+									"value": "none"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "RateLimit-Policy",
+									"value": "100;w=900"
+								},
+								{
+									"key": "RateLimit-Limit",
+									"value": "100"
+								},
+								{
+									"key": "RateLimit-Remaining",
+									"value": "99"
+								},
+								{
+									"key": "RateLimit-Reset",
+									"value": "900"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "383"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"17f-VBRkCKdgfnnBXkITK7urX+Pqn+4\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 30 Oct 2025 16:26:05 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"account fetched successfully\",\n    \"data\": {\n        \"account\": {\n            \"_id\": \"6903897784ff5c4c218e8fae\",\n            \"userId\": \"68e7c347db789dd0bf76a107\",\n            \"bankName\": \"GTBank\",\n            \"accountNumber\": \"0123456789\",\n            \"accountHolderName\": \"Jane Doe\",\n            \"currency\": \"NGN\",\n            \"country\": \"Nigeria\",\n            \"isDefault\": false,\n            \"verified\": true,\n            \"createdAt\": \"2025-10-30T15:51:19.986Z\",\n            \"updatedAt\": \"2025-10-30T16:22:37.692Z\",\n            \"__v\": 0\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Schedule Payout",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/payouts/schedule",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"payouts",
+								"schedule"
+							]
+						},
+						"description": "# Schedule Payout\n\nCreates a new payout schedule for an authenticated user or merchant. Use this endpoint to configure one-time or recurring payouts to a specified destination.\n\n---\n\n## Endpoint\n\n**Method:** POST  \n**URL:** `{{url}}/payouts/schedule`  \n**Auth:** Bearer token via `{{accessToken}}`\n\n---\n\n## Headers\n\n- Content-Type: application/json\n    \n- Authorization: Bearer `{{accessToken}}`\n    \n\n---\n\n## Request Body\n\nProvide the payout schedule configuration. Only include fields required by your backend.\n\n**Schema:**\n\n```\n{\n  \"amount\": \"integer (required, smallest currency unit)\",\n  \"currency\": \"string (required, ISO 4217 code)\",\n  \"destination\": {\n    \"type\": \"string (required, bank_account or wallet)\",\n    \"account_number\": \"string (required for bank accounts)\",\n    \"bank_code\": \"string (required for bank accounts)\"\n  },\n  \"schedule\": {\n    \"type\": \"string (required, one_time or recurring)\",\n    \"interval\": \"string (required for recurring, daily | weekly | monthly)\",\n    \"start_date\": \"string (ISO date)\",\n    \"day_of_week\": \"string (required when interval is weekly)\"\n  },\n  \"metadata\": {\n    \"reference\": \"string (optional)\"\n  }\n}\n\n ```\n\n**Example:**\n\n```\n{\n  \"amount\": 10000,\n  \"currency\": \"NGN\",\n  \"destination\": {\n    \"type\": \"bank_account\",\n    \"account_number\": \"0123456789\",\n    \"bank_code\": \"058\"\n  },\n  \"schedule\": {\n    \"type\": \"recurring\",\n    \"interval\": \"weekly\",\n    \"start_date\": \"2025-01-01\",\n    \"day_of_week\": \"friday\"\n  },\n  \"metadata\": {\n    \"reference\": \"INV-2025-0001\"\n  }\n}\n\n ```\n\n---\n\n## Responses\n\n### 201 Created\n\nPayout schedule created successfully.\n\n**Example Response:**\n\n```\n{\n  \"status\": true,\n  \"message\": \"Payout scheduled successfully\",\n  \"data\": {\n    \"payout\": {\n      \"userId\": \"68e7c347db789dd0bf76a107\",\n      \"payoutAccountId\": \"6903940ea1c38e2c88060c60\",\n      \"provider\": \"stripe\",\n      \"providerStatus\": \"processing\",\n      \"amount\": 100,\n      \"currency\": \"NGN\",\n      \"status\": \"processing\",\n      \"scheduledAt\": \"2025-10-30T20:35:21.709Z\",\n      \"description\": \"Payout for completed ticket sales\",\n      \"_id\": \"6903cc09f3009c01b71b29ae\",\n      \"createdAt\": \"2025-10-30T20:35:21.717Z\",\n      \"updatedAt\": \"2025-10-30T20:35:23.098Z\",\n      \"__v\": 0,\n      \"providerTransactionId\": \"PROVIDER-9013fb3c-7c3c-46be-8c7d-5ce92540eba0\"\n    }\n  }\n}\n\n ```\n\n---\n\n### 400 Bad Request\n\nInvalid or missing fields in the request body.\n\n### 401 Unauthorized\n\nMissing or invalid Bearer token.\n\n### 409 Conflict\n\nA conflicting schedule exists for the provided reference or parameters.\n\n### 500 Internal Server Error\n\nUnexpected server issue.\n\n---\n\n## Variables\n\n- `{{url}}` — Base API URL from the active environment.\n    \n- `{{accessToken}}` — Bearer token for authorization.\n    \n\n---\n\n## Notes\n\n- Ensure the correct environment is selected so variables resolve properly.\n    \n- Only include fields defined in your backend contract.\n    \n- For recurring schedules, ensure required interval fields (such as day_of_week) are provided."
+					},
+					"response": [
+						{
+							"name": "New Request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/payouts/schedule",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"payouts",
+										"schedule"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Resource-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Origin-Agent-Cluster",
+									"value": "?1"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Permitted-Cross-Domain-Policies",
+									"value": "none"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "RateLimit-Policy",
+									"value": "100;w=900"
+								},
+								{
+									"key": "RateLimit-Limit",
+									"value": "100"
+								},
+								{
+									"key": "RateLimit-Remaining",
+									"value": "99"
+								},
+								{
+									"key": "RateLimit-Reset",
+									"value": "900"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "542"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"21e-o7HlhCpcPq+HFSX337SbPb3Hb6c\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 30 Oct 2025 20:35:24 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"Payout scheduled successfully\",\n    \"data\": {\n        \"payout\": {\n            \"userId\": \"68e7c347db789dd0bf76a107\",\n            \"payoutAccountId\": \"6903940ea1c38e2c88060c60\",\n            \"provider\": \"stripe\",\n            \"providerStatus\": \"processing\",\n            \"amount\": 100,\n            \"currency\": \"NGN\",\n            \"status\": \"processing\",\n            \"scheduledAt\": \"2025-10-30T20:35:21.709Z\",\n            \"description\": \"Payout for completed ticket sales\",\n            \"_id\": \"6903cc09f3009c01b71b29ae\",\n            \"createdAt\": \"2025-10-30T20:35:21.717Z\",\n            \"updatedAt\": \"2025-10-30T20:35:23.098Z\",\n            \"__v\": 0,\n            \"providerTransactionId\": \"PROVIDER-9013fb3c-7c3c-46be-8c7d-5ce92540eba0\"\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Get payout history",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/payouts/history?page=1&limit=20",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"payouts",
+								"history"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "20"
+								}
+							]
+						},
+						"description": "# Get Payout History\n\nRetrieves a paginated list of payout records for the authenticated user or merchant. This endpoint is typically used for payout history screens or reconciliation workflows.\n\n---\n\n## Endpoint\n\n**Method:** GET  \n**URL:** `{{url}}/payouts/history?page={{page}}&limit={{limit}}`  \n**Auth:** Bearer token via `{{accessToken}}`\n\n---\n\n## Headers\n\n- Accept: application/json\n    \n- Content-Type: application/json\n    \n- Authorization: Bearer `{{accessToken}}`\n    \n\n---\n\n## Query Parameters\n\n| Name | Type | Default | Description |\n| --- | --- | --- | --- |\n| `page` | integer | 1 | Page number to fetch. Minimum value is 1. |\n| `limit` | integer | 20 | Number of records per page. Common range is 1 to 100. |\n\n---\n\n## Example Request (cURL)\n\n```\ncurl --request GET \\\n  \"{{url}}/payouts/history?page=1&limit=20\" \\\n  --header \"Authorization: Bearer {{accessToken}}\" \\\n  --header \"Accept: application/json\"\n\n ```\n\n---\n\n## Responses\n\n### 200 OK\n\nReturns payout history with pagination metadata and an array of payout items.\n\n**Example Response:**\n\n```\n{\n  \"status\": true,\n  \"message\": \"payouts fetched successfully\",\n  \"data\": {\n    \"payouts\": {\n      \"data\": [\n        {\n          \"_id\": \"6903cec9f3009c01b71b29c6\",\n          \"userId\": \"68e7c347db789dd0bf76a107\",\n          \"payoutAccountId\": {\n            \"_id\": \"6903940ea1c38e2c88060c60\",\n            \"userId\": \"68e7c347db789dd0bf76a107\",\n            \"bankName\": \"GTBank\",\n            \"accountNumber\": \"0123456789\",\n            \"accountHolderName\": \"Jane Doe\",\n            \"currency\": \"NGN\",\n            \"country\": \"Nigeria\",\n            \"isDefault\": true,\n            \"verified\": true,\n            \"createdAt\": \"2025-10-30T16:36:30.642Z\",\n            \"updatedAt\": \"2025-10-30T20:28:08.959Z\",\n            \"__v\": 0\n          },\n          \"provider\": \"stripe\",\n          \"providerStatus\": \"processing\",\n          \"amount\": 100,\n          \"currency\": \"NGN\",\n          \"status\": \"processing\",\n          \"scheduledAt\": \"2025-10-30T20:47:05.753Z\",\n          \"description\": \"Payout for completed ticket sales\",\n          \"createdAt\": \"2025-10-30T20:47:05.753Z\",\n          \"updatedAt\": \"2025-10-30T21:17:39.215Z\",\n          \"__v\": 0,\n          \"providerTransactionId\": \"PROVIDER-0bc0ff50-acf7-44f0-8b6e-7cfa1e1f7130\"\n        }\n      ],\n      \"pagination\": {\n        \"page\": 1,\n        \"limit\": 20,\n        \"total\": 4,\n        \"totalPages\": 1\n      }\n    }\n  }\n}\n\n ```\n\n---\n\n### 401 Unauthorized\n\nMissing or invalid Bearer token.\n\n### 403 Forbidden\n\nAuthenticated but not permitted to view payout history.\n\n### 422 Unprocessable Entity\n\nInvalid query parameters such as non-numeric page or limit.\n\n### 500 Internal Server Error\n\nUnexpected server failure.\n\n---\n\n## Variables\n\n- `{{url}}` — Base API URL provided by the active environment.\n    \n- `{{accessToken}}` — Bearer token for authorization.\n    \n\n---\n\n## Notes\n\n- Use environment variables to easily switch between dev, staging, and production.\n    \n- Use `page` and `limit` to paginate through all payout records.\n    \n- Field names in the response may differ depending on your backend; adjust your documentation accordingly."
+					},
+					"response": [
+						{
+							"name": "New Request",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{url}}/payouts/history?page=1&limit=20",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"payouts",
+										"history"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "limit",
+											"value": "20"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Resource-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Origin-Agent-Cluster",
+									"value": "?1"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Permitted-Cross-Domain-Policies",
+									"value": "none"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "RateLimit-Policy",
+									"value": "100;w=900"
+								},
+								{
+									"key": "RateLimit-Limit",
+									"value": "100"
+								},
+								{
+									"key": "RateLimit-Remaining",
+									"value": "99"
+								},
+								{
+									"key": "RateLimit-Reset",
+									"value": "900"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "3134"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"c3e-N33PHG/7hC+b5a7LLY/ZADlgNFc\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 30 Oct 2025 21:19:20 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"payouts fetched successfully\",\n    \"data\": {\n        \"payouts\": {\n            \"data\": [\n                {\n                    \"_id\": \"6903cec9f3009c01b71b29c6\",\n                    \"userId\": \"68e7c347db789dd0bf76a107\",\n                    \"payoutAccountId\": {\n                        \"_id\": \"6903940ea1c38e2c88060c60\",\n                        \"userId\": \"68e7c347db789dd0bf76a107\",\n                        \"bankName\": \"GTBank\",\n                        \"accountNumber\": \"0123456789\",\n                        \"accountHolderName\": \"Jane Doe\",\n                        \"currency\": \"NGN\",\n                        \"country\": \"Nigeria\",\n                        \"isDefault\": true,\n                        \"verified\": true,\n                        \"createdAt\": \"2025-10-30T16:36:30.642Z\",\n                        \"updatedAt\": \"2025-10-30T20:28:08.959Z\",\n                        \"__v\": 0\n                    },\n                    \"provider\": \"stripe\",\n                    \"providerStatus\": \"processing\",\n                    \"amount\": 100,\n                    \"currency\": \"NGN\",\n                    \"status\": \"processing\",\n                    \"scheduledAt\": \"2025-10-30T20:47:05.753Z\",\n                    \"description\": \"Payout for completed ticket sales\",\n                    \"createdAt\": \"2025-10-30T20:47:05.753Z\",\n                    \"updatedAt\": \"2025-10-30T21:17:39.215Z\",\n                    \"__v\": 0,\n                    \"providerTransactionId\": \"PROVIDER-0bc0ff50-acf7-44f0-8b6e-7cfa1e1f7130\"\n                },\n                {\n                    \"_id\": \"6903cec5f3009c01b71b29c1\",\n                    \"userId\": \"68e7c347db789dd0bf76a107\",\n                    \"payoutAccountId\": {\n                        \"_id\": \"6903940ea1c38e2c88060c60\",\n                        \"userId\": \"68e7c347db789dd0bf76a107\",\n                        \"bankName\": \"GTBank\",\n                        \"accountNumber\": \"0123456789\",\n                        \"accountHolderName\": \"Jane Doe\",\n                        \"currency\": \"NGN\",\n                        \"country\": \"Nigeria\",\n                        \"isDefault\": true,\n                        \"verified\": true,\n                        \"createdAt\": \"2025-10-30T16:36:30.642Z\",\n                        \"updatedAt\": \"2025-10-30T20:28:08.959Z\",\n                        \"__v\": 0\n                    },\n                    \"provider\": \"stripe\",\n                    \"providerStatus\": \"processing\",\n                    \"amount\": 100,\n                    \"currency\": \"NGN\",\n                    \"status\": \"processing\",\n                    \"scheduledAt\": \"2025-10-30T20:47:01.637Z\",\n                    \"description\": \"Payout for completed ticket sales\",\n                    \"createdAt\": \"2025-10-30T20:47:01.638Z\",\n                    \"updatedAt\": \"2025-10-30T20:47:01.922Z\",\n                    \"__v\": 0,\n                    \"providerTransactionId\": \"PROVIDER-c7844f77-9254-4216-b387-ab33c389d11b\"\n                },\n                {\n                    \"_id\": \"6903cec0f3009c01b71b29bc\",\n                    \"userId\": \"68e7c347db789dd0bf76a107\",\n                    \"payoutAccountId\": {\n                        \"_id\": \"6903940ea1c38e2c88060c60\",\n                        \"userId\": \"68e7c347db789dd0bf76a107\",\n                        \"bankName\": \"GTBank\",\n                        \"accountNumber\": \"0123456789\",\n                        \"accountHolderName\": \"Jane Doe\",\n                        \"currency\": \"NGN\",\n                        \"country\": \"Nigeria\",\n                        \"isDefault\": true,\n                        \"verified\": true,\n                        \"createdAt\": \"2025-10-30T16:36:30.642Z\",\n                        \"updatedAt\": \"2025-10-30T20:28:08.959Z\",\n                        \"__v\": 0\n                    },\n                    \"provider\": \"stripe\",\n                    \"providerStatus\": \"processing\",\n                    \"amount\": 100,\n                    \"currency\": \"NGN\",\n                    \"status\": \"processing\",\n                    \"scheduledAt\": \"2025-10-30T20:46:56.923Z\",\n                    \"description\": \"Payout for completed ticket sales\",\n                    \"createdAt\": \"2025-10-30T20:46:56.926Z\",\n                    \"updatedAt\": \"2025-10-30T20:46:57.186Z\",\n                    \"__v\": 0,\n                    \"providerTransactionId\": \"PROVIDER-7988e5b2-2d61-4880-8e41-2b4f6a4eec1b\"\n                },\n                {\n                    \"_id\": \"6903cc09f3009c01b71b29ae\",\n                    \"userId\": \"68e7c347db789dd0bf76a107\",\n                    \"payoutAccountId\": {\n                        \"_id\": \"6903940ea1c38e2c88060c60\",\n                        \"userId\": \"68e7c347db789dd0bf76a107\",\n                        \"bankName\": \"GTBank\",\n                        \"accountNumber\": \"0123456789\",\n                        \"accountHolderName\": \"Jane Doe\",\n                        \"currency\": \"NGN\",\n                        \"country\": \"Nigeria\",\n                        \"isDefault\": true,\n                        \"verified\": true,\n                        \"createdAt\": \"2025-10-30T16:36:30.642Z\",\n                        \"updatedAt\": \"2025-10-30T20:28:08.959Z\",\n                        \"__v\": 0\n                    },\n                    \"provider\": \"stripe\",\n                    \"providerStatus\": \"processing\",\n                    \"amount\": 100,\n                    \"currency\": \"NGN\",\n                    \"status\": \"processing\",\n                    \"scheduledAt\": \"2025-10-30T20:35:21.709Z\",\n                    \"description\": \"Payout for completed ticket sales\",\n                    \"createdAt\": \"2025-10-30T20:35:21.717Z\",\n                    \"updatedAt\": \"2025-10-30T20:35:23.098Z\",\n                    \"__v\": 0,\n                    \"providerTransactionId\": \"PROVIDER-9013fb3c-7c3c-46be-8c7d-5ce92540eba0\"\n                }\n            ],\n            \"pagination\": {\n                \"page\": 1,\n                \"limit\": 20,\n                \"total\": 4,\n                \"totalPages\": 1\n            }\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Retry Payout",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/payouts/retry/6903cec9f3009c01b71b29c6",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"payouts",
+								"retry",
+								"6903cec9f3009c01b71b29c6"
+							]
+						},
+						"description": "# Retry Payout by ID\n\nRetries a previously failed payout using its unique identifier. This endpoint attempts to re-queue or reprocess a payout when it is in a retryable state.\n\n---\n\n## Endpoint\n\n**Method:** POST  \n**URL:** `{{url}}/payouts/retry/:payoutId`\n\nExample configuration:  \n`{{url}}/payouts/retry/6903cec9f3009c01b71b29c6`\n\n---\n\n## Path Parameters\n\n| Name | Type | Description |\n| --- | --- | --- |\n| `payoutId` | string (required) | Unique identifier of the payout to retry. |\n\n---\n\n## Authentication\n\nRequires a Bearer token via `{{accessToken}}`.\n\n**Header:**  \n`Authorization: Bearer {{accessToken}}`\n\n---\n\n## Request Body\n\nNone.\n\n---\n\n## Responses\n\n### 200 OK\n\nRetry accepted. Returns the updated payout object or processing state.\n\n**Example Response:**\n\n```\n{\n  \"status\": true,\n  \"message\": \"Retry initiated\",\n  \"data\": {\n    \"payout\": {\n      \"_id\": \"6903cec9f3009c01b71b29c6\",\n      \"userId\": \"68e7c347db789dd0bf76a107\",\n      \"payoutAccountId\": {\n        \"_id\": \"6903940ea1c38e2c88060c60\",\n        \"userId\": \"68e7c347db789dd0bf76a107\",\n        \"bankName\": \"GTBank\",\n        \"accountNumber\": \"0123456789\",\n        \"accountHolderName\": \"Jane Doe\",\n        \"currency\": \"NGN\",\n        \"country\": \"Nigeria\",\n        \"isDefault\": true,\n        \"verified\": true,\n        \"createdAt\": \"2025-10-30T16:36:30.642Z\",\n        \"updatedAt\": \"2025-10-30T20:28:08.959Z\",\n        \"__v\": 0\n      },\n      \"provider\": \"stripe\",\n      \"providerStatus\": \"processing\",\n      \"amount\": 100,\n      \"currency\": \"NGN\",\n      \"status\": \"processing\",\n      \"scheduledAt\": \"2025-10-30T20:47:05.753Z\",\n      \"description\": \"Payout for completed ticket sales\",\n      \"createdAt\": \"2025-10-30T20:47:05.753Z\",\n      \"updatedAt\": \"2025-10-30T21:17:39.215Z\",\n      \"__v\": 0,\n      \"providerTransactionId\": \"PROVIDER-0bc0ff50-acf7-44f0-8b6e-7cfa1e1f7130\"\n    }\n  }\n}\n\n ```\n\n---\n\n### 400 Bad Request\n\nPayout cannot be retried due to validation or business-rule restrictions.\n\n### 401 Unauthorized\n\nMissing or invalid Bearer token.\n\n### 404 Not Found\n\nNo payout exists with the specified `payoutId`.\n\n### 409 Conflict\n\nPayout is not in a retryable state (for example, already processing or already successful).\n\n### 5xx Server Error\n\nUnexpected server issue.\n\n---\n\n## Notes\n\n- It is recommended to replace the hardcoded payout ID with a variable such as `{{payoutId}}` for environment flexibility.\n    \n- Ensure `{{url}}` resolves to the correct base URL for dev, staging, or production.\n    \n- Only retry payouts when your business logic allows a secondary attempt."
+					},
+					"response": [
+						{
+							"name": "New Request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/payouts/retry/6903cec9f3009c01b71b29c6",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"payouts",
+										"retry",
+										"6903cec9f3009c01b71b29c6"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Resource-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Origin-Agent-Cluster",
+									"value": "?1"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Permitted-Cross-Domain-Policies",
+									"value": "none"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "RateLimit-Policy",
+									"value": "100;w=900"
+								},
+								{
+									"key": "RateLimit-Limit",
+									"value": "100"
+								},
+								{
+									"key": "RateLimit-Remaining",
+									"value": "98"
+								},
+								{
+									"key": "RateLimit-Reset",
+									"value": "813"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "808"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"328-wqwDjaqFtMRShF3/L7GplTu8KM8\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 30 Oct 2025 21:17:39 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"Retry initiated\",\n    \"data\": {\n        \"payout\": {\n            \"_id\": \"6903cec9f3009c01b71b29c6\",\n            \"userId\": \"68e7c347db789dd0bf76a107\",\n            \"payoutAccountId\": {\n                \"_id\": \"6903940ea1c38e2c88060c60\",\n                \"userId\": \"68e7c347db789dd0bf76a107\",\n                \"bankName\": \"GTBank\",\n                \"accountNumber\": \"0123456789\",\n                \"accountHolderName\": \"Jane Doe\",\n                \"currency\": \"NGN\",\n                \"country\": \"Nigeria\",\n                \"isDefault\": true,\n                \"verified\": true,\n                \"createdAt\": \"2025-10-30T16:36:30.642Z\",\n                \"updatedAt\": \"2025-10-30T20:28:08.959Z\",\n                \"__v\": 0\n            },\n            \"provider\": \"stripe\",\n            \"providerStatus\": \"processing\",\n            \"amount\": 100,\n            \"currency\": \"NGN\",\n            \"status\": \"processing\",\n            \"scheduledAt\": \"2025-10-30T20:47:05.753Z\",\n            \"description\": \"Payout for completed ticket sales\",\n            \"createdAt\": \"2025-10-30T20:47:05.753Z\",\n            \"updatedAt\": \"2025-10-30T21:17:39.215Z\",\n            \"__v\": 0,\n            \"providerTransactionId\": \"PROVIDER-0bc0ff50-acf7-44f0-8b6e-7cfa1e1f7130\"\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete account",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{url}}/payouts/6903ca37cf0981b819160f20",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"payouts",
+								"6903ca37cf0981b819160f20"
+							]
+						},
+						"description": "# Delete Payout\n\nDeletes a payout by its unique identifier. Use this endpoint to remove a payout that is no longer needed or was created in error.\n\n---\n\n## Endpoint\n\n**Method:** DELETE  \n**URL:** `{{url}}/payouts/:payoutId`\n\nExample configuration:  \n`{{url}}/payouts/6903ca37cf0981b819160f20`\n\n---\n\n## Authentication\n\nRequires a Bearer token.\n\n**Header:**  \n`Authorization: Bearer {{accessToken}}`\n\n---\n\n## Headers\n\n- Authorization: Bearer `{{accessToken}}`\n    \n- Content-Type: application/json (optional, no body required)\n    \n\n---\n\n## Path Parameters\n\n| Name | Type | Description |\n| --- | --- | --- |\n| `payoutId` | string | Unique identifier of the payout to delete. |\n\n---\n\n## Query Parameters\n\nNone.\n\n---\n\n## Request Body\n\nNone.\n\n---\n\n## Responses\n\n### 204 No Content\n\nPayout deleted successfully. No response body.\n\n### 200 OK\n\nSome implementations may return a confirmation message.\n\n**Example Response:**\n\n```\n{\n  \"status\": true,\n  \"message\": \"Payout account deleted\"\n}\n\n ```\n\n---\n\n### 400 Bad Request\n\nInvalid payout ID format.\n\n### 401 Unauthorized\n\nMissing or invalid token.\n\n### 403 Forbidden\n\nUser is authenticated but not permitted to delete this payout.\n\n### 404 Not Found\n\nNo payout exists for the provided ID.\n\n### 409 Conflict\n\nPayout cannot be deleted due to its current status.\n\n### 500 Internal Server Error\n\nUnexpected server failure.\n\n---\n\n## Example cURL\n\n```\ncurl -X DELETE \"{{url}}/payouts/6903ca37cf0981b819160f20\" \\\n  -H \"Authorization: Bearer {{accessToken}}\"\n\n ```\n\n---\n\n## Notes\n\n- Ensure `{{url}}` and `{{accessToken}}` are configured in the active environment.\n    \n- This request currently has no tests or pre-request scripts; consider adding validation for expected status codes."
+					},
+					"response": [
+						{
+							"name": "New Request",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{url}}/payouts/6903940ea1c38e2c88060c60",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"payouts",
+										"6903940ea1c38e2c88060c60"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Content-Security-Policy",
+									"value": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests"
+								},
+								{
+									"key": "Cross-Origin-Opener-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Cross-Origin-Resource-Policy",
+									"value": "same-origin"
+								},
+								{
+									"key": "Origin-Agent-Cluster",
+									"value": "?1"
+								},
+								{
+									"key": "Referrer-Policy",
+									"value": "no-referrer"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=15552000; includeSubDomains"
+								},
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-DNS-Prefetch-Control",
+									"value": "off"
+								},
+								{
+									"key": "X-Download-Options",
+									"value": "noopen"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "SAMEORIGIN"
+								},
+								{
+									"key": "X-Permitted-Cross-Domain-Policies",
+									"value": "none"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "RateLimit-Policy",
+									"value": "100;w=900"
+								},
+								{
+									"key": "RateLimit-Limit",
+									"value": "100"
+								},
+								{
+									"key": "RateLimit-Remaining",
+									"value": "98"
+								},
+								{
+									"key": "RateLimit-Reset",
+									"value": "704"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "50"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"32-xHgpkRM8BrUby8TLLgDMmcsD+Sw\""
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 30 Oct 2025 21:22:37 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"Payout account deleted\"\n}"
+						}
+					]
+				}
+			]
+		}
+	]
+}

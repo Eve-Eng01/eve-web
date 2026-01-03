@@ -7,7 +7,8 @@ const DeleteConfirmationModal: React.FC<{
   onConfirm: () => void;
   title: string;
   description: React.ReactNode;
-}> = ({ isOpen, onClose, onConfirm, title, description }) => {
+  isLoading?: boolean;
+}> = ({ isOpen, onClose, onConfirm, title, description, isLoading = false }) => {
   if (!isOpen) return null;
 
   return (
@@ -17,6 +18,7 @@ const DeleteConfirmationModal: React.FC<{
       title=""
       size="xl"
       animationDuration={300}
+      closeOnOverlayClick={!isLoading}
     >
       <div className="text-center py-4 sm:py-6">
         {/* Trash Icon */}
@@ -36,15 +38,39 @@ const DeleteConfirmationModal: React.FC<{
         <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-6 sm:mt-8">
           <button
             onClick={onClose}
-            className="w-full sm:flex-1 px-4 sm:px-6 py-3 sm:py-4 border-2 border-[#7417C6] text-[#7417C6] rounded-2xl hover:bg-purple-50 transition-colors font-semibold text-base sm:text-lg"
+            disabled={isLoading}
+            className="w-full sm:flex-1 px-4 sm:px-6 py-3 sm:py-4 border-2 border-[#7417C6] text-[#7417C6] rounded-2xl hover:bg-purple-50 transition-colors font-semibold text-base sm:text-lg disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Cancel
           </button>
           <button
             onClick={onConfirm}
-            className="w-full sm:flex-1 px-4 sm:px-6 py-3 sm:py-4 bg-red-500 text-white rounded-2xl hover:bg-red-600 transition-colors font-semibold text-base sm:text-lg"
+            disabled={isLoading}
+            className="w-full sm:flex-1 px-4 sm:px-6 py-3 sm:py-4 bg-red-500 text-white rounded-2xl hover:bg-red-600 transition-colors font-semibold text-base sm:text-lg disabled:opacity-50 disabled:cursor-not-allowed relative"
           >
-            Delete
+            {isLoading && (
+              <svg
+                className="animate-spin h-5 w-5 text-white absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                />
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                />
+              </svg>
+            )}
+            <span className={isLoading ? "opacity-0" : ""}>Delete</span>
           </button>
         </div>
       </div>
