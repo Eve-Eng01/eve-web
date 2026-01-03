@@ -179,11 +179,11 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
               label: "Create New",
               href: "/organizer/events/create",
             },
-            {
-              icon: Users,
-              label: "Attendees",
-              href: "/organizer/attendee",
-            },
+            // {
+            //   icon: Users,
+            //   label: "Attendees",
+            //   href: "/organizer/attendee",
+            // },
             {
               icon: TrendingUp,
               label: "Sales & Reports",
@@ -256,11 +256,11 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
             },
           ]
         : [
-            {
-              icon: Settings,
-              label: "Setting",
-              href: "/settings",
-            },
+            // {
+            //   icon: Settings,
+            //   label: "Setting",
+            //   href: "/settings",
+            // },
             {
               icon: User,
               label: "Account",

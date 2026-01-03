@@ -1,8 +1,9 @@
-import { useState } from "react";
-import type { ChangeEvent, FormEvent } from "react";
+import { useState, useMemo, useCallback } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { ArrowLeft, BadgeCheck, Bookmark } from "lucide-react";
 import ReactCountryFlag from "react-country-flag";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { DashboardLayout } from "@components/layouts/dashboard-layout";
 import {
   BankDropdown,
@@ -12,86 +13,81 @@ import { SearchableDropdown } from "@components/accessories/searchable-dropdown"
 import { NIGERIAN_BANKS, CURRENCIES } from "@utils/banks";
 import Modal from "@components/accessories/main-modal";
 import { CustomButton } from "@components/accessories/button";
-
+import { useCreatePayoutAccount } from "@/shared/api/services/payout";
+import { getCountryCodeFromCurrency } from "@/shared/utils/payout-helpers";
+import { payoutAccountSchema, type PayoutAccountFormData } from "@/shared/forms/schemas/payout.schema";
+import { FormInput } from "@/shared/forms/components/FormInput";
 
 export const Route = createFileRoute("/_organizer/organizer/account/add-payout-account")({
   component: RouteComponent,
 });
 
-interface PayoutAccountFormData {
-  currency: string;
-  accountNumber: string;
-  bankName: BankOption | null;
-  accountName: string;
-}
-
 function RouteComponent() {
   const navigate = useNavigate();
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState<boolean>(false);
-  const [formData, setFormData] = useState<PayoutAccountFormData>({
-    currency: "NGN",
-    accountNumber: "",
-    bankName: null,
-    accountName: "",
+  const [selectedBankOption, setSelectedBankOption] = useState<BankOption | null>(null);
+
+  const createPayoutAccountMutation = useCreatePayoutAccount();
+
+  const form = useForm<PayoutAccountFormData>({
+    resolver: yupResolver(payoutAccountSchema),
+    mode: "onChange",
+    defaultValues: {
+      currency: "NGN",
+      accountNumber: "",
+      bankName: "",
+      accountName: "",
+      countryCode: "",
+    },
   });
 
-  const selectedCurrency = CURRENCIES.find(
-    (c) => c.value === formData.currency
+  const { register, handleSubmit, formState, setValue, watch } = form;
+  const { errors, isSubmitting, isValid } = formState;
+
+  const currency = watch("currency");
+
+  const selectedCurrency = useMemo(
+    () => CURRENCIES.find((c) => c.value === currency),
+    [currency]
   );
 
-  const handleAccountNumberChange = (
-    e: ChangeEvent<HTMLInputElement>
-  ): void => {
-    setFormData((prev) => ({
-      ...prev,
-      accountNumber: e.target.value,
-    }));
-  };
-
-  const handleBankChange = (bank: BankOption): void => {
-    setFormData((prev) => ({
-      ...prev,
-      bankName: bank,
-    }));
-  };
-
-  const handleAccountNameChange = (e: ChangeEvent<HTMLInputElement>): void => {
-    setFormData((prev) => ({
-      ...prev,
-      accountName: e.target.value,
-    }));
-  };
-
-  const handleGoBack = (): void => {
+  const handleGoBack = useCallback((): void => {
     navigate({ to: "/organizer/account" });
-  };
+  }, [navigate]);
 
-  const handleCancel = (): void => {
+  const handleCancel = useCallback((): void => {
     navigate({ to: "/organizer/account" });
+  }, [navigate]);
+
+  const onSubmit = async (data: PayoutAccountFormData): Promise<void> => {
+    try {
+      // Get country code from currency using optimized helper
+      const country = getCountryCodeFromCurrency(data.currency);
+
+      await createPayoutAccountMutation.mutateAsync({
+        bankName: data.bankName,
+        accountNumber: data.accountNumber.trim(),
+        accountHolderName: data.accountName.trim(),
+        currency: data.currency,
+        country,
+      });
+
+      setIsSuccessModalOpen(true);
+    } catch (error) {
+      // Error is handled by the mutation hook (toast notification)
+      console.error("Failed to create payout account:", error);
+    }
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
-    e.preventDefault();
-    // TODO: Implement API call to add payout account
-    console.log("Submitting payout account:", formData);
-    setIsSuccessModalOpen(true);
-  };
-
-  const handleSuccessContinue = (): void => {
+  const handleSuccessContinue = useCallback((): void => {
     setIsSuccessModalOpen(false);
     navigate({ to: "/organizer/account" });
-  };
+  }, [navigate]);
 
-  const handleRequestVendors = (): void => {
+  const handleRequestVendors = useCallback((): void => {
     setIsSuccessModalOpen(false);
     navigate({ to: "/organizer/request-vendors" });
-  };
-
-  const isFormValid =
-    formData.currency &&
-    formData.accountNumber.trim() !== "" &&
-    formData.bankName !== null &&
-    formData.accountName.trim() !== "";
+  }, [navigate]);
 
   return (
     <DashboardLayout>
@@ -110,7 +106,7 @@ function RouteComponent() {
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
           <div className="flex flex-col gap-6">
             {/* Currency Selector */}
             <SearchableDropdown
@@ -152,14 +148,12 @@ function RouteComponent() {
                   : null
               }
               onChange={(option) => {
-                const currency = CURRENCIES.find(
+                const currencyOption = CURRENCIES.find(
                   (c) => c.value === option.value
                 );
-                if (currency) {
-                  setFormData((prev) => ({
-                    ...prev,
-                    currency: currency.value,
-                  }));
+                if (currencyOption) {
+                  setValue("currency", currencyOption.value, { shouldValidate: true });
+                  setValue("countryCode", currencyOption.countryCode, { shouldValidate: false });
                 }
               }}
               placeholder="Select currency"
@@ -167,41 +161,43 @@ function RouteComponent() {
             />
 
             {/* Account Number */}
-            <div className="flex flex-col gap-2">
-              <label className="text-sm font-normal text-[#5a5a5a] leading-5">
-                Bank Account Number
-              </label>
-              <input
-                type="text"
-                value={formData.accountNumber}
-                onChange={handleAccountNumberChange}
-                placeholder="Enter account number"
-                className="h-14 border border-[#dfdfdf] rounded-[14px] px-4 sm:px-[18px] text-sm sm:text-base font-medium text-[#2d2d2d] leading-6 tracking-[0.08px] focus:outline-none focus:ring-2 focus:ring-[#7417c6] focus:border-transparent"
-              />
-            </div>
-
-            {/* Bank Name */}
-            <BankDropdown
-              label="Bank Name"
-              options={NIGERIAN_BANKS}
-              value={formData.bankName}
-              onChange={handleBankChange}
-              placeholder="Select bank"
+            <FormInput
+              name="accountNumber"
+              label="Bank Account Number"
+              placeholder="Enter account number"
+              register={register}
+              error={errors.accountNumber}
+              inputClassName="h-14 rounded-[14px] px-4 sm:px-[18px] text-sm sm:text-base font-medium text-[#2d2d2d] leading-6 tracking-[0.08px]"
+              labelClassName="text-sm font-normal text-[#5a5a5a] leading-5"
             />
 
-            {/* Account Name */}
+            {/* Bank Name */}
             <div className="flex flex-col gap-2">
-              <label className="text-sm font-normal text-[#5a5a5a] leading-5">
-                Bank Account Name
-              </label>
-              <input
-                type="text"
-                value={formData.accountName}
-                onChange={handleAccountNameChange}
-                placeholder="Enter account name"
-                className="h-14 border border-[#dfdfdf] rounded-[14px] px-4 sm:px-[18px] text-sm sm:text-base font-medium text-[#2d2d2d] leading-6 tracking-[0.08px] focus:outline-none focus:ring-2 focus:ring-[#7417c6] focus:border-transparent"
+              <BankDropdown
+                label="Bank Name"
+                options={NIGERIAN_BANKS}
+                value={selectedBankOption}
+                onChange={(bank) => {
+                  setSelectedBankOption(bank);
+                  setValue("bankName", bank.label, { shouldValidate: true });
+                }}
+                placeholder="Select bank"
               />
+              {errors.bankName && (
+                <p className="text-sm text-red-600 mt-1">{errors.bankName.message}</p>
+              )}
             </div>
+
+            {/* Account Name */}
+            <FormInput
+              name="accountName"
+              label="Bank Account Name"
+              placeholder="Enter account name"
+              register={register}
+              error={errors.accountName}
+              inputClassName="h-14 rounded-[14px] px-4 sm:px-[18px] text-sm sm:text-base font-medium text-[#2d2d2d] leading-6 tracking-[0.08px]"
+              labelClassName="text-sm font-normal text-[#5a5a5a] leading-5"
+            />
           </div>
 
           {/* Action Buttons */}
@@ -216,7 +212,8 @@ function RouteComponent() {
               title="Save"
               icon={<Bookmark className="w-4 h-4" />}
               type="submit"
-              disabled={!isFormValid}
+              disabled={!isValid || isSubmitting || createPayoutAccountMutation.isPending}
+              loading={isSubmitting || createPayoutAccountMutation.isPending}
               className="h-14  px-6 sm:px-12 py-3 sm:py-4 rounded-[14px] text-base sm:text-lg font-semibold leading-[22px] sm:leading-[26px] tracking-[0.09px] hover:bg-[#6a15b8] transition-colors disabled:opacity-50 disabled:cursor-not-allowed w-full sm:w-auto [&>span:first-child]:order-2 [&>span:last-child]:order-1"
             />
           </div>
